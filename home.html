@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhereTo - Your Next Journey Starts Here</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="home.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Righteous&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Home Page Content -->
+    <div class="home-container visible" id="homeContainer">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-bg">
+                <div class="hero-clouds">
+                    <div class="cloud cloud-1"></div>
+                    <div class="cloud cloud-2"></div>
+                    <div class="cloud cloud-3"></div>
+                </div>
+                <!-- Floating planes in background -->
+                <div class="floating-plane plane-1">✈️</div>
+                <div class="floating-plane plane-2">✈️</div>
+                <div class="floating-plane plane-3">✈️</div>
+            </div>
+            <div class="hero-content">
+                <div class="hero-logo animate-fade-in">
+                    <svg viewBox="0 0 320 100" class="hero-logo-svg">
+                        <defs>
+                            <linearGradient id="heroTextGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#ffffff" />
+                                <stop offset="100%" style="stop-color:#e8f8ff" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Animated text -->
+                        <text x="140" y="65" class="hero-brand-text" fill="url(#heroTextGrad)">WhereTo</text>
+                        
+                        <!-- Animated pin with pulse -->
+                        <circle cx="280" cy="52" r="12" fill="#ff6b6b" class="hero-pin-dot"/>
+                        <circle cx="280" cy="50" r="4" fill="white"/>
+                        
+                        <!-- Flying plane around logo -->
+                        <g class="hero-flying-plane">
+                            <path d="M0 0 L-10 -4 L-8 0 L-10 4 Z" fill="white"/>
+                            <path d="M-5 -6 L-2 0 L-5 6 L-7 0 Z" fill="white" opacity="0.8"/>
+                        </g>
+                        
+                        <!-- Plane trail -->
+                        <path class="hero-plane-trail" d="M10 70 Q60 25 140 50 Q220 75 290 30" 
+                              fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2" 
+                              stroke-dasharray="6 4" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <h1 class="hero-title animate-slide-up">Your Next Journey <span>Starts Here</span></h1>
+                <p class="hero-subtitle animate-slide-up delay-1">Plan your perfect trip with AI-powered recommendations, budget tools, and more</p>
+                <a href="index.html" class="hero-cta animate-slide-up delay-2">
+                    <span>Start Exploring</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2 class="section-title">What We Offer</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>AI Travel Buddy</h3>
+                    <p>Chat with our intelligent assistant to get personalized travel recommendations, tips, and insights</p>
+                    <a href="index.html" class="feature-link">Chat Now →</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Popular Destinations</h3>
+                    <p>Explore curated destination cards with ratings, highlights, and everything you need to know</p>
+                    <a href="destinations.html" class="feature-link">Explore →</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>Budget Calculator</h3>
+                    <p>Track expenses by category, visualize spending, and stay within your travel budget</p>
+                    <a href="budget-calculator.html" class="feature-link">Calculate →</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💱</div>
+                    <h3>Currency Converter</h3>
+                    <p>Convert between 18+ currencies with live rates and travel tips</p>
+                    <a href="currency-converter.html" class="feature-link">Convert →</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💾</div>
+                    <h3>Saved Chats</h3>
+                    <p>Save and revisit your favorite travel conversations anytime</p>
+                    <a href="saved-chats.html" class="feature-link">View Saved →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <div class="about-content">
+                <h2 class="section-title">About WhereTo</h2>
+                <div class="about-grid">
+                    <div class="about-text">
+                        <p class="about-intro">
+                            <strong>WhereTo</strong> is your ultimate travel companion, designed to make trip planning effortless and enjoyable.
+                        </p>
+                        <p>
+                            We believe everyone deserves amazing travel experiences. Whether you're planning a quick weekend getaway or a month-long adventure, our AI-powered platform helps you discover destinations, plan itineraries, and manage budgets — all in one place.
+                        </p>
+                        <div class="about-stats">
+                            <div class="stat">
+                                <span class="stat-number">50+</span>
+                                <span class="stat-label">Destinations</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">24/7</span>
+                                <span class="stat-label">AI Support</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">100%</span>
+                                <span class="stat-label">Free</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-visual">
+                        <div class="about-card">
+                            <div class="about-icon">✈️</div>
+                            <h4>Our Mission</h4>
+                            <p>To inspire and empower travelers to explore the world with confidence</p>
+                        </div>
+                        <div class="about-card">
+                            <div class="about-icon">🎯</div>
+                            <h4>Our Vision</h4>
+                            <p>Making travel planning accessible, fun, and personalized for everyone</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2>Ready to Start Your Adventure?</h2>
+                <p>Chat with our AI travel buddy and get personalized recommendations</p>
+                <a href="index.html" class="cta-button">
+                    <span>Let's Go!</span>
+                    ✈️
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="home-footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>WhereTo</h3>
+                    <p>Your Next Journey Starts Here</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Chat</a>
+                    <a href="destinations.html">Destinations</a>
+                    <a href="budget-calculator.html">Budget</a>
+                    <a href="currency-converter.html">Currency</a>
+                </div>
+                <div class="footer-bottom">
+                    <p>Made with ❤️ for travelers everywhere</p>
+                    <p>© 2026 WhereTo. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

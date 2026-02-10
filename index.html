@@ -3,21 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhereTo - Your Travel Buddy</title>
+    <title>WhereTo - Chat</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Righteous&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="app-container">
+    <div class="app-container" id="appContainer">
+        <!-- Navigation -->
+        <nav class="app-nav">
+            <a href="home.html" class="nav-item">🏠 Home</a>
+            <a href="index.html" class="nav-item active">💬 Chat</a>
+            <a href="destinations.html" class="nav-item">🌍 Destinations</a>
+            <a href="budget-calculator.html" class="nav-item">💰 Budget</a>
+            <a href="currency-converter.html" class="nav-item">💱 Currency</a>
+            <a href="saved-chats.html" class="nav-item">💾 Saved</a>
+        </nav>
+
         <!-- Header -->
         <header class="header">
-            <div class="logo">
-                <span class="logo-icon">✈️</span>
-                <h1>WhereTo</h1>
+            <!-- Weather Widget -->
+            <div class="weather-widget" id="weatherWidget">
+                <div class="weather-icon">☀️</div>
+                <div class="weather-info">
+                    <span class="weather-temp">--°C</span>
+                    <span class="weather-location">Loading...</span>
+                </div>
             </div>
-            <p class="tagline">Your AI Travel Buddy</p>
+            <div class="logo">
+                <div class="header-logo-animated">
+                    <svg viewBox="0 0 220 60" class="header-logo-text-svg">
+                        <defs>
+                            <linearGradient id="hTextGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#ffffff" />
+                                <stop offset="100%" style="stop-color:#e8f8ff" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Main text with unique font -->
+                        <text x="5" y="40" class="header-brand-text" fill="url(#hTextGrad)">WhereTo</text>
+                        
+                        <!-- Flying plane animation -->
+                        <g class="header-flying-plane">
+                            <path d="M0 0 L-8 -3 L-6 0 L-8 3 Z" fill="white"/>
+                            <path d="M-4 -5 L-2 0 L-4 5 L-5.5 0 Z" fill="white" opacity="0.8"/>
+                        </g>
+                        
+                        <!-- Plane trail -->
+                        <path class="header-plane-trail" d="M140 45 Q160 30 180 35 Q200 40 210 25" 
+                              fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" 
+                              stroke-dasharray="3 3" stroke-linecap="round"/>
+                        
+                        <!-- Animated pin -->
+                        <circle cx="210" cy="25" r="6" fill="#ff6b6b" class="header-pin"/>
+                        <circle cx="210" cy="24" r="2.5" fill="white"/>
+                    </svg>
+                </div>
+            </div>
+            <p class="tagline">Your Next Journey Starts Here</p>
         </header>
 
         <!-- Chat Container -->

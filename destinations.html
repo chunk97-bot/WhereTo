@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popular Destinations - WhereTo</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Righteous&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page-container">
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <a href="home.html">
+                    <svg viewBox="0 0 200 50" class="nav-logo-svg">
+                        <text x="5" y="35" class="nav-brand-text">WhereTo</text>
+                        <!-- Animated pin -->
+                        <circle cx="175" cy="28" r="6" fill="#ff6b6b" class="nav-pin-dot"/>
+                        <circle cx="175" cy="27" r="2.5" fill="white"/>
+                        <!-- Flying plane -->
+                        <g class="nav-flying-plane">
+                            <path d="M0 0 L-6 -2 L-5 0 L-6 2 Z" fill="#008cff"/>
+                            <path d="M-3 -4 L-1.5 0 L-3 4 L-4 0 Z" fill="#008cff" opacity="0.7"/>
+                        </g>
+                        <!-- Plane trail -->
+                        <path class="nav-plane-trail" d="M100 38 Q130 25 150 30 Q170 35 180 22" 
+                              fill="none" stroke="rgba(0,140,255,0.3)" stroke-width="1.5" 
+                              stroke-dasharray="4 3" stroke-linecap="round"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="home.html" class="nav-link">🏠 Home</a>
+                <a href="index.html" class="nav-link">💬 Chat</a>
+                <a href="destinations.html" class="nav-link active">🌍 Destinations</a>
+                <a href="budget-calculator.html" class="nav-link">💰 Budget</a>
+                <a href="currency-converter.html" class="nav-link">💱 Currency</a>
+                <a href="saved-chats.html" class="nav-link">💾 Saved</a>
+            </div>
+            <button class="nav-toggle" id="navToggle">☰</button>
+        </nav>
+
+        <!-- Page Header -->
+        <header class="page-header">
+            <h1>🌍 Popular Destinations</h1>
+            <p>Discover amazing places around the world</p>
+        </header>
+
+        <!-- Category Filter -->
+        <div class="category-filter" id="categoryFilter">
+            <!-- Categories will be loaded from destinations-data.js -->
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" id="destinationSearch" placeholder="Search destinations...">
+            <button class="search-btn">🔍</button>
+        </div>
+
+        <!-- Destinations Grid -->
+        <main class="destinations-grid" id="destinationsGrid">
+            <!-- Placeholder cards - will be replaced with data -->
+            <div class="destination-card placeholder">
+                <div class="card-image">
+                    <span class="placeholder-icon">🏖️</span>
+                </div>
+                <div class="card-content">
+                    <h3>Loading...</h3>
+                    <p>Destination data will appear here</p>
+                    <div class="card-meta">
+                        <span class="rating">⭐ --</span>
+                        <span class="price">From ₹--</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Add more placeholder cards as needed -->
+            <div class="empty-state" id="emptyState">
+                <div class="empty-icon">📍</div>
+                <h3>No destinations yet</h3>
+                <p>Destination data will be added soon. Check back later!</p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="page-footer">
+            <p>© 2026 WhereTo - Your Next Journey Starts Here</p>
+        </footer>
+    </div>
+
+    <script src="destinations-data.js"></script>
+    <script>
+        // Load destinations from data file
+        document.addEventListener('DOMContentLoaded', function() {
+            const grid = document.getElementById('destinationsGrid');
+            const categoryFilter = document.getElementById('categoryFilter');
+            
+            // Load category filters
+            if (destinationCategories && destinationCategories.length > 0) {
+                categoryFilter.innerHTML = destinationCategories.map(cat => 
+                    `<button class="category-btn ${cat.id === 'all' ? 'active' : ''}" data-category="${cat.id}">
+                        ${cat.icon} ${cat.name}
+                    </button>`
+                ).join('');
+            }
+            
+            // Load destination cards
+            if (destinationsData && destinationsData.length > 0) {
+                grid.innerHTML = destinationsData.map(dest => `
+                    <div class="destination-card" data-categories="${dest.category.join(' ')}">
+                        <div class="card-image" style="background-image: url('${dest.image}')">
+                            ${dest.featured ? '<span class="featured-badge">⭐ Featured</span>' : ''}
+                        </div>
+                        <div class="card-content">
+                            <h3>${dest.name}</h3>
+                            <p class="location">📍 ${dest.country}</p>
+                            <p class="description">${dest.description}</p>
+                            <div class="highlights">
+                                ${dest.highlights.slice(0, 3).map(h => `<span class="highlight-tag">${h}</span>`).join('')}
+                            </div>
+                            <div class="card-meta">
+                                <span class="rating">⭐ ${dest.rating} (${dest.reviews})</span>
+                                <span class="price">From ${dest.currency}${dest.priceFrom.toLocaleString()}</span>
+                            </div>
+                            <button class="explore-btn" onclick="exploreDestination(${dest.id})">Explore →</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Category filter functionality
+            categoryFilter.addEventListener('click', function(e) {
+                if (e.target.classList.contains('category-btn')) {
+                    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    filterDestinations(e.target.dataset.category);
+                }
+            });
+            
+            // Mobile nav toggle
+            document.getElementById('navToggle').addEventListener('click', function() {
+                document.querySelector('.nav-links').classList.toggle('show');
+            });
+        });
+        
+        function filterDestinations(category) {
+            const cards = document.querySelectorAll('.destination-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.categories.includes(category)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        function exploreDestination(id) {
+            // Navigate to destination detail or open chat
+            alert('Explore destination ' + id + ' - Feature coming soon!');
+        }
+    </script>
+</body>
+</html>

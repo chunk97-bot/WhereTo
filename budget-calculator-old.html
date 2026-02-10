@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Calculator - WhereTo</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Righteous&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page-container">
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <a href="home.html">
+                    <svg viewBox="0 0 200 50" class="nav-logo-svg">
+                        <text x="5" y="35" class="nav-brand-text">WhereTo</text>
+                        <!-- Animated pin -->
+                        <circle cx="175" cy="28" r="6" fill="#ff6b6b" class="nav-pin-dot"/>
+                        <circle cx="175" cy="27" r="2.5" fill="white"/>
+                        <!-- Flying plane -->
+                        <g class="nav-flying-plane">
+                            <path d="M0 0 L-6 -2 L-5 0 L-6 2 Z" fill="#008cff"/>
+                            <path d="M-3 -4 L-1.5 0 L-3 4 L-4 0 Z" fill="#008cff" opacity="0.7"/>
+                        </g>
+                        <!-- Plane trail -->
+                        <path class="nav-plane-trail" d="M100 38 Q130 25 150 30 Q170 35 180 22" 
+                              fill="none" stroke="rgba(0,140,255,0.3)" stroke-width="1.5" 
+                              stroke-dasharray="4 3" stroke-linecap="round"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="home.html" class="nav-link">🏠 Home</a>
+                <a href="index.html" class="nav-link">💬 Chat</a>
+                <a href="destinations.html" class="nav-link">🌍 Destinations</a>
+                <a href="budget-calculator.html" class="nav-link active">💰 Budget</a>
+                <a href="currency-converter.html" class="nav-link">💱 Currency</a>
+                <a href="saved-chats.html" class="nav-link">💾 Saved</a>
+            </div>
+            <button class="nav-toggle" id="navToggle">☰</button>
+        </nav>
+
+        <!-- Page Header -->
+        <header class="page-header">
+            <h1>💰 Budget Calculator</h1>
+            <p>Plan your trip expenses and stay within budget</p>
+        </header>
+
+        <!-- Budget Calculator -->
+        <main class="budget-container">
+            <!-- Trip Overview -->
+            <div class="budget-overview">
+                <div class="overview-card total-budget">
+                    <h3>Total Budget</h3>
+                    <div class="amount-input">
+                        <span class="currency">₹</span>
+                        <input type="number" id="totalBudget" placeholder="Enter your budget" value="50000">
+                    </div>
+                </div>
+                <div class="overview-card spent">
+                    <h3>Estimated Spend</h3>
+                    <p class="amount" id="totalSpent">₹0</p>
+                </div>
+                <div class="overview-card remaining">
+                    <h3>Remaining</h3>
+                    <p class="amount" id="remainingBudget">₹50,000</p>
+                </div>
+            </div>
+
+            <!-- Budget Progress -->
+            <div class="budget-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <p class="progress-text"><span id="progressPercent">0</span>% of budget used</p>
+            </div>
+
+            <!-- Expense Categories -->
+            <div class="expense-categories">
+                <h2>Expense Breakdown</h2>
+                
+                <!-- Transport -->
+                <div class="expense-category">
+                    <div class="category-header">
+                        <span class="category-icon">✈️</span>
+                        <h3>Transport</h3>
+                        <span class="category-total" id="transportTotal">₹0</span>
+                    </div>
+                    <div class="expense-items" id="transportItems">
+                        <div class="expense-item">
+                            <input type="text" placeholder="Flight/Train/Bus" class="expense-name">
+                            <input type="number" placeholder="0" class="expense-amount" data-category="transport">
+                        </div>
+                    </div>
+                    <button class="add-expense-btn" onclick="addExpense('transport')">+ Add Transport</button>
+                </div>
+
+                <!-- Accommodation -->
+                <div class="expense-category">
+                    <div class="category-header">
+                        <span class="category-icon">🏨</span>
+                        <h3>Accommodation</h3>
+                        <span class="category-total" id="accommodationTotal">₹0</span>
+                    </div>
+                    <div class="expense-items" id="accommodationItems">
+                        <div class="expense-item">
+                            <input type="text" placeholder="Hotel/Hostel" class="expense-name">
+                            <input type="number" placeholder="0" class="expense-amount" data-category="accommodation">
+                        </div>
+                    </div>
+                    <button class="add-expense-btn" onclick="addExpense('accommodation')">+ Add Accommodation</button>
+                </div>
+
+                <!-- Food -->
+                <div class="expense-category">
+                    <div class="category-header">
+                        <span class="category-icon">🍽️</span>
+                        <h3>Food & Dining</h3>
+                        <span class="category-total" id="foodTotal">₹0</span>
+                    </div>
+                    <div class="expense-items" id="foodItems">
+                        <div class="expense-item">
+                            <input type="text" placeholder="Meals/Restaurants" class="expense-name">
+                            <input type="number" placeholder="0" class="expense-amount" data-category="food">
+                        </div>
+                    </div>
+                    <button class="add-expense-btn" onclick="addExpense('food')">+ Add Food Expense</button>
+                </div>
+
+                <!-- Activities -->
+                <div class="expense-category">
+                    <div class="category-header">
+                        <span class="category-icon">🎯</span>
+                        <h3>Activities & Tours</h3>
+                        <span class="category-total" id="activitiesTotal">₹0</span>
+                    </div>
+                    <div class="expense-items" id="activitiesItems">
+                        <div class="expense-item">
+                            <input type="text" placeholder="Tours/Entry fees" class="expense-name">
+                            <input type="number" placeholder="0" class="expense-amount" data-category="activities">
+                        </div>
+                    </div>
+                    <button class="add-expense-btn" onclick="addExpense('activities')">+ Add Activity</button>
+                </div>
+
+                <!-- Shopping -->
+                <div class="expense-category">
+                    <div class="category-header">
+                        <span class="category-icon">🛍️</span>
+                        <h3>Shopping</h3>
+                        <span class="category-total" id="shoppingTotal">₹0</span>
+                    </div>
+                    <div class="expense-items" id="shoppingItems">
+                        <div class="expense-item">
+                            <input type="text" placeholder="Souvenirs/Gifts" class="expense-name">
+                            <input type="number" placeholder="0" class="expense-amount" data-category="shopping">
+                        </div>
+                    </div>
+                    <button class="add-expense-btn" onclick="addExpense('shopping')">+ Add Shopping</button>
+                </div>
+
+                <!-- Miscellaneous -->
+                <div class="expense-category">
+                    <div class="category-header">
+                        <span class="category-icon">📋</span>
+                        <h3>Miscellaneous</h3>
+                        <span class="category-total" id="miscTotal">₹0</span>
+                    </div>
+                    <div class="expense-items" id="miscItems">
+                        <div class="expense-item">
+                            <input type="text" placeholder="Other expenses" class="expense-name">
+                            <input type="number" placeholder="0" class="expense-amount" data-category="misc">
+                        </div>
+                    </div>
+                    <button class="add-expense-btn" onclick="addExpense('misc')">+ Add Expense</button>
+                </div>
+            </div>
+
+            <!-- Budget Chart -->
+            <div class="budget-chart">
+                <h2>Expense Distribution</h2>
+                <div class="chart-container" id="chartContainer">
+                    <div class="pie-chart" id="pieChart">
+                        <!-- Chart will be rendered here -->
+                    </div>
+                    <div class="chart-legend" id="chartLegend">
+                        <!-- Legend items -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="budget-actions">
+                <button class="action-btn primary" onclick="saveBudget()">💾 Save Budget</button>
+                <button class="action-btn" onclick="exportBudget()">📤 Export</button>
+                <button class="action-btn danger" onclick="clearBudget()">🗑️ Clear All</button>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="page-footer">
+            <p>© 2026 WhereTo - Your Next Journey Starts Here</p>
+        </footer>
+    </div>
+
+    <script>
+        const categories = ['transport', 'accommodation', 'food', 'activities', 'shopping', 'misc'];
+        const categoryColors = {
+            transport: '#008cff',
+            accommodation: '#ff6b6b',
+            food: '#10b981',
+            activities: '#f59e0b',
+            shopping: '#8b5cf6',
+            misc: '#6b7280'
+        };
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize calculations
+            document.querySelectorAll('.expense-amount').forEach(input => {
+                input.addEventListener('input', calculateTotals);
+            });
+            
+            document.getElementById('totalBudget').addEventListener('input', calculateTotals);
+            
+            // Mobile nav toggle
+            document.getElementById('navToggle').addEventListener('click', function() {
+                document.querySelector('.nav-links').classList.toggle('show');
+            });
+            
+            calculateTotals();
+        });
+        
+        function addExpense(category) {
+            const container = document.getElementById(`${category}Items`);
+            const item = document.createElement('div');
+            item.className = 'expense-item';
+            item.innerHTML = `
+                <input type="text" placeholder="Description" class="expense-name">
+                <input type="number" placeholder="0" class="expense-amount" data-category="${category}">
+                <button class="remove-expense" onclick="this.parentElement.remove(); calculateTotals();">×</button>
+            `;
+            container.appendChild(item);
+            
+            item.querySelector('.expense-amount').addEventListener('input', calculateTotals);
+        }
+        
+        function calculateTotals() {
+            const budget = parseFloat(document.getElementById('totalBudget').value) || 0;
+            let total = 0;
+            const categoryTotals = {};
+            
+            categories.forEach(cat => {
+                categoryTotals[cat] = 0;
+                document.querySelectorAll(`[data-category="${cat}"]`).forEach(input => {
+                    categoryTotals[cat] += parseFloat(input.value) || 0;
+                });
+                document.getElementById(`${cat}Total`).textContent = `₹${categoryTotals[cat].toLocaleString()}`;
+                total += categoryTotals[cat];
+            });
+            
+            const remaining = budget - total;
+            const percent = budget > 0 ? Math.min((total / budget) * 100, 100) : 0;
+            
+            document.getElementById('totalSpent').textContent = `₹${total.toLocaleString()}`;
+            document.getElementById('remainingBudget').textContent = `₹${remaining.toLocaleString()}`;
+            document.getElementById('remainingBudget').style.color = remaining < 0 ? '#ff6b6b' : '#10b981';
+            
+            document.getElementById('progressFill').style.width = `${percent}%`;
+            document.getElementById('progressFill').style.backgroundColor = percent > 90 ? '#ff6b6b' : percent > 70 ? '#f59e0b' : '#10b981';
+            document.getElementById('progressPercent').textContent = Math.round(percent);
+            
+            updateChart(categoryTotals, total);
+        }
+        
+        function updateChart(categoryTotals, total) {
+            const chart = document.getElementById('pieChart');
+            const legend = document.getElementById('chartLegend');
+            
+            if (total === 0) {
+                chart.innerHTML = '<p class="no-data">Add expenses to see chart</p>';
+                legend.innerHTML = '';
+                return;
+            }
+            
+            let gradient = 'conic-gradient(';
+            let currentAngle = 0;
+            let legendHTML = '';
+            
+            categories.forEach((cat, index) => {
+                const value = categoryTotals[cat];
+                const percent = (value / total) * 100;
+                
+                if (percent > 0) {
+                    const startAngle = currentAngle;
+                    currentAngle += percent * 3.6; // Convert to degrees
+                    
+                    gradient += `${categoryColors[cat]} ${startAngle}deg ${currentAngle}deg`;
+                    if (index < categories.length - 1) gradient += ', ';
+                    
+                    const catName = cat.charAt(0).toUpperCase() + cat.slice(1);
+                    legendHTML += `
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: ${categoryColors[cat]}"></span>
+                            <span class="legend-label">${catName}</span>
+                            <span class="legend-value">${Math.round(percent)}%</span>
+                        </div>
+                    `;
+                }
+            });
+            
+            gradient += ')';
+            chart.style.background = gradient;
+            legend.innerHTML = legendHTML;
+        }
+        
+        function saveBudget() {
+            alert('Budget saved! (Feature coming soon)');
+        }
+        
+        function exportBudget() {
+            alert('Export feature coming soon!');
+        }
+        
+        function clearBudget() {
+            if (confirm('Clear all expenses?')) {
+                document.querySelectorAll('.expense-amount').forEach(input => input.value = '');
+                document.querySelectorAll('.expense-name').forEach(input => input.value = '');
+                calculateTotals();
+            }
+        }
+    </script>
+</body>
+</html>

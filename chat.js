@@ -493,3 +493,82 @@ class TravelChatbot {
 document.addEventListener('DOMContentLoaded', () => {
     new TravelChatbot();
 });
+
+// ===== WEATHER WIDGET =====
+class WeatherWidget {
+    constructor() {
+        this.widget = document.getElementById('weatherWidget');
+        if (!this.widget) return;
+        
+        this.iconEl = this.widget.querySelector('.weather-icon');
+        this.tempEl = this.widget.querySelector('.weather-temp');
+        this.locationEl = this.widget.querySelector('.weather-location');
+        
+        this.init();
+    }
+    
+    async init() {
+        // Try to get user's location
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (pos) => this.fetchWeather(pos.coords.latitude, pos.coords.longitude),
+                () => this.fetchWeather(28.6139, 77.2090) // Default to Delhi
+            );
+        } else {
+            this.fetchWeather(28.6139, 77.2090); // Default to Delhi
+        }
+    }
+    
+    async fetchWeather(lat, lon) {
+        try {
+            // Using Open-Meteo free API (no API key needed)
+            const response = await fetch(
+                `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=auto`
+            );
+            const data = await response.json();
+            
+            const temp = Math.round(data.current.temperature_2m);
+            const weatherCode = data.current.weather_code;
+            const icon = this.getWeatherIcon(weatherCode);
+            
+            // Get city name using reverse geocoding
+            const cityResponse = await fetch(
+                `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${lat}&longitude=${lon}`
+            );
+            const cityData = await cityResponse.json();
+            const city = cityData.name || 'Your Location';
+            
+            this.tempEl.textContent = `${temp}°C`;
+            this.locationEl.textContent = city;
+            this.iconEl.textContent = icon;
+        } catch (error) {
+            console.log('Weather fetch error:', error);
+            this.tempEl.textContent = '--°C';
+            this.locationEl.textContent = 'Weather';
+            this.iconEl.textContent = '🌤️';
+        }
+    }
+    
+    getWeatherIcon(code) {
+        // WMO Weather interpretation codes
+        if (code === 0) return '☀️';
+        if (code === 1 || code === 2) return '🌤️';
+        if (code === 3) return '☁️';
+        if (code >= 45 && code <= 48) return '🌫️';
+        if (code >= 51 && code <= 55) return '🌧️';
+        if (code >= 56 && code <= 57) return '🌧️';
+        if (code >= 61 && code <= 65) return '🌧️';
+        if (code >= 66 && code <= 67) return '🌧️';
+        if (code >= 71 && code <= 77) return '❄️';
+        if (code >= 80 && code <= 82) return '🌧️';
+        if (code >= 85 && code <= 86) return '❄️';
+        if (code >= 95 && code <= 99) return '⛈️';
+        return '🌤️';
+    }
+}
+
+// Initialize weather widget
+document.addEventListener('DOMContentLoaded', () => {
+    new WeatherWidget();
+});
+
