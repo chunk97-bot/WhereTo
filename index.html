@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhereTo - Your Travel Buddy</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">✈️</span>
+                <h1>WhereTo</h1>
+            </div>
+            <p class="tagline">Your AI Travel Buddy</p>
+        </header>
+
+        <!-- Chat Container -->
+        <main class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <!-- Welcome message -->
+                <div class="message bot-message">
+                    <div class="message-avatar">🌍</div>
+                    <div class="message-content">
+                        <p>Hey there, traveler! 👋 I'm WhereTo, your personal travel buddy.</p>
+                        <p>I can help you with:</p>
+                        <ul>
+                            <li>🗺️ Destination recommendations</li>
+                            <li>📅 Best times to visit places</li>
+                            <li>💰 Budget planning tips</li>
+                            <li>🎒 Packing suggestions</li>
+                            <li>🍽️ Food & culture insights</li>
+                        </ul>
+                        <p>Where are you dreaming of going?</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Suggestions -->
+            <div class="quick-suggestions" id="quickSuggestions">
+                <button class="suggestion-chip" data-query="Suggest a beach destination">🏖️ Beach getaway</button>
+                <button class="suggestion-chip" data-query="Best city for food lovers">🍜 Food destinations</button>
+                <button class="suggestion-chip" data-query="Adventure travel ideas">🏔️ Adventure trips</button>
+                <button class="suggestion-chip" data-query="Budget-friendly destinations">💵 Budget travel</button>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="userInput" 
+                        placeholder="Ask me anything about travel..."
+                        autocomplete="off"
+                    >
+                    <button class="send-button" id="sendButton">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Made with ❤️ for travelers everywhere</p>
+        </footer>
+    </div>
+
+    <script src="destinations.js"></script>
+    <script src="chat.js"></script>
+</body>
+</html>
