@@ -335,10 +335,12 @@
         .currency-search {
             position: relative;
             margin-bottom: 1.5rem;
+            display: flex;
+            gap: 0.75rem;
         }
         
         .currency-search input {
-            width: 100%;
+            flex: 1;
             padding: 1rem 1rem 1rem 3rem;
             border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 12px;
@@ -363,6 +365,24 @@
             left: 1rem;
             top: 50%;
             transform: translateY(-50%);
+            z-index: 1;
+        }
+        
+        .search-btn {
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
         }
         
         /* Footer */
@@ -480,8 +500,8 @@
         <!-- Live Rates Section -->
         <section class="rates-section">
             <div class="section-header">
-                <h2>📊 Live Exchange Rates</h2>
-                <span class="update-time">Updated: <span id="updateTime">Loading...</span></span>
+                <h2>📊 Today's Exchange Rates</h2>
+                <span class="update-time">Updated: <span id="updateTime">Loading...</span> (Auto-refreshes every 30 min)</span>
             </div>
 
             <!-- Tabs -->
@@ -496,6 +516,7 @@
             <!-- Search -->
             <div class="currency-search">
                 <input type="text" id="currencySearch" placeholder="Search currencies...">
+                <button class="search-btn" onclick="filterRates(document.getElementById('currencySearch').value)">🔍 Search</button>
             </div>
 
             <!-- Rates Grid -->
@@ -511,90 +532,95 @@
     </footer>
 
     <script>
-        // Complete list of world currencies with flags
+        // Complete list of world currencies with flags (rates are 1 USD = X currency)
         const currencies = [
             // Popular
-            { code: 'INR', name: 'Indian Rupee', flag: '🇮🇳', region: 'popular', rate: 1 },
-            { code: 'USD', name: 'US Dollar', flag: '🇺🇸', region: 'popular', rate: 0.0119 },
-            { code: 'EUR', name: 'Euro', flag: '🇪🇺', region: 'popular', rate: 0.0109 },
-            { code: 'GBP', name: 'British Pound', flag: '🇬🇧', region: 'popular', rate: 0.0094 },
-            { code: 'AED', name: 'UAE Dirham', flag: '🇦🇪', region: 'popular', rate: 0.0437 },
-            { code: 'SGD', name: 'Singapore Dollar', flag: '🇸🇬', region: 'popular', rate: 0.016 },
-            { code: 'AUD', name: 'Australian Dollar', flag: '🇦🇺', region: 'popular', rate: 0.0182 },
-            { code: 'CAD', name: 'Canadian Dollar', flag: '🇨🇦', region: 'popular', rate: 0.0162 },
+            { code: 'USD', name: 'US Dollar', flag: '🇺🇸', region: 'popular', rate: 1 },
+            { code: 'INR', name: 'Indian Rupee', flag: '🇮🇳', region: 'popular', rate: 83.5 },
+            { code: 'EUR', name: 'Euro', flag: '🇪🇺', region: 'popular', rate: 0.92 },
+            { code: 'GBP', name: 'British Pound', flag: '🇬🇧', region: 'popular', rate: 0.79 },
+            { code: 'AED', name: 'UAE Dirham', flag: '🇦🇪', region: 'popular', rate: 3.67 },
+            { code: 'SGD', name: 'Singapore Dollar', flag: '🇸🇬', region: 'popular', rate: 1.34 },
+            { code: 'AUD', name: 'Australian Dollar', flag: '🇦🇺', region: 'popular', rate: 1.53 },
+            { code: 'CAD', name: 'Canadian Dollar', flag: '🇨🇦', region: 'popular', rate: 1.36 },
             
             // Asia Pacific
-            { code: 'JPY', name: 'Japanese Yen', flag: '🇯🇵', region: 'asia', rate: 1.78 },
-            { code: 'CNY', name: 'Chinese Yuan', flag: '🇨🇳', region: 'asia', rate: 0.086 },
-            { code: 'HKD', name: 'Hong Kong Dollar', flag: '🇭🇰', region: 'asia', rate: 0.093 },
-            { code: 'KRW', name: 'South Korean Won', flag: '🇰🇷', region: 'asia', rate: 16.2 },
-            { code: 'THB', name: 'Thai Baht', flag: '🇹🇭', region: 'asia', rate: 0.42 },
-            { code: 'MYR', name: 'Malaysian Ringgit', flag: '🇲🇾', region: 'asia', rate: 0.053 },
-            { code: 'IDR', name: 'Indonesian Rupiah', flag: '🇮🇩', region: 'asia', rate: 187.5 },
-            { code: 'PHP', name: 'Philippine Peso', flag: '🇵🇭', region: 'asia', rate: 0.67 },
-            { code: 'VND', name: 'Vietnamese Dong', flag: '🇻🇳', region: 'asia', rate: 298 },
-            { code: 'TWD', name: 'Taiwan Dollar', flag: '🇹🇼', region: 'asia', rate: 0.38 },
-            { code: 'PKR', name: 'Pakistani Rupee', flag: '🇵🇰', region: 'asia', rate: 3.32 },
-            { code: 'BDT', name: 'Bangladeshi Taka', flag: '🇧🇩', region: 'asia', rate: 1.31 },
-            { code: 'LKR', name: 'Sri Lankan Rupee', flag: '🇱🇰', region: 'asia', rate: 3.62 },
-            { code: 'NPR', name: 'Nepalese Rupee', flag: '🇳🇵', region: 'asia', rate: 1.58 },
-            { code: 'MVR', name: 'Maldivian Rufiyaa', flag: '🇲🇻', region: 'asia', rate: 0.183 },
-            { code: 'NZD', name: 'New Zealand Dollar', flag: '🇳🇿', region: 'asia', rate: 0.0198 },
-            { code: 'FJD', name: 'Fijian Dollar', flag: '🇫🇯', region: 'asia', rate: 0.027 },
+            { code: 'JPY', name: 'Japanese Yen', flag: '🇯🇵', region: 'asia', rate: 149.5 },
+            { code: 'CNY', name: 'Chinese Yuan', flag: '🇨🇳', region: 'asia', rate: 7.24 },
+            { code: 'HKD', name: 'Hong Kong Dollar', flag: '🇭🇰', region: 'asia', rate: 7.82 },
+            { code: 'KRW', name: 'South Korean Won', flag: '🇰🇷', region: 'asia', rate: 1350 },
+            { code: 'THB', name: 'Thai Baht', flag: '🇹🇭', region: 'asia', rate: 35.5 },
+            { code: 'MYR', name: 'Malaysian Ringgit', flag: '🇲🇾', region: 'asia', rate: 4.47 },
+            { code: 'IDR', name: 'Indonesian Rupiah', flag: '🇮🇩', region: 'asia', rate: 15750 },
+            { code: 'PHP', name: 'Philippine Peso', flag: '🇵🇭', region: 'asia', rate: 56.2 },
+            { code: 'VND', name: 'Vietnamese Dong', flag: '🇻🇳', region: 'asia', rate: 24850 },
+            { code: 'TWD', name: 'Taiwan Dollar', flag: '🇹🇼', region: 'asia', rate: 31.8 },
+            { code: 'PKR', name: 'Pakistani Rupee', flag: '🇵🇰', region: 'asia', rate: 278 },
+            { code: 'BDT', name: 'Bangladeshi Taka', flag: '🇧🇩', region: 'asia', rate: 110 },
+            { code: 'LKR', name: 'Sri Lankan Rupee', flag: '🇱🇰', region: 'asia', rate: 305 },
+            { code: 'NPR', name: 'Nepalese Rupee', flag: '🇳🇵', region: 'asia', rate: 133.5 },
+            { code: 'MVR', name: 'Maldivian Rufiyaa', flag: '🇲🇻', region: 'asia', rate: 15.4 },
+            { code: 'NZD', name: 'New Zealand Dollar', flag: '🇳🇿', region: 'asia', rate: 1.67 },
+            { code: 'FJD', name: 'Fijian Dollar', flag: '🇫🇯', region: 'asia', rate: 2.27 },
             
             // Europe
-            { code: 'CHF', name: 'Swiss Franc', flag: '🇨🇭', region: 'europe', rate: 0.0105 },
-            { code: 'SEK', name: 'Swedish Krona', flag: '🇸🇪', region: 'europe', rate: 0.123 },
-            { code: 'NOK', name: 'Norwegian Krone', flag: '🇳🇴', region: 'europe', rate: 0.128 },
-            { code: 'DKK', name: 'Danish Krone', flag: '🇩🇰', region: 'europe', rate: 0.082 },
-            { code: 'PLN', name: 'Polish Zloty', flag: '🇵🇱', region: 'europe', rate: 0.048 },
-            { code: 'CZK', name: 'Czech Koruna', flag: '🇨🇿', region: 'europe', rate: 0.275 },
-            { code: 'HUF', name: 'Hungarian Forint', flag: '🇭🇺', region: 'europe', rate: 4.35 },
-            { code: 'RUB', name: 'Russian Ruble', flag: '🇷🇺', region: 'europe', rate: 1.09 },
-            { code: 'TRY', name: 'Turkish Lira', flag: '🇹🇷', region: 'europe', rate: 0.39 },
+            { code: 'CHF', name: 'Swiss Franc', flag: '🇨🇭', region: 'europe', rate: 0.88 },
+            { code: 'SEK', name: 'Swedish Krona', flag: '🇸🇪', region: 'europe', rate: 10.35 },
+            { code: 'NOK', name: 'Norwegian Krone', flag: '🇳🇴', region: 'europe', rate: 10.75 },
+            { code: 'DKK', name: 'Danish Krone', flag: '🇩🇰', region: 'europe', rate: 6.9 },
+            { code: 'PLN', name: 'Polish Zloty', flag: '🇵🇱', region: 'europe', rate: 4.02 },
+            { code: 'CZK', name: 'Czech Koruna', flag: '🇨🇿', region: 'europe', rate: 23.1 },
+            { code: 'HUF', name: 'Hungarian Forint', flag: '🇭🇺', region: 'europe', rate: 365 },
+            { code: 'RUB', name: 'Russian Ruble', flag: '🇷🇺', region: 'europe', rate: 92 },
+            { code: 'TRY', name: 'Turkish Lira', flag: '🇹🇷', region: 'europe', rate: 32.5 },
             { code: 'RON', name: 'Romanian Leu', flag: '🇷🇴', region: 'europe', rate: 0.055 },
-            { code: 'BGN', name: 'Bulgarian Lev', flag: '🇧🇬', region: 'europe', rate: 0.022 },
-            { code: 'HRK', name: 'Croatian Kuna', flag: '🇭🇷', region: 'europe', rate: 0.083 },
-            { code: 'ISK', name: 'Icelandic Krona', flag: '🇮🇸', region: 'europe', rate: 1.64 },
-            { code: 'UAH', name: 'Ukrainian Hryvnia', flag: '🇺🇦', region: 'europe', rate: 0.49 },
+            { code: 'BGN', name: 'Bulgarian Lev', flag: '🇧🇬', region: 'europe', rate: 1.81 },
+            { code: 'HRK', name: 'Croatian Kuna', flag: '🇭🇷', region: 'europe', rate: 7.0 },
+            { code: 'ISK', name: 'Icelandic Krona', flag: '🇮🇸', region: 'europe', rate: 138 },
+            { code: 'UAH', name: 'Ukrainian Hryvnia', flag: '🇺🇦', region: 'europe', rate: 41.2 },
             
             // Americas
-            { code: 'MXN', name: 'Mexican Peso', flag: '🇲🇽', region: 'americas', rate: 0.205 },
-            { code: 'BRL', name: 'Brazilian Real', flag: '🇧🇷', region: 'americas', rate: 0.059 },
-            { code: 'ARS', name: 'Argentine Peso', flag: '🇦🇷', region: 'americas', rate: 10.6 },
-            { code: 'CLP', name: 'Chilean Peso', flag: '🇨🇱', region: 'americas', rate: 11.2 },
-            { code: 'COP', name: 'Colombian Peso', flag: '🇨🇴', region: 'americas', rate: 47.5 },
-            { code: 'PEN', name: 'Peruvian Sol', flag: '🇵🇪', region: 'americas', rate: 0.044 },
-            { code: 'UYU', name: 'Uruguayan Peso', flag: '🇺🇾', region: 'americas', rate: 0.47 },
-            { code: 'JMD', name: 'Jamaican Dollar', flag: '🇯🇲', region: 'americas', rate: 1.86 },
-            { code: 'TTD', name: 'Trinidad Dollar', flag: '🇹🇹', region: 'americas', rate: 0.081 },
-            { code: 'BBD', name: 'Barbados Dollar', flag: '🇧🇧', region: 'americas', rate: 0.024 },
+            { code: 'MXN', name: 'Mexican Peso', flag: '🇲🇽', region: 'americas', rate: 17.2 },
+            { code: 'BRL', name: 'Brazilian Real', flag: '🇧🇷', region: 'americas', rate: 4.97 },
+            { code: 'ARS', name: 'Argentine Peso', flag: '🇦🇷', region: 'americas', rate: 890 },
+            { code: 'CLP', name: 'Chilean Peso', flag: '🇨🇱', region: 'americas', rate: 940 },
+            { code: 'COP', name: 'Colombian Peso', flag: '🇨🇴', region: 'americas', rate: 3985 },
+            { code: 'PEN', name: 'Peruvian Sol', flag: '🇵🇪', region: 'americas', rate: 3.72 },
+            { code: 'UYU', name: 'Uruguayan Peso', flag: '🇺🇾', region: 'americas', rate: 39.5 },
+            { code: 'JMD', name: 'Jamaican Dollar', flag: '🇯🇲', region: 'americas', rate: 156 },
+            { code: 'TTD', name: 'Trinidad Dollar', flag: '🇹🇹', region: 'americas', rate: 6.78 },
+            { code: 'BBD', name: 'Barbados Dollar', flag: '🇧🇧', region: 'americas', rate: 2.0 },
             
             // Middle East & Africa
-            { code: 'SAR', name: 'Saudi Riyal', flag: '🇸🇦', region: 'popular', rate: 0.0447 },
-            { code: 'QAR', name: 'Qatari Riyal', flag: '🇶🇦', region: 'popular', rate: 0.0434 },
-            { code: 'KWD', name: 'Kuwaiti Dinar', flag: '🇰🇼', region: 'popular', rate: 0.00366 },
-            { code: 'BHD', name: 'Bahraini Dinar', flag: '🇧🇭', region: 'popular', rate: 0.00449 },
-            { code: 'OMR', name: 'Omani Rial', flag: '🇴🇲', region: 'popular', rate: 0.00459 },
-            { code: 'JOD', name: 'Jordanian Dinar', flag: '🇯🇴', region: 'popular', rate: 0.00845 },
-            { code: 'EGP', name: 'Egyptian Pound', flag: '🇪🇬', region: 'popular', rate: 0.58 },
-            { code: 'ZAR', name: 'South African Rand', flag: '🇿🇦', region: 'popular', rate: 0.218 },
-            { code: 'KES', name: 'Kenyan Shilling', flag: '🇰🇪', region: 'popular', rate: 1.53 },
-            { code: 'NGN', name: 'Nigerian Naira', flag: '🇳🇬', region: 'popular', rate: 17.8 },
-            { code: 'MAD', name: 'Moroccan Dirham', flag: '🇲🇦', region: 'popular', rate: 0.119 },
-            { code: 'TND', name: 'Tunisian Dinar', flag: '🇹🇳', region: 'popular', rate: 0.037 },
-            { code: 'GHS', name: 'Ghanaian Cedi', flag: '🇬🇭', region: 'popular', rate: 0.18 },
-            { code: 'MUR', name: 'Mauritian Rupee', flag: '🇲🇺', region: 'popular', rate: 0.54 },
-            { code: 'SCR', name: 'Seychelles Rupee', flag: '🇸🇨', region: 'asia', rate: 0.16 },
-            { code: 'ILS', name: 'Israeli Shekel', flag: '🇮🇱', region: 'europe', rate: 0.044 },
+            { code: 'SAR', name: 'Saudi Riyal', flag: '🇸🇦', region: 'popular', rate: 3.75 },
+            { code: 'QAR', name: 'Qatari Riyal', flag: '🇶🇦', region: 'popular', rate: 3.64 },
+            { code: 'KWD', name: 'Kuwaiti Dinar', flag: '🇰🇼', region: 'popular', rate: 0.307 },
+            { code: 'BHD', name: 'Bahraini Dinar', flag: '🇧🇭', region: 'popular', rate: 0.376 },
+            { code: 'OMR', name: 'Omani Rial', flag: '🇴🇲', region: 'popular', rate: 0.385 },
+            { code: 'JOD', name: 'Jordanian Dinar', flag: '🇯🇴', region: 'popular', rate: 0.709 },
+            { code: 'EGP', name: 'Egyptian Pound', flag: '🇪🇬', region: 'popular', rate: 48.5 },
+            { code: 'ZAR', name: 'South African Rand', flag: '🇿🇦', region: 'popular', rate: 18.35 },
+            { code: 'KES', name: 'Kenyan Shilling', flag: '🇰🇪', region: 'popular', rate: 128 },
+            { code: 'NGN', name: 'Nigerian Naira', flag: '🇳🇬', region: 'popular', rate: 1490 },
+            { code: 'MAD', name: 'Moroccan Dirham', flag: '🇲🇦', region: 'popular', rate: 9.95 },
+            { code: 'TND', name: 'Tunisian Dinar', flag: '🇹🇳', region: 'popular', rate: 3.1 },
+            { code: 'GHS', name: 'Ghanaian Cedi', flag: '🇬🇭', region: 'popular', rate: 15.2 },
+            { code: 'MUR', name: 'Mauritian Rupee', flag: '🇲🇺', region: 'popular', rate: 45.3 },
+            { code: 'SCR', name: 'Seychelles Rupee', flag: '🇸🇨', region: 'asia', rate: 13.4 },
+            { code: 'ILS', name: 'Israeli Shekel', flag: '🇮🇱', region: 'europe', rate: 3.68 },
         ];
         
         // Initialize
+        let exchangeRates = {}; // Will store rates from API
+        const API_URL = 'https://open.er-api.com/v6/latest/USD';
+        
         document.addEventListener('DOMContentLoaded', function() {
             populateCurrencySelects();
-            updateConversion();
-            showRates('popular');
-            updateTime();
+            fetchExchangeRates(); // Fetch live rates on load
+            showDefaultRates(); // Show 15 currencies vs USD by default
+            
+            // Auto-refresh every 30 minutes (1800000 ms)
+            setInterval(fetchExchangeRates, 1800000);
             
             document.getElementById('fromAmount').addEventListener('input', updateConversion);
             document.getElementById('fromCurrency').addEventListener('change', function() {
@@ -626,8 +652,8 @@
                 toSelect.add(option2);
             });
             
-            fromSelect.value = 'INR';
-            toSelect.value = 'USD';
+            fromSelect.value = 'USD';
+            toSelect.value = 'INR';
         }
         
         function updateFlag(type) {
@@ -646,9 +672,11 @@
             const toCurr = currencies.find(c => c.code === toCode);
             
             if (fromCurr && toCurr) {
-                // Convert through INR as base
-                const inINR = amount / fromCurr.rate;
-                const result = inINR * toCurr.rate;
+                // Convert through USD as base (API gives rates vs USD)
+                // If 1 USD = X fromCurrency, then amount/X = USD equivalent
+                // Then USD * toCurrency rate = result
+                const inUSD = amount / fromCurr.rate;
+                const result = inUSD * toCurr.rate;
                 const rate = toCurr.rate / fromCurr.rate;
                 
                 document.getElementById('toAmount').value = result.toFixed(4);
@@ -731,6 +759,65 @@
         function updateTime() {
             const now = new Date();
             document.getElementById('updateTime').textContent = now.toLocaleTimeString();
+        }
+        
+        // Fetch live exchange rates from API
+        async function fetchExchangeRates() {
+            try {
+                document.getElementById('updateTime').textContent = 'Fetching...';
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                
+                if (data.result === 'success') {
+                    exchangeRates = data.rates;
+                    
+                    // Update currencies array with live rates (rates are vs USD)
+                    currencies.forEach(curr => {
+                        if (exchangeRates[curr.code]) {
+                            curr.rate = exchangeRates[curr.code];
+                        }
+                    });
+                    
+                    updateConversion();
+                    showDefaultRates();
+                    
+                    const now = new Date();
+                    document.getElementById('updateTime').textContent = now.toLocaleTimeString() + ' ✓';
+                }
+            } catch (error) {
+                console.error('Error fetching rates:', error);
+                document.getElementById('updateTime').textContent = 'Using cached rates';
+                updateConversion();
+                showDefaultRates();
+            }
+        }
+        
+        // Show 15 default currencies against USD
+        function showDefaultRates() {
+            const grid = document.getElementById('ratesGrid');
+            const defaultCurrencies = ['EUR', 'GBP', 'JPY', 'AUD', 'CAD', 'CHF', 'CNY', 'INR', 'SGD', 'AED', 'SAR', 'HKD', 'KRW', 'MXN', 'BRL'];
+            
+            grid.innerHTML = defaultCurrencies.map(code => {
+                const curr = currencies.find(c => c.code === code);
+                if (!curr) return '';
+                
+                const rate = curr.rate; // Rate against USD
+                
+                return `
+                    <div class="rate-card" onclick="selectCurrency('${curr.code}')">
+                        <span class="rate-flag">${curr.flag}</span>
+                        <div class="rate-info">
+                            <div class="rate-code">${curr.code}</div>
+                            <div class="rate-name">${curr.name}</div>
+                        </div>
+                        <div class="rate-value">
+                            <div class="rate-price">1 USD = ${rate.toFixed(4)}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            updateTime();
         }
     </script>
 </body>
