@@ -1,0 +1,10 @@
+# WhereTo - robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://whereto.travel/sitemap.xml
+
+# Disallow admin/sensitive areas (if any)
+Disallow: /api/
+Disallow: /*.json$
