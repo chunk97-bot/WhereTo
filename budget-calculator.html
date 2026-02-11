@@ -3,77 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Budget Calculator - WhereTo</title>
-    <link rel="stylesheet" href="pages.css">
+    <title>Smart Budget Tracker - WhereTo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Righteous&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%); min-height: 100vh; color: #fff; }
         
-        .page-container { min-height: 100vh; background: transparent; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
         
-        /* Futuristic Header */
-        .budget-header {
-            background: linear-gradient(135deg, rgba(0, 140, 255, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
-            padding: 2rem;
-            text-align: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .budget-header h1 {
+        .nav-logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover { color: #00d4ff; }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 3rem 2rem 2rem;
+        }
+        
+        .header h1 {
             font-family: 'Poppins', sans-serif;
             font-size: 2.5rem;
             background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 50%, #ff6b9d 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
             margin-bottom: 0.5rem;
         }
         
-        .budget-header p { color: rgba(255, 255, 255, 0.7); font-size: 1.1rem; }
+        .header p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.1rem;
+        }
         
-        /* Main Container */
-        .budget-main {
-            max-width: 1400px;
+        /* Main Layout */
+        .main-container {
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 0 2rem 3rem;
         }
         
-        /* Dashboard Grid */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 2rem;
-        }
-        
-        /* Glass Card */
-        .glass-card {
+        /* Smart Input Section */
+        .input-section {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-        }
-        
-        .glass-card:hover {
-            border-color: rgba(0, 212, 255, 0.3);
-            box-shadow: 0 8px 40px rgba(0, 212, 255, 0.1);
-        }
-        
-        /* Overview Cards */
-        .overview-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
+            padding: 2rem;
             margin-bottom: 2rem;
         }
         
+        .input-section h2 {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .smart-input-wrapper {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .smart-input {
+            flex: 1;
+            padding: 1.25rem 1.5rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 16px;
+            color: #fff;
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .smart-input:focus {
+            border-color: #00d4ff;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+        }
+        
+        .smart-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .add-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+            border: none;
+            border-radius: 16px;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .add-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+        
+        .input-hints {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .hint-tag {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .hint-tag:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: rgba(0, 212, 255, 0.3);
+            color: #00d4ff;
+        }
+        
+        /* Dashboard Grid */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        /* Stats Cards */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+            grid-column: span 2;
+        }
+        
         .stat-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
@@ -87,29 +196,32 @@
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-color), transparent);
+            height: 4px;
+            background: var(--accent);
         }
         
-        .stat-card.budget { --accent-color: #00d4ff; }
-        .stat-card.spent { --accent-color: #f59e0b; }
-        .stat-card.remaining { --accent-color: #10b981; }
+        .stat-card.total { --accent: linear-gradient(90deg, #00d4ff, #8b5cf6); }
+        .stat-card.spent { --accent: linear-gradient(90deg, #f59e0b, #ef4444); }
+        .stat-card.remaining { --accent: linear-gradient(90deg, #10b981, #22c55e); }
         
-        .stat-card h3 {
+        .stat-label {
             font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-bottom: 0.5rem;
         }
         
         .stat-value {
             font-size: 2rem;
             font-weight: 700;
-            color: var(--accent-color);
         }
         
-        .stat-card input {
+        .stat-card.total .stat-value { color: #00d4ff; }
+        .stat-card.spent .stat-value { color: #f59e0b; }
+        .stat-card.remaining .stat-value { color: #10b981; }
+        
+        .budget-input {
             background: transparent;
             border: none;
             font-size: 2rem;
@@ -120,62 +232,279 @@
             outline: none;
         }
         
-        .stat-card input::placeholder { color: rgba(0, 212, 255, 0.5); }
-        
-        /* Progress Circle */
+        /* 3D Chart Section */
         .chart-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+        
+        .chart-section h3 {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+        }
+        
+        .chart-3d-container {
+            width: 100%;
+            height: 300px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
             gap: 1.5rem;
+            perspective: 1000px;
+            padding: 1rem;
+        }
+        
+        .bar-3d {
+            width: 60px;
+            min-height: 20px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(-10deg) rotateY(-15deg);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+        }
+        
+        .bar-3d:hover {
+            transform: rotateX(-10deg) rotateY(-15deg) translateY(-10px) scale(1.05);
+        }
+        
+        .bar-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--bar-color);
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 0.5rem;
+        }
+        
+        .bar-top {
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            background: var(--bar-light);
+            transform: rotateX(90deg) translateZ(10px);
+            border-radius: 8px 8px 0 0;
+            top: 0;
+        }
+        
+        .bar-right {
+            position: absolute;
+            width: 20px;
+            height: 100%;
+            background: var(--bar-dark);
+            transform: rotateY(90deg) translateZ(50px);
+            right: -10px;
+            border-radius: 0 8px 0 0;
+        }
+        
+        .bar-label {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            white-space: nowrap;
+        }
+        
+        .bar-label .emoji {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        .bar-label .name {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .bar-amount {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Bar Colors */
+        .bar-3d[data-cat="food"] { --bar-color: #10b981; --bar-light: #34d399; --bar-dark: #059669; }
+        .bar-3d[data-cat="transport"] { --bar-color: #00d4ff; --bar-light: #67e8f9; --bar-dark: #0891b2; }
+        .bar-3d[data-cat="hotel"] { --bar-color: #ff6b9d; --bar-light: #fda4af; --bar-dark: #e11d48; }
+        .bar-3d[data-cat="shopping"] { --bar-color: #8b5cf6; --bar-light: #a78bfa; --bar-dark: #7c3aed; }
+        .bar-3d[data-cat="activities"] { --bar-color: #f59e0b; --bar-light: #fbbf24; --bar-dark: #d97706; }
+        .bar-3d[data-cat="misc"] { --bar-color: #6b7280; --bar-light: #9ca3af; --bar-dark: #4b5563; }
+        
+        .empty-chart {
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .empty-chart span {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Expenses List */
+        .expenses-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2rem;
+        }
+        
+        .expenses-section h3 {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+        
+        .expenses-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .expense-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            transition: all 0.2s;
+        }
+        
+        .expense-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
+        }
+        
+        .expense-emoji {
+            font-size: 1.5rem;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+        
+        .expense-details {
+            flex: 1;
+        }
+        
+        .expense-name {
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 0.25rem;
+        }
+        
+        .expense-category {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .expense-amount {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #f59e0b;
+        }
+        
+        .delete-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(239, 68, 68, 0.2);
+            border: none;
+            border-radius: 8px;
+            color: #ef4444;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.2s;
+        }
+        
+        .expense-item:hover .delete-btn {
+            opacity: 1;
+        }
+        
+        .delete-btn:hover {
+            background: #ef4444;
+            color: #fff;
+        }
+        
+        /* Donut Chart */
+        .donut-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin-top: 2rem;
         }
         
         .donut-chart {
-            width: 280px;
-            height: 280px;
-            position: relative;
-        }
-        
-        .donut-chart svg {
             width: 100%;
             height: 100%;
             transform: rotate(-90deg);
         }
         
-        .donut-chart circle {
-            fill: none;
-            stroke-width: 20;
-        }
-        
-        .donut-bg { stroke: rgba(255, 255, 255, 0.1); }
-        
         .donut-segment {
-            transition: stroke-dasharray 0.5s ease, stroke-dashoffset 0.5s ease;
+            fill: none;
+            stroke-width: 35;
+            transition: all 0.5s ease;
         }
         
-        .chart-center {
+        .donut-segment:hover {
+            stroke-width: 40;
+        }
+        
+        .donut-center {
             position: absolute;
-            top: 50%; left: 50%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
         }
         
-        .chart-percent {
-            font-size: 3rem;
+        .donut-percent {
+            font-size: 2rem;
             font-weight: 700;
             background: linear-gradient(135deg, #00d4ff, #8b5cf6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
-        .chart-label { color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; }
+        .donut-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
         
         /* Legend */
-        .chart-legend {
+        .legend {
             display: flex;
             flex-wrap: wrap;
             gap: 0.75rem;
             justify-content: center;
+            margin-top: 1.5rem;
         }
         
         .legend-item {
@@ -185,666 +514,411 @@
             padding: 0.5rem 0.75rem;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 8px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
         
         .legend-dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
         }
         
-        .legend-percent {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.8rem;
-        }
-        
-        /* Expense Categories */
-        .categories-section h2 {
-            font-size: 1.25rem;
-            margin-bottom: 1.25rem;
-            color: rgba(255, 255, 255, 0.9);
-        }
-        
-        .category-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .category-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .category-card:hover {
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateX(5px);
-        }
-        
-        .category-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem 1.25rem;
-            cursor: pointer;
-            border-left: 4px solid var(--cat-color);
-        }
-        
-        .cat-icon {
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
+        /* Clear Button */
+        .clear-btn {
+            display: block;
+            margin: 2rem auto 0;
+            padding: 0.75rem 2rem;
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
             border-radius: 12px;
-        }
-        
-        .cat-info {
-            flex: 1;
-        }
-        
-        .cat-info h4 {
-            font-size: 1rem;
-            color: #fff;
-            margin-bottom: 0.25rem;
-        }
-        
-        .cat-info .item-count {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
-        }
-        
-        .cat-total {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--cat-color);
-        }
-        
-        .cat-toggle {
-            font-size: 1.25rem;
-            color: rgba(255, 255, 255, 0.4);
-            transition: transform 0.3s ease;
-        }
-        
-        .category-card.expanded .cat-toggle { transform: rotate(180deg); }
-        
-        .category-body {
-            display: none;
-            padding: 0 1.25rem 1.25rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        .category-card.expanded .category-body { display: block; }
-        
-        .expense-row {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 0.75rem;
-            align-items: center;
-        }
-        
-        .expense-row input {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 0.75rem 1rem;
-            color: #fff;
+            color: #ef4444;
             font-size: 0.95rem;
-            outline: none;
-            transition: all 0.2s ease;
-        }
-        
-        .expense-row input:focus {
-            border-color: rgba(0, 212, 255, 0.5);
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.1);
-        }
-        
-        .expense-row input[type="text"] { flex: 1; }
-        .expense-row input[type="number"] { width: 130px; text-align: right; }
-        
-        .expense-row input::placeholder { color: rgba(255, 255, 255, 0.3); }
-        
-        .remove-btn {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 107, 107, 0.2);
-            border: none;
-            border-radius: 8px;
-            color: #ff6b6b;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s;
         }
         
-        .remove-btn:hover {
-            background: #ff6b6b;
+        .clear-btn:hover {
+            background: #ef4444;
             color: #fff;
-        }
-        
-        .add-expense-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            width: 100%;
-            padding: 0.75rem;
-            margin-top: 1rem;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px dashed rgba(0, 212, 255, 0.3);
-            border-radius: 10px;
-            color: #00d4ff;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .add-expense-btn:hover {
-            background: rgba(0, 212, 255, 0.2);
-            border-style: solid;
-        }
-        
-        /* Category Colors */
-        .category-card[data-category="transport"] { --cat-color: #00d4ff; }
-        .category-card[data-category="accommodation"] { --cat-color: #ff6b9d; }
-        .category-card[data-category="food"] { --cat-color: #10b981; }
-        .category-card[data-category="activities"] { --cat-color: #f59e0b; }
-        .category-card[data-category="shopping"] { --cat-color: #8b5cf6; }
-        .category-card[data-category="misc"] { --cat-color: #6b7280; }
-        
-        /* Actions */
-        .actions-bar {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 2rem;
-        }
-        
-        .action-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .action-btn.primary {
-            background: linear-gradient(135deg, #00d4ff, #8b5cf6);
-            border: none;
-            color: #fff;
-        }
-        
-        .action-btn.primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
-        }
-        
-        .action-btn.secondary {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-        }
-        
-        .action-btn.secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .action-btn.danger {
-            background: rgba(255, 107, 107, 0.1);
-            border: 1px solid rgba(255, 107, 107, 0.3);
-            color: #ff6b6b;
-        }
-        
-        .action-btn.danger:hover {
-            background: #ff6b6b;
-            color: #fff;
-        }
-        
-        /* Footer */
-        .budget-footer {
-            text-align: center;
-            padding: 2rem;
-            color: rgba(255, 255, 255, 0.4);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            margin-top: 2rem;
         }
         
         /* Responsive */
-        @media (max-width: 1024px) {
-            .dashboard-grid {
+        @media (max-width: 900px) {
+            .dashboard {
                 grid-template-columns: 1fr;
             }
             
-            .chart-section {
-                order: -1;
+            .stats-row {
+                grid-column: span 1;
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-3d-container {
+                flex-wrap: wrap;
+                height: auto;
+                padding-bottom: 60px;
+            }
+            
+            .bar-3d {
+                width: 50px;
             }
         }
         
-        @media (max-width: 768px) {
-            .overview-grid {
-                grid-template-columns: 1fr;
+        @media (max-width: 600px) {
+            .smart-input-wrapper {
+                flex-direction: column;
             }
             
-            .budget-main { padding: 1rem; }
-            
-            .donut-chart {
-                width: 220px;
-                height: 220px;
+            .nav-links {
+                display: none;
             }
-            
-            .chart-percent { font-size: 2rem; }
-            
-            .actions-bar { flex-direction: column; }
         }
     </style>
 </head>
 <body>
-    <div class="page-container">
-        <!-- Navigation -->
-        <nav class="main-nav" style="background: rgba(15, 15, 35, 0.9); backdrop-filter: blur(20px);">
-            <div class="nav-brand">
-                <a href="home.html">
-                    <svg viewBox="0 0 200 50" class="nav-logo-svg">
-                        <text x="5" y="35" class="nav-brand-text" fill="#00d4ff">WhereTo</text>
-                        <circle cx="175" cy="28" r="6" fill="#ff6b9d" class="nav-pin-dot"/>
-                        <circle cx="175" cy="27" r="2.5" fill="white"/>
-                        <g class="nav-flying-plane">
-                            <path d="M0 0 L-6 -2 L-5 0 L-6 2 Z" fill="#00d4ff"/>
-                            <path d="M-3 -4 L-1.5 0 L-3 4 L-4 0 Z" fill="#00d4ff" opacity="0.7"/>
-                        </g>
-                        <path class="nav-plane-trail" d="M100 38 Q130 25 150 30 Q170 35 180 22" 
-                              fill="none" stroke="rgba(0,212,255,0.3)" stroke-width="1.5" 
-                              stroke-dasharray="4 3" stroke-linecap="round"/>
-                    </svg>
-                </a>
-            </div>
-            <div class="nav-links">
-                <a href="home.html" class="nav-link">🏠 Home</a>
-                <a href="index.html" class="nav-link">💬 Chat</a>
-                <a href="destinations.html" class="nav-link">🌍 Destinations</a>
-                <a href="budget-calculator.html" class="nav-link active">💰 Budget</a>
-                <a href="currency-converter.html" class="nav-link">💱 Currency</a>
-            </div>
-            <button class="nav-toggle" id="navToggle">☰</button>
-        </nav>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="home.html" class="nav-logo">✈️ WhereTo</a>
+        <div class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="destinations.html">Destinations</a>
+            <a href="currency-converter.html">Currency</a>
+            <a href="budget-calculator.html">Budget</a>
+        </div>
+    </nav>
 
-        <!-- Header -->
-        <header class="budget-header">
-            <h1>✨ Smart Budget Planner</h1>
-            <p>Plan, track, and visualize your travel expenses</p>
-        </header>
+    <!-- Header -->
+    <header class="header">
+        <h1>💰 Smart Budget Tracker</h1>
+        <p>Just type what you spent!</p>
+    </header>
 
-        <!-- Main Content -->
-        <main class="budget-main">
-            <!-- Overview Stats -->
-            <div class="overview-grid">
-                <div class="stat-card budget">
-                    <h3>Total Budget</h3>
-                    <div class="stat-value">
-                        <span>₹</span>
-                        <input type="number" id="totalBudget" placeholder="50,000" value="50000">
-                    </div>
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Smart Input -->
+        <section class="input-section">
+            <h2>✨ Quick Add</h2>
+            <div class="smart-input-wrapper">
+                <input type="text" class="smart-input" id="smartInput" 
+                    placeholder="e.g. spent 500 on food, 3000 for hotel, taxi 200">
+                <button class="add-btn" onclick="parseAndAdd()">+ Add</button>
+            </div>
+            <div class="input-hints">
+                <span class="hint-tag" onclick="setExample('spent 500 on food')">spent 500 on food</span>
+                <span class="hint-tag" onclick="setExample('hotel 3000')">hotel 3000</span>
+                <span class="hint-tag" onclick="setExample('taxi 200, shopping 1500')">taxi 200, shopping 1500</span>
+                <span class="hint-tag" onclick="setExample('dinner 800, activities 2000')">dinner 800, activities 2000</span>
+            </div>
+        </section>
+
+        <!-- Stats Row -->
+        <div class="dashboard">
+            <div class="stats-row">
+                <div class="stat-card total">
+                    <div class="stat-label">Total Budget</div>
+                    <input type="number" class="budget-input" id="totalBudget" value="50000" onchange="updateStats()">
                 </div>
                 <div class="stat-card spent">
-                    <h3>Total Spent</h3>
-                    <div class="stat-value" id="totalSpent">₹0</div>
+                    <div class="stat-label">Total Spent</div>
+                    <div class="stat-value" id="totalSpent">$0</div>
                 </div>
                 <div class="stat-card remaining">
-                    <h3>Remaining</h3>
-                    <div class="stat-value" id="remaining">₹50,000</div>
+                    <div class="stat-label">Remaining</div>
+                    <div class="stat-value" id="remaining">$50,000</div>
                 </div>
             </div>
 
-            <!-- Dashboard Grid -->
-            <div class="dashboard-grid">
-                <!-- Categories Section -->
-                <div class="categories-section glass-card">
-                    <h2>💳 Expense Categories</h2>
-                    <div class="category-list" id="categoryList">
-                        <!-- Transport -->
-                        <div class="category-card expanded" data-category="transport">
-                            <div class="category-header" onclick="toggleCategory(this)">
-                                <div class="cat-icon">✈️</div>
-                                <div class="cat-info">
-                                    <h4>Transport</h4>
-                                    <span class="item-count">1 item</span>
-                                </div>
-                                <span class="cat-total" id="transportTotal">₹0</span>
-                                <span class="cat-toggle">▼</span>
-                            </div>
-                            <div class="category-body" id="transportItems">
-                                <div class="expense-row">
-                                    <input type="text" placeholder="Flight/Train/Bus...">
-                                    <input type="number" placeholder="0" data-category="transport">
-                                </div>
-                            </div>
-                            <button class="add-expense-btn" onclick="addExpense('transport')">+ Add Transport</button>
-                        </div>
-
-                        <!-- Accommodation -->
-                        <div class="category-card" data-category="accommodation">
-                            <div class="category-header" onclick="toggleCategory(this)">
-                                <div class="cat-icon">🏨</div>
-                                <div class="cat-info">
-                                    <h4>Accommodation</h4>
-                                    <span class="item-count">1 item</span>
-                                </div>
-                                <span class="cat-total" id="accommodationTotal">₹0</span>
-                                <span class="cat-toggle">▼</span>
-                            </div>
-                            <div class="category-body" id="accommodationItems">
-                                <div class="expense-row">
-                                    <input type="text" placeholder="Hotel/Hostel...">
-                                    <input type="number" placeholder="0" data-category="accommodation">
-                                </div>
-                            </div>
-                            <button class="add-expense-btn" onclick="addExpense('accommodation')">+ Add Accommodation</button>
-                        </div>
-
-                        <!-- Food -->
-                        <div class="category-card" data-category="food">
-                            <div class="category-header" onclick="toggleCategory(this)">
-                                <div class="cat-icon">🍽️</div>
-                                <div class="cat-info">
-                                    <h4>Food & Dining</h4>
-                                    <span class="item-count">1 item</span>
-                                </div>
-                                <span class="cat-total" id="foodTotal">₹0</span>
-                                <span class="cat-toggle">▼</span>
-                            </div>
-                            <div class="category-body" id="foodItems">
-                                <div class="expense-row">
-                                    <input type="text" placeholder="Meals/Restaurants...">
-                                    <input type="number" placeholder="0" data-category="food">
-                                </div>
-                            </div>
-                            <button class="add-expense-btn" onclick="addExpense('food')">+ Add Food</button>
-                        </div>
-
-                        <!-- Activities -->
-                        <div class="category-card" data-category="activities">
-                            <div class="category-header" onclick="toggleCategory(this)">
-                                <div class="cat-icon">🎯</div>
-                                <div class="cat-info">
-                                    <h4>Activities & Tours</h4>
-                                    <span class="item-count">1 item</span>
-                                </div>
-                                <span class="cat-total" id="activitiesTotal">₹0</span>
-                                <span class="cat-toggle">▼</span>
-                            </div>
-                            <div class="category-body" id="activitiesItems">
-                                <div class="expense-row">
-                                    <input type="text" placeholder="Tours/Entry fees...">
-                                    <input type="number" placeholder="0" data-category="activities">
-                                </div>
-                            </div>
-                            <button class="add-expense-btn" onclick="addExpense('activities')">+ Add Activity</button>
-                        </div>
-
-                        <!-- Shopping -->
-                        <div class="category-card" data-category="shopping">
-                            <div class="category-header" onclick="toggleCategory(this)">
-                                <div class="cat-icon">🛍️</div>
-                                <div class="cat-info">
-                                    <h4>Shopping</h4>
-                                    <span class="item-count">1 item</span>
-                                </div>
-                                <span class="cat-total" id="shoppingTotal">₹0</span>
-                                <span class="cat-toggle">▼</span>
-                            </div>
-                            <div class="category-body" id="shoppingItems">
-                                <div class="expense-row">
-                                    <input type="text" placeholder="Souvenirs/Gifts...">
-                                    <input type="number" placeholder="0" data-category="shopping">
-                                </div>
-                            </div>
-                            <button class="add-expense-btn" onclick="addExpense('shopping')">+ Add Shopping</button>
-                        </div>
-
-                        <!-- Miscellaneous -->
-                        <div class="category-card" data-category="misc">
-                            <div class="category-header" onclick="toggleCategory(this)">
-                                <div class="cat-icon">📋</div>
-                                <div class="cat-info">
-                                    <h4>Miscellaneous</h4>
-                                    <span class="item-count">1 item</span>
-                                </div>
-                                <span class="cat-total" id="miscTotal">₹0</span>
-                                <span class="cat-toggle">▼</span>
-                            </div>
-                            <div class="category-body" id="miscItems">
-                                <div class="expense-row">
-                                    <input type="text" placeholder="Other expenses...">
-                                    <input type="number" placeholder="0" data-category="misc">
-                                </div>
-                            </div>
-                            <button class="add-expense-btn" onclick="addExpense('misc')">+ Add Expense</button>
-                        </div>
+            <!-- 3D Chart -->
+            <section class="chart-section">
+                <h3>📊 Spending Breakdown</h3>
+                <div class="chart-3d-container" id="barChart">
+                    <div class="empty-chart">
+                        <span>📊</span>
+                        <p>Add expenses to see your chart!</p>
                     </div>
                 </div>
-
-                <!-- Chart Section -->
-                <div class="chart-section glass-card">
-                    <div class="donut-chart" id="donutChart">
-                        <svg viewBox="0 0 200 200">
-                            <circle class="donut-bg" cx="100" cy="100" r="80"/>
-                            <!-- Segments will be added by JS -->
-                        </svg>
-                        <div class="chart-center">
-                            <div class="chart-percent" id="chartPercent">0%</div>
-                            <div class="chart-label">Budget Used</div>
-                        </div>
-                    </div>
-                    <div class="chart-legend" id="chartLegend">
-                        <!-- Legend items will be added by JS -->
+                
+                <div class="donut-container" id="donutContainer" style="display: none;">
+                    <svg class="donut-chart" viewBox="0 0 100 100" id="donutChart">
+                        <circle cx="50" cy="50" r="35" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="30"/>
+                    </svg>
+                    <div class="donut-center">
+                        <div class="donut-percent" id="usedPercent">0%</div>
+                        <div class="donut-label">of budget</div>
                     </div>
                 </div>
-            </div>
+                
+                <div class="legend" id="chartLegend"></div>
+            </section>
 
-            <!-- Actions -->
-            <div class="actions-bar">
-                <button class="action-btn primary" onclick="saveBudget()">💾 Save Budget</button>
-                <button class="action-btn secondary" onclick="exportBudget()">📤 Export PDF</button>
-                <button class="action-btn danger" onclick="clearBudget()">🗑️ Clear All</button>
-            </div>
-        </main>
-
-        <!-- Footer -->
-        <footer class="budget-footer">
-            <p>© 2026 WhereTo - Your Next Journey Starts Here</p>
-        </footer>
-    </div>
+            <!-- Expenses List -->
+            <section class="expenses-section">
+                <h3>📝 Recent Expenses</h3>
+                <div class="expenses-list" id="expensesList">
+                    <div class="empty-chart" style="height: 150px;">
+                        <span>📝</span>
+                        <p>No expenses yet</p>
+                    </div>
+                </div>
+                <button class="clear-btn" onclick="clearAll()">🗑️ Clear All</button>
+            </section>
+        </div>
+    </main>
 
     <script>
-        const categories = ['transport', 'accommodation', 'food', 'activities', 'shopping', 'misc'];
+        // Category mappings
+        const categoryKeywords = {
+            food: ['food', 'dinner', 'lunch', 'breakfast', 'meal', 'restaurant', 'eat', 'snack', 'coffee', 'cafe'],
+            transport: ['transport', 'taxi', 'uber', 'bus', 'train', 'metro', 'flight', 'car', 'rental', 'fuel', 'gas', 'grab'],
+            hotel: ['hotel', 'accommodation', 'stay', 'airbnb', 'hostel', 'resort', 'room', 'lodge'],
+            shopping: ['shopping', 'clothes', 'souvenirs', 'gift', 'market', 'buy', 'purchase', 'mall'],
+            activities: ['activities', 'tour', 'tickets', 'museum', 'show', 'adventure', 'excursion', 'entry', 'attraction'],
+            misc: ['misc', 'other', 'sim', 'phone', 'tips', 'insurance', 'visa']
+        };
+
+        const categoryEmojis = {
+            food: '🍽️',
+            transport: '🚕',
+            hotel: '🏨',
+            shopping: '🛍️',
+            activities: '🎭',
+            misc: '📦'
+        };
+
         const categoryColors = {
-            transport: '#00d4ff',
-            accommodation: '#ff6b9d',
             food: '#10b981',
-            activities: '#f59e0b',
+            transport: '#00d4ff',
+            hotel: '#ff6b9d',
             shopping: '#8b5cf6',
+            activities: '#f59e0b',
             misc: '#6b7280'
         };
-        
-        const categoryNames = {
-            transport: 'Transport',
-            accommodation: 'Accommodation',
-            food: 'Food',
-            activities: 'Activities',
-            shopping: 'Shopping',
-            misc: 'Misc'
-        };
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('input[type="number"]').forEach(input => {
-                input.addEventListener('input', calculateTotals);
+
+        let expenses = JSON.parse(localStorage.getItem('whereto_expenses')) || [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateUI();
+            
+            document.getElementById('smartInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') parseAndAdd();
             });
-            
-            document.getElementById('totalBudget').addEventListener('input', calculateTotals);
-            
-            document.getElementById('navToggle').addEventListener('click', function() {
-                document.querySelector('.nav-links').classList.toggle('show');
-            });
-            
-            calculateTotals();
         });
-        
-        function toggleCategory(header) {
-            const card = header.closest('.category-card');
-            card.classList.toggle('expanded');
+
+        function setExample(text) {
+            document.getElementById('smartInput').value = text;
+            document.getElementById('smartInput').focus();
         }
-        
-        function addExpense(category) {
-            const container = document.getElementById(`${category}Items`);
-            const row = document.createElement('div');
-            row.className = 'expense-row';
-            row.innerHTML = `
-                <input type="text" placeholder="Description...">
-                <input type="number" placeholder="0" data-category="${category}">
-                <button class="remove-btn" onclick="removeExpense(this)">×</button>
-            `;
-            container.appendChild(row);
+
+        function detectCategory(text) {
+            const lowerText = text.toLowerCase();
+            for (const [category, keywords] of Object.entries(categoryKeywords)) {
+                if (keywords.some(kw => lowerText.includes(kw))) {
+                    return category;
+                }
+            }
+            return 'misc';
+        }
+
+        function parseAndAdd() {
+            const input = document.getElementById('smartInput').value.trim();
+            if (!input) return;
+
+            // Parse multiple entries separated by comma
+            const entries = input.split(/[,;]+/);
             
-            row.querySelector('input[type="number"]').addEventListener('input', calculateTotals);
-            updateItemCount(category);
+            entries.forEach(entry => {
+                entry = entry.trim();
+                if (!entry) return;
+
+                // Pattern: "spent X on Y", "Y X", "X for Y", "X Y"
+                let amount = null;
+                let description = '';
+
+                // Try to find amount
+                const amountMatch = entry.match(/[\$₹€£]?\s*(\d+(?:,\d{3})*(?:\.\d{2})?)/);
+                if (amountMatch) {
+                    amount = parseFloat(amountMatch[1].replace(/,/g, ''));
+                    description = entry.replace(amountMatch[0], '').trim();
+                }
+
+                // Clean up description
+                description = description.replace(/^(spent|for|on|at)\s+/i, '');
+                description = description.replace(/\s+(spent|for|on|at)$/i, '');
+                description = description || 'Expense';
+
+                if (amount && amount > 0) {
+                    const category = detectCategory(description);
+                    expenses.push({
+                        id: Date.now() + Math.random(),
+                        description: description.charAt(0).toUpperCase() + description.slice(1),
+                        amount: amount,
+                        category: category,
+                        date: new Date().toISOString()
+                    });
+                }
+            });
+
+            saveAndUpdate();
+            document.getElementById('smartInput').value = '';
         }
-        
-        function removeExpense(btn) {
-            const row = btn.closest('.expense-row');
-            const category = row.querySelector('input[type="number"]').dataset.category;
-            row.remove();
-            updateItemCount(category);
-            calculateTotals();
+
+        function deleteExpense(id) {
+            expenses = expenses.filter(e => e.id !== id);
+            saveAndUpdate();
         }
-        
-        function updateItemCount(category) {
-            const count = document.querySelectorAll(`[data-category="${category}"]`).length;
-            const card = document.querySelector(`.category-card[data-category="${category}"]`);
-            card.querySelector('.item-count').textContent = `${count} item${count !== 1 ? 's' : ''}`;
+
+        function clearAll() {
+            if (confirm('Clear all expenses?')) {
+                expenses = [];
+                saveAndUpdate();
+            }
         }
-        
-        function calculateTotals() {
+
+        function saveAndUpdate() {
+            localStorage.setItem('whereto_expenses', JSON.stringify(expenses));
+            updateUI();
+        }
+
+        function updateUI() {
+            updateStats();
+            updateBarChart();
+            updateExpensesList();
+            updateDonutChart();
+        }
+
+        function updateStats() {
             const budget = parseFloat(document.getElementById('totalBudget').value) || 0;
-            let total = 0;
-            const categoryTotals = {};
-            
-            categories.forEach(cat => {
-                categoryTotals[cat] = 0;
-                document.querySelectorAll(`[data-category="${cat}"]`).forEach(input => {
-                    categoryTotals[cat] += parseFloat(input.value) || 0;
-                });
-                document.getElementById(`${cat}Total`).textContent = `₹${categoryTotals[cat].toLocaleString()}`;
-                total += categoryTotals[cat];
-            });
-            
+            const total = expenses.reduce((sum, e) => sum + e.amount, 0);
             const remaining = budget - total;
-            const percent = budget > 0 ? Math.min((total / budget) * 100, 100) : 0;
-            
-            document.getElementById('totalSpent').textContent = `₹${total.toLocaleString()}`;
-            document.getElementById('remaining').textContent = `₹${remaining.toLocaleString()}`;
-            document.getElementById('remaining').style.color = remaining < 0 ? '#ff6b6b' : '#10b981';
-            document.getElementById('chartPercent').textContent = `${Math.round(percent)}%`;
-            
-            updateDonutChart(categoryTotals, total);
-            updateLegend(categoryTotals, total);
+
+            document.getElementById('totalSpent').textContent = '$' + total.toLocaleString();
+            document.getElementById('remaining').textContent = '$' + remaining.toLocaleString();
+            document.getElementById('remaining').style.color = remaining < 0 ? '#ef4444' : '#10b981';
         }
-        
-        function updateDonutChart(categoryTotals, total) {
-            const svg = document.querySelector('#donutChart svg');
-            // Remove old segments
-            svg.querySelectorAll('.donut-segment').forEach(el => el.remove());
+
+        function updateBarChart() {
+            const container = document.getElementById('barChart');
             
-            if (total === 0) return;
-            
-            const radius = 80;
-            const circumference = 2 * Math.PI * radius;
-            let offset = 0;
-            
-            categories.forEach(cat => {
-                const value = categoryTotals[cat];
-                if (value > 0) {
-                    const percent = value / total;
-                    const segmentLength = circumference * percent;
-                    
-                    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                    circle.classList.add('donut-segment');
-                    circle.setAttribute('cx', '100');
-                    circle.setAttribute('cy', '100');
-                    circle.setAttribute('r', radius);
-                    circle.setAttribute('stroke', categoryColors[cat]);
-                    circle.setAttribute('stroke-dasharray', `${segmentLength} ${circumference - segmentLength}`);
-                    circle.setAttribute('stroke-dashoffset', -offset);
-                    circle.style.transition = 'all 0.5s ease';
-                    
-                    svg.appendChild(circle);
-                    offset += segmentLength;
-                }
+            if (expenses.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-chart">
+                        <span>📊</span>
+                        <p>Add expenses to see your chart!</p>
+                    </div>
+                `;
+                document.getElementById('donutContainer').style.display = 'none';
+                document.getElementById('chartLegend').innerHTML = '';
+                return;
+            }
+
+            // Group by category
+            const byCategory = {};
+            expenses.forEach(e => {
+                byCategory[e.category] = (byCategory[e.category] || 0) + e.amount;
             });
-        }
-        
-        function updateLegend(categoryTotals, total) {
-            const legend = document.getElementById('chartLegend');
-            legend.innerHTML = '';
-            
-            categories.forEach(cat => {
-                const value = categoryTotals[cat];
-                if (value > 0) {
-                    const percent = total > 0 ? Math.round((value / total) * 100) : 0;
-                    legend.innerHTML += `
-                        <div class="legend-item">
-                            <span class="legend-dot" style="background: ${categoryColors[cat]}"></span>
-                            <span>${categoryNames[cat]}</span>
-                            <span class="legend-percent">${percent}%</span>
+
+            const maxAmount = Math.max(...Object.values(byCategory));
+            const maxHeight = 200;
+
+            let barsHTML = '';
+            let legendHTML = '';
+
+            for (const [cat, amount] of Object.entries(byCategory)) {
+                const height = (amount / maxAmount) * maxHeight;
+                barsHTML += `
+                    <div class="bar-3d" data-cat="${cat}" style="height: ${height}px;">
+                        <div class="bar-amount">$${amount.toLocaleString()}</div>
+                        <div class="bar-front"></div>
+                        <div class="bar-top"></div>
+                        <div class="bar-right"></div>
+                        <div class="bar-label">
+                            <span class="emoji">${categoryEmojis[cat]}</span>
+                            <span class="name">${cat.charAt(0).toUpperCase() + cat.slice(1)}</span>
                         </div>
-                    `;
-                }
-            });
+                    </div>
+                `;
+                
+                legendHTML += `
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: ${categoryColors[cat]}"></div>
+                        <span>${cat.charAt(0).toUpperCase() + cat.slice(1)}</span>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = barsHTML;
+            document.getElementById('chartLegend').innerHTML = legendHTML;
+            document.getElementById('donutContainer').style.display = 'block';
+        }
+
+        function updateDonutChart() {
+            if (expenses.length === 0) return;
+
+            const budget = parseFloat(document.getElementById('totalBudget').value) || 0;
+            const total = expenses.reduce((sum, e) => sum + e.amount, 0);
+            const usedPercent = Math.min(100, Math.round((total / budget) * 100));
             
-            if (total === 0) {
-                legend.innerHTML = '<p style="color: rgba(255,255,255,0.5); text-align: center;">Add expenses to see chart</p>';
+            document.getElementById('usedPercent').textContent = usedPercent + '%';
+
+            // Group by category
+            const byCategory = {};
+            expenses.forEach(e => {
+                byCategory[e.category] = (byCategory[e.category] || 0) + e.amount;
+            });
+
+            const svg = document.getElementById('donutChart');
+            // Clear existing segments
+            const existingSegments = svg.querySelectorAll('.donut-segment');
+            existingSegments.forEach(s => s.remove());
+
+            const circumference = 2 * Math.PI * 35;
+            let currentOffset = 0;
+
+            for (const [cat, amount] of Object.entries(byCategory)) {
+                const percent = amount / total;
+                const segmentLength = percent * circumference;
+                
+                const segment = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                segment.setAttribute('cx', '50');
+                segment.setAttribute('cy', '50');
+                segment.setAttribute('r', '35');
+                segment.setAttribute('class', 'donut-segment');
+                segment.setAttribute('stroke', categoryColors[cat]);
+                segment.setAttribute('stroke-dasharray', `${segmentLength} ${circumference}`);
+                segment.setAttribute('stroke-dashoffset', -currentOffset);
+                
+                svg.appendChild(segment);
+                currentOffset += segmentLength;
             }
         }
-        
-        function saveBudget() {
-            const data = {
-                budget: document.getElementById('totalBudget').value,
-                expenses: {}
-            };
+
+        function updateExpensesList() {
+            const list = document.getElementById('expensesList');
             
-            categories.forEach(cat => {
-                data.expenses[cat] = [];
-                document.querySelectorAll(`#${cat}Items .expense-row`).forEach(row => {
-                    const name = row.querySelector('input[type="text"]').value;
-                    const amount = row.querySelector('input[type="number"]').value;
-                    if (name || amount) {
-                        data.expenses[cat].push({ name, amount: parseFloat(amount) || 0 });
-                    }
-                });
-            });
-            
-            localStorage.setItem('whereto_budget', JSON.stringify(data));
-            alert('✅ Budget saved successfully!');
-        }
-        
-        function exportBudget() {
-            alert('📤 Export feature coming soon!');
-        }
-        
-        function clearBudget() {
-            if (confirm('Clear all expenses? This cannot be undone.')) {
-                document.querySelectorAll('input[type="number"][data-category]').forEach(input => input.value = '');
-                document.querySelectorAll('input[type="text"]').forEach(input => input.value = '');
-                calculateTotals();
+            if (expenses.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-chart" style="height: 150px;">
+                        <span>📝</span>
+                        <p>No expenses yet</p>
+                    </div>
+                `;
+                return;
             }
+
+            const sorted = [...expenses].reverse().slice(0, 20);
+            
+            list.innerHTML = sorted.map(e => `
+                <div class="expense-item">
+                    <div class="expense-emoji">${categoryEmojis[e.category]}</div>
+                    <div class="expense-details">
+                        <div class="expense-name">${e.description}</div>
+                        <div class="expense-category">${e.category.charAt(0).toUpperCase() + e.category.slice(1)}</div>
+                    </div>
+                    <div class="expense-amount">$${e.amount.toLocaleString()}</div>
+                    <button class="delete-btn" onclick="deleteExpense(${e.id})">✕</button>
+                </div>
+            `).join('');
         }
     </script>
 </body>
