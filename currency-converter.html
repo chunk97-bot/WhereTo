@@ -4,35 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Currency Converter - WhereTo</title>
-    <link rel="stylesheet" href="pages.css">
+    <link rel="stylesheet" href="pages.css?v=2">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Righteous&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #f8fafc; min-height: 100vh; color: #1e293b; }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%); min-height: 100vh; color: #fff; }
         
-        /* Navigation Override for Light Theme */
-        .main-nav { background: #fff !important; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-        .nav-link { color: #334155 !important; }
-        .nav-link:hover, .nav-link.active { color: #00579d !important; }
+        /* Navigation Override for Dark Theme */
+        .main-nav { background: rgba(255, 255, 255, 0.05) !important; backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .nav-link { color: rgba(255, 255, 255, 0.7) !important; }
+        .nav-link:hover { color: #00d4ff !important; background: rgba(255, 255, 255, 0.1) !important; }
+        .nav-link.active { background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%) !important; color: white !important; }
         
         /* Hero Section */
         .hero-section {
-            background: linear-gradient(135deg, #00579d 0%, #0076d1 50%, #00a1e0 100%);
+            background: linear-gradient(135deg, rgba(0, 140, 255, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+            backdrop-filter: blur(20px);
             padding: 3rem 2rem;
             color: #fff;
             text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .hero-section h1 {
             font-family: 'Poppins', sans-serif;
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 50%, #ff6b9d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .hero-section p {
-            opacity: 0.9;
+            opacity: 0.7;
             font-size: 1.1rem;
         }
         
@@ -45,9 +52,11 @@
         
         /* Converter Card */
         .converter-card {
-            background: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 16px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
             padding: 2rem;
             margin-top: -3rem;
             position: relative;
@@ -69,7 +78,7 @@
         
         .currency-input-group label {
             font-size: 0.85rem;
-            color: #64748b;
+            color: rgba(255, 255, 255, 0.6);
             font-weight: 500;
         }
         
@@ -77,16 +86,16 @@
             position: relative;
             display: flex;
             align-items: center;
-            background: #f8fafc;
-            border: 2px solid #e2e8f0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 12px;
             padding: 0.75rem 1rem;
             transition: all 0.2s ease;
         }
         
         .currency-select-wrapper:focus-within {
-            border-color: #00579d;
-            box-shadow: 0 0 0 4px rgba(0, 87, 157, 0.1);
+            border-color: #00d4ff;
+            box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.15);
         }
         
         .currency-flag {
@@ -100,45 +109,50 @@
             background: transparent;
             font-size: 1rem;
             font-weight: 600;
-            color: #1e293b;
+            color: #fff;
             cursor: pointer;
             outline: none;
             appearance: none;
             padding-right: 2rem;
         }
         
+        .currency-select option {
+            background: #1a1a3e;
+            color: #fff;
+        }
+        
         .currency-select-wrapper::after {
             content: '▼';
             position: absolute;
             right: 1rem;
-            color: #64748b;
+            color: rgba(255, 255, 255, 0.5);
             font-size: 0.75rem;
             pointer-events: none;
         }
         
         .amount-input {
             width: 100%;
-            background: #f8fafc;
-            border: 2px solid #e2e8f0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 12px;
             padding: 1rem;
             font-size: 1.75rem;
             font-weight: 700;
-            color: #1e293b;
+            color: #00d4ff;
             outline: none;
             transition: all 0.2s ease;
         }
         
         .amount-input:focus {
-            border-color: #00579d;
-            box-shadow: 0 0 0 4px rgba(0, 87, 157, 0.1);
+            border-color: #00d4ff;
+            box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.15);
         }
         
         .swap-btn {
             width: 56px;
             height: 56px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #00579d, #0076d1);
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
             border: none;
             color: #fff;
             font-size: 1.5rem;
@@ -151,13 +165,14 @@
         
         .swap-btn:hover {
             transform: rotate(180deg);
-            box-shadow: 0 8px 25px rgba(0, 87, 157, 0.3);
+            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.4);
         }
         
         .result-display {
             text-align: center;
             padding: 1.5rem;
-            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             margin-top: 1.5rem;
         }
@@ -165,11 +180,11 @@
         .result-amount {
             font-size: 2.5rem;
             font-weight: 700;
-            color: #00579d;
+            color: #00d4ff;
         }
         
         .result-rate {
-            color: #64748b;
+            color: rgba(255, 255, 255, 0.6);
             margin-top: 0.5rem;
             font-size: 0.95rem;
         }
@@ -189,11 +204,11 @@
         .section-header h2 {
             font-family: 'Poppins', sans-serif;
             font-size: 1.5rem;
-            color: #1e293b;
+            color: #fff;
         }
         
         .update-time {
-            color: #64748b;
+            color: rgba(255, 255, 255, 0.5);
             font-size: 0.85rem;
         }
         
@@ -204,8 +219,9 @@
         }
         
         .rate-card {
-            background: #fff;
-            border: 1px solid #e2e8f0;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             padding: 1rem 1.25rem;
             display: flex;
@@ -215,8 +231,8 @@
         }
         
         .rate-card:hover {
-            border-color: #00579d;
-            box-shadow: 0 4px 12px rgba(0, 87, 157, 0.1);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.15);
             transform: translateY(-2px);
         }
         
@@ -226,12 +242,12 @@
         
         .rate-code {
             font-weight: 700;
-            color: #1e293b;
+            color: #fff;
             font-size: 1rem;
         }
         
         .rate-name {
-            color: #64748b;
+            color: rgba(255, 255, 255, 0.6);
             font-size: 0.85rem;
         }
         
@@ -241,7 +257,7 @@
         
         .rate-price {
             font-weight: 700;
-            color: #00579d;
+            color: #00d4ff;
             font-size: 1.1rem;
         }
         
@@ -273,19 +289,19 @@
         
         .quick-btn {
             padding: 0.5rem 1rem;
-            background: #f1f5f9;
-            border: 1px solid #e2e8f0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s ease;
             font-weight: 500;
-            color: #64748b;
+            color: rgba(255, 255, 255, 0.8);
         }
         
         .quick-btn:hover {
-            background: #00579d;
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
             color: #fff;
-            border-color: #00579d;
+            border-color: transparent;
         }
         
         /* Popular Currencies Tab */
@@ -293,7 +309,7 @@
             display: flex;
             gap: 0.5rem;
             margin-bottom: 1rem;
-            border-bottom: 2px solid #e2e8f0;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 0.5rem;
         }
         
@@ -303,15 +319,15 @@
             border: none;
             cursor: pointer;
             font-weight: 600;
-            color: #64748b;
+            color: rgba(255, 255, 255, 0.6);
             border-radius: 8px 8px 0 0;
             transition: all 0.2s ease;
         }
         
         .tab-btn.active {
-            color: #00579d;
-            background: #f0f9ff;
-            border-bottom: 2px solid #00579d;
+            color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+            border-bottom: 2px solid #00d4ff;
             margin-bottom: -2px;
         }
         
@@ -324,15 +340,21 @@
         .currency-search input {
             width: 100%;
             padding: 1rem 1rem 1rem 3rem;
-            border: 2px solid #e2e8f0;
+            border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 12px;
             font-size: 1rem;
             outline: none;
             transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+        
+        .currency-search input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
         }
         
         .currency-search input:focus {
-            border-color: #00579d;
+            border-color: #00d4ff;
         }
         
         .currency-search::before {
@@ -347,10 +369,10 @@
         .converter-footer {
             text-align: center;
             padding: 2rem;
-            background: #fff;
-            border-top: 1px solid #e2e8f0;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             margin-top: 3rem;
-            color: #64748b;
+            color: rgba(255, 255, 255, 0.5);
         }
         
         /* Responsive */
@@ -379,15 +401,15 @@
         <div class="nav-brand">
             <a href="home.html">
                 <svg viewBox="0 0 200 50" class="nav-logo-svg">
-                    <text x="5" y="35" class="nav-brand-text" fill="#00579d">WhereTo</text>
-                    <circle cx="175" cy="28" r="6" fill="#dc2626" class="nav-pin-dot"/>
+                    <text x="5" y="35" class="nav-brand-text" fill="#00d4ff">WhereTo</text>
+                    <circle cx="175" cy="28" r="6" fill="#ff6b9d" class="nav-pin-dot"/>
                     <circle cx="175" cy="27" r="2.5" fill="white"/>
                     <g class="nav-flying-plane">
-                        <path d="M0 0 L-6 -2 L-5 0 L-6 2 Z" fill="#00579d"/>
-                        <path d="M-3 -4 L-1.5 0 L-3 4 L-4 0 Z" fill="#00579d" opacity="0.7"/>
+                        <path d="M0 0 L-6 -2 L-5 0 L-6 2 Z" fill="#00d4ff"/>
+                        <path d="M-3 -4 L-1.5 0 L-3 4 L-4 0 Z" fill="#00d4ff" opacity="0.7"/>
                     </g>
                     <path class="nav-plane-trail" d="M100 38 Q130 25 150 30 Q170 35 180 22" 
-                          fill="none" stroke="rgba(0,87,157,0.3)" stroke-width="1.5" 
+                          fill="none" stroke="rgba(0,212,255,0.3)" stroke-width="1.5" 
                           stroke-dasharray="4 3" stroke-linecap="round"/>
                 </svg>
             </a>
@@ -398,7 +420,6 @@
             <a href="destinations.html" class="nav-link">🌍 Destinations</a>
             <a href="budget-calculator.html" class="nav-link">💰 Budget</a>
             <a href="currency-converter.html" class="nav-link active">💱 Currency</a>
-            <a href="saved-chats.html" class="nav-link">💾 Saved</a>
         </div>
         <button class="nav-toggle" id="navToggle">☰</button>
     </nav>

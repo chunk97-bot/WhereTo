@@ -5,20 +5,20 @@
 }
 
 :root {
-    /* MakeMyTrip-inspired theme */
-    --primary: #008cff;
-    --primary-dark: #0070cc;
+    /* Dark futuristic theme */
+    --primary: #00d4ff;
+    --primary-dark: #008cff;
     --primary-light: #4db5ff;
-    --secondary: #eb2026;
-    --background: #ffffff;
-    --surface: #f4f4f4;
-    --surface-light: #e8e8e8;
-    --text: #1a1a1a;
-    --text-muted: #757575;
-    --accent: #008cff;
-    --success: #0b8043;
-    --warning: #d93025;
-    --gradient: linear-gradient(135deg, #008cff 0%, #00c6fb 100%);
+    --secondary: #8b5cf6;
+    --background: #0f0f23;
+    --surface: rgba(255, 255, 255, 0.05);
+    --surface-light: rgba(255, 255, 255, 0.1);
+    --text: #ffffff;
+    --text-muted: rgba(255, 255, 255, 0.6);
+    --accent: #00d4ff;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --gradient: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
 }
 
 /* ===== SPLASH SCREEN ===== */
@@ -514,7 +514,7 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #f0f3f5;
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
     color: var(--text);
     min-height: 100vh;
     line-height: 1.6;
@@ -526,17 +526,20 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background: #ffffff;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
 }
 
 /* Header */
 .header {
     padding: 1.5rem;
     text-align: center;
-    background: linear-gradient(135deg, #008cff 0%, #00c6fb 100%);
+    background: linear-gradient(135deg, rgba(0, 140, 255, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+    backdrop-filter: blur(20px);
     border-radius: 0 0 2rem 2rem;
-    box-shadow: 0 4px 20px rgba(0, 140, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
     color: #ffffff;
 }
 
@@ -623,11 +626,12 @@ body {
 }
 
 .message-content {
-    background: #f0f3f5;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
     padding: 1rem 1.25rem;
     border-radius: 1.25rem;
     max-width: 80%;
-    color: var(--text);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .bot-message .message-content {
@@ -635,7 +639,7 @@ body {
 }
 
 .user-message .message-content {
-    background: var(--primary);
+    background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
     color: #ffffff;
     border-top-right-radius: 0.25rem;
 }
@@ -668,15 +672,15 @@ body {
 
 /* Destination Cards in Chat */
 .destination-card {
-    background: #f8f9fa;
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 1rem;
     padding: 1rem;
     margin-top: 0.75rem;
-    border: 1px solid #e8e8e8;
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .destination-card h4 {
-    color: var(--accent);
+    color: #00d4ff;
     margin-bottom: 0.5rem;
     display: flex;
     align-items: center;
@@ -688,7 +692,7 @@ body {
     gap: 1rem;
     margin-top: 0.75rem;
     font-size: 0.85rem;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .destination-card .meta span {
@@ -705,8 +709,8 @@ body {
 }
 
 .highlight-tag {
-    background: rgba(0, 140, 255, 0.1);
-    color: var(--primary);
+    background: rgba(0, 212, 255, 0.2);
+    color: #00d4ff;
     padding: 0.25rem 0.75rem;
     border-radius: 1rem;
     font-size: 0.8rem;
@@ -750,9 +754,9 @@ body {
 }
 
 .suggestion-chip {
-    background: #ffffff;
-    border: 1px solid #ddd;
-    color: var(--text);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.9);
     padding: 0.5rem 1rem;
     border-radius: 2rem;
     font-size: 0.85rem;
@@ -763,8 +767,8 @@ body {
 }
 
 .suggestion-chip:hover {
-    background: var(--primary);
-    border-color: var(--primary);
+    background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+    border-color: transparent;
     color: #ffffff;
     transform: translateY(-2px);
 }
@@ -777,37 +781,38 @@ body {
 .input-wrapper {
     display: flex;
     gap: 0.75rem;
-    background: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
     border-radius: 1.5rem;
     padding: 0.5rem 0.5rem 0.5rem 1.25rem;
-    border: 1px solid #ddd;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     transition: border-color 0.2s ease;
 }
 
 .input-wrapper:focus-within {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(0, 140, 255, 0.15);
+    border-color: #00d4ff;
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15);
 }
 
 #userInput {
     flex: 1;
     background: none;
     border: none;
-    color: var(--text);
+    color: #fff;
     font-size: 1rem;
     font-family: inherit;
     outline: none;
 }
 
 #userInput::placeholder {
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .send-button {
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: var(--primary);
+    background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
     border: none;
     color: white;
     cursor: pointer;
@@ -819,8 +824,7 @@ body {
 
 .send-button:hover {
     transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(0, 140, 255, 0.4);
-    background: var(--primary-dark);
+    box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
 }
 
 .send-button:active {
@@ -832,9 +836,9 @@ body {
     padding: 1rem;
     text-align: center;
     font-size: 0.8rem;
-    color: #757575;
-    background: #f8f9fa;
-    border-top: 1px solid #e8e8e8;
+    color: rgba(255, 255, 255, 0.5);
+    background: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Scrollbar */
@@ -914,15 +918,16 @@ body {
     display: flex;
     gap: 0.25rem;
     padding: 0.5rem;
-    background: white;
-    border-bottom: 1px solid #e8e8e8;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     overflow-x: auto;
     justify-content: center;
 }
 
 .app-nav .nav-item {
     padding: 0.5rem 0.75rem;
-    color: #666;
+    color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     border-radius: 8px;
     font-size: 0.8rem;
@@ -932,12 +937,12 @@ body {
 }
 
 .app-nav .nav-item:hover {
-    background: #f0f3f5;
-    color: #008cff;
+    background: rgba(255, 255, 255, 0.1);
+    color: #00d4ff;
 }
 
 .app-nav .nav-item.active {
-    background: #008cff;
+    background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
     color: white;
 }
 
