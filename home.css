@@ -688,6 +688,57 @@
     font-size: 1rem;
 }
 
+.pricing-tagline {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.feature-category {
+    margin-bottom: 1.5rem;
+}
+
+.feature-category h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #00d4ff;
+    margin-bottom: 0.75rem;
+}
+
+.feature-category .pricing-features {
+    margin-bottom: 0;
+    padding-left: 0.5rem;
+}
+
+.feature-category .pricing-features li {
+    padding: 0.3rem 0;
+    font-size: 0.9rem;
+}
+
+.pricing-value {
+    background: rgba(0, 212, 255, 0.1);
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    text-align: center;
+}
+
+.price-breakdown {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #00d4ff;
+    margin-bottom: 0.25rem;
+}
+
+.price-comparison {
+    display: block;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
 /* Difference Section */
 .difference-section {
     padding: 5rem 2rem;
