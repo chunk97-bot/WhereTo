@@ -142,7 +142,36 @@
                     <a href="trip-planner.html" class="feature-link">Plan Trip →</a>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🛂</div>
+                    <div class="feature-icon visa-icon-wrapper">
+                        <svg class="visa-3d-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- 3D Isometric Passport/Visa Icon -->
+                            <!-- Back face (darker) -->
+                            <path d="M12 18 L52 8 L52 48 L12 58 Z" fill="#1e3a5f"/>
+                            <!-- Front face -->
+                            <path d="M8 14 L48 4 L48 44 L8 54 Z" fill="linear-gradient(135deg, #2d5a87 0%, #1e3a5f 100%)"/>
+                            <defs>
+                                <linearGradient id="passportGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#4a90c2;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#2d5a87;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M8 14 L48 4 L48 44 L8 54 Z" fill="url(#passportGrad)"/>
+                            <!-- Top edge highlight -->
+                            <path d="M8 14 L48 4 L52 8 L12 18 Z" fill="#5ba3d9"/>
+                            <!-- Right edge (3D depth) -->
+                            <path d="M48 4 L52 8 L52 48 L48 44 Z" fill="#1a3352"/>
+                            <!-- Visa stamp circle -->
+                            <circle cx="28" cy="29" r="12" fill="none" stroke="#e8f4fc" stroke-width="2" opacity="0.9"/>
+                            <circle cx="28" cy="29" r="8" fill="none" stroke="#e8f4fc" stroke-width="1.5" opacity="0.7"/>
+                            <!-- Diagonal line through stamp -->
+                            <line x1="20" y1="37" x2="36" y2="21" stroke="#e8f4fc" stroke-width="2" opacity="0.9"/>
+                            <!-- Text lines on passport -->
+                            <rect x="14" y="45" width="20" height="2" rx="1" fill="#e8f4fc" opacity="0.5"/>
+                            <rect x="14" y="49" width="14" height="2" rx="1" fill="#e8f4fc" opacity="0.4"/>
+                            <!-- Top corner accent -->
+                            <path d="M12 16 L24 13" stroke="#7fc4e8" stroke-width="1" opacity="0.6"/>
+                        </svg>
+                    </div>
                     <h3>Visa Guide</h3>
                     <p>Check visa requirements for 100+ countries with detailed requirements and checklists</p>
                     <a href="visa-guide.html" class="feature-link">Check Visa →</a>
