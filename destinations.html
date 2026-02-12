@@ -66,45 +66,117 @@
         </nav>
 
         <!-- Page Header -->
-        <header class="page-header">
-            <h1><span class="header-emoji">🌍</span> Popular Destinations</h1>
-            <p>Discover amazing places around the world</p>
+        <header class="page-header destinations-header">
+            <h1><span class="header-emoji">🌍</span> Discover Your Next Adventure</h1>
+            <p>Explore amazing destinations around the world</p>
+            
+            <!-- Search Bar -->
+            <div class="hero-search">
+                <input type="text" id="destinationSearch" placeholder="Where do you want to go?">
+                <button class="search-btn" id="searchBtn">🔍 Search</button>
+            </div>
         </header>
 
-        <!-- Category Filter -->
-        <div class="category-filter" id="categoryFilter">
-            <!-- Categories will be loaded from destinations-data.js -->
+        <!-- Quick Filters -->
+        <div class="quick-filters">
+            <button class="quick-filter active" data-filter="featured">🔥 Trending</button>
+            <button class="quick-filter" data-filter="budget">💰 Budget</button>
+            <button class="quick-filter" data-filter="honeymoon">💕 Honeymoon</button>
+            <button class="quick-filter" data-filter="adventure">🎯 Adventure</button>
+            <button class="quick-filter" data-filter="beach">🏖️ Beach</button>
+            <button class="quick-filter" data-filter="mountains">🏔️ Mountains</button>
         </div>
 
-        <!-- Search Bar -->
-        <div class="search-bar">
-            <input type="text" id="destinationSearch" placeholder="Search destinations...">
-            <button class="search-btn">🔍</button>
-        </div>
-
-        <!-- Destinations Grid -->
-        <main class="destinations-grid" id="destinationsGrid">
-            <!-- Placeholder cards - will be replaced with data -->
-            <div class="destination-card placeholder">
-                <div class="card-image">
-                    <span class="placeholder-icon">🏖️</span>
+        <main class="destinations-main">
+            <!-- Featured Destinations -->
+            <section class="dest-section featured-section">
+                <div class="section-header">
+                    <h2>🔥 Featured Destinations</h2>
+                    <a href="#" class="see-all" onclick="showAllDestinations()">See All →</a>
                 </div>
-                <div class="card-content">
-                    <h3>Loading...</h3>
-                    <p>Destination data will appear here</p>
-                    <div class="card-meta">
-                        <span class="rating">⭐ --</span>
-                        <span class="price">From ₹--</span>
+                <div class="featured-carousel" id="featuredCarousel">
+                    <!-- Loaded dynamically -->
+                </div>
+            </section>
+
+            <!-- Travel Ideas / Collections -->
+            <section class="dest-section collections-section">
+                <div class="section-header">
+                    <h2>✨ Travel Ideas</h2>
+                </div>
+                <div class="collections-grid" id="collectionsGrid">
+                    <!-- Collection cards loaded dynamically -->
+                </div>
+            </section>
+
+            <!-- Best Time to Travel (Monthly) -->
+            <section class="dest-section monthly-section">
+                <div class="section-header">
+                    <h2>📅 Best Places by Month</h2>
+                </div>
+                <div class="months-carousel" id="monthsCarousel">
+                    <!-- Month buttons loaded dynamically -->
+                </div>
+                <div class="monthly-destinations" id="monthlyDestinations" style="display: none;">
+                    <!-- Destinations for selected month -->
+                </div>
+            </section>
+
+            <!-- Explore by Region -->
+            <section class="dest-section regions-section">
+                <div class="section-header">
+                    <h2>🌏 Explore by Region</h2>
+                </div>
+                <div class="regions-grid" id="regionsGrid">
+                    <!-- Region cards loaded dynamically -->
+                </div>
+            </section>
+
+            <!-- Category Filter -->
+            <section class="dest-section categories-section">
+                <div class="section-header">
+                    <h2>🏷️ Browse by Category</h2>
+                </div>
+                <div class="category-filter" id="categoryFilter">
+                    <!-- Categories loaded from destinations-data.js -->
+                </div>
+            </section>
+
+            <!-- All Destinations Grid -->
+            <section class="dest-section all-destinations-section">
+                <div class="section-header">
+                    <h2 id="gridTitle">🌍 All Destinations</h2>
+                    <div class="sort-options">
+                        <select id="sortSelect">
+                            <option value="featured">Featured</option>
+                            <option value="rating">Top Rated</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="name">A-Z</option>
+                        </select>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Add more placeholder cards as needed -->
-            <div class="empty-state" id="emptyState">
-                <div class="empty-icon">📍</div>
-                <h3>No destinations yet</h3>
-                <p>Destination data will be added soon. Check back later!</p>
-            </div>
+                <div class="destinations-grid" id="destinationsGrid">
+                    <!-- Destination cards loaded dynamically -->
+                </div>
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <div class="empty-icon">📍</div>
+                    <h3>No destinations found</h3>
+                    <p>Try a different search or filter</p>
+                    <button class="reset-btn" onclick="resetFilters()">Reset Filters</button>
+                </div>
+            </section>
+
+            <!-- Explore Countries -->
+            <section class="dest-section countries-section">
+                <div class="section-header">
+                    <h2>🌐 Top Countries to Explore</h2>
+                    <a href="#" class="see-all" onclick="showAllCountries()">See All →</a>
+                </div>
+                <div class="countries-grid" id="countriesGrid">
+                    <!-- Country cards loaded dynamically -->
+                </div>
+            </section>
         </main>
 
         <!-- Footer -->
@@ -115,73 +187,432 @@
 
     <script src="destinations-data.js"></script>
     <script>
-        // Load destinations from data file
+        // State management
+        let currentFilter = 'all';
+        let currentSort = 'featured';
+        let searchQuery = '';
+        let selectedMonth = null;
+
         document.addEventListener('DOMContentLoaded', function() {
-            const grid = document.getElementById('destinationsGrid');
-            const categoryFilter = document.getElementById('categoryFilter');
-            
-            // Load category filters
-            if (destinationCategories && destinationCategories.length > 0) {
-                categoryFilter.innerHTML = destinationCategories.map(cat => 
-                    `<button class="category-btn ${cat.id === 'all' ? 'active' : ''}" data-category="${cat.id}">
-                        ${cat.icon} ${cat.name}
-                    </button>`
-                ).join('');
-            }
-            
-            // Load destination cards
-            if (destinationsData && destinationsData.length > 0) {
-                grid.innerHTML = destinationsData.map(dest => `
-                    <div class="destination-card" data-categories="${dest.category.join(' ')}">
-                        <div class="card-image" style="background-image: url('${dest.image}')">
-                            ${dest.featured ? '<span class="featured-badge">⭐ Featured</span>' : ''}
-                        </div>
-                        <div class="card-content">
-                            <h3>${dest.name}</h3>
-                            <p class="location">📍 ${dest.country}</p>
-                            <p class="description">${dest.description}</p>
-                            <div class="highlights">
-                                ${dest.highlights.slice(0, 3).map(h => `<span class="highlight-tag">${h}</span>`).join('')}
-                            </div>
-                            <div class="card-meta">
-                                <span class="rating">⭐ ${dest.rating} (${dest.reviews})</span>
-                                <span class="price">From ${dest.currency}${dest.priceFrom.toLocaleString()}</span>
-                            </div>
-                            <button class="explore-btn" onclick="exploreDestination(${dest.id})">Explore →</button>
-                        </div>
-                    </div>
-                `).join('');
-            }
-            
-            // Category filter functionality
-            categoryFilter.addEventListener('click', function(e) {
-                if (e.target.classList.contains('category-btn')) {
-                    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
-                    e.target.classList.add('active');
-                    filterDestinations(e.target.dataset.category);
-                }
-            });
-            
+            initializePage();
+            setupEventListeners();
+        });
+
+        function initializePage() {
+            loadFeaturedDestinations();
+            loadCollections();
+            loadMonthsCarousel();
+            loadRegions();
+            loadCategories();
+            loadAllDestinations();
+            loadCountries();
+        }
+
+        function setupEventListeners() {
             // Mobile nav toggle
             document.getElementById('navToggle').addEventListener('click', function() {
                 document.querySelector('.nav-links').classList.toggle('show');
             });
-        });
-        
-        function filterDestinations(category) {
-            const cards = document.querySelectorAll('.destination-card');
-            cards.forEach(card => {
-                if (category === 'all' || card.dataset.categories.includes(category)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
+
+            // Search functionality
+            const searchInput = document.getElementById('destinationSearch');
+            const searchBtn = document.getElementById('searchBtn');
+            
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') performSearch();
+            });
+            searchInput.addEventListener('input', debounce(performSearch, 300));
+
+            // Quick filters
+            document.querySelectorAll('.quick-filter').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.quick-filter').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    handleQuickFilter(this.dataset.filter);
+                });
+            });
+
+            // Sort dropdown
+            document.getElementById('sortSelect').addEventListener('change', function() {
+                currentSort = this.value;
+                loadAllDestinations();
+            });
+
+            // Category filter clicks
+            document.getElementById('categoryFilter').addEventListener('click', function(e) {
+                if (e.target.classList.contains('category-btn')) {
+                    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentFilter = e.target.dataset.category;
+                    loadAllDestinations();
+                    document.getElementById('gridTitle').textContent = 
+                        currentFilter === 'all' ? '🌍 All Destinations' : 
+                        `${e.target.textContent} Destinations`;
                 }
             });
         }
-        
-        function exploreDestination(id) {
-            // Navigate to destination detail or open chat
-            alert('Explore destination ' + id + ' - Feature coming soon!');
+
+        // ==========================================
+        // LOAD SECTIONS
+        // ==========================================
+
+        function loadFeaturedDestinations() {
+            const container = document.getElementById('featuredCarousel');
+            const featured = getFeaturedDestinations();
+            
+            container.innerHTML = featured.map(dest => `
+                <div class="featured-card" onclick="viewDestination(${dest.id})">
+                    <div class="featured-image" style="background-image: url('${dest.image}')">
+                        <div class="featured-overlay">
+                            <span class="featured-badge">⭐ Featured</span>
+                        </div>
+                    </div>
+                    <div class="featured-content">
+                        <h3>${dest.name}</h3>
+                        <p class="location">📍 ${dest.country}</p>
+                        <div class="featured-meta">
+                            <span class="rating">⭐ ${dest.rating}</span>
+                            <span class="price">From ${dest.currency}${dest.priceFrom.toLocaleString()}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadCollections() {
+            const container = document.getElementById('collectionsGrid');
+            const themes = [
+                { id: 'beach', icon: '🏖️', name: 'Beach Getaways', image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600', color: '#00b4d8' },
+                { id: 'mountains', icon: '🏔️', name: 'Hills & Mountains', image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600', color: '#2d6a4f' },
+                { id: 'heritage', icon: '🏛️', name: 'Heritage Sites', image: 'https://images.unsplash.com/photo-1548013146-72479768bada?w=600', color: '#9c6644' },
+                { id: 'honeymoon', icon: '💕', name: 'Honeymoon Spots', image: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=600', color: '#e63946' },
+                { id: 'adventure', icon: '🎯', name: 'Adventure', image: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600', color: '#f77f00' },
+                { id: 'relaxation', icon: '🧘', name: 'Relaxation', image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600', color: '#8338ec' },
+                { id: 'food', icon: '🍜', name: 'Foodie Dreams', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600', color: '#fb8500' },
+                { id: 'pilgrimage', icon: '🙏', name: 'Pilgrimage', image: 'https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=600', color: '#d4a373' }
+            ];
+
+            container.innerHTML = themes.map(theme => `
+                <div class="collection-card" onclick="filterByCollection('${theme.id}')" style="--theme-color: ${theme.color}">
+                    <div class="collection-image" style="background-image: url('${theme.image}')">
+                        <div class="collection-overlay"></div>
+                    </div>
+                    <div class="collection-content">
+                        <span class="collection-icon">${theme.icon}</span>
+                        <h3>${theme.name}</h3>
+                        <span class="collection-count">${getDestinationsByCategory(theme.id).length} places</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadMonthsCarousel() {
+            const container = document.getElementById('monthsCarousel');
+            const months = [
+                { id: 'january', name: 'January', icon: '❄️' },
+                { id: 'february', name: 'February', icon: '💕' },
+                { id: 'march', name: 'March', icon: '🌸' },
+                { id: 'april', name: 'April', icon: '🌷' },
+                { id: 'may', name: 'May', icon: '☀️' },
+                { id: 'june', name: 'June', icon: '🌧️' },
+                { id: 'july', name: 'July', icon: '🌈' },
+                { id: 'august', name: 'August', icon: '🌿' },
+                { id: 'september', name: 'September', icon: '🍂' },
+                { id: 'october', name: 'October', icon: '🎃' },
+                { id: 'november', name: 'November', icon: '🍁' },
+                { id: 'december', name: 'December', icon: '🎄' }
+            ];
+
+            const currentMonth = new Date().toLocaleString('en', { month: 'long' }).toLowerCase();
+
+            container.innerHTML = months.map(month => `
+                <button class="month-btn ${month.id === currentMonth ? 'current' : ''}" 
+                        data-month="${month.id}" 
+                        onclick="selectMonth('${month.id}')">
+                    <span class="month-icon">${month.icon}</span>
+                    <span class="month-name">${month.name}</span>
+                </button>
+            `).join('');
+        }
+
+        function loadRegions() {
+            const container = document.getElementById('regionsGrid');
+            const regionImages = {
+                asia: 'https://images.unsplash.com/photo-1528181304800-259b08848526?w=600',
+                europe: 'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=600',
+                northAmerica: 'https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=600',
+                southAmerica: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=600',
+                africa: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=600',
+                oceania: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=600',
+                middleEast: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600'
+            };
+
+            container.innerHTML = regions.map(region => `
+                <div class="region-card" onclick="filterByRegion('${region.id}')">
+                    <div class="region-image" style="background-image: url('${regionImages[region.id]}')">
+                        <div class="region-overlay"></div>
+                    </div>
+                    <div class="region-content">
+                        <span class="region-icon">${region.icon}</span>
+                        <h3>${region.name}</h3>
+                        <span class="region-count">${getDestinationsByRegion(region.id).length} destinations</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadCategories() {
+            const container = document.getElementById('categoryFilter');
+            container.innerHTML = destinationCategories.map(cat => `
+                <button class="category-btn ${cat.id === 'all' ? 'active' : ''}" data-category="${cat.id}">
+                    ${cat.icon} ${cat.name}
+                </button>
+            `).join('');
+        }
+
+        function loadAllDestinations() {
+            const container = document.getElementById('destinationsGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            let destinations = [...destinationsData];
+
+            // Apply category filter
+            if (currentFilter && currentFilter !== 'all') {
+                destinations = destinations.filter(d => d.category.includes(currentFilter));
+            }
+
+            // Apply search
+            if (searchQuery) {
+                const query = searchQuery.toLowerCase();
+                destinations = destinations.filter(d => 
+                    d.name.toLowerCase().includes(query) ||
+                    d.country.toLowerCase().includes(query) ||
+                    d.description.toLowerCase().includes(query) ||
+                    d.highlights.some(h => h.toLowerCase().includes(query))
+                );
+            }
+
+            // Apply sorting
+            switch (currentSort) {
+                case 'rating':
+                    destinations.sort((a, b) => b.rating - a.rating);
+                    break;
+                case 'price-low':
+                    destinations.sort((a, b) => a.priceFrom - b.priceFrom);
+                    break;
+                case 'price-high':
+                    destinations.sort((a, b) => b.priceFrom - a.priceFrom);
+                    break;
+                case 'name':
+                    destinations.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'featured':
+                default:
+                    destinations.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+            }
+
+            if (destinations.length === 0) {
+                container.innerHTML = '';
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+                container.innerHTML = destinations.map(dest => createDestinationCard(dest)).join('');
+            }
+        }
+
+        function loadCountries() {
+            const container = document.getElementById('countriesGrid');
+            const featuredCountries = countriesData.slice(0, 12); // Show first 12
+            
+            container.innerHTML = featuredCountries.map(country => `
+                <div class="country-card" onclick="filterByCountry('${country.id}')">
+                    <div class="country-image" style="background-image: url('${country.image}')">
+                        <div class="country-overlay"></div>
+                    </div>
+                    <div class="country-content">
+                        <span class="country-flag">${country.flag}</span>
+                        <h3>${country.name}</h3>
+                        <span class="country-count">${getDestinationsByCountry(country.id).length} places</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ==========================================
+        // CREATE CARDS
+        // ==========================================
+
+        function createDestinationCard(dest) {
+            return `
+                <div class="destination-card" data-id="${dest.id}" onclick="viewDestination(${dest.id})">
+                    <div class="card-image" style="background-image: url('${dest.image}')">
+                        ${dest.featured ? '<span class="featured-badge">⭐ Featured</span>' : ''}
+                        <div class="card-categories">
+                            ${dest.category.slice(0, 2).map(cat => {
+                                const catInfo = destinationCategories.find(c => c.id === cat);
+                                return catInfo ? `<span class="cat-tag">${catInfo.icon}</span>` : '';
+                            }).join('')}
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>${dest.name}</h3>
+                        <p class="location">📍 ${dest.country}</p>
+                        <p class="description">${dest.description.substring(0, 80)}...</p>
+                        <div class="highlights">
+                            ${dest.highlights.slice(0, 3).map(h => `<span class="highlight-tag">${h}</span>`).join('')}
+                        </div>
+                        <div class="card-meta">
+                            <span class="rating">⭐ ${dest.rating} <small>(${dest.reviews.toLocaleString()})</small></span>
+                            <span class="price">From ${dest.currency}${dest.priceFrom.toLocaleString()}</span>
+                        </div>
+                        <div class="card-footer">
+                            <span class="duration">🕐 ${dest.duration}</span>
+                            <span class="best-time">📅 ${dest.bestTime.split(',')[0]}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ==========================================
+        // FILTER & SEARCH FUNCTIONS
+        // ==========================================
+
+        function performSearch() {
+            searchQuery = document.getElementById('destinationSearch').value;
+            loadAllDestinations();
+            
+            if (searchQuery) {
+                document.getElementById('gridTitle').textContent = `🔍 Search Results for "${searchQuery}"`;
+                scrollToSection('.all-destinations-section');
+            }
+        }
+
+        function handleQuickFilter(filter) {
+            if (filter === 'featured') {
+                currentFilter = 'all';
+                const featured = getFeaturedDestinations();
+                renderFilteredDestinations(featured, '🔥 Trending Destinations');
+            } else if (filter === 'budget') {
+                const budget = getBudgetDestinations(15000);
+                renderFilteredDestinations(budget, '💰 Budget-Friendly Destinations');
+            } else {
+                currentFilter = filter;
+                loadAllDestinations();
+                const catInfo = destinationCategories.find(c => c.id === filter);
+                document.getElementById('gridTitle').textContent = 
+                    catInfo ? `${catInfo.icon} ${catInfo.name} Destinations` : '🌍 Destinations';
+            }
+            scrollToSection('.all-destinations-section');
+        }
+
+        function filterByCollection(collectionId) {
+            currentFilter = collectionId;
+            loadAllDestinations();
+            const catInfo = destinationCategories.find(c => c.id === collectionId);
+            document.getElementById('gridTitle').textContent = 
+                catInfo ? `${catInfo.icon} ${catInfo.name}` : '🌍 Destinations';
+            scrollToSection('.all-destinations-section');
+        }
+
+        function filterByRegion(regionId) {
+            const destinations = getDestinationsByRegion(regionId);
+            const regionInfo = regions.find(r => r.id === regionId);
+            renderFilteredDestinations(destinations, `${regionInfo.icon} ${regionInfo.name} Destinations`);
+            scrollToSection('.all-destinations-section');
+        }
+
+        function filterByCountry(countryId) {
+            const destinations = getDestinationsByCountry(countryId);
+            const countryInfo = countriesData.find(c => c.id === countryId);
+            renderFilteredDestinations(destinations, `${countryInfo.flag} ${countryInfo.name}`);
+            scrollToSection('.all-destinations-section');
+        }
+
+        function selectMonth(monthId) {
+            document.querySelectorAll('.month-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-month="${monthId}"]`).classList.add('active');
+            
+            const destinations = getDestinationsByMonth(monthId);
+            const monthNames = {
+                january: 'January', february: 'February', march: 'March', april: 'April',
+                may: 'May', june: 'June', july: 'July', august: 'August',
+                september: 'September', october: 'October', november: 'November', december: 'December'
+            };
+            renderFilteredDestinations(destinations, `📅 Best for ${monthNames[monthId]}`);
+            scrollToSection('.all-destinations-section');
+        }
+
+        function renderFilteredDestinations(destinations, title) {
+            const container = document.getElementById('destinationsGrid');
+            const emptyState = document.getElementById('emptyState');
+            document.getElementById('gridTitle').textContent = title;
+            
+            if (destinations.length === 0) {
+                container.innerHTML = '';
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+                container.innerHTML = destinations.map(dest => createDestinationCard(dest)).join('');
+            }
+        }
+
+        function resetFilters() {
+            currentFilter = 'all';
+            searchQuery = '';
+            document.getElementById('destinationSearch').value = '';
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('[data-category="all"]').classList.add('active');
+            document.querySelectorAll('.quick-filter').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('[data-filter="featured"]').classList.add('active');
+            document.getElementById('gridTitle').textContent = '🌍 All Destinations';
+            loadAllDestinations();
+        }
+
+        function showAllDestinations() {
+            resetFilters();
+            scrollToSection('.all-destinations-section');
+        }
+
+        function showAllCountries() {
+            // Could navigate to a dedicated countries page
+            alert('Full countries list coming soon!');
+        }
+
+        // ==========================================
+        // NAVIGATION
+        // ==========================================
+
+        function viewDestination(id) {
+            const dest = destinationsData.find(d => d.id === id);
+            if (dest) {
+                // Navigate to detail page or show modal
+                window.location.href = `destination-detail.html?id=${id}`;
+            }
+        }
+
+        function scrollToSection(selector) {
+            const section = document.querySelector(selector);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // ==========================================
+        // UTILITIES
+        // ==========================================
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
         }
     </script>
 </body>

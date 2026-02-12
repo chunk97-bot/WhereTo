@@ -1474,3 +1474,629 @@
         font-size: 0.85rem;
     }
 }
+/* ===== DESTINATIONS PAGE - NEW STYLES ===== */
+
+/* Hero Search */
+.destinations-header {
+    padding: 3rem 2rem;
+}
+
+.hero-search {
+    display: flex;
+    max-width: 600px;
+    margin: 1.5rem auto 0;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.hero-search input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: none;
+    font-size: 1rem;
+    outline: none;
+    background: transparent;
+    color: #fff;
+}
+
+.hero-search input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.hero-search .search-btn {
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.hero-search .search-btn:hover {
+    background: linear-gradient(135deg, #00b8e6 0%, #7c4ce0 100%);
+}
+
+/* Quick Filters */
+.quick-filters {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    overflow-x: auto;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.quick-filter {
+    padding: 0.6rem 1.2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.quick-filter:hover,
+.quick-filter.active {
+    background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+}
+
+/* Main Destinations Content */
+.destinations-main {
+    padding: 0 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Section Styles */
+.dest-section {
+    margin-bottom: 3rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+}
+
+.section-header h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, #fff 0%, #00d4ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.see-all {
+    color: #00d4ff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.see-all:hover {
+    color: #8b5cf6;
+}
+
+/* Featured Carousel */
+.featured-carousel {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding: 1rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.featured-carousel::-webkit-scrollbar {
+    height: 8px;
+}
+
+.featured-carousel::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.featured-carousel::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+    border-radius: 4px;
+}
+
+.featured-card {
+    flex: 0 0 300px;
+    scroll-snap-align: start;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.featured-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+    border-color: rgba(0, 212, 255, 0.3);
+}
+
+.featured-image {
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.featured-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(15, 15, 35, 0.8) 100%);
+}
+
+.featured-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.featured-content {
+    padding: 1rem;
+}
+
+.featured-content h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+}
+
+.featured-content .location {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.featured-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.featured-meta .rating {
+    color: #fbbf24;
+}
+
+.featured-meta .price {
+    color: #00d4ff;
+    font-weight: 600;
+}
+
+/* Collections Grid */
+.collections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 0 1rem;
+}
+
+.collection-card {
+    position: relative;
+    height: 150px;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.collection-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.collection-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+}
+
+.collection-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--theme-color, #00d4ff) 0%, rgba(0, 0, 0, 0.7) 100%);
+    opacity: 0.85;
+}
+
+.collection-content {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+}
+
+.collection-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.collection-content h3 {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.collection-count {
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+/* Months Carousel */
+.months-carousel {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding: 1rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+.month-btn {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.8rem 1.2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.month-btn:hover,
+.month-btn.active,
+.month-btn.current {
+    background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+    border-color: transparent;
+}
+
+.month-btn.current {
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+}
+
+.month-icon {
+    font-size: 1.5rem;
+}
+
+.month-name {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* Regions Grid */
+.regions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+    padding: 0 1rem;
+}
+
+.region-card {
+    position: relative;
+    height: 120px;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.region-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.region-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+}
+
+.region-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(15, 15, 35, 0.9) 100%);
+}
+
+.region-content {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1rem;
+}
+
+.region-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.region-content h3 {
+    font-size: 1rem;
+    margin-bottom: 0.1rem;
+}
+
+.region-count {
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+/* Countries Grid */
+.countries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+    padding: 0 1rem;
+}
+
+.country-card {
+    position: relative;
+    height: 140px;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.country-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.country-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+}
+
+.country-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(15, 15, 35, 0.9) 100%);
+}
+
+.country-content {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+}
+
+.country-flag {
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+}
+
+.country-content h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0.1rem;
+}
+
+.country-count {
+    font-size: 0.7rem;
+    opacity: 0.7;
+}
+
+/* Sort Options */
+.sort-options select {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    font-size: 0.85rem;
+    cursor: pointer;
+    outline: none;
+}
+
+.sort-options select option {
+    background: #1a1a3e;
+    color: white;
+}
+
+/* Updated Destination Cards */
+.destination-card {
+    cursor: pointer;
+}
+
+.card-categories {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.3rem;
+}
+
+.cat-tag {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    padding: 0.3rem 0.5rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Reset Button */
+.reset-btn {
+    padding: 0.75rem 2rem;
+    background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.reset-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+}
+
+/* Responsive - New Sections */
+@media (max-width: 768px) {
+    .destinations-header {
+        padding: 2rem 1rem;
+    }
+    
+    .hero-search {
+        flex-direction: column;
+        border-radius: 16px;
+    }
+    
+    .hero-search input {
+        padding: 1rem;
+        text-align: center;
+    }
+    
+    .hero-search .search-btn {
+        padding: 1rem;
+        border-radius: 0;
+    }
+    
+    .quick-filters {
+        justify-content: flex-start;
+        padding: 1rem;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .section-header h2 {
+        font-size: 1.25rem;
+    }
+    
+    .collections-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .regions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .countries-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .featured-card {
+        flex: 0 0 260px;
+    }
+}
+
+@media (max-width: 480px) {
+    .collections-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+    }
+    
+    .collection-card {
+        height: 120px;
+    }
+    
+    .regions-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .region-card {
+        height: 100px;
+    }
+    
+    .countries-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .country-card {
+        height: 120px;
+    }
+    
+    .featured-card {
+        flex: 0 0 240px;
+    }
+    
+    .quick-filter {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .month-btn {
+        padding: 0.6rem 0.9rem;
+    }
+    
+    .month-icon {
+        font-size: 1.2rem;
+    }
+}
