@@ -347,6 +347,15 @@
     animation: iconBounce 2s ease-in-out infinite;
 }
 
+/* Navigation visa icon */
+.nav-visa-icon {
+    width: 14px;
+    height: 14px;
+    vertical-align: -2px;
+    margin-right: 3px;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.15));
+}
+
 /* 3D Isometric Visa Icon */
 .feature-icon.visa-icon-wrapper {
     font-size: 1rem;
