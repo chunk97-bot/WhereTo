@@ -319,22 +319,114 @@
             display: none;
         }
         
+        /* Amount Input Container */
+        .amount-input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
         .amount-input {
             width: 100%;
             background: rgba(255, 255, 255, 0.1);
             border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 12px;
             padding: 1rem;
+            padding-right: 50px;
             font-size: 1.75rem;
             font-weight: 700;
             color: #00d4ff;
             outline: none;
             transition: all 0.2s ease;
+            -moz-appearance: textfield;
         }
         
         .amount-input:focus {
             border-color: #00d4ff;
             box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.15);
+        }
+        
+        /* Hide default spinners */
+        .amount-input::-webkit-inner-spin-button,
+        .amount-input::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Custom Spinner Buttons */
+        .custom-spinner {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .spinner-btn {
+            width: 32px;
+            height: 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
+            transition: all 0.2s ease;
+            background: linear-gradient(145deg, #3b82f6 0%, #1d4ed8 50%, #1e40af 100%);
+            box-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .spinner-btn:hover {
+            background: linear-gradient(145deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
+            box-shadow: 
+                0 4px 12px rgba(59, 130, 246, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+        }
+
+        .spinner-btn:active {
+            transform: scale(0.95);
+            box-shadow: 
+                0 1px 2px rgba(0, 0, 0, 0.3),
+                inset 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .spinner-btn.up {
+            background: linear-gradient(145deg, #00d4ff 0%, #0891b2 50%, #0e7490 100%);
+        }
+
+        .spinner-btn.up:hover {
+            background: linear-gradient(145deg, #22d3ee 0%, #06b6d4 50%, #0891b2 100%);
+            box-shadow: 
+                0 4px 12px rgba(0, 212, 255, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .spinner-btn.down {
+            background: linear-gradient(145deg, #8b5cf6 0%, #7c3aed 50%, #6d28d9 100%);
+        }
+
+        .spinner-btn.down:hover {
+            background: linear-gradient(145deg, #a78bfa 0%, #8b5cf6 50%, #7c3aed 100%);
+            box-shadow: 
+                0 4px 12px rgba(139, 92, 246, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .spinner-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
         }
         
         .swap-btn {
@@ -696,6 +788,23 @@
             .amount-input {
                 font-size: 1.5rem;
                 padding: 0.875rem;
+                padding-right: 45px;
+            }
+
+            .custom-spinner {
+                right: 6px;
+                gap: 3px;
+            }
+
+            .spinner-btn {
+                width: 28px;
+                height: 20px;
+                border-radius: 5px;
+            }
+
+            .spinner-btn svg {
+                width: 12px;
+                height: 12px;
             }
             
             .result-amount {
@@ -815,7 +924,17 @@
                 <!-- From -->
                 <div class="currency-input-group">
                     <label>Amount</label>
-                    <input type="number" class="amount-input" id="fromAmount" value="1" min="0">
+                    <div class="amount-input-wrapper">
+                        <input type="number" class="amount-input" id="fromAmount" value="1" min="0">
+                        <div class="custom-spinner">
+                            <button type="button" class="spinner-btn up" onclick="adjustAmount(1)" title="Increase">
+                                <svg viewBox="0 0 24 24"><path d="M7 14l5-5 5 5z"/></svg>
+                            </button>
+                            <button type="button" class="spinner-btn down" onclick="adjustAmount(-1)" title="Decrease">
+                                <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                            </button>
+                        </div>
+                    </div>
                     <div class="currency-custom-select" id="fromCurrencyWrapper">
                         <div class="currency-select-trigger" id="fromCurrencyTrigger">
                             <div class="trigger-content">
@@ -1230,6 +1349,20 @@
         
         function setAmount(val) {
             document.getElementById('fromAmount').value = val;
+            updateConversion();
+        }
+
+        function adjustAmount(delta) {
+            const input = document.getElementById('fromAmount');
+            let current = parseFloat(input.value) || 0;
+            // Adjust step based on current value
+            let step = 1;
+            if (current >= 1000) step = 100;
+            else if (current >= 100) step = 10;
+            
+            current += delta * step;
+            if (current < 0) current = 0;
+            input.value = current;
             updateConversion();
         }
         
