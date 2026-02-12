@@ -396,6 +396,7 @@
             border-radius: 12px;
             margin-bottom: 0.75rem;
             transition: all 0.2s;
+            flex-wrap: nowrap;
         }
         
         .expense-item:hover {
@@ -412,16 +413,22 @@
             justify-content: center;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
+            flex-shrink: 0;
         }
         
         .expense-details {
             flex: 1;
+            min-width: 0;
+            overflow: hidden;
         }
         
         .expense-name {
             font-weight: 500;
             color: #fff;
             margin-bottom: 0.25rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .expense-category {
@@ -433,6 +440,8 @@
             font-size: 1.1rem;
             font-weight: 600;
             color: #f59e0b;
+            flex-shrink: 0;
+            white-space: nowrap;
         }
         
         .delete-btn {
@@ -446,6 +455,7 @@
             border-radius: 8px;
             color: #ef4444;
             cursor: pointer;
+            flex-shrink: 0;
             opacity: 0;
             transition: all 0.2s;
         }
@@ -681,17 +691,44 @@
             
             .expense-item {
                 padding: 0.75rem;
-                gap: 0.75rem;
+                gap: 0.5rem;
+                flex-wrap: nowrap;
             }
             
             .expense-emoji {
-                width: 38px;
-                height: 38px;
-                font-size: 1.25rem;
+                width: 36px;
+                height: 36px;
+                font-size: 1.1rem;
+                flex-shrink: 0;
+            }
+            
+            .expense-details {
+                flex: 1;
+                min-width: 0;
+                overflow: hidden;
+            }
+            
+            .expense-name {
+                font-size: 0.85rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            
+            .expense-category {
+                font-size: 0.7rem;
             }
             
             .expense-amount {
-                font-size: 1rem;
+                font-size: 0.9rem;
+                flex-shrink: 0;
+            }
+            
+            .delete-btn {
+                width: 28px;
+                height: 28px;
+                opacity: 1;
+                flex-shrink: 0;
             }
         }
         
@@ -730,6 +767,55 @@
                 width: 10px;
                 transform: rotateY(90deg) translateZ(22px);
                 right: -5px;
+            }
+            
+            .expense-item {
+                padding: 0.6rem;
+                gap: 0.4rem;
+            }
+            
+            .expense-emoji {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+            
+            .expense-name {
+                font-size: 0.8rem;
+            }
+            
+            .expense-category {
+                font-size: 0.65rem;
+            }
+            
+            .expense-amount {
+                font-size: 0.85rem;
+            }
+            
+            .delete-btn {
+                width: 24px;
+                height: 24px;
+                font-size: 0.75rem;
+            }
+            
+            .legend {
+                gap: 0.5rem;
+                margin-top: 1rem;
+            }
+            
+            .legend-item {
+                padding: 0.35rem 0.5rem;
+                font-size: 0.7rem;
+            }
+            
+            .legend-dot {
+                width: 8px;
+                height: 8px;
+            }
+            
+            .donut-container {
+                width: 140px;
+                height: 140px;
             }
         }
     </style>
