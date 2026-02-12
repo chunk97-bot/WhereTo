@@ -123,16 +123,6 @@
                 </div>
             </section>
 
-            <!-- Explore by Region -->
-            <section class="dest-section regions-section">
-                <div class="section-header">
-                    <h2>🌏 Explore by Region</h2>
-                </div>
-                <div class="regions-grid" id="regionsGrid">
-                    <!-- Region cards loaded dynamically -->
-                </div>
-            </section>
-
             <!-- Best Time to Travel (Monthly) -->
             <section class="dest-section monthly-section">
                 <div class="section-header">
@@ -190,7 +180,6 @@
             loadFeaturedDestinations();
             loadCollections();
             loadMonthsCarousel();
-            loadRegions();
             loadCategories();
             loadAllDestinations();
             loadCountries();
@@ -311,32 +300,6 @@
                     <span class="month-icon">${month.icon}</span>
                     <span class="month-name">${month.name}</span>
                 </button>
-            `).join('');
-        }
-
-        function loadRegions() {
-            const container = document.getElementById('regionsGrid');
-            const regionImages = {
-                asia: 'https://images.unsplash.com/photo-1528181304800-259b08848526?w=600',
-                europe: 'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=600',
-                northAmerica: 'https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=600',
-                southAmerica: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=600',
-                africa: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=600',
-                oceania: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=600',
-                middleEast: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600'
-            };
-
-            container.innerHTML = regions.map(region => `
-                <div class="region-card" onclick="filterByRegion('${region.id}')">
-                    <div class="region-image" style="background-image: url('${regionImages[region.id]}')">
-                        <div class="region-overlay"></div>
-                    </div>
-                    <div class="region-content">
-                        <span class="region-icon">${region.icon}</span>
-                        <h3>${region.name}</h3>
-                        <span class="region-count">${getDestinationsByRegion(region.id).length} destinations</span>
-                    </div>
-                </div>
             `).join('');
         }
 
@@ -466,13 +429,6 @@
             const catInfo = destinationCategories.find(c => c.id === collectionId);
             document.getElementById('gridTitle').textContent = 
                 catInfo ? `${catInfo.icon} ${catInfo.name}` : '🌍 Destinations';
-            scrollToSection('.all-destinations-section');
-        }
-
-        function filterByRegion(regionId) {
-            const destinations = getDestinationsByRegion(regionId);
-            const regionInfo = regions.find(r => r.id === regionId);
-            renderFilteredDestinations(destinations, `${regionInfo.icon} ${regionInfo.name} Destinations`);
             scrollToSection('.all-destinations-section');
         }
 
