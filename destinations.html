@@ -77,16 +77,6 @@
             </div>
         </header>
 
-        <!-- Quick Filters -->
-        <div class="quick-filters">
-            <button class="quick-filter active" data-filter="featured">🔥 Trending</button>
-            <button class="quick-filter" data-filter="budget">💰 Budget</button>
-            <button class="quick-filter" data-filter="honeymoon">💕 Honeymoon</button>
-            <button class="quick-filter" data-filter="adventure">🎯 Adventure</button>
-            <button class="quick-filter" data-filter="beach">🏖️ Beach</button>
-            <button class="quick-filter" data-filter="mountains">🏔️ Mountains</button>
-        </div>
-
         <main class="destinations-main">
             <!-- Featured Destinations -->
             <section class="dest-section featured-section">
@@ -96,49 +86,6 @@
                 </div>
                 <div class="featured-carousel" id="featuredCarousel">
                     <!-- Loaded dynamically -->
-                </div>
-            </section>
-
-            <!-- Travel Ideas / Collections -->
-            <section class="dest-section collections-section">
-                <div class="section-header">
-                    <h2>✨ Travel Ideas</h2>
-                </div>
-                <div class="collections-grid" id="collectionsGrid">
-                    <!-- Collection cards loaded dynamically -->
-                </div>
-            </section>
-
-            <!-- Best Time to Travel (Monthly) -->
-            <section class="dest-section monthly-section">
-                <div class="section-header">
-                    <h2>📅 Best Places by Month</h2>
-                </div>
-                <div class="months-carousel" id="monthsCarousel">
-                    <!-- Month buttons loaded dynamically -->
-                </div>
-                <div class="monthly-destinations" id="monthlyDestinations" style="display: none;">
-                    <!-- Destinations for selected month -->
-                </div>
-            </section>
-
-            <!-- Explore by Region -->
-            <section class="dest-section regions-section">
-                <div class="section-header">
-                    <h2>🌏 Explore by Region</h2>
-                </div>
-                <div class="regions-grid" id="regionsGrid">
-                    <!-- Region cards loaded dynamically -->
-                </div>
-            </section>
-
-            <!-- Category Filter -->
-            <section class="dest-section categories-section">
-                <div class="section-header">
-                    <h2>🏷️ Browse by Category</h2>
-                </div>
-                <div class="category-filter" id="categoryFilter">
-                    <!-- Categories loaded from destinations-data.js -->
                 </div>
             </section>
 
@@ -173,6 +120,49 @@
                 </div>
                 <div class="countries-grid" id="countriesGrid">
                     <!-- Country cards loaded dynamically -->
+                </div>
+            </section>
+
+            <!-- Explore by Region -->
+            <section class="dest-section regions-section">
+                <div class="section-header">
+                    <h2>🌏 Explore by Region</h2>
+                </div>
+                <div class="regions-grid" id="regionsGrid">
+                    <!-- Region cards loaded dynamically -->
+                </div>
+            </section>
+
+            <!-- Best Time to Travel (Monthly) -->
+            <section class="dest-section monthly-section">
+                <div class="section-header">
+                    <h2>📅 Best Places by Month</h2>
+                </div>
+                <div class="months-carousel" id="monthsCarousel">
+                    <!-- Month buttons loaded dynamically -->
+                </div>
+                <div class="monthly-destinations" id="monthlyDestinations" style="display: none;">
+                    <!-- Destinations for selected month -->
+                </div>
+            </section>
+
+            <!-- Travel Ideas / Collections -->
+            <section class="dest-section collections-section">
+                <div class="section-header">
+                    <h2>✨ Travel Ideas</h2>
+                </div>
+                <div class="collections-grid" id="collectionsGrid">
+                    <!-- Collection cards loaded dynamically -->
+                </div>
+            </section>
+
+            <!-- Category Filter -->
+            <section class="dest-section categories-section">
+                <div class="section-header">
+                    <h2>🏷️ Browse by Category</h2>
+                </div>
+                <div class="category-filter" id="categoryFilter">
+                    <!-- Categories loaded from destinations-data.js -->
                 </div>
             </section>
         </main>
@@ -221,15 +211,6 @@
                 if (e.key === 'Enter') performSearch();
             });
             searchInput.addEventListener('input', debounce(performSearch, 300));
-
-            // Quick filters
-            document.querySelectorAll('.quick-filter').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.quick-filter').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    handleQuickFilter(this.dataset.filter);
-                });
-            });
 
             // Sort dropdown
             document.getElementById('sortSelect').addEventListener('change', function() {
@@ -477,24 +458,6 @@
                 document.getElementById('gridTitle').textContent = `🔍 Search Results for "${searchQuery}"`;
                 scrollToSection('.all-destinations-section');
             }
-        }
-
-        function handleQuickFilter(filter) {
-            if (filter === 'featured') {
-                currentFilter = 'all';
-                const featured = getFeaturedDestinations();
-                renderFilteredDestinations(featured, '🔥 Trending Destinations');
-            } else if (filter === 'budget') {
-                const budget = getBudgetDestinations(15000);
-                renderFilteredDestinations(budget, '💰 Budget-Friendly Destinations');
-            } else {
-                currentFilter = filter;
-                loadAllDestinations();
-                const catInfo = destinationCategories.find(c => c.id === filter);
-                document.getElementById('gridTitle').textContent = 
-                    catInfo ? `${catInfo.icon} ${catInfo.name} Destinations` : '🌍 Destinations';
-            }
-            scrollToSection('.all-destinations-section');
         }
 
         function filterByCollection(collectionId) {
