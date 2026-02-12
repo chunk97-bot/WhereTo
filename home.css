@@ -356,29 +356,21 @@
     filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.15));
 }
 
-/* 3D Isometric Visa Icon */
+/* 3D Isometric Visa Icon for feature card */
 .feature-icon.visa-icon-wrapper {
     font-size: 1rem;
-    width: 64px;
-    height: 64px;
+    width: 56px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
+    animation: iconBounce 2s ease-in-out infinite;
 }
 
 .visa-3d-icon {
-    width: 64px;
-    height: 64px;
-    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.3));
-}
-
-/* Navigation visa icon */
-.nav-visa-icon {
-    width: 18px;
-    height: 18px;
-    vertical-align: middle;
-    margin-right: 4px;
-    filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.2));
+    width: 56px;
+    height: 56px;
+    filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.4));
 }
 
 @keyframes iconBounce {
