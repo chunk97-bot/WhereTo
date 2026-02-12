@@ -277,35 +277,180 @@
             font-size: 0.95rem;
         }
         
-        .currency-selector select {
+        /* Custom Searchable Currency Dropdown */
+        .currency-custom-select {
+            position: relative;
+            min-width: 280px;
+            max-width: 100%;
+        }
+
+        .currency-select-trigger {
+            padding: 0.75rem 1rem;
+            background: linear-gradient(145deg, rgba(30, 30, 60, 0.9) 0%, rgba(20, 20, 50, 0.95) 100%);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .currency-select-trigger:hover,
+        .currency-custom-select.open .currency-select-trigger {
+            border-color: #00d4ff;
+            box-shadow: 
+                0 6px 20px rgba(0, 212, 255, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        .currency-select-trigger .trigger-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .currency-select-trigger .trigger-flag {
+            font-size: 1.5rem;
+        }
+
+        .currency-select-trigger .trigger-text {
+            font-weight: 600;
+        }
+
+        .currency-select-trigger .arrow {
+            border: solid rgba(0, 212, 255, 0.8);
+            border-width: 0 2px 2px 0;
+            padding: 4px;
+            transform: rotate(45deg);
+            transition: transform 0.3s ease;
+        }
+
+        .currency-custom-select.open .currency-select-trigger .arrow {
+            transform: rotate(-135deg);
+        }
+
+        .currency-select-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: linear-gradient(145deg, #1e1e3e 0%, #151530 100%);
+            border: 2px solid rgba(0, 212, 255, 0.4);
+            border-radius: 12px;
+            margin-top: 4px;
+            z-index: 1000;
+            display: none;
+            max-height: 350px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .currency-custom-select.open .currency-select-dropdown {
+            display: block;
+        }
+
+        .currency-select-search {
+            padding: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            background: linear-gradient(145deg, #1e1e3e 0%, #151530 100%);
+        }
+
+        .currency-select-search input {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            padding: 0.6rem 1rem;
             border-radius: 8px;
+            color: white;
             font-size: 0.9rem;
-            cursor: pointer;
-            min-width: 250px;
-            max-width: 100%;
-            width: auto;
             outline: none;
-            transition: all 0.3s ease;
         }
-        
-        .currency-selector select:hover {
+
+        .currency-select-search input:focus {
             border-color: #00d4ff;
-            background: rgba(0, 212, 255, 0.1);
         }
-        
-        .currency-selector select:focus {
-            border-color: #00d4ff;
-            box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.2);
+
+        .currency-select-search input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
         }
-        
-        .currency-selector select option {
-            background: #1a1a3e;
+
+        .currency-select-options {
+            max-height: 280px;
+            overflow-y: auto;
+        }
+
+        .currency-select-options::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .currency-select-options::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .currency-select-options::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00d4ff 0%, #8b5cf6 100%);
+            border-radius: 3px;
+        }
+
+        .currency-select-option {
+            padding: 0.7rem 1rem;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .currency-select-option:hover {
+            background: rgba(0, 212, 255, 0.2);
+        }
+
+        .currency-select-option.selected {
+            background: rgba(0, 212, 255, 0.3);
+        }
+
+        .currency-select-option.hidden {
+            display: none;
+        }
+
+        .currency-select-option .option-flag {
+            font-size: 1.25rem;
+        }
+
+        .currency-select-option .option-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .currency-select-option .option-code {
+            font-weight: 600;
             color: #fff;
-            padding: 0.5rem;
+        }
+
+        .currency-select-option .option-name {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .currency-select-no-results {
+            padding: 1rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            display: none;
+        }
+
+        /* Hide old select */
+        .currency-selector select.hidden-select {
+            display: none;
         }
         
         /* 3D Chart Section */
@@ -944,9 +1089,21 @@
                 text-align: center;
             }
             
-            .currency-selector select {
+            .currency-custom-select {
                 min-width: unset;
                 width: 100%;
+            }
+
+            .currency-select-trigger {
+                padding: 0.6rem 0.8rem;
+            }
+
+            .currency-select-trigger .trigger-flag {
+                font-size: 1.25rem;
+            }
+
+            .currency-select-trigger .trigger-text {
+                font-size: 0.85rem;
             }
             
             .header {
@@ -1262,8 +1419,27 @@
         <!-- Stats Row -->
         <div class="dashboard">
             <div class="currency-selector">
-                <label for="currencySelect">💱 Currency:</label>
-                <select id="currencySelect" onchange="changeCurrency()">
+                <label>💱 Currency:</label>
+                <div class="currency-custom-select" id="budgetCurrencyWrapper">
+                    <div class="currency-select-trigger" id="budgetCurrencyTrigger">
+                        <div class="trigger-content">
+                            <span class="trigger-flag" id="budgetCurrencyFlag">🇺🇸</span>
+                            <span class="trigger-text" id="budgetCurrencyText">USD - US Dollar ($)</span>
+                        </div>
+                        <span class="arrow"></span>
+                    </div>
+                    <div class="currency-select-dropdown" id="budgetCurrencyDropdown">
+                        <div class="currency-select-search">
+                            <input type="text" placeholder="Search currency..." id="budgetCurrencySearch">
+                        </div>
+                        <div class="currency-select-options" id="budgetCurrencyOptions">
+                            <!-- Filled by JS -->
+                        </div>
+                        <div class="currency-select-no-results">No currencies found</div>
+                    </div>
+                </div>
+                <!-- Hidden select for backward compatibility -->
+                <select id="currencySelect" class="hidden-select" style="display:none;">
                     <option value="USD" data-symbol="$">🇺🇸 USD - US Dollar ($)</option>
                     <option value="INR" data-symbol="₹">🇮🇳 INR - Indian Rupee (₹)</option>
                     <option value="EUR" data-symbol="€">🇪🇺 EUR - Euro (€)</option>
@@ -1450,12 +1626,167 @@
             updateUI();
         }
 
+        // Budget Currency Dropdown Data
+        const budgetCurrencies = [
+            { code: 'USD', name: 'US Dollar', symbol: '$', flag: '🇺🇸' },
+            { code: 'INR', name: 'Indian Rupee', symbol: '₹', flag: '🇮🇳' },
+            { code: 'EUR', name: 'Euro', symbol: '€', flag: '🇪🇺' },
+            { code: 'GBP', name: 'British Pound', symbol: '£', flag: '🇬🇧' },
+            { code: 'AED', name: 'UAE Dirham', symbol: 'AED', flag: '🇦🇪' },
+            { code: 'SGD', name: 'Singapore Dollar', symbol: 'S$', flag: '🇸🇬' },
+            { code: 'AUD', name: 'Australian Dollar', symbol: 'A$', flag: '🇦🇺' },
+            { code: 'CAD', name: 'Canadian Dollar', symbol: 'C$', flag: '🇨🇦' },
+            { code: 'JPY', name: 'Japanese Yen', symbol: '¥', flag: '🇯🇵' },
+            { code: 'CNY', name: 'Chinese Yuan', symbol: '¥', flag: '🇨🇳' },
+            { code: 'HKD', name: 'Hong Kong Dollar', symbol: 'HK$', flag: '🇭🇰' },
+            { code: 'KRW', name: 'South Korean Won', symbol: '₩', flag: '🇰🇷' },
+            { code: 'CHF', name: 'Swiss Franc', symbol: 'CHF', flag: '🇨🇭' },
+            { code: 'MXN', name: 'Mexican Peso', symbol: 'MX$', flag: '🇲🇽' },
+            { code: 'BRL', name: 'Brazilian Real', symbol: 'R$', flag: '🇧🇷' },
+            { code: 'SAR', name: 'Saudi Riyal', symbol: 'SAR', flag: '🇸🇦' },
+            { code: 'ZAR', name: 'South African Rand', symbol: 'R', flag: '🇿🇦' },
+            { code: 'THB', name: 'Thai Baht', symbol: '฿', flag: '🇹🇭' },
+            { code: 'MYR', name: 'Malaysian Ringgit', symbol: 'RM', flag: '🇲🇾' },
+            { code: 'PHP', name: 'Philippine Peso', symbol: '₱', flag: '🇵🇭' },
+            { code: 'IDR', name: 'Indonesian Rupiah', symbol: 'Rp', flag: '🇮🇩' },
+            { code: 'VND', name: 'Vietnamese Dong', symbol: '₫', flag: '🇻🇳' },
+            { code: 'TWD', name: 'Taiwan Dollar', symbol: 'NT$', flag: '🇹🇼' },
+            { code: 'NZD', name: 'New Zealand Dollar', symbol: 'NZ$', flag: '🇳🇿' },
+            { code: 'SEK', name: 'Swedish Krona', symbol: 'kr', flag: '🇸🇪' },
+            { code: 'NOK', name: 'Norwegian Krone', symbol: 'kr', flag: '🇳🇴' },
+            { code: 'DKK', name: 'Danish Krone', symbol: 'kr', flag: '🇩🇰' },
+            { code: 'PLN', name: 'Polish Zloty', symbol: 'zł', flag: '🇵🇱' },
+            { code: 'TRY', name: 'Turkish Lira', symbol: '₺', flag: '🇹🇷' },
+            { code: 'RUB', name: 'Russian Ruble', symbol: '₽', flag: '🇷🇺' },
+            { code: 'EGP', name: 'Egyptian Pound', symbol: 'E£', flag: '🇪🇬' },
+            { code: 'NGN', name: 'Nigerian Naira', symbol: '₦', flag: '🇳🇬' },
+            { code: 'KES', name: 'Kenyan Shilling', symbol: 'KSh', flag: '🇰🇪' },
+            { code: 'PKR', name: 'Pakistani Rupee', symbol: 'Rs', flag: '🇵🇰' },
+            { code: 'BDT', name: 'Bangladeshi Taka', symbol: '৳', flag: '🇧🇩' },
+            { code: 'LKR', name: 'Sri Lankan Rupee', symbol: 'Rs', flag: '🇱🇰' },
+            { code: 'NPR', name: 'Nepalese Rupee', symbol: 'Rs', flag: '🇳🇵' },
+            { code: 'QAR', name: 'Qatari Riyal', symbol: 'QR', flag: '🇶🇦' },
+            { code: 'KWD', name: 'Kuwaiti Dinar', symbol: 'KD', flag: '🇰🇼' },
+            { code: 'BHD', name: 'Bahraini Dinar', symbol: 'BD', flag: '🇧🇭' },
+            { code: 'OMR', name: 'Omani Rial', symbol: 'OMR', flag: '🇴🇲' },
+            { code: 'ILS', name: 'Israeli Shekel', symbol: '₪', flag: '🇮🇱' },
+            { code: 'CLP', name: 'Chilean Peso', symbol: 'CLP$', flag: '🇨🇱' },
+            { code: 'COP', name: 'Colombian Peso', symbol: 'COL$', flag: '🇨🇴' },
+            { code: 'ARS', name: 'Argentine Peso', symbol: 'ARS$', flag: '🇦🇷' },
+            { code: 'PEN', name: 'Peruvian Sol', symbol: 'S/', flag: '🇵🇪' },
+        ];
+
+        function setupBudgetCurrencyDropdown() {
+            const wrapper = document.getElementById('budgetCurrencyWrapper');
+            const trigger = document.getElementById('budgetCurrencyTrigger');
+            const dropdown = document.getElementById('budgetCurrencyDropdown');
+            const optionsContainer = document.getElementById('budgetCurrencyOptions');
+            const searchInput = document.getElementById('budgetCurrencySearch');
+            const hiddenSelect = document.getElementById('currencySelect');
+            const noResults = dropdown.querySelector('.currency-select-no-results');
+
+            // Populate options
+            budgetCurrencies.forEach(curr => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'currency-select-option';
+                optionDiv.dataset.value = curr.code;
+                optionDiv.dataset.symbol = curr.symbol;
+                optionDiv.innerHTML = `
+                    <span class="option-flag">${curr.flag}</span>
+                    <div class="option-text">
+                        <span class="option-code">${curr.code}</span>
+                        <span class="option-name">${curr.name} (${curr.symbol})</span>
+                    </div>
+                `;
+                optionsContainer.appendChild(optionDiv);
+            });
+
+            // Set default based on saved currency
+            selectBudgetCurrency(currentCurrency || 'USD');
+
+            // Toggle dropdown
+            trigger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                wrapper.classList.toggle('open');
+                if (wrapper.classList.contains('open')) {
+                    searchInput.focus();
+                    searchInput.value = '';
+                    filterBudgetCurrencyOptions('');
+                }
+            });
+
+            // Search functionality
+            searchInput.addEventListener('input', function(e) {
+                filterBudgetCurrencyOptions(e.target.value);
+            });
+
+            searchInput.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+
+            // Select option
+            optionsContainer.addEventListener('click', function(e) {
+                const option = e.target.closest('.currency-select-option');
+                if (option && !option.classList.contains('hidden')) {
+                    selectBudgetCurrency(option.dataset.value);
+                    wrapper.classList.remove('open');
+                    changeCurrency();
+                }
+            });
+
+            // Close on outside click
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.currency-custom-select')) {
+                    wrapper.classList.remove('open');
+                }
+            });
+        }
+
+        function filterBudgetCurrencyOptions(query) {
+            const optionsContainer = document.getElementById('budgetCurrencyOptions');
+            const noResults = document.getElementById('budgetCurrencyDropdown').querySelector('.currency-select-no-results');
+            const options = optionsContainer.querySelectorAll('.currency-select-option');
+            const q = query.toLowerCase();
+            let visibleCount = 0;
+
+            options.forEach(opt => {
+                const code = opt.querySelector('.option-code').textContent.toLowerCase();
+                const name = opt.querySelector('.option-name').textContent.toLowerCase();
+                const matches = code.includes(q) || name.includes(q);
+                opt.classList.toggle('hidden', !matches);
+                if (matches) visibleCount++;
+            });
+
+            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        function selectBudgetCurrency(code) {
+            const curr = budgetCurrencies.find(c => c.code === code);
+            if (!curr) return;
+
+            // Update hidden select
+            const hiddenSelect = document.getElementById('currencySelect');
+            hiddenSelect.value = code;
+
+            // Update trigger display
+            document.getElementById('budgetCurrencyFlag').textContent = curr.flag;
+            document.getElementById('budgetCurrencyText').textContent = `${curr.code} - ${curr.name} (${curr.symbol})`;
+
+            // Mark as selected in options
+            const optionsContainer = document.getElementById('budgetCurrencyOptions');
+            optionsContainer.querySelectorAll('.currency-select-option').forEach(opt => {
+                opt.classList.toggle('selected', opt.dataset.value === code);
+            });
+        }
+
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            // Set saved currency
-            const select = document.getElementById('currencySelect');
+            // Setup custom currency dropdown
+            setupBudgetCurrencyDropdown();
+            
+            // Set saved currency in custom dropdown
             if (currentCurrency) {
-                select.value = currentCurrency;
+                selectBudgetCurrency(currentCurrency);
             }
             
             updateUI();
