@@ -462,6 +462,140 @@
             color: rgba(255, 255, 255, 0.8);
         }
 
+        /* Country-Specific Checklist */
+        .checklist-container {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .checklist-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .checklist-header h3 {
+            font-size: 1.3rem;
+            color: #fff;
+            margin: 0;
+        }
+
+        .checklist-badge {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #000;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .checklist-category {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .category-header {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .category-header:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .category-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .category-toggle {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .category-header.active .category-toggle {
+            transform: rotate(180deg);
+        }
+
+        .category-items {
+            padding: 0 1.25rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .category-items.expanded {
+            max-height: 1000px;
+            padding: 1rem 1.25rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .checklist-icon {
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(34, 197, 94, 0.2);
+            border-radius: 50%;
+            color: #22c55e;
+            font-size: 0.7rem;
+            margin-top: 2px;
+        }
+
+        .checklist-text {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.5;
+        }
+
+        .checklist-note {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+
+        .checklist-note-icon {
+            font-size: 1.2rem;
+        }
+
+        .checklist-note-text {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+        }
+
         /* Tips Section */
         .visa-tips {
             background: rgba(139, 92, 246, 0.1);
@@ -1254,6 +1388,352 @@
             'default': { type: 'visa-required', stay: 'Varies', fee: 'Check embassy', process: 'Contact embassy (tentative)', note: 'Check official embassy website for current requirements' }
         };
 
+        // Visa checklists for Indian passport holders
+        const visaChecklists = {
+            'TR': {
+                name: 'Turkey',
+                categories: [
+                    {
+                        title: '📄 Mandatory Documents (All Applicants)',
+                        items: [
+                            'Valid passport (10-year validity) with at least 6 months validity from departure, minimum 2 blank pages',
+                            'Old passport booklet (if any)',
+                            '2 passport-size photos (2.5 x 2.5 cm, white background, matt finish, 80% face area)',
+                            'Cover letter explaining reason of travel',
+                            'Visa application form (duly filled and signed)',
+                            'Travel insurance (USD 50,000 coverage)'
+                        ]
+                    },
+                    {
+                        title: '💼 Employed/Salaried',
+                        items: [
+                            'Last 6 months personal bank statements (original, stamped & signed by bank)',
+                            'Self-attested Income Tax Returns (last 3 years)',
+                            'Leave Letter/NOC from employer',
+                            '3 months salary slips',
+                            'Appointment letter copy',
+                            'Company ID card copy'
+                        ]
+                    },
+                    {
+                        title: '🏢 Self-Employed/Business Owner',
+                        items: [
+                            'Last 6 months personal bank statements (original, stamped & signed)',
+                            'Self-attested ITR (last 3 years)',
+                            'Business registration proof',
+                            'Cover letter on company letterhead'
+                        ]
+                    },
+                    {
+                        title: '👔 Business Partner/Director',
+                        items: [
+                            'Cover letter on company letterhead stating position & length of service',
+                            'Last 6 months personal + company bank statements (original)',
+                            'Self-attested personal & company ITR (last 3 years)',
+                            'Company registration papers/MOA/Partnership deed',
+                            'NOC from non-traveling partner'
+                        ]
+                    },
+                    {
+                        title: '🎓 Students',
+                        items: [
+                            'NOC from college/school/institution',
+                            'Holiday proof',
+                            'College/school ID card copy'
+                        ]
+                    },
+                    {
+                        title: '👴 Retired',
+                        items: [
+                            'Retirement proof (pension book, retirement letter)'
+                        ]
+                    },
+                    {
+                        title: '💑 Honeymoon Couples',
+                        items: [
+                            'NOC from girl\'s parents with photo & signature ID proof',
+                            'Wedding card & engagement photographs (7-8 clicks)',
+                            'Marriage affidavit/certificate (if newly married)'
+                        ]
+                    }
+                ]
+            },
+            'AU': {
+                name: 'Australia',
+                categories: [
+                    {
+                        title: '📄 Mandatory Documents (All Applicants)',
+                        items: [
+                            'Valid passport (10-year validity) with 6+ months validity from return date, 2+ blank pages',
+                            'Previous/cancelled passports (if any)',
+                            'Photocopy of passport first & last page + visa stamped pages (last 2 years)',
+                            'Recent colored photos (35mm x 45mm, white background, matt finish, 80% face area, ears visible)',
+                            'Visa application form (signed)',
+                            'Personal covering letter stating purpose of visit'
+                        ]
+                    },
+                    {
+                        title: '💼 Employed/Salaried',
+                        items: [
+                            'Salary slips (last 3 months)',
+                            'Income Tax Return (last 3 years, self-attested)',
+                            'Bank statements (last 6 months, stamped by bank) - sufficient balance for entire stay',
+                            'No-objection certificate/leave letter from employer (on company letterhead)'
+                        ]
+                    },
+                    {
+                        title: '🏢 Self-Employed/Business Owner',
+                        items: [
+                            'Personal ITR (last 3 years, self-attested)',
+                            'Company\'s ITR (last 3 years)',
+                            'Personal bank statements (last 6 months, stamped)',
+                            'Company\'s bank statements (last 6 months, stamped)',
+                            'Company registration (GST), Partnership deed, MOA, Trade license'
+                        ]
+                    },
+                    {
+                        title: '👴 Retired',
+                        items: [
+                            'Retirement proof (card/letter/pension documents)',
+                            'Pension bank account statement (6 months)',
+                            'ITR (last 3 years)',
+                            'Bank statements (last 6 months)',
+                            'Source of income proof (rent agreement, J-form, etc.)'
+                        ]
+                    },
+                    {
+                        title: '🎓 Students',
+                        items: [
+                            'NOC from college/school/institute',
+                            'ID Card',
+                            'Financial documents of parents/sponsor',
+                            'Birth certificate (for minors)'
+                        ]
+                    },
+                    {
+                        title: '💑 Honeymoon Couples',
+                        items: [
+                            'NOC from both parents with signature ID proof',
+                            'Wedding cards from both sides',
+                            '10 postcard-size engagement/Roka photographs',
+                            'Marriage certificate (or affidavit on ₹100 stamp paper)'
+                        ]
+                    }
+                ]
+            },
+            'SCHENGEN': {
+                name: 'Schengen Countries',
+                countries: ['FR', 'DE', 'IT', 'ES', 'NL', 'CH', 'PT', 'GR', 'AT', 'BE', 'CZ', 'DK', 'FI', 'HU', 'NO', 'PL', 'SE'],
+                categories: [
+                    {
+                        title: '📄 Mandatory Documents (All Applicants)',
+                        items: [
+                            'Valid passport (10-year validity) with 6+ months validity, 2+ blank pages',
+                            'Previous/cancelled passports (if any)',
+                            'Photocopy of passport + visa stamped pages (last 2 years)',
+                            '4 recent colored photos (35mm x 45mm, white background, matt finish)',
+                            'Visa application form (signed; both parents for minors)',
+                            'Travel insurance (with passport number, name & DOB as per passport)',
+                            'Return air ticket (with PNR details)',
+                            'Hotel voucher/visa letter (entire duration)',
+                            'Day-wise travel itinerary (optional)',
+                            'Vaccination certificate (with passport number)',
+                            'Personal covering letter'
+                        ]
+                    },
+                    {
+                        title: '💼 Employed/Salaried',
+                        items: [
+                            'Salary slips (last 3 months; 6 months for Spain)',
+                            'ITR (last 3 years)',
+                            'Bank statements (last 6 months, stamped) - sufficient for entire stay',
+                            'NOC/leave letter from employer (on letterhead)'
+                        ]
+                    },
+                    {
+                        title: '🏢 Self-Employed/Business Owner',
+                        items: [
+                            'Personal ITR (last 3 years)',
+                            'Company\'s ITR (last 3 years)',
+                            'Personal bank statements (last 6 months, stamped)',
+                            'Company\'s bank statements (last 6 months, stamped)',
+                            'Company registration (GST), Partnership deed, MOA, Trade license',
+                            'Covering letter on business letterhead'
+                        ]
+                    },
+                    {
+                        title: '👴 Retired',
+                        items: [
+                            'Retirement proof',
+                            'Pension bank statement (6 months)',
+                            'ITR (last 3 years)',
+                            'Bank statements (last 6 months)',
+                            'Source of income proof'
+                        ]
+                    },
+                    {
+                        title: '🎓 Students',
+                        items: [
+                            'NOC from college/school/institute (on letterhead with seal)',
+                            'ID Card',
+                            'Financial documents of parents/sponsor',
+                            'Birth certificate (for minors)'
+                        ]
+                    },
+                    {
+                        title: '💑 Honeymoon Couples',
+                        items: [
+                            'NOC from both parents with ID proof',
+                            'Wedding cards (both sides)',
+                            '4 postcard-size engagement/Roka photos',
+                            'Marriage certificate or affidavit',
+                            'For Greece: NOC must be notarized; spouse name on passport or apostilled marriage certificate'
+                        ]
+                    },
+                    {
+                        title: '📎 Additional Documents',
+                        items: [
+                            'Pan Card/Aadhaar Card',
+                            'Sponsorship letter (if sponsored)',
+                            'Professional certificates (Doctor: MCC; Lawyer: Bar Council; CA: Certificate)'
+                        ]
+                    }
+                ]
+            },
+            'SG': {
+                name: 'Singapore',
+                categories: [
+                    {
+                        title: '📄 Mandatory Documents (All Applicants)',
+                        items: [
+                            'Application form 14A (handwritten only, signed on last page + across photo)',
+                            '2 photos (matt finish, white background, 35mm x 45mm, taken within 3 months)',
+                            'Current original passport (6+ months validity)',
+                            'Photocopies of bio-page, address page of previous passports',
+                            'Photocopies of Singapore travel stamping (past 20 years, if applicable)',
+                            '3 months bank statement',
+                            'Copy of confirmed return ticket/itinerary',
+                            'Authorization letter (prescribed format)',
+                            'Covering letter mentioning purpose of visit'
+                        ]
+                    },
+                    {
+                        title: '🏢 Businessmen',
+                        items: [
+                            'GST/Business Registration certificate'
+                        ]
+                    },
+                    {
+                        title: '💼 Employed',
+                        items: [
+                            '3 months salary slips',
+                            'Company ID copy'
+                        ]
+                    },
+                    {
+                        title: '👴 Retired',
+                        items: [
+                            'Pension book or pension order'
+                        ]
+                    },
+                    {
+                        title: '🎓 Students (traveling with parents)',
+                        items: [
+                            'School/College ID or Bonafide certificate'
+                        ]
+                    },
+                    {
+                        title: '📎 Special Cases',
+                        items: [
+                            'Form V39A (if invited by Singapore citizen/PR holder)',
+                            'Letter of Invitation (if invited by other pass holders)',
+                            'Name change proof (Gazette notification/Sworn affidavit)'
+                        ]
+                    }
+                ]
+            },
+            'UK': {
+                name: 'United Kingdom',
+                categories: [
+                    {
+                        title: '📄 Mandatory Documents (All Applicants)',
+                        items: [
+                            'Valid passport for entire duration of stay + previous passports',
+                            'At least 1 FULLY blank page (back-to-back, no immigration stamps)',
+                            'Online visa application form',
+                            '1 passport-size photo (45mm x 35mm, white background, not older than 6 months, glued to form)',
+                            'Covering letter giving reasons for travel',
+                            'Evidence of permission to be in current country (if not a national)'
+                        ]
+                    },
+                    {
+                        title: '✈️ Travel & Accommodation',
+                        items: [
+                            'Planned itinerary (bookings, tickets, travel agent bookings)',
+                            'Hotel booking confirmation',
+                            'Travel booking confirmation/tickets',
+                            'Accommodation letter from host (if staying with someone)'
+                        ]
+                    },
+                    {
+                        title: '👨‍👩‍👧 If Visiting Friends/Family',
+                        items: [
+                            'Invitation letter from friend/sponsor in UK',
+                            'Friend\'s/sponsor\'s financial documents',
+                            'Evidence of host\'s immigration status (bio-data pages, valid visa, Home Office letter)'
+                        ]
+                    },
+                    {
+                        title: '📋 Personal Documents',
+                        items: [
+                            'Marriage/civil partnership/divorce/death certificate (as applicable)'
+                        ]
+                    },
+                    {
+                        title: '💼 Employment/Studies Evidence',
+                        items: [
+                            'Employer letter on company letterhead (salary, employment length, time off approval)',
+                            'Pay slips, tax returns',
+                            'Previous employment details (if recently changed jobs)',
+                            'Education provider letter (on headed paper) for students',
+                            'Business registration documents (for business owners)'
+                        ]
+                    },
+                    {
+                        title: '💰 Financial Documents',
+                        items: [
+                            'Bank statements/bank books (last 6 months, showing transactions)',
+                            'Bank letter/balance certificate',
+                            'Pay slips (last 6 months)',
+                            'Tax returns (personal/business)',
+                            'Business bank account statements (with explanation if used for private visit)',
+                            'Property/land income evidence (deeds, mortgage statements, tenancy agreements)'
+                        ]
+                    },
+                    {
+                        title: '🤝 Sponsor Documents (if someone else is paying)',
+                        items: [
+                            'Sponsor\'s financial and employment documents',
+                            'Explanation for joint account access'
+                        ]
+                    }
+                ]
+            }
+        };
+
+        // Get checklist for a destination (Indian passport)
+        function getChecklistForDestination(destCode) {
+            // Direct match
+            if (visaChecklists[destCode]) {
+                return visaChecklists[destCode];
+            }
+            // Check if it's a Schengen country
+            if (visaChecklists['SCHENGEN'].countries.includes(destCode)) {
+                return visaChecklists['SCHENGEN'];
+            }
+            return null;
+        }
+
         const countryInfo = {
             // Americas
             'US': { name: 'United States', flag: '🇺🇸' },
@@ -1466,12 +1946,41 @@
                     </div>
                     ` : ''}
 
+                    ${nationality === 'IN' && getChecklistForDestination(destination) ? `
+                    <div class="checklist-container">
+                        <div class="checklist-header">
+                            <h3>📋 Document Checklist for Indian Passport Holders</h3>
+                            <span class="checklist-badge">DETAILED</span>
+                        </div>
+                        ${getChecklistForDestination(destination).categories.map((cat, index) => `
+                        <div class="checklist-category">
+                            <div class="category-header ${index === 0 ? 'active' : ''}" onclick="toggleCategory(this)">
+                                <span class="category-title">${cat.title}</span>
+                                <span class="category-toggle">▼</span>
+                            </div>
+                            <div class="category-items ${index === 0 ? 'expanded' : ''}">
+                                ${cat.items.map(item => `
+                                <div class="checklist-item">
+                                    <span class="checklist-icon">✓</span>
+                                    <span class="checklist-text">${item}</span>
+                                </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        `).join('')}
+                        <div class="checklist-note">
+                            <span class="checklist-note-icon">⚠️</span>
+                            <span class="checklist-note-text">This checklist is for general reference. Requirements may change. Always verify with the official embassy or visa application center before applying.</span>
+                        </div>
+                    </div>
+                    ` : `
                     <div class="requirements-section">
                         <h4 class="requirements-title">📋 Common Requirements</h4>
                         <div class="requirements-grid">
                             ${getRequirements(visa.type)}
                         </div>
                     </div>
+                    `}
 
                     <div class="visa-tips">
                         <h4>💡 Travel Tips</h4>
@@ -1560,6 +2069,16 @@
                 'eta-required': `Complete ETA/ESTA application before check-in - airlines verify authorization. Processing usually instant but can take 72 hours. Keep confirmation number saved on phone.`
             };
             return tips[type] || `Check the official embassy website for the most up-to-date requirements. Visa rules change frequently, so always verify before travel.`;
+        }
+
+        // Toggle checklist category expansion
+        function toggleCategory(header) {
+            const items = header.nextElementSibling;
+            const isExpanded = items.classList.contains('expanded');
+            
+            // Toggle current category
+            header.classList.toggle('active');
+            items.classList.toggle('expanded');
         }
     </script>
 </body>
