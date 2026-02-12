@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visa Guide - WhereTo | Check Visa Requirements Worldwide</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Check visa requirements for countries worldwide. Find out if you need a visa, e-visa, or visa on arrival for your nationality.">
+    <meta name="keywords" content="visa requirements, visa guide, travel visa, e-visa, visa on arrival, passport requirements">
+    <meta name="robots" content="index, follow">
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta name="theme-color" content="#0f0f23">
+    
+    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="pages.css?v=5">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Righteous&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Visa Guide Specific Styles */
+        .visa-header {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(0, 212, 255, 0.1) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .visa-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .visa-header h1::before {
+            content: '🛂 ';
+            -webkit-text-fill-color: initial;
+        }
+
+        .visa-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+        }
+
+        .visa-content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Search Section */
+        .visa-search {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .search-title {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-title .emoji {
+            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+        }
+
+        .visa-search-row {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 250px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .form-group select {
+            padding: 0.9rem 1rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+        }
+
+        .form-group select option {
+            background: #1a1a2e;
+            color: white;
+        }
+
+        .search-btn {
+            padding: 0.9rem 2.5rem;
+            background: linear-gradient(135deg, #8b5cf6 0%, #00d4ff 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            height: fit-content;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Results Section */
+        .visa-results {
+            margin-top: 2rem;
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .result-countries {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .country-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+
+        .country-flag {
+            font-size: 2rem;
+            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+        }
+
+        .country-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .arrow-icon {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .visa-status {
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .visa-status.visa-free {
+            background: rgba(34, 197, 94, 0.15);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .visa-status.visa-required {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .visa-status.e-visa {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .visa-status.visa-on-arrival {
+            background: rgba(251, 191, 36, 0.15);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .visa-status.eta-required {
+            background: rgba(168, 85, 247, 0.15);
+            color: #a855f7;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        /* Details Grid */
+        .visa-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .detail-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-value {
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        /* Requirements List */
+        .requirements-section {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .requirements-title {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .requirement-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+        }
+
+        .requirement-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(34, 197, 94, 0.1);
+            border-radius: 50%;
+            color: #22c55e;
+            font-size: 0.8rem;
+        }
+
+        .requirement-text {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Tips Section */
+        .visa-tips {
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .visa-tips h4 {
+            color: #a78bfa;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .visa-tips p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .empty-state .empty-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Popular Countries */
+        .popular-countries {
+            margin-top: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .countries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+
+        .country-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .country-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .country-card .flag {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+        }
+
+        .country-card .name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .country-card .policy {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .visa-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .visa-search-row {
+                flex-direction: column;
+            }
+
+            .search-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .result-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .result-countries {
+                flex-direction: column;
+            }
+
+            .arrow-icon {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <a href="home.html">
+                    <svg viewBox="0 0 200 50" class="nav-logo-svg">
+                        <text x="5" y="35" class="nav-brand-text">WhereTo</text>
+                        <circle cx="175" cy="28" r="6" fill="#ff6b6b" class="nav-pin-dot"/>
+                        <circle cx="175" cy="27" r="2.5" fill="white"/>
+                        <g class="nav-flying-plane">
+                            <path d="M0 0 L-6 -2 L-5 0 L-6 2 Z" fill="#008cff"/>
+                            <path d="M-3 -4 L-1.5 0 L-3 4 L-4 0 Z" fill="#008cff" opacity="0.7"/>
+                        </g>
+                        <path class="nav-plane-trail" d="M100 38 Q130 25 150 30 Q170 35 180 22" 
+                              fill="none" stroke="rgba(0,140,255,0.3)" stroke-width="1.5" 
+                              stroke-dasharray="4 3" stroke-linecap="round"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="home.html" class="nav-link">🏠 Home</a>
+                <a href="index.html" class="nav-link">💬 Chat</a>
+                <a href="destinations.html" class="nav-link">🌍 Destinations</a>
+                <a href="trip-planner.html" class="nav-link">🗓️ Trip Planner</a>
+                <a href="visa-guide.html" class="nav-link active">🛂 Visa Guide</a>
+                <a href="budget-calculator.html" class="nav-link">💰 Budget</a>
+                <a href="currency-converter.html" class="nav-link">💱 Currency</a>
+            </div>
+            <button class="nav-toggle" id="navToggle">☰</button>
+        </nav>
+
+        <!-- Page Header -->
+        <header class="visa-header">
+            <h1>Visa Guide</h1>
+            <p>Check visa requirements for any destination based on your nationality</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="visa-content">
+            <!-- Search Section -->
+            <section class="visa-search">
+                <h2 class="search-title"><span class="emoji">🔍</span> Check Visa Requirements</h2>
+                <div class="visa-search-row">
+                    <div class="form-group">
+                        <label>Your Nationality</label>
+                        <select id="nationality">
+                            <option value="">Select your country</option>
+                            <optgroup label="Americas">
+                                <option value="US">🇺🇸 United States</option>
+                                <option value="CA">🇨🇦 Canada</option>
+                                <option value="MX">🇲🇽 Mexico</option>
+                                <option value="BR">🇧🇷 Brazil</option>
+                                <option value="AR">🇦🇷 Argentina</option>
+                                <option value="CO">🇨🇴 Colombia</option>
+                                <option value="CL">🇨🇱 Chile</option>
+                            </optgroup>
+                            <optgroup label="Europe">
+                                <option value="UK">🇬🇧 United Kingdom</option>
+                                <option value="DE">🇩🇪 Germany</option>
+                                <option value="FR">🇫🇷 France</option>
+                                <option value="IT">🇮🇹 Italy</option>
+                                <option value="ES">🇪🇸 Spain</option>
+                                <option value="NL">🇳🇱 Netherlands</option>
+                                <option value="PL">🇵🇱 Poland</option>
+                                <option value="RU">🇷🇺 Russia</option>
+                            </optgroup>
+                            <optgroup label="Asia">
+                                <option value="IN">🇮🇳 India</option>
+                                <option value="CN">🇨🇳 China</option>
+                                <option value="JP">🇯🇵 Japan</option>
+                                <option value="KR">🇰🇷 South Korea</option>
+                                <option value="PH">🇵🇭 Philippines</option>
+                                <option value="ID">🇮🇩 Indonesia</option>
+                                <option value="VN">🇻🇳 Vietnam</option>
+                                <option value="TH">🇹🇭 Thailand</option>
+                                <option value="MY">🇲🇾 Malaysia</option>
+                                <option value="SG">🇸🇬 Singapore</option>
+                                <option value="PK">🇵🇰 Pakistan</option>
+                                <option value="BD">🇧🇩 Bangladesh</option>
+                            </optgroup>
+                            <optgroup label="Middle East & Africa">
+                                <option value="AE">🇦🇪 UAE</option>
+                                <option value="SA">🇸🇦 Saudi Arabia</option>
+                                <option value="EG">🇪🇬 Egypt</option>
+                                <option value="ZA">🇿🇦 South Africa</option>
+                                <option value="NG">🇳🇬 Nigeria</option>
+                                <option value="KE">🇰🇪 Kenya</option>
+                            </optgroup>
+                            <optgroup label="Oceania">
+                                <option value="AU">🇦🇺 Australia</option>
+                                <option value="NZ">🇳🇿 New Zealand</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Destination Country</label>
+                        <select id="destination">
+                            <option value="">Select destination</option>
+                            <optgroup label="Popular Destinations">
+                                <option value="US">🇺🇸 United States</option>
+                                <option value="UK">🇬🇧 United Kingdom</option>
+                                <option value="FR">🇫🇷 France</option>
+                                <option value="JP">🇯🇵 Japan</option>
+                                <option value="AU">🇦🇺 Australia</option>
+                                <option value="TH">🇹🇭 Thailand</option>
+                                <option value="AE">🇦🇪 UAE</option>
+                                <option value="SG">🇸🇬 Singapore</option>
+                            </optgroup>
+                            <optgroup label="Europe">
+                                <option value="DE">🇩🇪 Germany</option>
+                                <option value="IT">🇮🇹 Italy</option>
+                                <option value="ES">🇪🇸 Spain</option>
+                                <option value="NL">🇳🇱 Netherlands</option>
+                                <option value="CH">🇨🇭 Switzerland</option>
+                                <option value="GR">🇬🇷 Greece</option>
+                                <option value="PT">🇵🇹 Portugal</option>
+                                <option value="TR">🇹🇷 Turkey</option>
+                            </optgroup>
+                            <optgroup label="Asia & Oceania">
+                                <option value="CN">🇨🇳 China</option>
+                                <option value="IN">🇮🇳 India</option>
+                                <option value="VN">🇻🇳 Vietnam</option>
+                                <option value="ID">🇮🇩 Indonesia</option>
+                                <option value="MY">🇲🇾 Malaysia</option>
+                                <option value="KR">🇰🇷 South Korea</option>
+                                <option value="MV">🇲🇻 Maldives</option>
+                                <option value="NZ">🇳🇿 New Zealand</option>
+                            </optgroup>
+                            <optgroup label="Americas">
+                                <option value="CA">🇨🇦 Canada</option>
+                                <option value="MX">🇲🇽 Mexico</option>
+                                <option value="BR">🇧🇷 Brazil</option>
+                            </optgroup>
+                            <optgroup label="Middle East & Africa">
+                                <option value="SA">🇸🇦 Saudi Arabia</option>
+                                <option value="EG">🇪🇬 Egypt</option>
+                                <option value="ZA">🇿🇦 South Africa</option>
+                                <option value="MA">🇲🇦 Morocco</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <button class="search-btn" onclick="checkVisa()">
+                        <span>🔍</span> Check Visa
+                    </button>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <div class="visa-results" id="visaResults">
+                <div class="empty-state">
+                    <div class="empty-icon">🛂</div>
+                    <h3>Select Your Details</h3>
+                    <p>Choose your nationality and destination country to see visa requirements</p>
+                </div>
+            </div>
+
+            <!-- Popular Countries -->
+            <section class="popular-countries">
+                <h2 class="section-title"><span class="emoji">🌍</span> Popular Destinations</h2>
+                <div class="countries-grid" id="countriesGrid">
+                    <!-- Loaded dynamically -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="page-footer">
+            <p>© 2026 WhereTo - Your Next Journey Starts Here</p>
+        </footer>
+    </div>
+
+    <script>
+        // Mobile nav toggle
+        document.getElementById('navToggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('show');
+        });
+
+        // Visa data - comprehensive for major routes
+        const visaData = {
+            // US Passport Holders
+            'US': {
+                'UK': { type: 'visa-free', stay: '6 months', fee: 'Free' },
+                'FR': { type: 'visa-free', stay: '90 days', fee: 'Free', note: 'Schengen Area' },
+                'DE': { type: 'visa-free', stay: '90 days', fee: 'Free', note: 'Schengen Area' },
+                'IT': { type: 'visa-free', stay: '90 days', fee: 'Free', note: 'Schengen Area' },
+                'ES': { type: 'visa-free', stay: '90 days', fee: 'Free', note: 'Schengen Area' },
+                'JP': { type: 'visa-free', stay: '90 days', fee: 'Free' },
+                'AU': { type: 'eta-required', stay: '90 days', fee: '$20 AUD', process: 'Online, instant' },
+                'TH': { type: 'visa-free', stay: '30 days', fee: 'Free' },
+                'AE': { type: 'visa-free', stay: '30 days', fee: 'Free' },
+                'SG': { type: 'visa-free', stay: '90 days', fee: 'Free' },
+                'MV': { type: 'visa-on-arrival', stay: '30 days', fee: 'Free' },
+                'TR': { type: 'e-visa', stay: '90 days', fee: '$50', process: 'Online, 1-2 days' },
+                'IN': { type: 'e-visa', stay: '30-180 days', fee: '$25-100', process: 'Online, 3-5 days' },
+                'CN': { type: 'visa-required', stay: '30-90 days', fee: '$140', process: 'Embassy, 4-10 days' },
+                'VN': { type: 'e-visa', stay: '30 days', fee: '$25', process: 'Online, 3 days' },
+                'BR': { type: 'visa-free', stay: '90 days', fee: 'Free' },
+                'MX': { type: 'visa-free', stay: '180 days', fee: 'Free' },
+                'CA': { type: 'visa-free', stay: '6 months', fee: 'Free' },
+            },
+            // UK Passport Holders
+            'UK': {
+                'US': { type: 'eta-required', stay: '90 days', fee: '$21', process: 'ESTA, Online' },
+                'FR': { type: 'visa-free', stay: '90 days', fee: 'Free', note: 'Post-Brexit rules' },
+                'JP': { type: 'visa-free', stay: '90 days', fee: 'Free' },
+                'AU': { type: 'e-visa', stay: '90 days', fee: '$20 AUD', process: 'ETA Online' },
+                'TH': { type: 'visa-free', stay: '30 days', fee: 'Free' },
+                'AE': { type: 'visa-free', stay: '30 days', fee: 'Free' },
+                'IN': { type: 'e-visa', stay: '30-180 days', fee: '$25-100', process: 'Online, 3-5 days' },
+            },
+            // Indian Passport Holders
+            'IN': {
+                'US': { type: 'visa-required', stay: '10 years multiple', fee: '$185', process: 'Embassy interview, 2-4 weeks' },
+                'UK': { type: 'visa-required', stay: '6 months', fee: '£100', process: 'VFS, 3-4 weeks' },
+                'FR': { type: 'visa-required', stay: '90 days', fee: '€80', process: 'Schengen visa, 2-3 weeks' },
+                'DE': { type: 'visa-required', stay: '90 days', fee: '€80', process: 'Schengen visa, 2-3 weeks' },
+                'JP': { type: 'visa-required', stay: '15-90 days', fee: '¥3000', process: 'Embassy, 1 week' },
+                'AU': { type: 'visa-required', stay: '3-12 months', fee: '$145-365 AUD', process: 'Online, 1-4 weeks' },
+                'TH': { type: 'visa-on-arrival', stay: '15 days', fee: '2000 THB', process: 'At airport' },
+                'AE': { type: 'visa-on-arrival', stay: '14 days', fee: 'Free', note: 'For existing US/UK visa holders' },
+                'SG': { type: 'visa-required', stay: '30 days', fee: '$30', process: 'Online, 3-5 days' },
+                'MV': { type: 'visa-on-arrival', stay: '30 days', fee: 'Free' },
+                'MY': { type: 'e-visa', stay: '30 days', fee: '$25', process: 'eNTRI, online' },
+                'ID': { type: 'visa-on-arrival', stay: '30 days', fee: '$35', process: 'At airport' },
+                'VN': { type: 'e-visa', stay: '30 days', fee: '$25', process: 'Online, 3 days' },
+                'TR': { type: 'e-visa', stay: '30 days', fee: '$60', process: 'Online, instant' },
+                'NZ': { type: 'visa-required', stay: '3-9 months', fee: '$246 NZD', process: 'Online, 2-4 weeks' },
+            },
+            // UAE Passport Holders
+            'AE': {
+                'US': { type: 'visa-free', stay: '90 days', fee: 'Free' },
+                'UK': { type: 'visa-free', stay: '6 months', fee: 'Free' },
+                'FR': { type: 'visa-free', stay: '90 days', fee: 'Free' },
+                'JP': { type: 'visa-free', stay: '90 days', fee: 'Free' },
+                'TH': { type: 'visa-free', stay: '30 days', fee: 'Free' },
+                'SG': { type: 'visa-free', stay: '30 days', fee: 'Free' },
+                'MY': { type: 'visa-free', stay: '90 days', fee: 'Free' },
+            },
+            // Japanese Passport Holders
+            'JP': {
+                'US': { type: 'visa-free', stay: '90 days', fee: 'Free', note: 'ESTA required' },
+                'UK': { type: 'visa-free', stay: '6 months', fee: 'Free' },
+                'FR': { type: 'visa-free', stay: '90 days', fee: 'Free' },
+                'AU': { type: 'e-visa', stay: '90 days', fee: '$20 AUD', process: 'ETA Online' },
+                'TH': { type: 'visa-free', stay: '30 days', fee: 'Free' },
+                'SG': { type: 'visa-free', stay: '90 days', fee: 'Free' },
+            },
+            // Default for other combinations
+            'default': { type: 'visa-required', stay: 'Varies', fee: 'Check embassy', process: 'Contact embassy for details' }
+        };
+
+        const countryInfo = {
+            'US': { name: 'United States', flag: '🇺🇸' },
+            'UK': { name: 'United Kingdom', flag: '🇬🇧' },
+            'CA': { name: 'Canada', flag: '🇨🇦' },
+            'AU': { name: 'Australia', flag: '🇦🇺' },
+            'FR': { name: 'France', flag: '🇫🇷' },
+            'DE': { name: 'Germany', flag: '🇩🇪' },
+            'IT': { name: 'Italy', flag: '🇮🇹' },
+            'ES': { name: 'Spain', flag: '🇪🇸' },
+            'JP': { name: 'Japan', flag: '🇯🇵' },
+            'TH': { name: 'Thailand', flag: '🇹🇭' },
+            'AE': { name: 'UAE', flag: '🇦🇪' },
+            'SG': { name: 'Singapore', flag: '🇸🇬' },
+            'IN': { name: 'India', flag: '🇮🇳' },
+            'CN': { name: 'China', flag: '🇨🇳' },
+            'KR': { name: 'South Korea', flag: '🇰🇷' },
+            'MY': { name: 'Malaysia', flag: '🇲🇾' },
+            'ID': { name: 'Indonesia', flag: '🇮🇩' },
+            'VN': { name: 'Vietnam', flag: '🇻🇳' },
+            'MV': { name: 'Maldives', flag: '🇲🇻' },
+            'TR': { name: 'Turkey', flag: '🇹🇷' },
+            'NZ': { name: 'New Zealand', flag: '🇳🇿' },
+            'MX': { name: 'Mexico', flag: '🇲🇽' },
+            'BR': { name: 'Brazil', flag: '🇧🇷' },
+            'NL': { name: 'Netherlands', flag: '🇳🇱' },
+            'CH': { name: 'Switzerland', flag: '🇨🇭' },
+            'GR': { name: 'Greece', flag: '🇬🇷' },
+            'PT': { name: 'Portugal', flag: '🇵🇹' },
+            'SA': { name: 'Saudi Arabia', flag: '🇸🇦' },
+            'EG': { name: 'Egypt', flag: '🇪🇬' },
+            'ZA': { name: 'South Africa', flag: '🇿🇦' },
+            'MA': { name: 'Morocco', flag: '🇲🇦' },
+        };
+
+        // Check visa requirements
+        function checkVisa() {
+            const nationality = document.getElementById('nationality').value;
+            const destination = document.getElementById('destination').value;
+            const results = document.getElementById('visaResults');
+
+            if (!nationality || !destination) {
+                results.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">⚠️</div>
+                        <h3>Please Select Both Fields</h3>
+                        <p>Choose your nationality and destination to check visa requirements</p>
+                    </div>
+                `;
+                return;
+            }
+
+            if (nationality === destination) {
+                results.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🏠</div>
+                        <h3>That's Your Home Country!</h3>
+                        <p>No visa required to visit your own country</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Get visa info
+            const natData = visaData[nationality] || {};
+            const visa = natData[destination] || visaData['default'];
+            const natInfo = countryInfo[nationality] || { name: nationality, flag: '🏳️' };
+            const destInfo = countryInfo[destination] || { name: destination, flag: '🏳️' };
+
+            const statusClass = visa.type.replace(' ', '-');
+            const statusText = getStatusText(visa.type);
+            const statusIcon = getStatusIcon(visa.type);
+
+            results.innerHTML = `
+                <div class="result-card">
+                    <div class="result-header">
+                        <div class="result-countries">
+                            <div class="country-badge">
+                                <span class="country-flag">${natInfo.flag}</span>
+                                <span class="country-name">${natInfo.name}</span>
+                            </div>
+                            <span class="arrow-icon">→</span>
+                            <div class="country-badge">
+                                <span class="country-flag">${destInfo.flag}</span>
+                                <span class="country-name">${destInfo.name}</span>
+                            </div>
+                        </div>
+                        <div class="visa-status ${statusClass}">
+                            ${statusIcon} ${statusText}
+                        </div>
+                    </div>
+
+                    <div class="visa-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Length of Stay</span>
+                            <span class="detail-value">${visa.stay}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Visa Fee</span>
+                            <span class="detail-value">${visa.fee}</span>
+                        </div>
+                        ${visa.process ? `
+                        <div class="detail-item">
+                            <span class="detail-label">Processing</span>
+                            <span class="detail-value">${visa.process}</span>
+                        </div>
+                        ` : ''}
+                    </div>
+
+                    ${visa.note ? `
+                    <div class="visa-tips">
+                        <h4>📌 Note</h4>
+                        <p>${visa.note}</p>
+                    </div>
+                    ` : ''}
+
+                    <div class="requirements-section">
+                        <h4 class="requirements-title">📋 Common Requirements</h4>
+                        <div class="requirements-grid">
+                            ${getRequirements(visa.type)}
+                        </div>
+                    </div>
+
+                    <div class="visa-tips">
+                        <h4>💡 Travel Tips</h4>
+                        <p>${getTravelTip(visa.type, destInfo.name)}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getStatusText(type) {
+            const texts = {
+                'visa-free': 'Visa Free',
+                'visa-required': 'Visa Required',
+                'e-visa': 'E-Visa Available',
+                'visa-on-arrival': 'Visa on Arrival',
+                'eta-required': 'ETA/ESTA Required'
+            };
+            return texts[type] || 'Check Requirements';
+        }
+
+        function getStatusIcon(type) {
+            const icons = {
+                'visa-free': '✅',
+                'visa-required': '📝',
+                'e-visa': '💻',
+                'visa-on-arrival': '✈️',
+                'eta-required': '🌐'
+            };
+            return icons[type] || '📋';
+        }
+
+        function getRequirements(type) {
+            const common = [
+                { icon: '✓', text: 'Valid passport (6+ months validity)' },
+                { icon: '✓', text: 'Return/onward ticket' },
+                { icon: '✓', text: 'Proof of accommodation' },
+                { icon: '✓', text: 'Sufficient funds for stay' }
+            ];
+
+            if (type === 'visa-required') {
+                common.push(
+                    { icon: '✓', text: 'Completed visa application form' },
+                    { icon: '✓', text: 'Passport-size photographs' },
+                    { icon: '✓', text: 'Bank statements (3-6 months)' },
+                    { icon: '✓', text: 'Travel itinerary' }
+                );
+            } else if (type === 'e-visa') {
+                common.push(
+                    { icon: '✓', text: 'Digital passport photo' },
+                    { icon: '✓', text: 'Credit/debit card for payment' }
+                );
+            }
+
+            return common.map(req => `
+                <div class="requirement-item">
+                    <span class="requirement-icon">${req.icon}</span>
+                    <span class="requirement-text">${req.text}</span>
+                </div>
+            `).join('');
+        }
+
+        function getTravelTip(type, dest) {
+            const tips = {
+                'visa-free': `Great news! You can enter ${dest} without a visa. Just make sure your passport is valid for at least 6 months beyond your travel dates. Keep your return ticket and hotel booking handy for immigration.`,
+                'visa-required': `Apply for your visa well in advance - at least 4-6 weeks before travel. Book appointments early as embassy slots fill up quickly. Keep all original documents ready for submission.`,
+                'e-visa': `Apply online through the official government portal only. Save a copy of your e-visa on your phone and print a hard copy. Apply at least 72 hours before travel.`,
+                'visa-on-arrival': `Have cash ready for the visa fee (local currency or USD). Prepare your documents in order - passport, photo, return ticket, hotel booking. Queues can be long, so arrive prepared.`,
+                'eta-required': `Complete your ETA/ESTA application before checking in for your flight. Airlines will verify your authorization before boarding. Keep confirmation number handy.`
+            };
+            return tips[type] || `Check the official embassy website for the most up-to-date requirements.`;
+        }
+
+        // Load popular countries
+        document.addEventListener('DOMContentLoaded', function() {
+            const grid = document.getElementById('countriesGrid');
+            const popular = [
+                { code: 'US', policy: 'Strong passport' },
+                { code: 'UK', policy: 'Strong passport' },
+                { code: 'JP', policy: 'Most visa-free' },
+                { code: 'FR', policy: 'Schengen zone' },
+                { code: 'AE', policy: 'Visa on arrival hub' },
+                { code: 'TH', policy: 'Easy access' },
+                { code: 'SG', policy: 'Business hub' },
+                { code: 'AU', policy: 'ETA system' },
+                { code: 'MV', policy: 'Tourism friendly' },
+                { code: 'TR', policy: 'E-visa available' }
+            ];
+
+            grid.innerHTML = popular.map(c => {
+                const info = countryInfo[c.code];
+                return `
+                    <div class="country-card" onclick="selectDestination('${c.code}')">
+                        <div class="flag">${info.flag}</div>
+                        <div class="name">${info.name}</div>
+                        <div class="policy">${c.policy}</div>
+                    </div>
+                `;
+            }).join('');
+        });
+
+        function selectDestination(code) {
+            document.getElementById('destination').value = code;
+            document.querySelector('.visa-search').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

@@ -59,7 +59,8 @@
                 <a href="home.html" class="nav-link">🏠 Home</a>
                 <a href="index.html" class="nav-link">💬 Chat</a>
                 <a href="destinations.html" class="nav-link active">🌍 Destinations</a>
-                <a href="trip-planner.html" class="nav-link">✈️ Trip & Visa</a>
+                <a href="trip-planner.html" class="nav-link">🗓️ Trip Planner</a>
+                <a href="visa-guide.html" class="nav-link">🛂 Visa Guide</a>
                 <a href="budget-calculator.html" class="nav-link">💰 Budget</a>
                 <a href="currency-converter.html" class="nav-link">💱 Currency</a>
             </div>
@@ -82,7 +83,7 @@
             <!-- Featured Destinations -->
             <section class="dest-section featured-section">
                 <div class="section-header">
-                    <h2>🔥 Featured Destinations</h2>
+                    <h2><span class="section-emoji">🔥</span> Featured Destinations</h2>
                     <a href="#" class="see-all" onclick="showAllDestinations()">See All →</a>
                 </div>
                 <div class="featured-carousel" id="featuredCarousel">
@@ -93,7 +94,7 @@
             <!-- Explore Countries -->
             <section class="dest-section countries-section">
                 <div class="section-header">
-                    <h2>🌐 Top Countries to Explore</h2>
+                    <h2><span class="section-emoji">🌐</span> Top Countries to Explore</h2>
                     <a href="#" class="see-all" onclick="showAllCountries()">See All →</a>
                 </div>
                 <div class="countries-grid" id="countriesGrid">
@@ -104,7 +105,7 @@
             <!-- Travel Ideas / Collections -->
             <section class="dest-section collections-section">
                 <div class="section-header">
-                    <h2>✨ Travel Ideas</h2>
+                    <h2><span class="section-emoji">✨</span> Travel Ideas</h2>
                 </div>
                 <div class="collections-grid" id="collectionsGrid">
                     <!-- Collection cards loaded dynamically -->
@@ -114,7 +115,7 @@
             <!-- Best Time to Travel (Monthly) -->
             <section class="dest-section monthly-section">
                 <div class="section-header">
-                    <h2>📅 Best Places by Month</h2>
+                    <h2><span class="section-emoji">📅</span> Best Places by Month</h2>
                 </div>
                 <div class="months-carousel" id="monthsCarousel">
                     <!-- Month buttons loaded dynamically -->
@@ -127,7 +128,7 @@
             <!-- All Destinations Grid -->
             <section class="dest-section all-destinations-section">
                 <div class="section-header">
-                    <h2 id="gridTitle">🌍 All Destinations</h2>
+                    <h2 id="gridTitle"><span class="section-emoji">🌍</span> All Destinations</h2>
                     <div class="sort-options">
                         <select id="sortSelect">
                             <option value="featured">Featured</option>
@@ -347,10 +348,14 @@
         // ==========================================
 
         function createDestinationCard(dest) {
+            const isSaved = isDestinationSaved(dest.id);
             return `
-                <div class="destination-card" data-id="${dest.id}" onclick="viewDestination(${dest.id})">
-                    <div class="card-image" style="background-image: url('${dest.image}')">
+                <div class="destination-card" data-id="${dest.id}">
+                    <div class="card-image" style="background-image: url('${dest.image}')" onclick="viewDestination(${dest.id})">
                         ${dest.featured ? '<span class="featured-badge">⭐ Featured</span>' : ''}
+                        <button class="save-trip-btn ${isSaved ? 'saved' : ''}" onclick="event.stopPropagation(); toggleSaveTrip(${dest.id})" title="${isSaved ? 'Remove from Trip' : 'Save to Trip'}">
+                            ${isSaved ? '✓' : '📌'}
+                        </button>
                         <div class="card-categories">
                             ${dest.category.slice(0, 2).map(cat => {
                                 const catInfo = destinationCategories.find(c => c.id === cat);
@@ -358,7 +363,7 @@
                             }).join('')}
                         </div>
                     </div>
-                    <div class="card-content">
+                    <div class="card-content" onclick="viewDestination(${dest.id})">
                         <h3>${dest.name}</h3>
                         <p class="location">📍 ${dest.country}</p>
                         <p class="description">${dest.description.substring(0, 80)}...</p>
@@ -386,7 +391,7 @@
             loadAllDestinations();
             
             if (searchQuery) {
-                document.getElementById('gridTitle').textContent = `🔍 Search Results for "${searchQuery}"`;
+                document.getElementById('gridTitle').innerHTML = `<span class="section-emoji">🔍</span> Search Results for "${searchQuery}"`;
                 scrollToSection('.all-destinations-section');
             }
         }
@@ -395,15 +400,15 @@
             currentFilter = collectionId;
             loadAllDestinations();
             const catInfo = destinationCategories.find(c => c.id === collectionId);
-            document.getElementById('gridTitle').textContent = 
-                catInfo ? `${catInfo.icon} ${catInfo.name}` : '🌍 Destinations';
+            document.getElementById('gridTitle').innerHTML = 
+                catInfo ? `<span class="section-emoji">${catInfo.icon}</span> ${catInfo.name}` : '<span class="section-emoji">🌍</span> Destinations';
             scrollToSection('.all-destinations-section');
         }
 
         function filterByCountry(countryId) {
             const destinations = getDestinationsByCountry(countryId);
             const countryInfo = countriesData.find(c => c.id === countryId);
-            renderFilteredDestinations(destinations, `${countryInfo.flag} ${countryInfo.name}`);
+            renderFilteredDestinations(destinations, `<span class="section-emoji">${countryInfo.flag}</span> ${countryInfo.name}`);
             scrollToSection('.all-destinations-section');
         }
 
@@ -417,14 +422,14 @@
                 may: 'May', june: 'June', july: 'July', august: 'August',
                 september: 'September', october: 'October', november: 'November', december: 'December'
             };
-            renderFilteredDestinations(destinations, `📅 Best for ${monthNames[monthId]}`);
+            renderFilteredDestinations(destinations, `<span class="section-emoji">📅</span> Best for ${monthNames[monthId]}`);
             scrollToSection('.all-destinations-section');
         }
 
         function renderFilteredDestinations(destinations, title) {
             const container = document.getElementById('destinationsGrid');
             const emptyState = document.getElementById('emptyState');
-            document.getElementById('gridTitle').textContent = title;
+            document.getElementById('gridTitle').innerHTML = title;
             
             if (destinations.length === 0) {
                 container.innerHTML = '';
@@ -443,7 +448,7 @@
             document.querySelector('[data-category="all"]').classList.add('active');
             document.querySelectorAll('.quick-filter').forEach(btn => btn.classList.remove('active'));
             document.querySelector('[data-filter="featured"]').classList.add('active');
-            document.getElementById('gridTitle').textContent = '🌍 All Destinations';
+            document.getElementById('gridTitle').innerHTML = '<span class="section-emoji">🌍</span> All Destinations';
             loadAllDestinations();
         }
 
@@ -474,6 +479,67 @@
             if (section) {
                 section.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
+        }
+
+        // ==========================================
+        // TRIP PLANNER SAVE FUNCTIONS
+        // ==========================================
+
+        function isDestinationSaved(destId) {
+            const saved = JSON.parse(localStorage.getItem('tripPlanner') || '[]');
+            return saved.some(d => d.id === destId);
+        }
+
+        function toggleSaveTrip(destId) {
+            let saved = JSON.parse(localStorage.getItem('tripPlanner') || '[]');
+            
+            if (isDestinationSaved(destId)) {
+                // Remove from saved
+                saved = saved.filter(d => d.id !== destId);
+                showToast('Removed from Trip Planner');
+            } else {
+                // Add to saved
+                const dest = destinations.find(d => d.id === destId);
+                if (dest) {
+                    saved.push({
+                        id: dest.id,
+                        name: dest.name,
+                        country: dest.country,
+                        image: dest.image,
+                        flag: dest.flag,
+                        region: dest.region,
+                        categories: dest.category
+                    });
+                    showToast('Saved to Trip Planner! 📌');
+                }
+            }
+            
+            localStorage.setItem('tripPlanner', JSON.stringify(saved));
+            
+            // Update button state
+            const btn = document.querySelector(`[data-id="${destId}"] .save-trip-btn`);
+            if (btn) {
+                btn.classList.toggle('saved');
+                btn.textContent = btn.classList.contains('saved') ? '✓' : '📌';
+                btn.title = btn.classList.contains('saved') ? 'Remove from Trip' : 'Save to Trip';
+            }
+        }
+
+        function showToast(message) {
+            // Remove existing toast
+            const existing = document.querySelector('.toast-notification');
+            if (existing) existing.remove();
+            
+            const toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
         }
 
         // ==========================================

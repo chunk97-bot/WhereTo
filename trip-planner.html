@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trip Planner & Visa Guide - WhereTo</title>
+    <title>Trip Planner - WhereTo | Plan Your Perfect Journey</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Plan your perfect trip with our trip planner and get visa information for countries worldwide.">
-    <meta name="keywords" content="trip planner, visa guide, travel planning, visa requirements, travel itinerary">
+    <meta name="description" content="Plan your perfect trip with AI-powered itinerary generation. Save destinations and create custom travel plans based on geography.">
+    <meta name="keywords" content="trip planner, travel itinerary, AI trip planning, travel route planner">
     <meta name="robots" content="index, follow">
     
     <link rel="icon" type="image/png" href="favicon.png">
     <meta name="theme-color" content="#0f0f23">
     
     <link rel="stylesheet" href="style.css?v=2">
-    <link rel="stylesheet" href="pages.css?v=4">
+    <link rel="stylesheet" href="pages.css?v=5">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Righteous&display=swap" rel="stylesheet">
+    <script src="destinations-data.js"></script>
     
     <style>
         /* Trip Planner Specific Styles */
@@ -38,55 +39,176 @@
             background-clip: text;
         }
 
+        .planner-header h1::before {
+            content: '🗓️ ';
+            -webkit-text-fill-color: initial;
+        }
+
         .planner-header p {
             color: rgba(255, 255, 255, 0.7);
             font-size: 1.1rem;
         }
 
-        .planner-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            padding: 1.5rem;
-            background: rgba(0, 0, 0, 0.2);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .planner-tab {
-            padding: 0.8rem 2rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 30px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .planner-tab:hover,
-        .planner-tab.active {
-            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
-            border-color: transparent;
-        }
-
-        .planner-tab.active {
-            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
-        }
-
-        .tab-content {
-            display: none;
+        .planner-content {
             padding: 2rem;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        .tab-content.active {
-            display: block;
+        /* Saved Destinations Section */
+        .saved-section {
+            margin-bottom: 3rem;
         }
 
-        /* Trip Planner Section */
-        .trip-form {
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title .emoji {
+            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+            -webkit-text-fill-color: initial;
+        }
+
+        .saved-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .saved-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .saved-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .saved-card-image {
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .saved-card-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(15, 15, 35, 1), transparent);
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(239, 68, 68, 0.9);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            background: #ef4444;
+            transform: scale(1.1);
+        }
+
+        .saved-card-content {
+            padding: 1rem;
+        }
+
+        .saved-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .saved-card p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.5rem;
+        }
+
+        .saved-card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .saved-tag {
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 212, 255, 0.15);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: #00d4ff;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .empty-state .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 1.5rem;
+        }
+
+        .explore-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .explore-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Generate Itinerary Section */
+        .generate-section {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
             padding: 2rem;
@@ -94,49 +216,55 @@
             margin-bottom: 2rem;
         }
 
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+        .generate-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
-        .form-group {
+        .generate-header h2 {
+            font-size: 1.3rem;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             gap: 0.5rem;
         }
 
-        .form-group label {
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.8);
+        .date-inputs {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .date-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .date-group label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .date-group input {
+            padding: 0.6rem 1rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
             font-size: 0.9rem;
         }
 
-        .form-group input,
-        .form-group select {
-            padding: 0.8rem 1rem;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            color: white;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
+        .date-group input:focus {
             outline: none;
             border-color: #00d4ff;
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
-        }
-
-        .form-group input::placeholder {
-            color: rgba(255, 255, 255, 0.4);
         }
 
         .generate-btn {
-            margin-top: 1.5rem;
-            padding: 1rem 3rem;
+            padding: 1rem 2.5rem;
             background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
             border: none;
             border-radius: 30px;
@@ -145,6 +273,9 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .generate-btn:hover {
@@ -152,164 +283,168 @@
             box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
         }
 
+        .generate-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Itinerary Output */
         .itinerary-output {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
             padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
             min-height: 300px;
         }
 
         .itinerary-placeholder {
             text-align: center;
-            padding: 4rem 2rem;
+            padding: 3rem;
             color: rgba(255, 255, 255, 0.5);
         }
 
         .itinerary-placeholder .placeholder-icon {
             font-size: 4rem;
             margin-bottom: 1rem;
+            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
         }
 
-        /* Visa Section */
-        .visa-search {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        /* Generated Itinerary Styles */
+        .itinerary-result {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .itinerary-header {
+            text-align: center;
             margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .visa-search-row {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            align-items: flex-end;
+        .itinerary-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff 0%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .visa-search-row .form-group {
-            flex: 1;
-            min-width: 200px;
+        .itinerary-header p {
+            color: rgba(255, 255, 255, 0.6);
         }
 
-        .search-btn {
-            padding: 0.8rem 2rem;
-            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            height: fit-content;
-        }
-
-        .search-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
-        }
-
-        .visa-results {
-            display: grid;
-            gap: 1.5rem;
-        }
-
-        .visa-card {
+        .day-card {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 16px;
             padding: 1.5rem;
+            margin-bottom: 1.5rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
         }
 
-        .visa-card:hover {
-            border-color: rgba(0, 212, 255, 0.3);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .visa-card-header {
+        .day-header {
             display: flex;
             align-items: center;
             gap: 1rem;
             margin-bottom: 1rem;
         }
 
-        .visa-card-flag {
-            font-size: 2.5rem;
+        .day-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
         }
 
-        .visa-card-title h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.25rem;
+        .day-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
         }
 
-        .visa-card-title span {
+        .day-info span {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .day-activities {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+        }
+
+        .activity-time {
+            min-width: 70px;
+            padding: 0.3rem 0.6rem;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: #00d4ff;
+            text-align: center;
+        }
+
+        .activity-details h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .activity-details p {
             font-size: 0.85rem;
             color: rgba(255, 255, 255, 0.6);
         }
 
-        .visa-badge {
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-left: auto;
+        /* Travel Tips Section */
+        .travel-tips {
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(139, 92, 246, 0.2);
         }
 
-        .visa-badge.visa-free {
-            background: rgba(34, 197, 94, 0.2);
-            color: #22c55e;
-        }
-
-        .visa-badge.visa-required {
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-        }
-
-        .visa-badge.e-visa {
-            background: rgba(59, 130, 246, 0.2);
-            color: #3b82f6;
-        }
-
-        .visa-badge.visa-on-arrival {
-            background: rgba(251, 191, 36, 0.2);
-            color: #fbbf24;
-        }
-
-        .visa-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .visa-detail-item {
+        .travel-tips h3 {
             display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
-        .visa-detail-item label {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.5);
-            text-transform: uppercase;
-        }
-
-        .visa-detail-item span {
-            font-weight: 500;
-        }
-
-        .empty-visa-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .empty-visa-state .empty-icon {
-            font-size: 4rem;
+            align-items: center;
+            gap: 0.5rem;
             margin-bottom: 1rem;
+            color: #a78bfa;
+        }
+
+        .travel-tips ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .travel-tips li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .travel-tips li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #22c55e;
         }
 
         /* Responsive */
@@ -318,23 +453,18 @@
                 font-size: 1.8rem;
             }
 
-            .planner-tabs {
+            .generate-header {
                 flex-direction: column;
-                align-items: center;
+                align-items: stretch;
             }
 
-            .planner-tab {
+            .date-inputs {
+                justify-content: center;
+            }
+
+            .generate-btn {
                 width: 100%;
-                max-width: 300px;
-                text-align: center;
-            }
-
-            .visa-search-row {
-                flex-direction: column;
-            }
-
-            .search-btn {
-                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -347,15 +477,12 @@
                 <a href="home.html">
                     <svg viewBox="0 0 200 50" class="nav-logo-svg">
                         <text x="5" y="35" class="nav-brand-text">WhereTo</text>
-                        <!-- Animated pin -->
                         <circle cx="175" cy="28" r="6" fill="#ff6b6b" class="nav-pin-dot"/>
                         <circle cx="175" cy="27" r="2.5" fill="white"/>
-                        <!-- Flying plane -->
                         <g class="nav-flying-plane">
                             <path d="M0 0 L-6 -2 L-5 0 L-6 2 Z" fill="#008cff"/>
                             <path d="M-3 -4 L-1.5 0 L-3 4 L-4 0 Z" fill="#008cff" opacity="0.7"/>
                         </g>
-                        <!-- Plane trail -->
                         <path class="nav-plane-trail" d="M100 38 Q130 25 150 30 Q170 35 180 22" 
                               fill="none" stroke="rgba(0,140,255,0.3)" stroke-width="1.5" 
                               stroke-dasharray="4 3" stroke-linecap="round"/>
@@ -366,7 +493,8 @@
                 <a href="home.html" class="nav-link">🏠 Home</a>
                 <a href="index.html" class="nav-link">💬 Chat</a>
                 <a href="destinations.html" class="nav-link">🌍 Destinations</a>
-                <a href="trip-planner.html" class="nav-link active">✈️ Trip & Visa</a>
+                <a href="trip-planner.html" class="nav-link active">🗓️ Trip Planner</a>
+                <a href="visa-guide.html" class="nav-link">🛂 Visa Guide</a>
                 <a href="budget-calculator.html" class="nav-link">💰 Budget</a>
                 <a href="currency-converter.html" class="nav-link">💱 Currency</a>
             </div>
@@ -375,126 +503,51 @@
 
         <!-- Page Header -->
         <header class="planner-header">
-            <h1>✈️ Trip Planner & Visa Guide</h1>
-            <p>Plan your perfect trip and check visa requirements</p>
+            <h1>Trip Planner</h1>
+            <p>Save destinations and create AI-powered travel itineraries</p>
         </header>
 
-        <!-- Tabs -->
-        <div class="planner-tabs">
-            <button class="planner-tab active" data-tab="planner">🗓️ Trip Planner</button>
-            <button class="planner-tab" data-tab="visa">🛂 Visa Guide</button>
-        </div>
+        <!-- Main Content -->
+        <main class="planner-content">
+            <!-- Saved Destinations -->
+            <section class="saved-section">
+                <h2 class="section-title"><span class="emoji">📍</span> Your Saved Destinations</h2>
+                <div class="saved-grid" id="savedGrid">
+                    <!-- Loaded dynamically -->
+                </div>
+            </section>
 
-        <!-- Trip Planner Tab -->
-        <div class="tab-content active" id="planner-tab">
-            <div class="trip-form">
-                <h2 style="margin-bottom: 1.5rem;">📝 Plan Your Trip</h2>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Where are you going?</label>
-                        <input type="text" id="destination" placeholder="e.g., Paris, France">
-                    </div>
-                    <div class="form-group">
-                        <label>Start Date</label>
-                        <input type="date" id="startDate">
-                    </div>
-                    <div class="form-group">
-                        <label>End Date</label>
-                        <input type="date" id="endDate">
-                    </div>
-                    <div class="form-group">
-                        <label>Number of Travelers</label>
-                        <select id="travelers">
-                            <option value="1">1 Traveler</option>
-                            <option value="2" selected>2 Travelers</option>
-                            <option value="3">3 Travelers</option>
-                            <option value="4">4 Travelers</option>
-                            <option value="5">5+ Travelers</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Trip Type</label>
-                        <select id="tripType">
-                            <option value="leisure">🏖️ Leisure</option>
-                            <option value="adventure">🎯 Adventure</option>
-                            <option value="cultural">🏛️ Cultural</option>
-                            <option value="romantic">💕 Romantic</option>
-                            <option value="family">👨‍👩‍👧‍👦 Family</option>
-                            <option value="business">💼 Business</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Budget Range</label>
-                        <select id="budget">
-                            <option value="budget">💰 Budget</option>
-                            <option value="mid" selected>💰💰 Mid-Range</option>
-                            <option value="luxury">💰💰💰 Luxury</option>
-                        </select>
+            <!-- Generate Itinerary -->
+            <section class="generate-section" id="generateSection">
+                <div class="generate-header">
+                    <h2><span class="emoji">✨</span> Generate AI Itinerary</h2>
+                    <div class="date-inputs">
+                        <div class="date-group">
+                            <label>Start Date</label>
+                            <input type="date" id="startDate">
+                        </div>
+                        <div class="date-group">
+                            <label>End Date</label>
+                            <input type="date" id="endDate">
+                        </div>
                     </div>
                 </div>
-                <div style="text-align: center;">
-                    <button class="generate-btn" onclick="generateItinerary()">✨ Generate Itinerary</button>
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <button class="generate-btn" id="generateBtn" onclick="generateItinerary()">
+                        <span>🤖</span> Generate Smart Itinerary
+                    </button>
                 </div>
-            </div>
+            </section>
 
+            <!-- Itinerary Output -->
             <div class="itinerary-output" id="itineraryOutput">
                 <div class="itinerary-placeholder">
                     <div class="placeholder-icon">🗺️</div>
                     <h3>Your Itinerary Will Appear Here</h3>
-                    <p>Fill in the details above and click "Generate Itinerary" to create your personalized trip plan</p>
+                    <p>Save at least 2 destinations, set your dates, and click "Generate Smart Itinerary" to create an AI-optimized travel plan based on geography</p>
                 </div>
             </div>
-        </div>
-
-        <!-- Visa Guide Tab -->
-        <div class="tab-content" id="visa-tab">
-            <div class="visa-search">
-                <h2 style="margin-bottom: 1.5rem;">🔍 Check Visa Requirements</h2>
-                <div class="visa-search-row">
-                    <div class="form-group">
-                        <label>Your Nationality</label>
-                        <select id="nationality">
-                            <option value="">Select your country</option>
-                            <option value="US">🇺🇸 United States</option>
-                            <option value="UK">🇬🇧 United Kingdom</option>
-                            <option value="CA">🇨🇦 Canada</option>
-                            <option value="AU">🇦🇺 Australia</option>
-                            <option value="IN">🇮🇳 India</option>
-                            <option value="DE">🇩🇪 Germany</option>
-                            <option value="FR">🇫🇷 France</option>
-                            <option value="JP">🇯🇵 Japan</option>
-                            <option value="CN">🇨🇳 China</option>
-                            <option value="BR">🇧🇷 Brazil</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Destination Country</label>
-                        <select id="visaDestination">
-                            <option value="">Select destination</option>
-                            <option value="france">🇫🇷 France</option>
-                            <option value="japan">🇯🇵 Japan</option>
-                            <option value="usa">🇺🇸 United States</option>
-                            <option value="uk">🇬🇧 United Kingdom</option>
-                            <option value="thailand">🇹🇭 Thailand</option>
-                            <option value="uae">🇦🇪 UAE</option>
-                            <option value="australia">🇦🇺 Australia</option>
-                            <option value="singapore">🇸🇬 Singapore</option>
-                            <option value="maldives">🇲🇻 Maldives</option>
-                            <option value="turkey">🇹🇷 Turkey</option>
-                        </select>
-                    </div>
-                    <button class="search-btn" onclick="checkVisa()">🔍 Check Visa</button>
-                </div>
-            </div>
-
-            <div class="visa-results" id="visaResults">
-                <div class="empty-visa-state">
-                    <div class="empty-icon">🛂</div>
-                    <h3>Select Your Details</h3>
-                    <p>Choose your nationality and destination country to see visa requirements</p>
-                </div>
-            </div>
-        </div>
+        </main>
 
         <!-- Footer -->
         <footer class="page-footer">
@@ -503,19 +556,6 @@
     </div>
 
     <script>
-        // Tab switching
-        document.querySelectorAll('.planner-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                // Remove active from all tabs
-                document.querySelectorAll('.planner-tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                
-                // Add active to clicked tab
-                this.classList.add('active');
-                document.getElementById(this.dataset.tab + '-tab').classList.add('active');
-            });
-        });
-
         // Mobile nav toggle
         document.getElementById('navToggle').addEventListener('click', function() {
             document.querySelector('.nav-links').classList.toggle('show');
@@ -529,29 +569,276 @@
             
             document.getElementById('startDate').valueAsDate = nextWeek;
             document.getElementById('endDate').valueAsDate = twoWeeks;
+            
+            loadSavedDestinations();
         });
 
-        // Placeholder functions - will be implemented later
-        function generateItinerary() {
-            const output = document.getElementById('itineraryOutput');
-            output.innerHTML = `
-                <div class="itinerary-placeholder">
-                    <div class="placeholder-icon">🚧</div>
-                    <h3>Coming Soon!</h3>
-                    <p>AI-powered itinerary generation will be available soon. Stay tuned!</p>
+        // Load saved destinations from localStorage
+        function loadSavedDestinations() {
+            const saved = JSON.parse(localStorage.getItem('tripPlanner') || '[]');
+            const grid = document.getElementById('savedGrid');
+            
+            if (saved.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <div class="empty-icon">📍</div>
+                        <h3>No Destinations Saved Yet</h3>
+                        <p>Go to Destinations and click "Save to Trip" on places you want to visit</p>
+                        <a href="destinations.html" class="explore-btn">
+                            <span>🌍</span> Explore Destinations
+                        </a>
+                    </div>
+                `;
+                document.getElementById('generateSection').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('generateSection').style.display = 'block';
+            
+            grid.innerHTML = saved.map(dest => `
+                <div class="saved-card" data-id="${dest.id}">
+                    <button class="remove-btn" onclick="removeDestination('${dest.id}')" title="Remove">×</button>
+                    <div class="saved-card-image" style="background-image: url('${dest.image}')"></div>
+                    <div class="saved-card-content">
+                        <h3>${dest.flag || ''} ${dest.name}</h3>
+                        <p>${dest.country}</p>
+                        <div class="saved-card-tags">
+                            ${(dest.categories || []).slice(0, 3).map(cat => {
+                                const catInfo = destinationCategories.find(c => c.id === cat);
+                                return catInfo ? `<span class="saved-tag">${catInfo.icon} ${catInfo.name}</span>` : '';
+                            }).join('')}
+                        </div>
+                    </div>
                 </div>
-            `;
+            `).join('');
         }
 
-        function checkVisa() {
-            const results = document.getElementById('visaResults');
-            results.innerHTML = `
-                <div class="empty-visa-state">
-                    <div class="empty-icon">🚧</div>
-                    <h3>Coming Soon!</h3>
-                    <p>Comprehensive visa information will be available soon. Stay tuned!</p>
+        // Remove destination from saved
+        function removeDestination(id) {
+            let saved = JSON.parse(localStorage.getItem('tripPlanner') || '[]');
+            saved = saved.filter(dest => dest.id !== id);
+            localStorage.setItem('tripPlanner', JSON.stringify(saved));
+            loadSavedDestinations();
+        }
+
+        // Generate AI Itinerary
+        function generateItinerary() {
+            const saved = JSON.parse(localStorage.getItem('tripPlanner') || '[]');
+            const startDate = new Date(document.getElementById('startDate').value);
+            const endDate = new Date(document.getElementById('endDate').value);
+            const output = document.getElementById('itineraryOutput');
+
+            if (saved.length < 2) {
+                output.innerHTML = `
+                    <div class="itinerary-placeholder">
+                        <div class="placeholder-icon">⚠️</div>
+                        <h3>Need More Destinations</h3>
+                        <p>Please save at least 2 destinations to generate an optimized itinerary</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const days = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+            if (days < 1) {
+                output.innerHTML = `
+                    <div class="itinerary-placeholder">
+                        <div class="placeholder-icon">📅</div>
+                        <h3>Invalid Dates</h3>
+                        <p>Please select valid start and end dates</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Optimize route based on regions/geography
+            const optimizedRoute = optimizeRoute(saved);
+            
+            // Generate day-by-day itinerary
+            const daysPerDest = Math.max(1, Math.floor(days / optimizedRoute.length));
+            const extraDays = days % optimizedRoute.length;
+
+            let html = `
+                <div class="itinerary-result">
+                    <div class="itinerary-header">
+                        <h2>🗺️ Your ${days}-Day Adventure</h2>
+                        <p>${optimizedRoute.length} destinations · Optimized by geography</p>
+                    </div>
+            `;
+
+            let currentDay = 1;
+            const dateOptions = { weekday: 'short', month: 'short', day: 'numeric' };
+
+            optimizedRoute.forEach((dest, index) => {
+                const daysHere = daysPerDest + (index < extraDays ? 1 : 0);
+                
+                for (let d = 0; d < daysHere; d++) {
+                    const currentDate = new Date(startDate);
+                    currentDate.setDate(currentDate.getDate() + currentDay - 1);
+                    
+                    const isFirstDay = d === 0;
+                    const isLastDay = d === daysHere - 1 && index < optimizedRoute.length - 1;
+                    
+                    html += `
+                        <div class="day-card">
+                            <div class="day-header">
+                                <div class="day-number">D${currentDay}</div>
+                                <div class="day-info">
+                                    <h3>${dest.flag || ''} ${dest.name}</h3>
+                                    <span>${currentDate.toLocaleDateString('en-US', dateOptions)}</span>
+                                </div>
+                            </div>
+                            <div class="day-activities">
+                                ${generateDayActivities(dest, isFirstDay, isLastDay, d + 1)}
+                            </div>
+                        </div>
+                    `;
+                    currentDay++;
+                }
+            });
+
+            html += `
+                    <div class="travel-tips">
+                        <h3>💡 Smart Travel Tips</h3>
+                        <ul>
+                            ${generateTravelTips(optimizedRoute)}
+                        </ul>
+                    </div>
                 </div>
             `;
+
+            output.innerHTML = html;
+        }
+
+        // Optimize route based on geography
+        function optimizeRoute(destinations) {
+            // Group by region for smarter routing
+            const regionOrder = ['asia', 'middleEast', 'europe', 'africa', 'northAmerica', 'southAmerica', 'oceania'];
+            
+            return [...destinations].sort((a, b) => {
+                const aRegion = regionOrder.indexOf(a.region);
+                const bRegion = regionOrder.indexOf(b.region);
+                
+                if (aRegion !== bRegion) return aRegion - bRegion;
+                
+                // Within same region, group by country
+                return (a.country || '').localeCompare(b.country || '');
+            });
+        }
+
+        // Generate activities for a day
+        function generateDayActivities(dest, isFirstDay, isLastDay, dayNum) {
+            const activities = [];
+            
+            if (isFirstDay) {
+                activities.push({
+                    time: '09:00',
+                    title: `Arrive in ${dest.name}`,
+                    desc: 'Check into accommodation and freshen up'
+                });
+                activities.push({
+                    time: '11:00',
+                    title: 'Explore the area',
+                    desc: 'Get oriented with the local neighborhood'
+                });
+            } else {
+                activities.push({
+                    time: '08:00',
+                    title: 'Breakfast',
+                    desc: 'Try local cuisine at a nearby restaurant'
+                });
+            }
+
+            // Add destination-specific activities based on categories
+            const categories = dest.categories || [];
+            
+            if (categories.includes('heritage') || categories.includes('cultural')) {
+                activities.push({
+                    time: '10:00',
+                    title: 'Historical Sites',
+                    desc: `Visit famous landmarks and monuments in ${dest.name}`
+                });
+            }
+            
+            if (categories.includes('beach')) {
+                activities.push({
+                    time: '14:00',
+                    title: 'Beach Time',
+                    desc: 'Relax at the beautiful beaches'
+                });
+            }
+
+            if (categories.includes('adventure')) {
+                activities.push({
+                    time: '15:00',
+                    title: 'Adventure Activity',
+                    desc: 'Experience local adventure sports or activities'
+                });
+            }
+
+            if (categories.includes('food')) {
+                activities.push({
+                    time: '13:00',
+                    title: 'Food Tour',
+                    desc: 'Sample local delicacies and street food'
+                });
+            }
+
+            if (categories.includes('shopping')) {
+                activities.push({
+                    time: '16:00',
+                    title: 'Shopping',
+                    desc: 'Explore local markets and shops'
+                });
+            }
+
+            activities.push({
+                time: '19:00',
+                title: 'Dinner',
+                desc: 'Experience local dining scene'
+            });
+
+            if (isLastDay) {
+                activities.push({
+                    time: '21:00',
+                    title: 'Pack & Rest',
+                    desc: 'Prepare for travel to next destination'
+                });
+            }
+
+            return activities.map(act => `
+                <div class="activity-item">
+                    <span class="activity-time">${act.time}</span>
+                    <div class="activity-details">
+                        <h4>${act.title}</h4>
+                        <p>${act.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Generate travel tips
+        function generateTravelTips(destinations) {
+            const tips = [
+                'Book flights between destinations in advance for better rates',
+                'Keep digital copies of all documents in cloud storage',
+                'Download offline maps for each destination'
+            ];
+
+            // Add region-specific tips
+            const regions = [...new Set(destinations.map(d => d.region))];
+            
+            if (regions.includes('europe')) {
+                tips.push('Consider a Eurail pass if traveling between multiple European cities');
+            }
+            if (regions.includes('asia')) {
+                tips.push('Carry cash - many Asian destinations prefer local currency');
+            }
+            if (destinations.length > 3) {
+                tips.push('Consider travel insurance for multi-destination trips');
+            }
+
+            return tips.map(tip => `<li>${tip}</li>`).join('');
         }
     </script>
 </body>
