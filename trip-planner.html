@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Planner & Visa Guide - WhereTo</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Plan your perfect trip with our trip planner and get visa information for countries worldwide.">
+    <meta name="keywords" content="trip planner, visa guide, travel planning, visa requirements, travel itinerary">
+    <meta name="robots" content="index, follow">
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta name="theme-color" content="#0f0f23">
+    
+    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="pages.css?v=4">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Righteous&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Trip Planner Specific Styles */
+        .planner-header {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .planner-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff 0%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .planner-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+        }
+
+        .planner-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .planner-tab {
+            padding: 0.8rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .planner-tab:hover,
+        .planner-tab.active {
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+            border-color: transparent;
+        }
+
+        .planner-tab.active {
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Trip Planner Section */
+        .trip-form {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .generate-btn {
+            margin-top: 1.5rem;
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .itinerary-output {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: 300px;
+        }
+
+        .itinerary-placeholder {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .itinerary-placeholder .placeholder-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Visa Section */
+        .visa-search {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .visa-search-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+
+        .visa-search-row .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-btn {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            height: fit-content;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        .visa-results {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .visa-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .visa-card:hover {
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .visa-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .visa-card-flag {
+            font-size: 2.5rem;
+        }
+
+        .visa-card-title h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .visa-card-title span {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .visa-badge {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        .visa-badge.visa-free {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        .visa-badge.visa-required {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .visa-badge.e-visa {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+
+        .visa-badge.visa-on-arrival {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+
+        .visa-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .visa-detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .visa-detail-item label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+        }
+
+        .visa-detail-item span {
+            font-weight: 500;
+        }
+
+        .empty-visa-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .empty-visa-state .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .planner-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .planner-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .planner-tab {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+
+            .visa-search-row {
+                flex-direction: column;
+            }
+
+            .search-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <a href="home.html">
+                    <svg viewBox="0 0 200 50" class="nav-logo-svg">
+                        <text x="5" y="35" class="nav-brand-text">WhereTo</text>
+                        <!-- Animated pin -->
+                        <circle cx="175" cy="28" r="6" fill="#ff6b6b" class="nav-pin-dot"/>
+                        <circle cx="175" cy="27" r="2.5" fill="white"/>
+                        <!-- Flying plane -->
+                        <g class="nav-flying-plane">
+                            <path d="M0 0 L-6 -2 L-5 0 L-6 2 Z" fill="#008cff"/>
+                            <path d="M-3 -4 L-1.5 0 L-3 4 L-4 0 Z" fill="#008cff" opacity="0.7"/>
+                        </g>
+                        <!-- Plane trail -->
+                        <path class="nav-plane-trail" d="M100 38 Q130 25 150 30 Q170 35 180 22" 
+                              fill="none" stroke="rgba(0,140,255,0.3)" stroke-width="1.5" 
+                              stroke-dasharray="4 3" stroke-linecap="round"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="home.html" class="nav-link">🏠 Home</a>
+                <a href="index.html" class="nav-link">💬 Chat</a>
+                <a href="destinations.html" class="nav-link">🌍 Destinations</a>
+                <a href="trip-planner.html" class="nav-link active">✈️ Trip & Visa</a>
+                <a href="budget-calculator.html" class="nav-link">💰 Budget</a>
+                <a href="currency-converter.html" class="nav-link">💱 Currency</a>
+            </div>
+            <button class="nav-toggle" id="navToggle">☰</button>
+        </nav>
+
+        <!-- Page Header -->
+        <header class="planner-header">
+            <h1>✈️ Trip Planner & Visa Guide</h1>
+            <p>Plan your perfect trip and check visa requirements</p>
+        </header>
+
+        <!-- Tabs -->
+        <div class="planner-tabs">
+            <button class="planner-tab active" data-tab="planner">🗓️ Trip Planner</button>
+            <button class="planner-tab" data-tab="visa">🛂 Visa Guide</button>
+        </div>
+
+        <!-- Trip Planner Tab -->
+        <div class="tab-content active" id="planner-tab">
+            <div class="trip-form">
+                <h2 style="margin-bottom: 1.5rem;">📝 Plan Your Trip</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Where are you going?</label>
+                        <input type="text" id="destination" placeholder="e.g., Paris, France">
+                    </div>
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input type="date" id="startDate">
+                    </div>
+                    <div class="form-group">
+                        <label>End Date</label>
+                        <input type="date" id="endDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Number of Travelers</label>
+                        <select id="travelers">
+                            <option value="1">1 Traveler</option>
+                            <option value="2" selected>2 Travelers</option>
+                            <option value="3">3 Travelers</option>
+                            <option value="4">4 Travelers</option>
+                            <option value="5">5+ Travelers</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Trip Type</label>
+                        <select id="tripType">
+                            <option value="leisure">🏖️ Leisure</option>
+                            <option value="adventure">🎯 Adventure</option>
+                            <option value="cultural">🏛️ Cultural</option>
+                            <option value="romantic">💕 Romantic</option>
+                            <option value="family">👨‍👩‍👧‍👦 Family</option>
+                            <option value="business">💼 Business</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Budget Range</label>
+                        <select id="budget">
+                            <option value="budget">💰 Budget</option>
+                            <option value="mid" selected>💰💰 Mid-Range</option>
+                            <option value="luxury">💰💰💰 Luxury</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button class="generate-btn" onclick="generateItinerary()">✨ Generate Itinerary</button>
+                </div>
+            </div>
+
+            <div class="itinerary-output" id="itineraryOutput">
+                <div class="itinerary-placeholder">
+                    <div class="placeholder-icon">🗺️</div>
+                    <h3>Your Itinerary Will Appear Here</h3>
+                    <p>Fill in the details above and click "Generate Itinerary" to create your personalized trip plan</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visa Guide Tab -->
+        <div class="tab-content" id="visa-tab">
+            <div class="visa-search">
+                <h2 style="margin-bottom: 1.5rem;">🔍 Check Visa Requirements</h2>
+                <div class="visa-search-row">
+                    <div class="form-group">
+                        <label>Your Nationality</label>
+                        <select id="nationality">
+                            <option value="">Select your country</option>
+                            <option value="US">🇺🇸 United States</option>
+                            <option value="UK">🇬🇧 United Kingdom</option>
+                            <option value="CA">🇨🇦 Canada</option>
+                            <option value="AU">🇦🇺 Australia</option>
+                            <option value="IN">🇮🇳 India</option>
+                            <option value="DE">🇩🇪 Germany</option>
+                            <option value="FR">🇫🇷 France</option>
+                            <option value="JP">🇯🇵 Japan</option>
+                            <option value="CN">🇨🇳 China</option>
+                            <option value="BR">🇧🇷 Brazil</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Destination Country</label>
+                        <select id="visaDestination">
+                            <option value="">Select destination</option>
+                            <option value="france">🇫🇷 France</option>
+                            <option value="japan">🇯🇵 Japan</option>
+                            <option value="usa">🇺🇸 United States</option>
+                            <option value="uk">🇬🇧 United Kingdom</option>
+                            <option value="thailand">🇹🇭 Thailand</option>
+                            <option value="uae">🇦🇪 UAE</option>
+                            <option value="australia">🇦🇺 Australia</option>
+                            <option value="singapore">🇸🇬 Singapore</option>
+                            <option value="maldives">🇲🇻 Maldives</option>
+                            <option value="turkey">🇹🇷 Turkey</option>
+                        </select>
+                    </div>
+                    <button class="search-btn" onclick="checkVisa()">🔍 Check Visa</button>
+                </div>
+            </div>
+
+            <div class="visa-results" id="visaResults">
+                <div class="empty-visa-state">
+                    <div class="empty-icon">🛂</div>
+                    <h3>Select Your Details</h3>
+                    <p>Choose your nationality and destination country to see visa requirements</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="page-footer">
+            <p>© 2026 WhereTo - Your Next Journey Starts Here</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tab switching
+        document.querySelectorAll('.planner-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active from all tabs
+                document.querySelectorAll('.planner-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active to clicked tab
+                this.classList.add('active');
+                document.getElementById(this.dataset.tab + '-tab').classList.add('active');
+            });
+        });
+
+        // Mobile nav toggle
+        document.getElementById('navToggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('show');
+        });
+
+        // Set default dates
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+            const twoWeeks = new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000);
+            
+            document.getElementById('startDate').valueAsDate = nextWeek;
+            document.getElementById('endDate').valueAsDate = twoWeeks;
+        });
+
+        // Placeholder functions - will be implemented later
+        function generateItinerary() {
+            const output = document.getElementById('itineraryOutput');
+            output.innerHTML = `
+                <div class="itinerary-placeholder">
+                    <div class="placeholder-icon">🚧</div>
+                    <h3>Coming Soon!</h3>
+                    <p>AI-powered itinerary generation will be available soon. Stay tuned!</p>
+                </div>
+            `;
+        }
+
+        function checkVisa() {
+            const results = document.getElementById('visaResults');
+            results.innerHTML = `
+                <div class="empty-visa-state">
+                    <div class="empty-icon">🚧</div>
+                    <h3>Coming Soon!</h3>
+                    <p>Comprehensive visa information will be available soon. Stay tuned!</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
