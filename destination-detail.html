@@ -219,27 +219,6 @@
             border: 1px solid rgba(0, 212, 255, 0.3);
         }
 
-        .price-display {
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-
-        .price-label {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .price-amount {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #00d4ff;
-        }
-
-        .price-note {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
         .cta-btn {
             width: 100%;
             padding: 1rem;
@@ -497,7 +476,6 @@
                 <div class="dest-subtitle">
                     <span class="dest-location" id="destLocation">📍 Loading...</span>
                     <span class="dest-rating" id="destRating">⭐ --</span>
-                    <span id="destReviews">-- reviews</span>
                 </div>
             </div>
         </section>
@@ -547,11 +525,6 @@
             <div class="detail-sidebar">
                 <!-- CTA Card -->
                 <div class="info-card cta-card">
-                    <div class="price-display">
-                        <div class="price-label">Starting from</div>
-                        <div class="price-amount" id="destPrice">₹--</div>
-                        <div class="price-note">per person</div>
-                    </div>
                     <button class="cta-btn" onclick="planTrip()">🗓️ Plan My Trip</button>
                     <button class="cta-btn secondary" onclick="askChatbot()">💬 Ask AI Assistant</button>
                 </div>
@@ -651,7 +624,6 @@
             document.getElementById('destTitle').textContent = currentDestination.name;
             document.getElementById('destLocation').textContent = `📍 ${currentDestination.country}`;
             document.getElementById('destRating').innerHTML = `⭐ ${currentDestination.rating}`;
-            document.getElementById('destReviews').textContent = `${currentDestination.reviews.toLocaleString()} reviews`;
             
             // Breadcrumb
             document.getElementById('countryBreadcrumb').textContent = currentDestination.country;
@@ -659,10 +631,6 @@
 
             // Description
             document.getElementById('destDescription').textContent = currentDestination.description;
-
-            // Price
-            document.getElementById('destPrice').textContent = 
-                `${currentDestination.currency}${currentDestination.priceFrom.toLocaleString()}`;
 
             // Quick info
             document.getElementById('bestTime').textContent = currentDestination.bestTime;
@@ -739,7 +707,7 @@
                         <span class="activity-icon">${activity.icon}</span>
                         <div class="activity-info">
                             <h4>${activity.name}</h4>
-                            <span class="activity-meta">${activity.duration} • ${activity.priceRange}</span>
+                            <span class="activity-meta">${activity.duration}</span>
                         </div>
                     </div>
                 `).join('');
