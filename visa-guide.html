@@ -105,6 +105,7 @@
             font-size: 1rem;
             transition: all 0.3s ease;
             cursor: pointer;
+            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', 'Inter', sans-serif;
         }
 
         .form-group select:focus {
@@ -116,6 +117,15 @@
         .form-group select option {
             background: #1a1a2e;
             color: white;
+            padding: 10px;
+            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', 'Inter', sans-serif;
+        }
+
+        .form-group select optgroup {
+            background: #12122a;
+            color: #8b5cf6;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
         }
 
         .search-btn {
@@ -352,57 +362,6 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
-        /* Popular Countries */
-        .popular-countries {
-            margin-top: 3rem;
-        }
-
-        .section-title {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .countries-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 1rem;
-        }
-
-        .country-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 1.25rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .country-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(139, 92, 246, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .country-card .flag {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
-        }
-
-        .country-card .name {
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .country-card .policy {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
             .visa-header h1 {
@@ -469,7 +428,6 @@
         <header class="visa-header">
             <h1>Visa Guide</h1>
             <p>Check visa requirements for any destination based on your nationality</p>
-            <p style="font-size: 0.85rem; opacity: 0.7; margin-top: 0.5rem;">Data sourced from VFS Global (166 countries, 4,023 application centers) and official government portals. Updated 2024-2025.</p>
         </header>
 
         <!-- Main Content -->
@@ -750,15 +708,14 @@
                     <p>Choose your nationality and destination country to see visa requirements</p>
                 </div>
             </div>
-
-            <!-- Popular Countries -->
-            <section class="popular-countries">
-                <h2 class="section-title"><span class="emoji">🌍</span> Popular Destinations</h2>
-                <div class="countries-grid" id="countriesGrid">
-                    <!-- Loaded dynamically -->
-                </div>
-            </section>
         </main>
+
+        <!-- Disclaimer -->
+        <div style="max-width: 1200px; margin: 0 auto 2rem; padding: 1.5rem 2rem; background: rgba(255, 193, 7, 0.1); border: 1px solid rgba(255, 193, 7, 0.3); border-radius: 12px;">
+            <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.8); margin: 0; line-height: 1.6;">
+                <strong style="color: #ffc107;">⚠️ Disclaimer:</strong> The visa information provided is for general reference only and may not reflect current requirements. Visa rules, fees, and processing times change frequently. Always verify with the official embassy or consulate of your destination country before making travel plans. We are not responsible for any issues arising from reliance on this information.
+            </p>
+        </div>
 
         <!-- Footer -->
         <footer class="page-footer">
@@ -772,8 +729,45 @@
             document.querySelector('.nav-links').classList.toggle('show');
         });
 
-        // Visa data - comprehensive VFS Global sourced data for major routes
-        // Updated with official government visa requirements 2024-2025
+        // Make dropdowns searchable - type to filter
+        function makeSelectSearchable(selectId) {
+            const select = document.getElementById(selectId);
+            let searchBuffer = '';
+            let searchTimeout;
+            
+            select.addEventListener('keydown', function(e) {
+                // Handle alphanumeric keys for search
+                if (e.key.length === 1 && /[a-zA-Z]/.test(e.key)) {
+                    e.preventDefault();
+                    clearTimeout(searchTimeout);
+                    searchBuffer += e.key.toLowerCase();
+                    
+                    // Find matching option
+                    const options = Array.from(select.options);
+                    const match = options.find(opt => 
+                        opt.text.toLowerCase().includes(searchBuffer) && opt.value
+                    );
+                    
+                    if (match) {
+                        select.value = match.value;
+                    }
+                    
+                    // Clear buffer after 1 second of no typing
+                    searchTimeout = setTimeout(() => {
+                        searchBuffer = '';
+                    }, 1000);
+                }
+            });
+        }
+
+        // Initialize searchable dropdowns
+        document.addEventListener('DOMContentLoaded', function() {
+            makeSelectSearchable('nationality');
+            makeSelectSearchable('destination');
+        });
+
+        // Visa data - comprehensive data for major routes
+        // Information is tentative - always verify with embassy
         const visaData = {
             // US Passport Holders - Strong passport (visa-free to 185+ countries)
             'US': {
@@ -868,55 +862,55 @@
                 'IN': { type: 'e-visa', stay: '30-180 days', fee: '$25-100', process: 'Online' },
                 'MV': { type: 'visa-on-arrival', stay: '30 days', fee: 'Free' },
             },
-            // Indian Passport Holders - VFS Global serves extensively
+            // Indian Passport Holders
             'IN': {
-                'US': { type: 'visa-required', stay: '10 years multiple', fee: '$185 USD', process: 'Embassy interview, 2-4 weeks', note: 'B1/B2 visa - book early' },
-                'UK': { type: 'visa-required', stay: '6 months-10 years', fee: '£127-£1,059', process: 'VFS Global, 3 weeks standard', note: '£127 (6 mo), £490 (2 yr), £877 (5 yr), £1,059 (10 yr)' },
-                'CA': { type: 'visa-required', stay: '10 years multiple', fee: 'CAD $100', process: 'VFS, 2-4 weeks', note: 'Biometrics required' },
-                'AU': { type: 'visa-required', stay: '3-12 months', fee: 'AUD $200-1,480', process: 'Online, 1-4 weeks', note: 'Subclass 600 visitor visa' },
-                'NZ': { type: 'visa-required', stay: '3-9 months', fee: 'NZD $246', process: 'Online, 2-4 weeks' },
-                'FR': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'VFS, 15-45 days', note: 'Schengen visa - €30,000 insurance required' },
-                'DE': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'VFS, 15-45 days', note: 'Schengen visa - bank statement €50-60/day' },
-                'IT': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'VFS, 15-45 days', note: 'Schengen visa' },
-                'ES': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'VFS, 15-45 days', note: 'Schengen visa - BLS service' },
-                'NL': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'VFS, 15-45 days', note: 'Schengen visa' },
-                'CH': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'VFS, 15-45 days', note: 'Schengen visa' },
-                'AT': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'VFS, 15-45 days', note: 'Schengen visa' },
-                'BE': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'VFS, 15-45 days', note: 'Schengen visa' },
-                'GR': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'VFS, 15-45 days', note: 'Schengen visa' },
-                'PT': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'VFS, 15-45 days', note: 'Schengen visa' },
-                'JP': { type: 'visa-required', stay: '15-90 days', fee: '¥3,000', process: 'Embassy, 1 week' },
-                'KR': { type: 'visa-required', stay: '90 days', fee: '$40 USD', process: 'Embassy, 1-2 weeks' },
-                'TH': { type: 'visa-on-arrival', stay: '15 days', fee: '2,000 THB', process: 'At airport', note: 'Extendable to 30 days' },
-                'AE': { type: 'visa-on-arrival', stay: '14 days', fee: 'Free', note: 'With valid US/UK/Schengen visa' },
-                'SG': { type: 'visa-required', stay: '30 days', fee: '$30 SGD', process: 'Online, 3-5 days' },
-                'MY': { type: 'e-visa', stay: '30 days', fee: '$25 USD', process: 'eNTRI online' },
-                'ID': { type: 'visa-on-arrival', stay: '30 days', fee: '$35 USD', process: 'At airport' },
-                'VN': { type: 'e-visa', stay: '30 days', fee: '$25 USD', process: 'Online, 3 days' },
+                'US': { type: 'visa-required', stay: '10 years multiple entry', fee: 'Check embassy', process: '2-4 weeks (tentative)', note: 'B1/B2 visa - book early' },
+                'UK': { type: 'visa-required', stay: '6 months-10 years', fee: 'Check embassy', process: '3 weeks (tentative)', note: 'Standard visitor visa' },
+                'CA': { type: 'visa-required', stay: '10 years multiple entry', fee: 'Check embassy', process: '2-4 weeks (tentative)', note: 'Biometrics required' },
+                'AU': { type: 'visa-required', stay: '3-12 months', fee: 'Check embassy', process: '1-4 weeks (tentative)', note: 'Subclass 600 visitor visa' },
+                'NZ': { type: 'visa-required', stay: '3-9 months', fee: 'Check embassy', process: '2-4 weeks (tentative)' },
+                'FR': { type: 'visa-required', stay: '90 days', fee: 'Check embassy', process: '15-45 days (tentative)', note: 'Schengen visa - insurance required' },
+                'DE': { type: 'visa-required', stay: '90 days', fee: 'Check embassy', process: '15-45 days (tentative)', note: 'Schengen visa' },
+                'IT': { type: 'visa-required', stay: '90 days', fee: 'Check embassy', process: '15-45 days (tentative)', note: 'Schengen visa' },
+                'ES': { type: 'visa-required', stay: '90 days', fee: 'Check embassy', process: '15-45 days (tentative)', note: 'Schengen visa' },
+                'NL': { type: 'visa-required', stay: '90 days', fee: 'Check embassy', process: '15-45 days (tentative)', note: 'Schengen visa' },
+                'CH': { type: 'visa-required', stay: '90 days', fee: 'Check embassy', process: '15-45 days (tentative)', note: 'Schengen visa' },
+                'AT': { type: 'visa-required', stay: '90 days', fee: 'Check embassy', process: '15-45 days (tentative)', note: 'Schengen visa' },
+                'BE': { type: 'visa-required', stay: '90 days', fee: 'Check embassy', process: '15-45 days (tentative)', note: 'Schengen visa' },
+                'GR': { type: 'visa-required', stay: '90 days', fee: 'Check embassy', process: '15-45 days (tentative)', note: 'Schengen visa' },
+                'PT': { type: 'visa-required', stay: '90 days', fee: 'Check embassy', process: '15-45 days (tentative)', note: 'Schengen visa' },
+                'JP': { type: 'visa-required', stay: '15-90 days', fee: 'Check embassy', process: '1 week (tentative)' },
+                'KR': { type: 'visa-required', stay: '90 days', fee: 'Check embassy', process: '1-2 weeks (tentative)' },
+                'TH': { type: 'visa-on-arrival', stay: '15 days', fee: 'Check at airport', process: 'At airport', note: 'Extendable to 30 days' },
+                'AE': { type: 'visa-on-arrival', stay: '14 days', fee: 'Check requirements', note: 'With valid US/UK/Schengen visa' },
+                'SG': { type: 'visa-required', stay: '30 days', fee: 'Check embassy', process: '3-5 days (tentative)' },
+                'MY': { type: 'e-visa', stay: '30 days', fee: 'Check online', process: 'Online (tentative)' },
+                'ID': { type: 'visa-on-arrival', stay: '30 days', fee: 'Check at airport', process: 'At airport' },
+                'VN': { type: 'e-visa', stay: '30 days', fee: 'Check online', process: '3 days (tentative)' },
                 'MV': { type: 'visa-on-arrival', stay: '30 days', fee: 'Free' },
-                'LK': { type: 'e-visa', stay: '30 days', fee: '$50 USD', process: 'ETA online' },
-                'NP': { type: 'visa-on-arrival', stay: '15-90 days', fee: '$25-100 USD', process: 'At airport' },
-                'BT': { type: 'visa-required', stay: 'Varies', fee: '$40 USD + $200/day', process: 'Through tour operator' },
-                'TR': { type: 'e-visa', stay: '30 days', fee: '$60 USD', process: 'Online, instant' },
-                'EG': { type: 'e-visa', stay: '30 days', fee: '$25 USD', process: 'Online' },
+                'LK': { type: 'e-visa', stay: '30 days', fee: 'Check online', process: 'ETA online' },
+                'NP': { type: 'visa-on-arrival', stay: '15-90 days', fee: 'Check at airport', process: 'At airport' },
+                'BT': { type: 'visa-required', stay: 'Varies', fee: 'Check requirements', process: 'Through tour operator' },
+                'TR': { type: 'e-visa', stay: '30 days', fee: 'Check online', process: 'Online (tentative)' },
+                'EG': { type: 'e-visa', stay: '30 days', fee: 'Check online', process: 'Online' },
                 'MU': { type: 'visa-free', stay: '90 days', fee: 'Free' },
-                'KE': { type: 'e-visa', stay: '90 days', fee: '$51 USD', process: 'Online' },
-                'TZ': { type: 'e-visa', stay: '90 days', fee: '$50 USD', process: 'Online' },
-                'ZA': { type: 'visa-required', stay: '90 days', fee: 'Free', process: 'VFS, 5-10 days' },
-                'SA': { type: 'e-visa', stay: '90 days', fee: '$133 USD', process: 'Online tourist visa' },
+                'KE': { type: 'e-visa', stay: '90 days', fee: 'Check online', process: 'Online' },
+                'TZ': { type: 'e-visa', stay: '90 days', fee: 'Check online', process: 'Online' },
+                'ZA': { type: 'visa-required', stay: '90 days', fee: 'Check embassy', process: '5-10 days (tentative)' },
+                'SA': { type: 'e-visa', stay: '90 days', fee: 'Check online', process: 'Online tourist visa' },
                 'QA': { type: 'visa-on-arrival', stay: '30 days', fee: 'Free' },
-                'OM': { type: 'e-visa', stay: '10-30 days', fee: '$20-52 OMR', process: 'Online' },
-                'RU': { type: 'e-visa', stay: '16 days', fee: '$40 USD', process: 'Online' },
+                'OM': { type: 'e-visa', stay: '10-30 days', fee: 'Check online', process: 'Online' },
+                'RU': { type: 'e-visa', stay: '16 days', fee: 'Check online', process: 'Online' },
                 'FJ': { type: 'visa-free', stay: '4 months', fee: 'Free' },
             },
             // Chinese Passport Holders
             'CN': {
                 'US': { type: 'visa-required', stay: '10 years multiple', fee: '$185 USD', process: 'Embassy, 1-2 weeks' },
-                'UK': { type: 'visa-required', stay: '2-10 years', fee: '£115-865', process: 'VFS, 3 weeks' },
+                'UK': { type: 'visa-required', stay: '2-10 years', fee: '£115-865', process: '3 weeks' },
                 'CA': { type: 'visa-required', stay: '10 years', fee: 'CAD $100', process: 'VAC, 2-4 weeks' },
                 'AU': { type: 'visa-required', stay: '1 year multiple', fee: 'AUD $200', process: 'Online, 2-4 weeks' },
-                'FR': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'VFS Schengen' },
-                'DE': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'VFS Schengen' },
+                'FR': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'Schengen (tentative)' },
+                'DE': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'Schengen (tentative)' },
                 'JP': { type: 'visa-required', stay: '15-90 days', fee: '¥3,000', process: 'Embassy' },
                 'KR': { type: 'visa-required', stay: '90 days', fee: '$55 USD', process: 'Embassy' },
                 'TH': { type: 'visa-free', stay: '30 days', fee: 'Free' },
@@ -1091,21 +1085,21 @@
             // Nigerian Passport Holders
             'NG': {
                 'US': { type: 'visa-required', stay: 'Multiple', fee: '$185 USD', process: 'Embassy, 2-4 weeks' },
-                'UK': { type: 'visa-required', stay: '6 months', fee: '£127', process: 'VFS, 3 weeks' },
+                'UK': { type: 'visa-required', stay: '6 months', fee: '£127', process: '3 weeks' },
                 'CA': { type: 'visa-required', stay: 'Varies', fee: 'CAD $100', process: 'VAC, 4-8 weeks' },
-                'FR': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'VFS Schengen' },
-                'DE': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'VFS Schengen' },
+                'FR': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'Schengen (tentative)' },
+                'DE': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'Schengen (tentative)' },
                 'AE': { type: 'visa-required', stay: '30 days', fee: '$150 USD', process: 'Online/Agency' },
                 'GH': { type: 'visa-free', stay: '90 days', fee: 'Free', note: 'ECOWAS' },
                 'KE': { type: 'e-visa', stay: '90 days', fee: '$51 USD' },
-                'ZA': { type: 'visa-required', stay: '90 days', fee: 'Free', process: 'VFS' },
+                'ZA': { type: 'visa-required', stay: '90 days', fee: 'Free', process: '3-4 weeks (tentative)' },
                 'TR': { type: 'e-visa', stay: '30 days', fee: '$50' },
                 'MV': { type: 'visa-on-arrival', stay: '30 days', fee: 'Free' },
             },
             // South African Passport Holders
             'ZA': {
                 'US': { type: 'visa-required', stay: 'Multiple', fee: '$185 USD', process: 'Embassy' },
-                'UK': { type: 'visa-required', stay: '6 months', fee: '£127', process: 'VFS' },
+                'UK': { type: 'visa-required', stay: '6 months', fee: '£127', process: '3-4 weeks (tentative)' },
                 'CA': { type: 'visa-required', stay: 'Varies', fee: 'CAD $100' },
                 'AU': { type: 'visa-required', stay: '90 days', fee: 'AUD $200' },
                 'FR': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'Schengen' },
@@ -1123,11 +1117,11 @@
             // Pakistani Passport Holders
             'PK': {
                 'US': { type: 'visa-required', stay: 'Multiple', fee: '$185 USD', process: 'Embassy interview' },
-                'UK': { type: 'visa-required', stay: '6 months', fee: '£127', process: 'VFS, 3-4 weeks' },
+                'UK': { type: 'visa-required', stay: '6 months', fee: '£127', process: '3-4 weeks' },
                 'CA': { type: 'visa-required', stay: 'Varies', fee: 'CAD $100', process: 'VAC' },
                 'AU': { type: 'visa-required', stay: '90 days', fee: 'AUD $200' },
-                'FR': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'VFS Schengen' },
-                'DE': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'VFS Schengen' },
+                'FR': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'Schengen (tentative)' },
+                'DE': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'Schengen (tentative)' },
                 'AE': { type: 'visa-required', stay: '30 days', fee: '$120 USD', process: 'Online/Agency' },
                 'MY': { type: 'e-visa', stay: '30 days', fee: '$25', process: 'eNTRI' },
                 'TH': { type: 'visa-on-arrival', stay: '15 days', fee: '2000 THB' },
@@ -1138,7 +1132,7 @@
             // Bangladeshi Passport Holders  
             'BD': {
                 'US': { type: 'visa-required', stay: 'Multiple', fee: '$185 USD', process: 'Embassy interview' },
-                'UK': { type: 'visa-required', stay: '6 months', fee: '£127', process: 'VFS, 3-4 weeks' },
+                'UK': { type: 'visa-required', stay: '6 months', fee: '£127', process: '3-4 weeks' },
                 'CA': { type: 'visa-required', stay: 'Varies', fee: 'CAD $100' },
                 'AU': { type: 'visa-required', stay: '90 days', fee: 'AUD $200' },
                 'FR': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'Schengen' },
@@ -1152,7 +1146,7 @@
             // Philippines Passport Holders
             'PH': {
                 'US': { type: 'visa-required', stay: 'Multiple', fee: '$185 USD', process: 'Embassy interview' },
-                'UK': { type: 'visa-required', stay: '6 months', fee: '£127', process: 'VFS' },
+                'UK': { type: 'visa-required', stay: '6 months', fee: '£127', process: '3-4 weeks (tentative)' },
                 'CA': { type: 'visa-required', stay: 'Varies', fee: 'CAD $100' },
                 'AU': { type: 'visa-required', stay: '90 days', fee: 'AUD $200' },
                 'JP': { type: 'visa-required', stay: '15-90 days', fee: '¥3,000' },
@@ -1171,7 +1165,7 @@
             // Russian Passport Holders
             'RU': {
                 'US': { type: 'visa-required', stay: 'Multiple', fee: '$185 USD', process: 'Embassy' },
-                'UK': { type: 'visa-required', stay: '6 months', fee: '£127', process: 'VFS' },
+                'UK': { type: 'visa-required', stay: '6 months', fee: '£127', process: '3-4 weeks (tentative)' },
                 'FR': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'Schengen' },
                 'DE': { type: 'visa-required', stay: '90 days', fee: '€90', process: 'Schengen' },
                 'TH': { type: 'visa-free', stay: '60 days', fee: 'Free' },
@@ -1186,7 +1180,7 @@
                 'CN': { type: 'visa-free', stay: '30 days', fee: 'Free', note: 'Mutual agreement' },
             },
             // Default for other combinations
-            'default': { type: 'visa-required', stay: 'Varies', fee: 'Check embassy', process: 'Contact embassy for details', note: 'VFS Global serves 166 countries - check vfsglobal.com for application centers' }
+            'default': { type: 'visa-required', stay: 'Varies', fee: 'Check embassy', process: 'Contact embassy (tentative)', note: 'Check official embassy website for current requirements' }
         };
 
         const countryInfo = {
@@ -1497,45 +1491,12 @@
         function getTravelTip(type, dest) {
             const tips = {
                 'visa-free': `Great news! You can enter ${dest} without a visa. Ensure your passport is valid for at least 6 months beyond travel dates. Keep return ticket, accommodation proof, and cash/cards ready for immigration. Some countries may ask about purpose of visit.`,
-                'visa-required': `Apply through VFS Global or embassy at least 4-6 weeks before travel. For Schengen visas: need €30,000+ travel insurance, bank statements showing €50-60/day, round-trip booking. UK visitor visa takes 3 weeks standard. Book VFS appointments early as slots fill quickly.`,
-                'e-visa': `Apply ONLY through official government e-visa portals. Processing takes 3-5 business days typically. Print a hard copy AND save digital copy on your phone. Apply at least 7 days before travel to allow for any issues. Keep confirmation email handy.`,
-                'visa-on-arrival': `Prepare documents in advance: passport, 2 photos, confirmed accommodation, return ticket, and visa fee in cash (USD or local currency). Queues can be 30-60 mins during peak hours. Some countries require pre-registration online (like Indonesia's VOA).`,
-                'eta-required': `Complete ETA/ESTA/NZeTA application before check-in - airlines verify authorization. ESTA (US) valid 2 years, ETA (Australia) valid 1 year. Processing usually instant but can take 72 hours. Keep confirmation number saved on phone.`
+                'visa-required': `Apply through embassy or visa center at least 4-6 weeks before travel. For Schengen visas: typically need travel insurance, bank statements, round-trip booking. Processing times are tentative and may vary. Book appointments early as slots fill quickly.`,
+                'e-visa': `Apply ONLY through official government e-visa portals. Processing typically takes 3-5 business days but may vary. Print a hard copy AND save digital copy on your phone. Apply at least 7 days before travel to allow for any issues.`,
+                'visa-on-arrival': `Prepare documents in advance: passport, photos, confirmed accommodation, return ticket, and visa fee in cash (USD or local currency). Queues can be 30-60 mins during peak hours. Some countries require pre-registration online.`,
+                'eta-required': `Complete ETA/ESTA application before check-in - airlines verify authorization. Processing usually instant but can take 72 hours. Keep confirmation number saved on phone.`
             };
-            return tips[type] || `Check the official embassy website or VFS Global (vfsglobal.com) for the most up-to-date requirements. VFS operates in 166 countries with 4,023 application centers worldwide.`;
-        }
-
-        // Load popular countries
-        document.addEventListener('DOMContentLoaded', function() {
-            const grid = document.getElementById('countriesGrid');
-            const popular = [
-                { code: 'US', policy: 'ESTA required' },
-                { code: 'UK', policy: '3 weeks processing' },
-                { code: 'JP', policy: 'Strongest passport' },
-                { code: 'FR', policy: 'Schengen zone' },
-                { code: 'AE', policy: 'VOA for many' },
-                { code: 'TH', policy: '60 days free' },
-                { code: 'SG', policy: 'Business hub' },
-                { code: 'AU', policy: 'ETA $20' },
-                { code: 'MV', policy: 'Free VOA 30 days' },
-                { code: 'CA', policy: 'eTA required' }
-            ];
-
-            grid.innerHTML = popular.map(c => {
-                const info = countryInfo[c.code];
-                return `
-                    <div class="country-card" onclick="selectDestination('${c.code}')">
-                        <div class="flag">${info.flag}</div>
-                        <div class="name">${info.name}</div>
-                        <div class="policy">${c.policy}</div>
-                    </div>
-                `;
-            }).join('');
-        });
-
-        function selectDestination(code) {
-            document.getElementById('destination').value = code;
-            document.querySelector('.visa-search').scrollIntoView({ behavior: 'smooth' });
+            return tips[type] || `Check the official embassy website for the most up-to-date requirements. Visa rules change frequently, so always verify before travel.`;
         }
     </script>
 </body>
