@@ -144,12 +144,179 @@
         }
         
         .currency-select-wrapper::after {
-            content: '▼';
+            content: '';
             position: absolute;
             right: 1rem;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.75rem;
             pointer-events: none;
+        }
+
+        /* Custom Searchable Dropdown for Currency */
+        .currency-custom-select {
+            position: relative;
+            width: 100%;
+        }
+
+        .currency-select-trigger {
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .currency-select-trigger:hover,
+        .currency-custom-select.open .currency-select-trigger {
+            border-color: #00d4ff;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        }
+
+        .currency-select-trigger .trigger-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .currency-select-trigger .trigger-flag {
+            font-size: 1.75rem;
+        }
+
+        .currency-select-trigger .trigger-text {
+            font-weight: 600;
+        }
+
+        .currency-select-trigger .arrow {
+            border: solid rgba(255,255,255,0.6);
+            border-width: 0 2px 2px 0;
+            padding: 4px;
+            transform: rotate(45deg);
+            transition: transform 0.3s ease;
+        }
+
+        .currency-custom-select.open .currency-select-trigger .arrow {
+            transform: rotate(-135deg);
+        }
+
+        .currency-select-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #1a1a3e;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            margin-top: 4px;
+            z-index: 1000;
+            display: none;
+            max-height: 350px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .currency-custom-select.open .currency-select-dropdown {
+            display: block;
+        }
+
+        .currency-select-search {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            background: #1a1a3e;
+        }
+
+        .currency-select-search input {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .currency-select-search input:focus {
+            border-color: #00d4ff;
+        }
+
+        .currency-select-search input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .currency-select-options {
+            max-height: 280px;
+            overflow-y: auto;
+        }
+
+        .currency-select-options::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .currency-select-options::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .currency-select-options::-webkit-scrollbar-thumb {
+            background: rgba(0, 212, 255, 0.5);
+            border-radius: 3px;
+        }
+
+        .currency-select-option {
+            padding: 0.7rem 1rem;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .currency-select-option:hover {
+            background: rgba(0, 212, 255, 0.2);
+        }
+
+        .currency-select-option.selected {
+            background: rgba(0, 212, 255, 0.3);
+        }
+
+        .currency-select-option.hidden {
+            display: none;
+        }
+
+        .currency-select-option .option-flag {
+            font-size: 1.5rem;
+        }
+
+        .currency-select-option .option-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .currency-select-option .option-code {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .currency-select-option .option-name {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .currency-select-no-results {
+            padding: 1rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            display: none;
+        }
+
+        .currency-select-wrapper.old-select {
+            display: none;
         }
         
         .amount-input {
@@ -649,12 +816,25 @@
                 <div class="currency-input-group">
                     <label>Amount</label>
                     <input type="number" class="amount-input" id="fromAmount" value="1" min="0">
-                    <div class="currency-select-wrapper">
-                        <span class="currency-flag" id="fromFlag">🇮🇳</span>
-                        <select class="currency-select" id="fromCurrency">
-                            <!-- Options filled by JS -->
-                        </select>
+                    <div class="currency-custom-select" id="fromCurrencyWrapper">
+                        <div class="currency-select-trigger" id="fromCurrencyTrigger">
+                            <div class="trigger-content">
+                                <span class="trigger-flag" id="fromFlag">🇺🇸</span>
+                                <span class="trigger-text" id="fromText">USD - US Dollar</span>
+                            </div>
+                            <span class="arrow"></span>
+                        </div>
+                        <div class="currency-select-dropdown" id="fromDropdown">
+                            <div class="currency-select-search">
+                                <input type="text" placeholder="Search currency..." id="fromSearch">
+                            </div>
+                            <div class="currency-select-options" id="fromOptions">
+                                <!-- Filled by JS -->
+                            </div>
+                            <div class="currency-select-no-results">No currencies found</div>
+                        </div>
                     </div>
+                    <input type="hidden" id="fromCurrency" value="USD">
                     <div class="quick-amounts">
                         <button class="quick-btn" onclick="setAmount(100)">100</button>
                         <button class="quick-btn" onclick="setAmount(500)">500</button>
@@ -671,12 +851,25 @@
                 <div class="currency-input-group">
                     <label>Converted To</label>
                     <input type="text" class="amount-input" id="toAmount" readonly>
-                    <div class="currency-select-wrapper">
-                        <span class="currency-flag" id="toFlag">🇺🇸</span>
-                        <select class="currency-select" id="toCurrency">
-                            <!-- Options filled by JS -->
-                        </select>
+                    <div class="currency-custom-select" id="toCurrencyWrapper">
+                        <div class="currency-select-trigger" id="toCurrencyTrigger">
+                            <div class="trigger-content">
+                                <span class="trigger-flag" id="toFlag">🇮🇳</span>
+                                <span class="trigger-text" id="toText">INR - Indian Rupee</span>
+                            </div>
+                            <span class="arrow"></span>
+                        </div>
+                        <div class="currency-select-dropdown" id="toDropdown">
+                            <div class="currency-select-search">
+                                <input type="text" placeholder="Search currency..." id="toSearch">
+                            </div>
+                            <div class="currency-select-options" id="toOptions">
+                                <!-- Filled by JS -->
+                            </div>
+                            <div class="currency-select-no-results">No currencies found</div>
+                        </div>
                     </div>
+                    <input type="hidden" id="toCurrency" value="INR">
                 </div>
             </div>
 
@@ -713,26 +906,165 @@
     </footer>
 
     <script>
-        // Complete list of world currencies with flags (rates are 1 USD = X currency)
+        // Complete list of 150+ world currencies with flags (rates are 1 USD = X currency)
         const currencies = [
-            // Popular
-            { code: 'USD', name: 'US Dollar', flag: '🇺🇸', region: 'popular', rate: 1 },
-            { code: 'INR', name: 'Indian Rupee', flag: '🇮🇳', region: 'popular', rate: 83.5 },
+            // Popular currencies first
+            { code: 'USD', name: 'US Dollar', flag: '🇺🇸', rate: 1 },
             { code: 'EUR', name: 'Euro', flag: '🇪🇺', rate: 0.92 },
             { code: 'GBP', name: 'British Pound', flag: '🇬🇧', rate: 0.79 },
+            { code: 'INR', name: 'Indian Rupee', flag: '🇮🇳', rate: 83.5 },
             { code: 'AED', name: 'UAE Dirham', flag: '🇦🇪', rate: 3.67 },
-            { code: 'SGD', name: 'Singapore Dollar', flag: '🇸🇬', rate: 1.34 },
-            { code: 'AUD', name: 'Australian Dollar', flag: '🇦🇺', rate: 1.53 },
-            { code: 'CAD', name: 'Canadian Dollar', flag: '🇨🇦', rate: 1.36 },
             { code: 'JPY', name: 'Japanese Yen', flag: '🇯🇵', rate: 149.5 },
             { code: 'CNY', name: 'Chinese Yuan', flag: '🇨🇳', rate: 7.24 },
+            { code: 'AUD', name: 'Australian Dollar', flag: '🇦🇺', rate: 1.53 },
+            { code: 'CAD', name: 'Canadian Dollar', flag: '🇨🇦', rate: 1.36 },
+            { code: 'SGD', name: 'Singapore Dollar', flag: '🇸🇬', rate: 1.34 },
+            { code: 'CHF', name: 'Swiss Franc', flag: '🇨🇭', rate: 0.88 },
             { code: 'HKD', name: 'Hong Kong Dollar', flag: '🇭🇰', rate: 7.82 },
             { code: 'KRW', name: 'South Korean Won', flag: '🇰🇷', rate: 1350 },
-            { code: 'CHF', name: 'Swiss Franc', flag: '🇨🇭', rate: 0.88 },
-            { code: 'MXN', name: 'Mexican Peso', flag: '🇲🇽', rate: 17.2 },
-            { code: 'BRL', name: 'Brazilian Real', flag: '🇧🇷', rate: 4.97 },
             { code: 'SAR', name: 'Saudi Riyal', flag: '🇸🇦', rate: 3.75 },
+            { code: 'THB', name: 'Thai Baht', flag: '🇹🇭', rate: 35.5 },
+            { code: 'MYR', name: 'Malaysian Ringgit', flag: '🇲🇾', rate: 4.72 },
+            // All other currencies A-Z
+            { code: 'AFN', name: 'Afghan Afghani', flag: '🇦🇫', rate: 70.5 },
+            { code: 'ALL', name: 'Albanian Lek', flag: '🇦🇱', rate: 94.5 },
+            { code: 'DZD', name: 'Algerian Dinar', flag: '🇩🇿', rate: 135 },
+            { code: 'AOA', name: 'Angolan Kwanza', flag: '🇦🇴', rate: 832 },
+            { code: 'ARS', name: 'Argentine Peso', flag: '🇦🇷', rate: 875 },
+            { code: 'AMD', name: 'Armenian Dram', flag: '🇦🇲', rate: 405 },
+            { code: 'AWG', name: 'Aruban Florin', flag: '🇦🇼', rate: 1.79 },
+            { code: 'AZN', name: 'Azerbaijani Manat', flag: '🇦🇿', rate: 1.7 },
+            { code: 'BSD', name: 'Bahamian Dollar', flag: '🇧🇸', rate: 1 },
+            { code: 'BHD', name: 'Bahraini Dinar', flag: '🇧🇭', rate: 0.376 },
+            { code: 'BDT', name: 'Bangladeshi Taka', flag: '🇧🇩', rate: 110 },
+            { code: 'BBD', name: 'Barbadian Dollar', flag: '🇧🇧', rate: 2 },
+            { code: 'BYN', name: 'Belarusian Ruble', flag: '🇧🇾', rate: 3.27 },
+            { code: 'BZD', name: 'Belize Dollar', flag: '🇧🇿', rate: 2 },
+            { code: 'BMD', name: 'Bermudian Dollar', flag: '🇧🇲', rate: 1 },
+            { code: 'BTN', name: 'Bhutanese Ngultrum', flag: '🇧🇹', rate: 83.5 },
+            { code: 'BOB', name: 'Bolivian Boliviano', flag: '🇧🇴', rate: 6.91 },
+            { code: 'BAM', name: 'Bosnia Mark', flag: '🇧🇦', rate: 1.8 },
+            { code: 'BWP', name: 'Botswanan Pula', flag: '🇧🇼', rate: 13.7 },
+            { code: 'BRL', name: 'Brazilian Real', flag: '🇧🇷', rate: 4.97 },
+            { code: 'BND', name: 'Brunei Dollar', flag: '🇧🇳', rate: 1.34 },
+            { code: 'BGN', name: 'Bulgarian Lev', flag: '🇧🇬', rate: 1.8 },
+            { code: 'BIF', name: 'Burundian Franc', flag: '🇧🇮', rate: 2850 },
+            { code: 'KHR', name: 'Cambodian Riel', flag: '🇰🇭', rate: 4100 },
+            { code: 'CVE', name: 'Cape Verdean Escudo', flag: '🇨🇻', rate: 101 },
+            { code: 'KYD', name: 'Cayman Islands Dollar', flag: '🇰🇾', rate: 0.833 },
+            { code: 'XAF', name: 'Central African CFA', flag: '🇨🇲', rate: 603 },
+            { code: 'CLP', name: 'Chilean Peso', flag: '🇨🇱', rate: 980 },
+            { code: 'COP', name: 'Colombian Peso', flag: '🇨🇴', rate: 3950 },
+            { code: 'KMF', name: 'Comorian Franc', flag: '🇰🇲', rate: 452 },
+            { code: 'CDF', name: 'Congolese Franc', flag: '🇨🇩', rate: 2750 },
+            { code: 'CRC', name: 'Costa Rican Colón', flag: '🇨🇷', rate: 520 },
+            { code: 'HRK', name: 'Croatian Kuna', flag: '🇭🇷', rate: 6.9 },
+            { code: 'CUP', name: 'Cuban Peso', flag: '🇨🇺', rate: 24 },
+            { code: 'CZK', name: 'Czech Koruna', flag: '🇨🇿', rate: 23.2 },
+            { code: 'DKK', name: 'Danish Krone', flag: '🇩🇰', rate: 6.87 },
+            { code: 'DJF', name: 'Djiboutian Franc', flag: '🇩🇯', rate: 178 },
+            { code: 'DOP', name: 'Dominican Peso', flag: '🇩🇴', rate: 58. },
+            { code: 'XCD', name: 'East Caribbean Dollar', flag: '🇦🇬', rate: 2.7 },
+            { code: 'EGP', name: 'Egyptian Pound', flag: '🇪🇬', rate: 49.5 },
+            { code: 'ERN', name: 'Eritrean Nakfa', flag: '🇪🇷', rate: 15 },
+            { code: 'ETB', name: 'Ethiopian Birr', flag: '🇪🇹', rate: 115 },
+            { code: 'FJD', name: 'Fijian Dollar', flag: '🇫🇯', rate: 2.24 },
+            { code: 'GMD', name: 'Gambian Dalasi', flag: '🇬🇲', rate: 68 },
+            { code: 'GEL', name: 'Georgian Lari', flag: '🇬🇪', rate: 2.7 },
+            { code: 'GHS', name: 'Ghanaian Cedi', flag: '🇬🇭', rate: 15.5 },
+            { code: 'GIP', name: 'Gibraltar Pound', flag: '🇬🇮', rate: 0.79 },
+            { code: 'GTQ', name: 'Guatemalan Quetzal', flag: '🇬🇹', rate: 7.8 },
+            { code: 'GNF', name: 'Guinean Franc', flag: '🇬🇳', rate: 8600 },
+            { code: 'GYD', name: 'Guyanese Dollar', flag: '🇬🇾', rate: 209 },
+            { code: 'HTG', name: 'Haitian Gourde', flag: '🇭🇹', rate: 132 },
+            { code: 'HNL', name: 'Honduran Lempira', flag: '🇭🇳', rate: 24.7 },
+            { code: 'HUF', name: 'Hungarian Forint', flag: '🇭🇺', rate: 363 },
+            { code: 'ISK', name: 'Icelandic Króna', flag: '🇮🇸', rate: 137 },
+            { code: 'IDR', name: 'Indonesian Rupiah', flag: '🇮🇩', rate: 15800 },
+            { code: 'IRR', name: 'Iranian Rial', flag: '🇮🇷', rate: 42000 },
+            { code: 'IQD', name: 'Iraqi Dinar', flag: '🇮🇶', rate: 1310 },
+            { code: 'ILS', name: 'Israeli Shekel', flag: '🇮🇱', rate: 3.7 },
+            { code: 'JMD', name: 'Jamaican Dollar', flag: '🇯🇲', rate: 156 },
+            { code: 'JOD', name: 'Jordanian Dinar', flag: '🇯🇴', rate: 0.709 },
+            { code: 'KZT', name: 'Kazakhstani Tenge', flag: '🇰🇿', rate: 460 },
+            { code: 'KES', name: 'Kenyan Shilling', flag: '🇰🇪', rate: 154 },
+            { code: 'KWD', name: 'Kuwaiti Dinar', flag: '🇰🇼', rate: 0.307 },
+            { code: 'KGS', name: 'Kyrgyzstani Som', flag: '🇰🇬', rate: 89.5 },
+            { code: 'LAK', name: 'Lao Kip', flag: '🇱🇦', rate: 21000 },
+            { code: 'LBP', name: 'Lebanese Pound', flag: '🇱🇧', rate: 89500 },
+            { code: 'LSL', name: 'Lesotho Loti', flag: '🇱🇸', rate: 18.5 },
+            { code: 'LRD', name: 'Liberian Dollar', flag: '🇱🇷', rate: 194 },
+            { code: 'LYD', name: 'Libyan Dinar', flag: '🇱🇾', rate: 4.85 },
+            { code: 'MOP', name: 'Macanese Pataca', flag: '🇲🇴', rate: 8.05 },
+            { code: 'MKD', name: 'Macedonian Denar', flag: '🇲🇰', rate: 56.5 },
+            { code: 'MGA', name: 'Malagasy Ariary', flag: '🇲🇬', rate: 4550 },
+            { code: 'MWK', name: 'Malawian Kwacha', flag: '🇲🇼', rate: 1730 },
+            { code: 'MVR', name: 'Maldivian Rufiyaa', flag: '🇲🇻', rate: 15.4 },
+            { code: 'MRU', name: 'Mauritanian Ouguiya', flag: '🇲🇷', rate: 39.7 },
+            { code: 'MUR', name: 'Mauritian Rupee', flag: '🇲🇺', rate: 45.5 },
+            { code: 'MXN', name: 'Mexican Peso', flag: '🇲🇽', rate: 17.2 },
+            { code: 'MDL', name: 'Moldovan Leu', flag: '🇲🇩', rate: 17.8 },
+            { code: 'MNT', name: 'Mongolian Tugrik', flag: '🇲🇳', rate: 3420 },
+            { code: 'MAD', name: 'Moroccan Dirham', flag: '🇲🇦', rate: 10.1 },
+            { code: 'MZN', name: 'Mozambican Metical', flag: '🇲🇿', rate: 63.8 },
+            { code: 'MMK', name: 'Myanmar Kyat', flag: '🇲🇲', rate: 2100 },
+            { code: 'NAD', name: 'Namibian Dollar', flag: '🇳🇦', rate: 18.5 },
+            { code: 'NPR', name: 'Nepalese Rupee', flag: '🇳🇵', rate: 133.5 },
+            { code: 'ANG', name: 'Netherlands Antillean Guilder', flag: '🇨🇼', rate: 1.79 },
+            { code: 'TWD', name: 'New Taiwan Dollar', flag: '🇹🇼', rate: 32.3 },
+            { code: 'NZD', name: 'New Zealand Dollar', flag: '🇳🇿', rate: 1.68 },
+            { code: 'NIO', name: 'Nicaraguan Córdoba', flag: '🇳🇮', rate: 36.7 },
+            { code: 'NGN', name: 'Nigerian Naira', flag: '🇳🇬', rate: 1600 },
+            { code: 'NOK', name: 'Norwegian Krone', flag: '🇳🇴', rate: 10.8 },
+            { code: 'OMR', name: 'Omani Rial', flag: '🇴🇲', rate: 0.385 },
+            { code: 'PKR', name: 'Pakistani Rupee', flag: '🇵🇰', rate: 278 },
+            { code: 'PAB', name: 'Panamanian Balboa', flag: '🇵🇦', rate: 1 },
+            { code: 'PGK', name: 'Papua New Guinean Kina', flag: '🇵🇬', rate: 3.9 },
+            { code: 'PYG', name: 'Paraguayan Guarani', flag: '🇵🇾', rate: 7500 },
+            { code: 'PEN', name: 'Peruvian Sol', flag: '🇵🇪', rate: 3.72 },
+            { code: 'PHP', name: 'Philippine Peso', flag: '🇵🇭', rate: 56.5 },
+            { code: 'PLN', name: 'Polish Zloty', flag: '🇵🇱', rate: 4.03 },
+            { code: 'QAR', name: 'Qatari Riyal', flag: '🇶🇦', rate: 3.64 },
+            { code: 'RON', name: 'Romanian Leu', flag: '🇷🇴', rate: 4.58 },
+            { code: 'RUB', name: 'Russian Ruble', flag: '🇷🇺', rate: 92 },
+            { code: 'RWF', name: 'Rwandan Franc', flag: '🇷🇼', rate: 1300 },
+            { code: 'SHP', name: 'Saint Helena Pound', flag: '🇸🇭', rate: 0.79 },
+            { code: 'WST', name: 'Samoan Tala', flag: '🇼🇸', rate: 2.75 },
+            { code: 'STN', name: 'São Tomé Dobra', flag: '🇸🇹', rate: 22.5 },
+            { code: 'RSD', name: 'Serbian Dinar', flag: '🇷🇸', rate: 108 },
+            { code: 'SCR', name: 'Seychellois Rupee', flag: '🇸🇨', rate: 13.5 },
+            { code: 'SLL', name: 'Sierra Leonean Leone', flag: '🇸🇱', rate: 22500 },
+            { code: 'SBD', name: 'Solomon Islands Dollar', flag: '🇸🇧', rate: 8.45 },
+            { code: 'SOS', name: 'Somali Shilling', flag: '🇸🇴', rate: 571 },
             { code: 'ZAR', name: 'South African Rand', flag: '🇿🇦', rate: 18.35 },
+            { code: 'SSP', name: 'South Sudanese Pound', flag: '🇸🇸', rate: 1350 },
+            { code: 'LKR', name: 'Sri Lankan Rupee', flag: '🇱🇰', rate: 300 },
+            { code: 'SDG', name: 'Sudanese Pound', flag: '🇸🇩', rate: 601 },
+            { code: 'SRD', name: 'Surinamese Dollar', flag: '🇸🇷', rate: 36.5 },
+            { code: 'SZL', name: 'Swazi Lilangeni', flag: '🇸🇿', rate: 18.5 },
+            { code: 'SEK', name: 'Swedish Krona', flag: '🇸🇪', rate: 10.5 },
+            { code: 'SYP', name: 'Syrian Pound', flag: '🇸🇾', rate: 13000 },
+            { code: 'TJS', name: 'Tajikistani Somoni', flag: '🇹🇯', rate: 10.95 },
+            { code: 'TZS', name: 'Tanzanian Shilling', flag: '🇹🇿', rate: 2510 },
+            { code: 'TOP', name: 'Tongan Paʻanga', flag: '🇹🇴', rate: 2.36 },
+            { code: 'TTD', name: 'Trinidad Dollar', flag: '🇹🇹', rate: 6.78 },
+            { code: 'TND', name: 'Tunisian Dinar', flag: '🇹🇳', rate: 3.12 },
+            { code: 'TRY', name: 'Turkish Lira', flag: '🇹🇷', rate: 32.5 },
+            { code: 'TMT', name: 'Turkmenistani Manat', flag: '🇹🇲', rate: 3.5 },
+            { code: 'UGX', name: 'Ugandan Shilling', flag: '🇺🇬', rate: 3760 },
+            { code: 'UAH', name: 'Ukrainian Hryvnia', flag: '🇺🇦', rate: 41.5 },
+            { code: 'UYU', name: 'Uruguayan Peso', flag: '🇺🇾', rate: 40.5 },
+            { code: 'UZS', name: 'Uzbekistani Som', flag: '🇺🇿', rate: 12650 },
+            { code: 'VUV', name: 'Vanuatu Vatu', flag: '🇻🇺', rate: 119 },
+            { code: 'VES', name: 'Venezuelan Bolívar', flag: '🇻🇪', rate: 36.5 },
+            { code: 'VND', name: 'Vietnamese Dong', flag: '🇻🇳', rate: 25450 },
+            { code: 'XOF', name: 'West African CFA', flag: '🇸🇳', rate: 603 },
+            { code: 'YER', name: 'Yemeni Rial', flag: '🇾🇪', rate: 250 },
+            { code: 'ZMW', name: 'Zambian Kwacha', flag: '🇿🇲', rate: 27 },
+            { code: 'ZWL', name: 'Zimbabwean Dollar', flag: '🇿🇼', rate: 322 },
+            // Crypto (popular)
+            { code: 'BTC', name: 'Bitcoin', flag: '₿', rate: 0.000016 },
+            { code: 'ETH', name: 'Ethereum', flag: 'Ξ', rate: 0.00028 },
         ];
         
         // Initialize
@@ -740,22 +1072,14 @@
         const API_URL = 'https://open.er-api.com/v6/latest/USD';
         
         document.addEventListener('DOMContentLoaded', function() {
-            populateCurrencySelects();
-            fetchExchangeRates(); // Fetch live rates on load
-            showDefaultRates(); // Show 15 currencies vs USD by default
+            setupSearchableDropdowns();
+            fetchExchangeRates();
+            showDefaultRates();
             
-            // Auto-refresh every 30 minutes (1800000 ms)
+            // Auto-refresh every 30 minutes
             setInterval(fetchExchangeRates, 1800000);
             
             document.getElementById('fromAmount').addEventListener('input', updateConversion);
-            document.getElementById('fromCurrency').addEventListener('change', function() {
-                updateFlag('from');
-                updateConversion();
-            });
-            document.getElementById('toCurrency').addEventListener('change', function() {
-                updateFlag('to');
-                updateConversion();
-            });
             
             document.getElementById('currencySearch').addEventListener('input', function() {
                 filterRates(this.value);
@@ -764,32 +1088,114 @@
             document.getElementById('navToggle').addEventListener('click', function() {
                 document.querySelector('.nav-links').classList.toggle('show');
             });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.currency-custom-select')) {
+                    document.querySelectorAll('.currency-custom-select.open').forEach(el => {
+                        el.classList.remove('open');
+                    });
+                }
+            });
         });
         
-        function populateCurrencySelects() {
-            const fromSelect = document.getElementById('fromCurrency');
-            const toSelect = document.getElementById('toCurrency');
-            
-            currencies.forEach(curr => {
-                const option1 = new Option(`${curr.code} - ${curr.name}`, curr.code);
-                const option2 = new Option(`${curr.code} - ${curr.name}`, curr.code);
-                fromSelect.add(option1);
-                toSelect.add(option2);
-            });
-            
-            fromSelect.value = 'USD';
-            toSelect.value = 'INR';
-            
-            // Update flags to match initial currency selection
-            updateFlag('from');
-            updateFlag('to');
+        function setupSearchableDropdowns() {
+            setupDropdown('from', 'USD');
+            setupDropdown('to', 'INR');
         }
-        
-        function updateFlag(type) {
-            const select = document.getElementById(`${type}Currency`);
-            const flag = document.getElementById(`${type}Flag`);
-            const curr = currencies.find(c => c.code === select.value);
-            if (curr) flag.textContent = curr.flag;
+
+        function setupDropdown(type, defaultValue) {
+            const wrapper = document.getElementById(`${type}CurrencyWrapper`);
+            const trigger = document.getElementById(`${type}CurrencyTrigger`);
+            const dropdown = document.getElementById(`${type}Dropdown`);
+            const optionsContainer = document.getElementById(`${type}Options`);
+            const searchInput = document.getElementById(`${type}Search`);
+            const hiddenInput = document.getElementById(`${type}Currency`);
+            const noResults = dropdown.querySelector('.currency-select-no-results');
+
+            // Populate options
+            currencies.forEach(curr => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'currency-select-option';
+                optionDiv.dataset.value = curr.code;
+                optionDiv.innerHTML = `
+                    <span class="option-flag">${curr.flag}</span>
+                    <div class="option-text">
+                        <span class="option-code">${curr.code}</span>
+                        <span class="option-name">${curr.name}</span>
+                    </div>
+                `;
+                optionsContainer.appendChild(optionDiv);
+            });
+
+            // Set default
+            selectCurrencyInDropdown(type, defaultValue);
+
+            // Toggle dropdown
+            trigger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                document.querySelectorAll('.currency-custom-select.open').forEach(el => {
+                    if (el !== wrapper) el.classList.remove('open');
+                });
+                wrapper.classList.toggle('open');
+                if (wrapper.classList.contains('open')) {
+                    searchInput.focus();
+                    searchInput.value = '';
+                    filterDropdownOptions(type, '');
+                }
+            });
+
+            // Search functionality
+            searchInput.addEventListener('input', function(e) {
+                filterDropdownOptions(type, e.target.value);
+            });
+
+            searchInput.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+
+            // Select option
+            optionsContainer.addEventListener('click', function(e) {
+                const option = e.target.closest('.currency-select-option');
+                if (option && !option.classList.contains('hidden')) {
+                    selectCurrencyInDropdown(type, option.dataset.value);
+                    wrapper.classList.remove('open');
+                    updateConversion();
+                }
+            });
+        }
+
+        function filterDropdownOptions(type, query) {
+            const optionsContainer = document.getElementById(`${type}Options`);
+            const noResults = document.getElementById(`${type}Dropdown`).querySelector('.currency-select-no-results');
+            const options = optionsContainer.querySelectorAll('.currency-select-option');
+            const q = query.toLowerCase();
+            let visibleCount = 0;
+
+            options.forEach(opt => {
+                const code = opt.querySelector('.option-code').textContent.toLowerCase();
+                const name = opt.querySelector('.option-name').textContent.toLowerCase();
+                const matches = code.includes(q) || name.includes(q);
+                opt.classList.toggle('hidden', !matches);
+                if (matches) visibleCount++;
+            });
+
+            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        function selectCurrencyInDropdown(type, code) {
+            const curr = currencies.find(c => c.code === code);
+            if (!curr) return;
+
+            document.getElementById(`${type}Currency`).value = code;
+            document.getElementById(`${type}Flag`).textContent = curr.flag;
+            document.getElementById(`${type}Text`).textContent = `${curr.code} - ${curr.name}`;
+
+            // Mark as selected
+            const optionsContainer = document.getElementById(`${type}Options`);
+            optionsContainer.querySelectorAll('.currency-select-option').forEach(opt => {
+                opt.classList.toggle('selected', opt.dataset.value === code);
+            });
         }
         
         function updateConversion() {
@@ -801,9 +1207,6 @@
             const toCurr = currencies.find(c => c.code === toCode);
             
             if (fromCurr && toCurr) {
-                // Convert through USD as base (API gives rates vs USD)
-                // If 1 USD = X fromCurrency, then amount/X = USD equivalent
-                // Then USD * toCurrency rate = result
                 const inUSD = amount / fromCurr.rate;
                 const result = inUSD * toCurr.rate;
                 const rate = toCurr.rate / fromCurr.rate;
@@ -817,13 +1220,11 @@
         }
         
         function swapCurrencies() {
-            const fromSelect = document.getElementById('fromCurrency');
-            const toSelect = document.getElementById('toCurrency');
-            const temp = fromSelect.value;
-            fromSelect.value = toSelect.value;
-            toSelect.value = temp;
-            updateFlag('from');
-            updateFlag('to');
+            const fromCode = document.getElementById('fromCurrency').value;
+            const toCode = document.getElementById('toCurrency').value;
+            
+            selectCurrencyInDropdown('from', toCode);
+            selectCurrencyInDropdown('to', fromCode);
             updateConversion();
         }
         
@@ -844,8 +1245,7 @@
         }
         
         function selectCurrency(code) {
-            document.getElementById('toCurrency').value = code;
-            updateFlag('to');
+            selectCurrencyInDropdown('to', code);
             updateConversion();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -865,7 +1265,7 @@
                 if (data.result === 'success') {
                     exchangeRates = data.rates;
                     
-                    // Update currencies array with live rates (rates are vs USD)
+                    // Update currencies array with live rates
                     currencies.forEach(curr => {
                         if (exchangeRates[curr.code]) {
                             curr.rate = exchangeRates[curr.code];
@@ -886,26 +1286,28 @@
             }
         }
         
-        // Show all popular currencies against USD
+        // Show popular currencies against USD
         function showDefaultRates() {
             const grid = document.getElementById('ratesGrid');
+            const popularCodes = ['EUR', 'GBP', 'INR', 'AED', 'JPY', 'CNY', 'AUD', 'CAD', 'SGD', 'CHF', 'HKD', 'KRW', 'SAR', 'THB', 'MYR', 'NZD', 'ZAR', 'BRL', 'MXN', 'TRY', 'PLN', 'SEK', 'NOK', 'PHP', 'IDR', 'PKR', 'BDT', 'VND', 'EGP', 'NGN'];
             
-            grid.innerHTML = currencies.filter(c => c.code !== 'USD').map(curr => {
-                const rate = curr.rate; // Rate against USD
-                
-                return `
-                    <div class="rate-card" onclick="selectCurrency('${curr.code}')">
-                        <span class="rate-flag">${curr.flag}</span>
-                        <div class="rate-info">
-                            <div class="rate-code">${curr.code}</div>
-                            <div class="rate-name">${curr.name}</div>
+            grid.innerHTML = currencies
+                .filter(c => popularCodes.includes(c.code))
+                .map(curr => {
+                    const rate = curr.rate;
+                    return `
+                        <div class="rate-card" onclick="selectCurrency('${curr.code}')">
+                            <span class="rate-flag">${curr.flag}</span>
+                            <div class="rate-info">
+                                <div class="rate-code">${curr.code}</div>
+                                <div class="rate-name">${curr.name}</div>
+                            </div>
+                            <div class="rate-value">
+                                <div class="rate-price">1 USD = ${rate.toFixed(4)}</div>
+                            </div>
                         </div>
-                        <div class="rate-value">
-                            <div class="rate-price">1 USD = ${rate.toFixed(4)}</div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+                    `;
+                }).join('');
             
             updateTime();
         }
