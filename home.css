@@ -1477,67 +1477,125 @@
         font-size: 0.8rem;
     }
     
-    /* Comparison Grid - Compact */
+    /* Comparison Grid - Keep Side by Side on Mobile */
     .comparison-grid,
     .help-grid,
     .pricing-grid,
+    .free-comparison-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+    
     .difference-grid {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 0.75rem;
     }
     
     .comparison-column {
-        padding: 1.25rem;
-        border-radius: 14px;
+        padding: 0.75rem;
+        border-radius: 10px;
     }
     
     .comparison-column h3 {
-        font-size: 1.1rem;
-        margin-bottom: 0.75rem;
-    }
-    
-    .comparison-list li {
-        padding: 0.5rem 0;
         font-size: 0.85rem;
+        margin-bottom: 0.5rem;
     }
     
-    /* Help Section - Compact */
+    .comparison-column ul {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .comparison-column ul li {
+        padding: 0.25rem 0;
+        font-size: 0.7rem;
+        line-height: 1.3;
+    }
+    
+    /* Free Comparison - Side by Side */
+    .free-column {
+        padding: 0.75rem;
+        border-radius: 10px;
+    }
+    
+    .free-column h3 {
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .free-column li {
+        padding: 0.2rem 0;
+        font-size: 0.7rem;
+    }
+    
+    /* Help Section - Side by Side */
     .help-card {
-        padding: 1.25rem;
-        border-radius: 14px;
+        padding: 0.75rem;
+        border-radius: 10px;
     }
     
     .help-card h3 {
-        font-size: 1rem;
-        margin-bottom: 0.75rem;
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
     }
     
     .help-list li,
     .help-examples li {
-        padding: 0.4rem 0;
-        font-size: 0.85rem;
+        padding: 0.2rem 0;
+        font-size: 0.7rem;
     }
     
-    /* Pricing - Compact */
+    /* Pricing - Side by Side */
     .pricing-card {
-        padding: 1.25rem;
-        border-radius: 16px;
+        padding: 0.75rem;
+        border-radius: 12px;
     }
     
     .pricing-badge {
-        padding: 0.35rem 0.75rem;
-        font-size: 0.8rem;
-        margin-bottom: 1rem;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.65rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .pricing-tagline {
+        font-size: 0.7rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .feature-category {
+        margin-bottom: 0.5rem;
+    }
+    
+    .feature-category h4 {
+        font-size: 0.7rem;
+        margin-bottom: 0.25rem;
     }
     
     .pricing-features li {
-        padding: 0.4rem 0;
-        font-size: 0.85rem;
+        padding: 0.15rem 0;
+        font-size: 0.65rem;
+    }
+    
+    .pricing-value {
+        margin: 0.5rem 0;
+    }
+    
+    .price-breakdown {
+        font-size: 0.75rem;
+    }
+    
+    .price-comparison {
+        font-size: 0.65rem;
     }
     
     .pricing-btn {
-        padding: 0.6rem 1.25rem;
-        font-size: 0.85rem;
+        padding: 0.4rem 0.75rem;
+        font-size: 0.7rem;
+    }
+    
+    .pricing-note {
+        font-size: 0.7rem;
+        margin-top: 0.75rem;
     }
     
     /* Stats Section - Compact */
@@ -1661,90 +1719,62 @@
         font-size: 0.9rem;
     }
     
-    /* Feedback Section - Compact */
-    .feedback-form {
-        padding: 1.25rem;
-    }
-    
-    .feedback-row {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-    
-    .feedback-row label {
-        font-size: 0.85rem;
-    }
-    
-    .rating-btn {
-        width: 36px;
-        height: 36px;
-        font-size: 1.1rem;
-    }
-    
-    .feedback-input,
-    .feedback-textarea {
-        padding: 0.6rem;
-        font-size: 0.85rem;
-    }
-    
-    .feedback-submit {
-        padding: 0.6rem 1.25rem;
-        font-size: 0.85rem;
-    }
-    
     /* Comparison Table - Compact */
     .comparison-table th,
     .comparison-table td {
-        padding: 0.6rem 0.4rem;
-        font-size: 0.75rem;
+        padding: 0.5rem 0.25rem;
+        font-size: 0.6rem;
     }
     
-    /* Free Comparison - Compact */
-    .free-comparison-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-    
-    .free-column {
-        padding: 1rem;
-    }
-    
-    .free-column h3 {
-        font-size: 1rem;
-        margin-bottom: 0.75rem;
-    }
-    
-    .free-column li {
-        padding: 0.5rem 0;
-        font-size: 0.85rem;
+    .comparison-table th:first-child,
+    .comparison-table td:first-child {
+        padding-left: 0.5rem;
     }
     
     /* Footer - Compact */
-    .page-footer {
+    .page-footer,
+    .home-footer {
         padding: 1rem;
         font-size: 0.8rem;
+    }
+    
+    .footer-links {
+        gap: 0.5rem;
+    }
+    
+    .footer-links a {
+        font-size: 0.75rem;
     }
 }
 
 @media (max-width: 480px) {
     /* Extra Small Screens */
     .hero-title {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.75rem;
     }
     
     .hero-logo-svg {
-        width: 140px;
+        width: 120px;
     }
     
     .section-title {
-        font-size: 1.2rem;
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .section-subtitle {
+        font-size: 0.75rem;
+        margin-bottom: 0.75rem;
     }
     
     .features-section,
     .about-section,
     .cta-section,
     .founder-section,
-    .feedback-section,
     .problem-section,
     .help-section,
     .pricing-section,
@@ -1752,38 +1782,212 @@
     .values-section,
     .why-paid-section,
     .comparison-section {
-        padding: 1.5rem 0.75rem;
+        padding: 1.25rem 0.5rem;
+    }
+    
+    /* Keep grids side by side but even more compact */
+    .comparison-grid,
+    .help-grid,
+    .pricing-grid,
+    .free-comparison-grid {
+        gap: 0.35rem;
+    }
+    
+    .comparison-column,
+    .help-card,
+    .pricing-card,
+    .free-column {
+        padding: 0.5rem;
+        border-radius: 8px;
+    }
+    
+    .comparison-column h3,
+    .help-card h3,
+    .free-column h3 {
+        font-size: 0.7rem;
+        margin-bottom: 0.35rem;
+    }
+    
+    .comparison-column ul li,
+    .free-column li {
+        font-size: 0.6rem;
+        padding: 0.15rem 0;
+    }
+    
+    .help-list li,
+    .help-examples li {
+        font-size: 0.6rem;
+        padding: 0.15rem 0;
+    }
+    
+    .pricing-badge {
+        font-size: 0.55rem;
+        padding: 0.2rem 0.4rem;
+    }
+    
+    .pricing-tagline {
+        font-size: 0.6rem;
+    }
+    
+    .feature-category h4 {
+        font-size: 0.6rem;
+    }
+    
+    .pricing-features li {
+        font-size: 0.55rem;
+        padding: 0.1rem 0;
+    }
+    
+    .pricing-btn {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.6rem;
+    }
+    
+    .price-breakdown {
+        font-size: 0.65rem;
+    }
+    
+    .price-comparison {
+        font-size: 0.55rem;
     }
     
     .values-grid {
-        grid-template-columns: 1fr;
-        gap: 0.6rem;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.4rem;
+    }
+    
+    .value-card {
+        padding: 0.6rem;
+    }
+    
+    .value-icon {
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .value-card h4 {
+        font-size: 0.7rem;
+        margin-bottom: 0.15rem;
+    }
+    
+    .value-card p {
+        font-size: 0.6rem;
     }
     
     .about-stats {
         flex-direction: row;
         flex-wrap: wrap;
-        gap: 0.75rem;
+        gap: 0.5rem;
     }
     
-    .stat-item {
-        min-width: calc(50% - 0.5rem);
+    .stat {
+        min-width: calc(33% - 0.5rem);
+    }
+    
+    .stat-number {
+        font-size: 1rem;
+    }
+    
+    .stat-label {
+        font-size: 0.6rem;
+    }
+    
+    .about-text p {
+        font-size: 0.75rem;
+    }
+    
+    .about-card {
+        padding: 0.6rem;
+    }
+    
+    .about-icon {
+        font-size: 1.25rem;
+    }
+    
+    .about-card h4 {
+        font-size: 0.8rem;
+    }
+    
+    .about-card p {
+        font-size: 0.7rem;
+    }
+    
+    /* Features Grid */
+    .features-grid {
+        gap: 0.5rem;
     }
     
     .feature-card {
-        padding: 0.85rem;
+        padding: 0.6rem;
     }
     
     .feature-icon {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
+        margin-bottom: 0.25rem;
     }
     
     .feature-card h3 {
-        font-size: 0.95rem;
+        font-size: 0.85rem;
+        margin-bottom: 0.25rem;
     }
     
     .feature-card p {
+        font-size: 0.7rem;
+        margin-bottom: 0.35rem;
+    }
+    
+    .feature-link {
+        font-size: 0.7rem;
+    }
+    
+    /* Founder */
+    .founder-card {
+        padding: 0.75rem;
+    }
+    
+    .founder-avatar {
+        font-size: 2.5rem;
+    }
+    
+    .founder-info h3 {
+        font-size: 0.95rem;
+    }
+    
+    .founder-title {
+        font-size: 0.7rem;
+    }
+    
+    .founder-bio {
         font-size: 0.75rem;
     }
+    
+    .founder-fun {
+        gap: 0.35rem;
+    }
+    
+    .fun-fact {
+        font-size: 0.6rem;
+        padding: 0.25rem 0.5rem;
+    }
+    
+    /* CTA */
+    .cta-content h2 {
+        font-size: 1rem;
+    }
+    
+    .cta-content p {
+        font-size: 0.75rem;
+    }
+    
+    .cta-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+    
+    /* Comparison Table - Even more compact */
+    .comparison-table th,
+    .comparison-table td {
+        padding: 0.35rem 0.15rem;
+        font-size: 0.5rem;
+    }
 }
-

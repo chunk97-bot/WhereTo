@@ -528,32 +528,6 @@
             </div>
         </section>
 
-        <!-- Feedback Section -->
-        <section class="feedback-section" id="feedback">
-            <div class="feedback-content">
-                <h2 class="section-title">Share Your Thoughts 💭</h2>
-                <p class="feedback-subtitle">Help us make WhereTo even better!</p>
-                <form class="feedback-form" id="feedbackForm">
-                    <div class="feedback-row">
-                        <input type="text" placeholder="Your Name" class="feedback-input" required>
-                        <input type="email" placeholder="Email (optional)" class="feedback-input">
-                    </div>
-                    <div class="feedback-rating">
-                        <span>How's your experience?</span>
-                        <div class="rating-emojis">
-                            <button type="button" class="rating-btn" data-rating="1">😞</button>
-                            <button type="button" class="rating-btn" data-rating="2">😐</button>
-                            <button type="button" class="rating-btn" data-rating="3">🙂</button>
-                            <button type="button" class="rating-btn" data-rating="4">😊</button>
-                            <button type="button" class="rating-btn" data-rating="5">🤩</button>
-                        </div>
-                    </div>
-                    <textarea placeholder="Tell us what you think... ideas, bugs, or just say hi!" class="feedback-textarea" rows="4" required></textarea>
-                    <button type="submit" class="feedback-submit">Send Feedback ✨</button>
-                </form>
-            </div>
-        </section>
-
         <!-- Footer -->
         <footer class="home-footer">
             <div class="footer-content">
@@ -577,29 +551,6 @@
         </footer>
     </div>
 
-    <script>
-        // Feedback form functionality
-        document.querySelectorAll('.rating-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-        });
 
-        document.getElementById('feedbackForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const form = e.target;
-            const rating = document.querySelector('.rating-btn.active')?.dataset.rating || 'Not rated';
-            
-            // Show thank you message
-            form.innerHTML = `
-                <div style="text-align: center; padding: 2rem;">
-                    <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
-                    <h3 style="color: #00d4ff; margin-bottom: 0.5rem;">Thank You!</h3>
-                    <p style="color: rgba(255,255,255,0.7);">Your feedback helps us improve WhereTo!</p>
-                </div>
-            `;
-        });
-    </script>
 </body>
 </html>
