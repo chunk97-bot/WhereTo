@@ -770,6 +770,10 @@
             
             fromSelect.value = 'USD';
             toSelect.value = 'INR';
+            
+            // Update flags to match initial currency selection
+            updateFlag('from');
+            updateFlag('to');
         }
         
         function updateFlag(type) {
