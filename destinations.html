@@ -145,16 +145,6 @@
                     <button class="reset-btn" onclick="resetFilters()">Reset Filters</button>
                 </div>
             </section>
-
-            <!-- Category Filter -->
-            <section class="dest-section categories-section">
-                <div class="section-header">
-                    <h2>🏷️ Browse by Category</h2>
-                </div>
-                <div class="category-filter" id="categoryFilter">
-                    <!-- Categories loaded from destinations-data.js -->
-                </div>
-            </section>
         </main>
 
         <!-- Footer -->
@@ -180,7 +170,6 @@
             loadFeaturedDestinations();
             loadCollections();
             loadMonthsCarousel();
-            loadCategories();
             loadAllDestinations();
             loadCountries();
         }
@@ -205,19 +194,6 @@
             document.getElementById('sortSelect').addEventListener('change', function() {
                 currentSort = this.value;
                 loadAllDestinations();
-            });
-
-            // Category filter clicks
-            document.getElementById('categoryFilter').addEventListener('click', function(e) {
-                if (e.target.classList.contains('category-btn')) {
-                    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
-                    e.target.classList.add('active');
-                    currentFilter = e.target.dataset.category;
-                    loadAllDestinations();
-                    document.getElementById('gridTitle').textContent = 
-                        currentFilter === 'all' ? '🌍 All Destinations' : 
-                        `${e.target.textContent} Destinations`;
-                }
             });
         }
 
@@ -299,15 +275,6 @@
                         onclick="selectMonth('${month.id}')">
                     <span class="month-icon">${month.icon}</span>
                     <span class="month-name">${month.name}</span>
-                </button>
-            `).join('');
-        }
-
-        function loadCategories() {
-            const container = document.getElementById('categoryFilter');
-            container.innerHTML = destinationCategories.map(cat => `
-                <button class="category-btn ${cat.id === 'all' ? 'active' : ''}" data-category="${cat.id}">
-                    ${cat.icon} ${cat.name}
                 </button>
             `).join('');
         }
