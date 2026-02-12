@@ -150,8 +150,6 @@
                         <select id="sortSelect">
                             <option value="featured">Featured</option>
                             <option value="rating">Top Rated</option>
-                            <option value="price-low">Price: Low to High</option>
-                            <option value="price-high">Price: High to Low</option>
                             <option value="name">A-Z</option>
                         </select>
                     </div>
@@ -273,7 +271,6 @@
                         <p class="location">📍 ${dest.country}</p>
                         <div class="featured-meta">
                             <span class="rating">⭐ ${dest.rating}</span>
-                            <span class="price">From ${dest.currency}${dest.priceFrom.toLocaleString()}</span>
                         </div>
                     </div>
                 </div>
@@ -398,12 +395,6 @@
                 case 'rating':
                     destinations.sort((a, b) => b.rating - a.rating);
                     break;
-                case 'price-low':
-                    destinations.sort((a, b) => a.priceFrom - b.priceFrom);
-                    break;
-                case 'price-high':
-                    destinations.sort((a, b) => b.priceFrom - a.priceFrom);
-                    break;
                 case 'name':
                     destinations.sort((a, b) => a.name.localeCompare(b.name));
                     break;
@@ -463,8 +454,7 @@
                             ${dest.highlights.slice(0, 3).map(h => `<span class="highlight-tag">${h}</span>`).join('')}
                         </div>
                         <div class="card-meta">
-                            <span class="rating">⭐ ${dest.rating} <small>(${dest.reviews.toLocaleString()})</small></span>
-                            <span class="price">From ${dest.currency}${dest.priceFrom.toLocaleString()}</span>
+                            <span class="rating">⭐ ${dest.rating}</span>
                         </div>
                         <div class="card-footer">
                             <span class="duration">🕐 ${dest.duration}</span>
