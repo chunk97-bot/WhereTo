@@ -1389,13 +1389,14 @@
     
     /* Feature Cards - Side by Side on Mobile */
     .features-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr) !important;
         gap: 0.5rem;
     }
     
     .feature-card {
         padding: 0.75rem;
         border-radius: 10px;
+        min-width: 0;
     }
     
     .feature-icon {
@@ -1915,12 +1916,13 @@
     
     /* Features Grid - Keep 2 columns */
     .features-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr) !important;
         gap: 0.35rem;
     }
     
     .feature-card {
         padding: 0.5rem;
+        min-width: 0;
     }
     
     .feature-icon {
