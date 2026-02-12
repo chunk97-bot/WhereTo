@@ -560,13 +560,143 @@
             }
         }
         
+        @media (max-width: 768px) {
+            .main-nav {
+                padding: 0.75rem 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: rgba(15, 15, 35, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                z-index: 100;
+            }
+            
+            .nav-links.show {
+                display: flex;
+            }
+            
+            .nav-toggle {
+                display: block;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .main-container {
+                padding: 0 1rem 2rem;
+            }
+            
+            .input-section {
+                padding: 1.5rem;
+            }
+            
+            .stats-row {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            
+            .stat-card {
+                padding: 1.25rem;
+            }
+            
+            .stat-value, .budget-input {
+                font-size: 1.5rem;
+            }
+        }
+        
         @media (max-width: 600px) {
             .smart-input-wrapper {
                 flex-direction: column;
             }
             
-            .nav-links {
-                display: none;
+            .header {
+                padding: 2rem 1rem 1.5rem;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .header p {
+                font-size: 0.95rem;
+            }
+            
+            .input-section h2 {
+                font-size: 1.1rem;
+            }
+            
+            .smart-input {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            
+            .add-btn {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            
+            .hint-tag {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .chart-section {
+                padding: 1.5rem 1rem;
+            }
+            
+            .bar-3d {
+                width: 40px;
+            }
+            
+            .bar-label .name {
+                font-size: 0.65rem;
+            }
+            
+            .expenses-section {
+                padding: 1.5rem 1rem;
+            }
+            
+            .expense-item {
+                padding: 0.75rem;
+                gap: 0.75rem;
+            }
+            
+            .expense-emoji {
+                width: 38px;
+                height: 38px;
+                font-size: 1.25rem;
+            }
+            
+            .expense-amount {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .stat-value, .budget-input {
+                font-size: 1.25rem;
+            }
+            
+            .bar-3d {
+                width: 35px;
+            }
+            
+            .chart-3d-container {
+                gap: 0.75rem;
             }
         }
     </style>

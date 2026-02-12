@@ -419,6 +419,38 @@
         
         /* Responsive */
         @media (max-width: 768px) {
+            .main-nav {
+                padding: 0.75rem 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: rgba(15, 15, 35, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                z-index: 100;
+            }
+            
+            .nav-links.show {
+                display: flex;
+            }
+            
+            .nav-toggle {
+                display: block;
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                cursor: pointer;
+                color: #fff;
+            }
+            
             .converter-grid {
                 grid-template-columns: 1fr;
                 gap: 1rem;
@@ -434,6 +466,49 @@
             .result-amount { font-size: 1.75rem; }
             
             .hero-section h1 { font-size: 1.75rem; }
+            
+            .converter-container {
+                padding: 1rem;
+            }
+            
+            .converter-card {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-section {
+                padding: 2rem 1rem;
+            }
+            
+            .hero-section h1 {
+                font-size: 1.5rem;
+            }
+            
+            .hero-section p {
+                font-size: 0.95rem;
+            }
+            
+            .amount-input {
+                font-size: 1.5rem;
+                padding: 0.875rem;
+            }
+            
+            .result-amount {
+                font-size: 1.5rem;
+            }
+            
+            .rate-card {
+                padding: 0.75rem;
+            }
+            
+            .rate-currency {
+                font-size: 0.85rem;
+            }
+            
+            .rate-value {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>

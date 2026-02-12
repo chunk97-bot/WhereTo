@@ -997,6 +997,7 @@ body {
     .app-nav {
         justify-content: flex-start;
         padding: 0.4rem;
+        gap: 0.15rem;
     }
     
     .app-nav .nav-item {
@@ -1013,5 +1014,50 @@ body {
     
     .header {
         flex-wrap: wrap;
+        padding: 1.5rem 1rem;
+    }
+    
+    .tagline {
+        font-size: 0.9rem;
+    }
+    
+    .quick-suggestions {
+        padding: 0.5rem;
+        gap: 0.4rem;
+    }
+    
+    .suggestion-chip {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+    }
+    
+    .input-container {
+        padding: 0.75rem;
+    }
+    
+    .input-wrapper input {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .app-nav .nav-item {
+        padding: 0.35rem 0.5rem;
+        font-size: 0.7rem;
+    }
+    
+    .header-brand-text {
+        font-size: 22px;
+    }
+    
+    .message-content {
+        max-width: 90%;
+        font-size: 0.9rem;
+    }
+    
+    .message-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
     }
 }
