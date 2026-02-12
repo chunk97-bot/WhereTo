@@ -229,6 +229,13 @@
             color: #fff;
         }
         
+        .header-emoji {
+            -webkit-text-fill-color: initial;
+            background: none;
+            -webkit-background-clip: initial;
+            background-clip: initial;
+        }
+        
         .update-time {
             color: rgba(255, 255, 255, 0.5);
             font-size: 0.85rem;
@@ -681,7 +688,7 @@
         <!-- Live Rates Section -->
         <section class="rates-section">
             <div class="section-header">
-                <h2>📊 Today's Exchange Rates</h2>
+                <h2><span class="header-emoji">📊</span> Today's Exchange Rates</h2>
                 <span class="update-time">Updated: <span id="updateTime">Loading...</span> (Auto-refreshes every 30 min)</span>
             </div>
 
