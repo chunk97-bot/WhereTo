@@ -128,6 +128,148 @@
             font-family: 'Inter', sans-serif;
         }
 
+        /* Custom Searchable Dropdown */
+        .custom-select-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .custom-select-trigger {
+            padding: 0.9rem 1rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .custom-select-trigger:hover,
+        .custom-select-wrapper.open .custom-select-trigger {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+        }
+
+        .custom-select-trigger .arrow {
+            border: solid rgba(255,255,255,0.6);
+            border-width: 0 2px 2px 0;
+            padding: 4px;
+            transform: rotate(45deg);
+            transition: transform 0.3s ease;
+        }
+
+        .custom-select-wrapper.open .custom-select-trigger .arrow {
+            transform: rotate(-135deg);
+        }
+
+        .custom-select-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #1a1a2e;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            margin-top: 4px;
+            z-index: 1000;
+            display: none;
+            max-height: 350px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .custom-select-wrapper.open .custom-select-dropdown {
+            display: block;
+        }
+
+        .custom-select-search {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            background: #1a1a2e;
+        }
+
+        .custom-select-search input {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .custom-select-search input:focus {
+            border-color: #8b5cf6;
+        }
+
+        .custom-select-search input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .custom-select-options {
+            max-height: 280px;
+            overflow-y: auto;
+        }
+
+        .custom-select-options::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-select-options::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .custom-select-options::-webkit-scrollbar-thumb {
+            background: rgba(139, 92, 246, 0.5);
+            border-radius: 3px;
+        }
+
+        .custom-select-optgroup {
+            padding: 0.5rem 1rem;
+            color: #8b5cf6;
+            font-weight: 600;
+            font-size: 0.85rem;
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        .custom-select-option {
+            padding: 0.7rem 1rem;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', 'Inter', sans-serif;
+        }
+
+        .custom-select-option:hover {
+            background: rgba(139, 92, 246, 0.2);
+        }
+
+        .custom-select-option.selected {
+            background: rgba(139, 92, 246, 0.3);
+        }
+
+        .custom-select-option.hidden {
+            display: none;
+        }
+
+        .custom-select-no-results {
+            padding: 1rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            display: none;
+        }
+
+        .form-group select.hidden-select {
+            display: none;
+        }
+
         .search-btn {
             padding: 0.9rem 2.5rem;
             background: linear-gradient(135deg, #8b5cf6 0%, #00d4ff 100%);
@@ -729,41 +871,162 @@
             document.querySelector('.nav-links').classList.toggle('show');
         });
 
-        // Make dropdowns searchable - type to filter
-        function makeSelectSearchable(selectId) {
+        // Custom Searchable Dropdown
+        function createSearchableDropdown(selectId) {
             const select = document.getElementById(selectId);
-            let searchBuffer = '';
-            let searchTimeout;
-            
-            select.addEventListener('keydown', function(e) {
-                // Handle alphanumeric keys for search
-                if (e.key.length === 1 && /[a-zA-Z]/.test(e.key)) {
-                    e.preventDefault();
-                    clearTimeout(searchTimeout);
-                    searchBuffer += e.key.toLowerCase();
-                    
-                    // Find matching option
-                    const options = Array.from(select.options);
-                    const match = options.find(opt => 
-                        opt.text.toLowerCase().includes(searchBuffer) && opt.value
-                    );
-                    
-                    if (match) {
-                        select.value = match.value;
+            if (!select) return;
+
+            // Create wrapper
+            const wrapper = document.createElement('div');
+            wrapper.className = 'custom-select-wrapper';
+
+            // Create trigger button
+            const trigger = document.createElement('div');
+            trigger.className = 'custom-select-trigger';
+            trigger.innerHTML = `<span class="selected-text">Select your country</span><span class="arrow"></span>`;
+
+            // Create dropdown
+            const dropdown = document.createElement('div');
+            dropdown.className = 'custom-select-dropdown';
+
+            // Create search input
+            const searchDiv = document.createElement('div');
+            searchDiv.className = 'custom-select-search';
+            searchDiv.innerHTML = `<input type="text" placeholder="Type to search..." autocomplete="off">`;
+
+            // Create options container
+            const optionsContainer = document.createElement('div');
+            optionsContainer.className = 'custom-select-options';
+
+            // Create no results message
+            const noResults = document.createElement('div');
+            noResults.className = 'custom-select-no-results';
+            noResults.textContent = 'No countries found';
+
+            // Build options from original select
+            let currentOptgroup = null;
+            Array.from(select.children).forEach(child => {
+                if (child.tagName === 'OPTGROUP') {
+                    const groupLabel = document.createElement('div');
+                    groupLabel.className = 'custom-select-optgroup';
+                    groupLabel.textContent = child.label;
+                    groupLabel.dataset.group = child.label;
+                    optionsContainer.appendChild(groupLabel);
+
+                    Array.from(child.options).forEach(opt => {
+                        const optionDiv = document.createElement('div');
+                        optionDiv.className = 'custom-select-option';
+                        optionDiv.dataset.value = opt.value;
+                        optionDiv.dataset.group = child.label;
+                        optionDiv.textContent = opt.textContent;
+                        optionsContainer.appendChild(optionDiv);
+                    });
+                } else if (child.tagName === 'OPTION' && child.value) {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'custom-select-option';
+                    optionDiv.dataset.value = child.value;
+                    optionDiv.textContent = child.textContent;
+                    optionsContainer.appendChild(optionDiv);
+                }
+            });
+
+            dropdown.appendChild(searchDiv);
+            dropdown.appendChild(optionsContainer);
+            dropdown.appendChild(noResults);
+
+            // Hide original select
+            select.classList.add('hidden-select');
+            select.parentNode.insertBefore(wrapper, select);
+            wrapper.appendChild(trigger);
+            wrapper.appendChild(dropdown);
+            wrapper.appendChild(select);
+
+            const searchInput = searchDiv.querySelector('input');
+
+            // Toggle dropdown
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.querySelectorAll('.custom-select-wrapper.open').forEach(w => {
+                    if (w !== wrapper) w.classList.remove('open');
+                });
+                wrapper.classList.toggle('open');
+                if (wrapper.classList.contains('open')) {
+                    searchInput.focus();
+                    searchInput.value = '';
+                    filterOptions('');
+                }
+            });
+
+            // Search functionality
+            function filterOptions(query) {
+                const options = optionsContainer.querySelectorAll('.custom-select-option');
+                const groups = optionsContainer.querySelectorAll('.custom-select-optgroup');
+                let visibleCount = 0;
+                const visibleGroups = new Set();
+
+                options.forEach(opt => {
+                    const text = opt.textContent.toLowerCase();
+                    const matches = text.includes(query.toLowerCase());
+                    opt.classList.toggle('hidden', !matches);
+                    if (matches) {
+                        visibleCount++;
+                        if (opt.dataset.group) visibleGroups.add(opt.dataset.group);
                     }
-                    
-                    // Clear buffer after 1 second of no typing
-                    searchTimeout = setTimeout(() => {
-                        searchBuffer = '';
-                    }, 1000);
+                });
+
+                groups.forEach(g => {
+                    g.classList.toggle('hidden', !visibleGroups.has(g.dataset.group));
+                });
+
+                noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+            }
+
+            searchInput.addEventListener('input', (e) => {
+                filterOptions(e.target.value);
+            });
+
+            // Prevent dropdown from closing when clicking inside
+            dropdown.addEventListener('click', (e) => e.stopPropagation());
+
+            // Select option
+            optionsContainer.addEventListener('click', (e) => {
+                const option = e.target.closest('.custom-select-option');
+                if (option && !option.classList.contains('hidden')) {
+                    const value = option.dataset.value;
+                    const text = option.textContent;
+
+                    select.value = value;
+                    trigger.querySelector('.selected-text').textContent = text;
+                    wrapper.classList.remove('open');
+
+                    // Remove selected class from all options
+                    optionsContainer.querySelectorAll('.custom-select-option').forEach(o => o.classList.remove('selected'));
+                    option.classList.add('selected');
+                }
+            });
+
+            // Close on outside click
+            document.addEventListener('click', () => {
+                wrapper.classList.remove('open');
+            });
+
+            // Keyboard navigation
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    wrapper.classList.remove('open');
+                } else if (e.key === 'Enter') {
+                    const firstVisible = optionsContainer.querySelector('.custom-select-option:not(.hidden)');
+                    if (firstVisible) {
+                        firstVisible.click();
+                    }
                 }
             });
         }
 
         // Initialize searchable dropdowns
         document.addEventListener('DOMContentLoaded', function() {
-            makeSelectSearchable('nationality');
-            makeSelectSearchable('destination');
+            createSearchableDropdown('nationality');
+            createSearchableDropdown('destination');
         });
 
         // Visa data - comprehensive data for major routes
