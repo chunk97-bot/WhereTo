@@ -492,6 +492,14 @@
     line-height: 1.5;
 }
 
+.founder-note {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(0, 212, 255, 0.1);
+    border-radius: 12px;
+    border-left: 3px solid #00d4ff;
+}
+
 /* Problem Section */
 .problem-section {
     padding: 5rem 2rem;
@@ -1125,213 +1133,6 @@
     margin-bottom: 0.25rem;
 }
 
-/* Founder Section */
-.founder-section {
-    padding: 4rem 2rem;
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
-}
-
-.founder-content {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.founder-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, #ff6b9d 0%, #8b5cf6 100%);
-    color: white;
-    padding: 0.5rem 1.5rem;
-    border-radius: 50px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-}
-
-.founder-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    border-radius: 24px;
-    padding: 2.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    text-align: left;
-    margin-top: 2rem;
-}
-
-.founder-avatar {
-    font-size: 5rem;
-    background: linear-gradient(135deg, #1a1a3e 0%, #0f0f23 100%);
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    border: 3px solid rgba(0, 212, 255, 0.3);
-}
-
-.founder-info h3 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.75rem;
-    background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 0.25rem;
-}
-
-.founder-title {
-    color: #ff6b9d;
-    font-weight: 600;
-    margin-bottom: 1rem;
-}
-
-.founder-bio {
-    color: rgba(255, 255, 255, 0.8);
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-}
-
-.founder-fun {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.founder-fun span {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.9);
-}
-
-/* Feedback Section */
-.feedback-section {
-    padding: 4rem 2rem;
-    background: linear-gradient(180deg, transparent 0%, rgba(0, 212, 255, 0.05) 100%);
-}
-
-.feedback-content {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.feedback-subtitle {
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 2rem;
-}
-
-.feedback-form {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    border-radius: 24px;
-    padding: 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.feedback-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
-.feedback-input,
-.feedback-textarea {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    padding: 1rem;
-    color: white;
-    font-size: 1rem;
-    font-family: 'Inter', sans-serif;
-    transition: all 0.3s ease;
-    width: 100%;
-}
-
-.feedback-input:focus,
-.feedback-textarea:focus {
-    outline: none;
-    border-color: #00d4ff;
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
-}
-
-.feedback-input::placeholder,
-.feedback-textarea::placeholder {
-    color: rgba(255, 255, 255, 0.4);
-}
-
-.feedback-rating {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-}
-
-.feedback-rating span {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.rating-emojis {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.rating-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid transparent;
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.rating-btn:hover,
-.rating-btn.active {
-    transform: scale(1.2);
-    border-color: #00d4ff;
-    background: rgba(0, 212, 255, 0.2);
-}
-
-.feedback-textarea {
-    resize: vertical;
-    min-height: 100px;
-    margin-bottom: 1rem;
-}
-
-.feedback-submit {
-    background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
-    color: white;
-    border: none;
-    padding: 1rem 2.5rem;
-    border-radius: 50px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.feedback-submit:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
-}
-
 /* Responsive */
 @media (max-width: 768px) {
     /* Hero Section - Compact */
@@ -1375,8 +1176,6 @@
     .features-section,
     .about-section,
     .cta-section,
-    .founder-section,
-    .feedback-section,
     .problem-section,
     .help-section,
     .pricing-section,
@@ -1667,44 +1466,6 @@
         font-size: 0.8rem;
     }
     
-    /* Founder Section - Compact */
-    .founder-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 1.25rem;
-        gap: 1rem;
-    }
-    
-    .founder-image {
-        width: 80px;
-        height: 80px;
-    }
-    
-    .founder-info h3 {
-        font-size: 1.1rem;
-        margin-bottom: 0.25rem;
-    }
-    
-    .founder-info .founder-title {
-        font-size: 0.8rem;
-        margin-bottom: 0.5rem;
-    }
-    
-    .founder-bio {
-        font-size: 0.85rem;
-        margin-bottom: 0.75rem;
-    }
-    
-    .founder-fun {
-        justify-content: center;
-        gap: 0.5rem;
-    }
-    
-    .fun-fact {
-        padding: 0.35rem 0.75rem;
-        font-size: 0.75rem;
-    }
-    
     /* CTA Section - Compact */
     .cta-content h2 {
         font-size: 1.25rem;
@@ -1776,7 +1537,6 @@
     .features-section,
     .about-section,
     .cta-section,
-    .founder-section,
     .problem-section,
     .help-section,
     .pricing-section,
@@ -1953,36 +1713,6 @@
     
     .feature-link {
         font-size: 0.6rem;
-    }
-    
-    /* Founder */
-    .founder-card {
-        padding: 0.75rem;
-    }
-    
-    .founder-avatar {
-        font-size: 2.5rem;
-    }
-    
-    .founder-info h3 {
-        font-size: 0.95rem;
-    }
-    
-    .founder-title {
-        font-size: 0.7rem;
-    }
-    
-    .founder-bio {
-        font-size: 0.75rem;
-    }
-    
-    .founder-fun {
-        gap: 0.35rem;
-    }
-    
-    .fun-fact {
-        font-size: 0.6rem;
-        padding: 0.25rem 0.5rem;
     }
     
     /* CTA */
