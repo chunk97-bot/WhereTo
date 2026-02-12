@@ -513,20 +513,12 @@
                     </div>
                 </div>
 
-                <!-- Related Destinations -->
-                <div class="info-card">
-                    <h3>🌍 Similar Destinations</h3>
-                    <div class="related-grid" id="relatedGrid">
-                        <!-- Loaded dynamically -->
-                    </div>
-                </div>
             </div>
 
             <div class="detail-sidebar">
-                <!-- CTA Card -->
+                <!-- Ask AI Card -->
                 <div class="info-card cta-card">
-                    <button class="cta-btn" onclick="planTrip()">🗓️ Plan My Trip</button>
-                    <button class="cta-btn secondary" onclick="askChatbot()">💬 Ask AI Assistant</button>
+                    <button class="cta-btn" onclick="askChatbot()">💬 Ask AI Assistant</button>
                 </div>
 
                 <!-- Quick Info -->
@@ -569,7 +561,7 @@
                             <span id="countryLanguage">--</span>
                         </div>
                         <div class="country-detail">
-                            <span>Visa Required</span>
+                            <span>Visa Policy</span>
                             <span id="countryVisa">--</span>
                         </div>
                     </div>
@@ -656,18 +648,15 @@
             if (currentCountry) {
                 document.getElementById('countryFlag').textContent = currentCountry.flag;
                 document.getElementById('countryName').textContent = currentCountry.name;
-                document.getElementById('countryCurrency').textContent = 
-                    `${currentCountry.currency} (${currentCountry.currencySymbol})`;
+                document.getElementById('countryCurrency').textContent = currentCountry.currency;
                 document.getElementById('countryLanguage').textContent = currentCountry.language;
                 document.getElementById('countryVisa').textContent = 
-                    currentCountry.visaRequired ? 'Yes (from India)' : 'Not Required';
+                    getVisaPolicyText(currentDestination.visaPolicy || currentCountry.visaPolicy);
             }
 
             // Activities
             loadActivities();
 
-            // Related destinations
-            loadRelated();
         }
 
         function loadMonthsGrid() {
@@ -714,37 +703,10 @@
             }
         }
 
-        function loadRelated() {
-            const grid = document.getElementById('relatedGrid');
-            
-            // Find similar destinations
-            const related = destinationsData.filter(d => 
-                d.id !== currentDestination.id && (
-                    d.category.some(cat => currentDestination.category.includes(cat)) ||
-                    d.countryId === currentDestination.countryId
-                )
-            ).slice(0, 4);
-
-            grid.innerHTML = related.map(dest => `
-                <div class="related-card" onclick="window.location.href='destination-detail.html?id=${dest.id}'">
-                    <div class="related-image" style="background-image: url('${dest.image}')"></div>
-                    <div class="related-info">
-                        <h4>${dest.name}</h4>
-                        <p>📍 ${dest.country} • ⭐ ${dest.rating}</p>
-                    </div>
-                </div>
-            `).join('');
-        }
-
         function showError() {
             document.getElementById('destTitle').textContent = 'Destination Not Found';
             document.getElementById('destDescription').textContent = 
                 'Sorry, we couldn\'t find this destination. Please go back and try again.';
-        }
-
-        function planTrip() {
-            // Navigate to chat with context
-            window.location.href = `index.html?plan=${encodeURIComponent(currentDestination.name)}`;
         }
 
         function askChatbot() {

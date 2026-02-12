@@ -1,16 +1,15 @@
 /**
- * WhereTo Destinations Data
- * Comprehensive travel destinations database
- * Structure: Regions > Countries > Cities > Attractions/Activities
+ * WhereTo Global Destinations Data
+ * Comprehensive worldwide travel database - Optimized for global users
  */
 
 // ============================================
-// CATEGORIES (Travel Themes/Types)
+// CATEGORIES
 // ============================================
 const destinationCategories = [
     { id: 'all', name: 'All', icon: '🌍' },
     { id: 'beach', name: 'Beaches', icon: '🏖️' },
-    { id: 'mountains', name: 'Hills & Mountains', icon: '🏔️' },
+    { id: 'mountains', name: 'Mountains', icon: '🏔️' },
     { id: 'heritage', name: 'Heritage', icon: '🏛️' },
     { id: 'honeymoon', name: 'Honeymoon', icon: '💕' },
     { id: 'adventure', name: 'Adventure', icon: '🎯' },
@@ -22,41 +21,11 @@ const destinationCategories = [
     { id: 'wildlife', name: 'Wildlife', icon: '🦁' },
     { id: 'nightlife', name: 'Nightlife', icon: '🎉' },
     { id: 'shopping', name: 'Shopping', icon: '🛍️' },
-    { id: 'waterSports', name: 'Water Sports', icon: '🏄' },
-    { id: 'cultural', name: 'Cultural', icon: '🎭' },
-    { id: 'offbeat', name: 'Offbeat', icon: '🗺️' }
+    { id: 'cultural', name: 'Cultural', icon: '🎭' }
 ];
 
 // ============================================
-// COLLECTIONS (Curated lists)
-// ============================================
-const destinationCollections = [
-    // Monthly Collections
-    { id: 'january', name: 'January Destinations', icon: '❄️', type: 'month', description: 'Best places to visit in January' },
-    { id: 'february', name: 'February Destinations', icon: '💕', type: 'month', description: 'Valentine\'s special & winter escapes' },
-    { id: 'march', name: 'March Destinations', icon: '🌸', type: 'month', description: 'Spring getaways before summer' },
-    { id: 'april', name: 'April Destinations', icon: '🌷', type: 'month', description: 'Beat the heat hill stations' },
-    { id: 'may', name: 'May Destinations', icon: '☀️', type: 'month', description: 'Summer vacation spots' },
-    { id: 'june', name: 'June Destinations', icon: '🌧️', type: 'month', description: 'Monsoon magic destinations' },
-    { id: 'july', name: 'July Destinations', icon: '🌈', type: 'month', description: 'Lush green retreats' },
-    { id: 'august', name: 'August Destinations', icon: '🌿', type: 'month', description: 'Independence Day specials' },
-    { id: 'september', name: 'September Destinations', icon: '🍂', type: 'month', description: 'Post-monsoon beauty' },
-    { id: 'october', name: 'October Destinations', icon: '🎃', type: 'month', description: 'Festive season travels' },
-    { id: 'november', name: 'November Destinations', icon: '🍁', type: 'month', description: 'Perfect weather escapes' },
-    { id: 'december', name: 'December Destinations', icon: '🎄', type: 'month', description: 'Winter wonderlands & New Year' },
-    
-    // Special Collections
-    { id: 'weekend', name: 'Weekend Getaways', icon: '🚗', type: 'special', description: '2-3 day escapes near you' },
-    { id: 'budget', name: 'Budget Friendly', icon: '💰', type: 'special', description: 'Under ₹15,000 trips' },
-    { id: 'luxury', name: 'Luxury Escapes', icon: '👑', type: 'special', description: 'Premium travel experiences' },
-    { id: 'family', name: 'Family Vacations', icon: '👨‍👩‍👧‍👦', type: 'special', description: 'Kid-friendly destinations' },
-    { id: 'solo', name: 'Solo Travel', icon: '🎒', type: 'special', description: 'Best for solo travelers' },
-    { id: 'international', name: 'International', icon: '✈️', type: 'special', description: 'Best destinations abroad' },
-    { id: 'trending', name: 'Trending 2026', icon: '🔥', type: 'special', description: 'Most popular this year' }
-];
-
-// ============================================
-// REGIONS DATA
+// REGIONS
 // ============================================
 const regions = [
     { id: 'asia', name: 'Asia', icon: '🌏' },
@@ -69,51 +38,34 @@ const regions = [
 ];
 
 // ============================================
-// COUNTRIES DATA
+// VISA POLICY GROUPS (For global users)
+// Instead of showing visa for one country, we show visa policy type
+// ============================================
+const visaPolicies = {
+    visaFree: 'Visa-free for most nationalities',
+    visaOnArrival: 'Visa on arrival available',
+    eVisa: 'E-Visa available online',
+    visaRequired: 'Visa required - check embassy',
+    schengen: 'Schengen visa (covers 27 EU countries)',
+    etaRequired: 'Electronic Travel Authorization required'
+};
+
+// ============================================
+// COUNTRIES DATA - Global Focus
 // ============================================
 const countriesData = [
-    // ASIA
+    // TOP FEATURED - International Destinations
     {
-        id: 'india',
-        name: 'India',
-        region: 'asia',
-        flag: '🇮🇳',
-        currency: 'INR',
-        currencySymbol: '₹',
-        language: 'Hindi, English',
-        visaRequired: false,
-        bestMonths: ['october', 'november', 'december', 'january', 'february', 'march'],
-        description: 'Incredible diversity from Himalayas to tropical beaches, ancient temples to modern cities.',
-        highlights: ['Taj Mahal', 'Kerala Backwaters', 'Rajasthan Forts', 'Goa Beaches', 'Himalayas'],
-        image: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800'
-    },
-    {
-        id: 'thailand',
-        name: 'Thailand',
-        region: 'asia',
-        flag: '🇹🇭',
-        currency: 'THB',
-        currencySymbol: '฿',
-        language: 'Thai',
-        visaRequired: false,
-        bestMonths: ['november', 'december', 'january', 'february', 'march'],
-        description: 'Land of smiles with stunning beaches, ornate temples, and incredible street food.',
-        highlights: ['Bangkok Temples', 'Phuket Beaches', 'Chiang Mai', 'Thai Cuisine', 'Full Moon Party'],
-        image: 'https://images.unsplash.com/photo-1528181304800-259b08848526?w=800'
-    },
-    {
-        id: 'indonesia',
-        name: 'Indonesia',
-        region: 'asia',
-        flag: '🇮🇩',
-        currency: 'IDR',
-        currencySymbol: 'Rp',
-        language: 'Indonesian',
-        visaRequired: false,
-        bestMonths: ['april', 'may', 'june', 'july', 'august', 'september'],
-        description: 'Archipelago paradise with world-famous Bali, ancient temples, and diverse cultures.',
-        highlights: ['Bali', 'Komodo Dragons', 'Borobudur', 'Raja Ampat', 'Ubud'],
-        image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800'
+        id: 'france',
+        name: 'France',
+        region: 'europe',
+        flag: '🇫🇷',
+        currency: 'EUR',
+        language: 'French',
+        visaPolicy: 'schengen',
+        bestMonths: ['april', 'may', 'june', 'september', 'october'],
+        description: 'The world\'s most visited country, France captivates with its art, fashion, gastronomy, and culture. From the iconic Eiffel Tower to lavender fields of Provence, every corner tells a story.',
+        image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800'
     },
     {
         id: 'japan',
@@ -121,127 +73,11 @@ const countriesData = [
         region: 'asia',
         flag: '🇯🇵',
         currency: 'JPY',
-        currencySymbol: '¥',
         language: 'Japanese',
-        visaRequired: true,
+        visaPolicy: 'visaFree',
         bestMonths: ['march', 'april', 'october', 'november'],
-        description: 'Perfect blend of ancient traditions and cutting-edge technology.',
-        highlights: ['Cherry Blossoms', 'Mt. Fuji', 'Tokyo', 'Kyoto Temples', 'Japanese Cuisine'],
+        description: 'A fascinating blend of ancient traditions and cutting-edge technology. Experience serene temples, cherry blossoms, world-class cuisine, and the unique culture that defines the Land of the Rising Sun.',
         image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800'
-    },
-    {
-        id: 'maldives',
-        name: 'Maldives',
-        region: 'asia',
-        flag: '🇲🇻',
-        currency: 'MVR',
-        currencySymbol: 'Rf',
-        language: 'Dhivehi',
-        visaRequired: false,
-        bestMonths: ['november', 'december', 'january', 'february', 'march', 'april'],
-        description: 'Ultimate luxury beach destination with overwater villas and crystal-clear waters.',
-        highlights: ['Overwater Villas', 'Underwater Dining', 'Snorkeling', 'Sunset Cruises', 'Spa Retreats'],
-        image: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800'
-    },
-    {
-        id: 'singapore',
-        name: 'Singapore',
-        region: 'asia',
-        flag: '🇸🇬',
-        currency: 'SGD',
-        currencySymbol: 'S$',
-        language: 'English, Mandarin, Malay, Tamil',
-        visaRequired: false,
-        bestMonths: ['february', 'march', 'april', 'may', 'june', 'july'],
-        description: 'Futuristic city-state with world-class attractions, food, and shopping.',
-        highlights: ['Marina Bay Sands', 'Gardens by the Bay', 'Sentosa Island', 'Hawker Food', 'Universal Studios'],
-        image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800'
-    },
-    {
-        id: 'vietnam',
-        name: 'Vietnam',
-        region: 'asia',
-        flag: '🇻🇳',
-        currency: 'VND',
-        currencySymbol: '₫',
-        language: 'Vietnamese',
-        visaRequired: true,
-        bestMonths: ['february', 'march', 'april', 'september', 'october', 'november'],
-        description: 'Stunning landscapes from Ha Long Bay to Mekong Delta with rich history.',
-        highlights: ['Ha Long Bay', 'Hoi An', 'Pho', 'Cu Chi Tunnels', 'Sapa Rice Terraces'],
-        image: 'https://images.unsplash.com/photo-1528127269322-539801943592?w=800'
-    },
-    {
-        id: 'malaysia',
-        name: 'Malaysia',
-        region: 'asia',
-        flag: '🇲🇾',
-        currency: 'MYR',
-        currencySymbol: 'RM',
-        language: 'Malay, English',
-        visaRequired: false,
-        bestMonths: ['march', 'april', 'may', 'june', 'july', 'september'],
-        description: 'Diverse nation with rainforests, beaches, and multicultural cities.',
-        highlights: ['Petronas Towers', 'Langkawi', 'Borneo Wildlife', 'Penang Food', 'Cameron Highlands'],
-        image: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=800'
-    },
-    {
-        id: 'srilanka',
-        name: 'Sri Lanka',
-        region: 'asia',
-        flag: '🇱🇰',
-        currency: 'LKR',
-        currencySymbol: 'Rs',
-        language: 'Sinhala, Tamil',
-        visaRequired: true,
-        bestMonths: ['december', 'january', 'february', 'march', 'july', 'august'],
-        description: 'Tropical island with ancient ruins, tea plantations, and wildlife safaris.',
-        highlights: ['Sigiriya Rock', 'Ella Train', 'Yala Safari', 'Galle Fort', 'Tea Plantations'],
-        image: 'https://images.unsplash.com/photo-1586183189334-4c4e3c7024c8?w=800'
-    },
-    {
-        id: 'nepal',
-        name: 'Nepal',
-        region: 'asia',
-        flag: '🇳🇵',
-        currency: 'NPR',
-        currencySymbol: 'Rs',
-        language: 'Nepali',
-        visaRequired: true,
-        bestMonths: ['september', 'october', 'november', 'march', 'april', 'may'],
-        description: 'Home to Mount Everest and stunning Himalayan treks.',
-        highlights: ['Everest Base Camp', 'Kathmandu', 'Pokhara', 'Annapurna Trek', 'Buddhist Monasteries'],
-        image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800'
-    },
-    {
-        id: 'bhutan',
-        name: 'Bhutan',
-        region: 'asia',
-        flag: '🇧🇹',
-        currency: 'BTN',
-        currencySymbol: 'Nu.',
-        language: 'Dzongkha',
-        visaRequired: true,
-        bestMonths: ['march', 'april', 'may', 'september', 'october', 'november'],
-        description: 'Last Himalayan kingdom with pristine nature and unique culture.',
-        highlights: ['Tiger\'s Nest', 'Punakha Dzong', 'Gross National Happiness', 'Festivals', 'Hiking'],
-        image: 'https://images.unsplash.com/photo-1553856622-d1b352e24a4c?w=800'
-    },
-    
-    // EUROPE
-    {
-        id: 'france',
-        name: 'France',
-        region: 'europe',
-        flag: '🇫🇷',
-        currency: 'EUR',
-        currencySymbol: '€',
-        language: 'French',
-        visaRequired: true,
-        bestMonths: ['april', 'may', 'june', 'september', 'october'],
-        description: 'Romance, art, cuisine, and iconic landmarks from Paris to Provence.',
-        highlights: ['Eiffel Tower', 'Louvre', 'French Riviera', 'Wine Regions', 'Mont Saint-Michel'],
-        image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800'
     },
     {
         id: 'italy',
@@ -249,13 +85,35 @@ const countriesData = [
         region: 'europe',
         flag: '🇮🇹',
         currency: 'EUR',
-        currencySymbol: '€',
         language: 'Italian',
-        visaRequired: true,
-        bestMonths: ['april', 'may', 'june', 'september', 'october'],
-        description: 'Art, architecture, cuisine, and history in every corner.',
-        highlights: ['Rome Colosseum', 'Venice Canals', 'Tuscany', 'Amalfi Coast', 'Italian Food'],
-        image: 'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=800'
+        visaPolicy: 'schengen',
+        bestMonths: ['april', 'may', 'september', 'october'],
+        description: 'The cradle of the Renaissance, Italy offers unparalleled art, architecture, and cuisine. From Rome\'s ancient ruins to Venice\'s romantic canals, every region has its own character and charm.',
+        image: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800'
+    },
+    {
+        id: 'usa',
+        name: 'United States',
+        region: 'northAmerica',
+        flag: '🇺🇸',
+        currency: 'USD',
+        language: 'English',
+        visaPolicy: 'etaRequired',
+        bestMonths: ['may', 'june', 'september', 'october'],
+        description: 'From the skyscrapers of New York to the natural wonders of the Grand Canyon, the USA offers incredible diversity. Experience vibrant cities, stunning national parks, and endless entertainment options.',
+        image: 'https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=800'
+    },
+    {
+        id: 'thailand',
+        name: 'Thailand',
+        region: 'asia',
+        flag: '🇹🇭',
+        currency: 'THB',
+        language: 'Thai',
+        visaPolicy: 'visaFree',
+        bestMonths: ['november', 'december', 'january', 'february'],
+        description: 'The Land of Smiles welcomes travelers with stunning beaches, ornate temples, delicious street food, and warm hospitality. Perfect blend of relaxation, adventure, and cultural immersion.',
+        image: 'https://images.unsplash.com/photo-1528181304800-259b08848526?w=800'
     },
     {
         id: 'spain',
@@ -263,41 +121,35 @@ const countriesData = [
         region: 'europe',
         flag: '🇪🇸',
         currency: 'EUR',
-        currencySymbol: '€',
         language: 'Spanish',
-        visaRequired: true,
-        bestMonths: ['march', 'april', 'may', 'september', 'october', 'november'],
-        description: 'Vibrant culture, stunning beaches, tapas, and flamenco.',
-        highlights: ['Barcelona', 'Madrid', 'Ibiza', 'Sagrada Familia', 'Alhambra'],
-        image: 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=800'
+        visaPolicy: 'schengen',
+        bestMonths: ['april', 'may', 'september', 'october'],
+        description: 'Passionate flamenco, stunning architecture from Gaudí to Moorish palaces, world-famous cuisine, and beautiful beaches. Spain offers a vibrant lifestyle that captivates every visitor.',
+        image: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=800'
     },
     {
-        id: 'greece',
-        name: 'Greece',
-        region: 'europe',
-        flag: '🇬🇷',
-        currency: 'EUR',
-        currencySymbol: '€',
-        language: 'Greek',
-        visaRequired: true,
-        bestMonths: ['april', 'may', 'june', 'september', 'october'],
-        description: 'Ancient ruins, stunning islands, and Mediterranean beauty.',
-        highlights: ['Santorini', 'Acropolis', 'Mykonos', 'Greek Islands', 'Ancient Ruins'],
-        image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800'
+        id: 'australia',
+        name: 'Australia',
+        region: 'oceania',
+        flag: '🇦🇺',
+        currency: 'AUD',
+        language: 'English',
+        visaPolicy: 'etaRequired',
+        bestMonths: ['september', 'october', 'november', 'march', 'april'],
+        description: 'The land down under offers unique wildlife, the Great Barrier Reef, cosmopolitan cities, and vast outback adventures. A continent of contrasts that rewards the adventurous traveler.',
+        image: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=800'
     },
     {
-        id: 'switzerland',
-        name: 'Switzerland',
-        region: 'europe',
-        flag: '🇨🇭',
-        currency: 'CHF',
-        currencySymbol: 'CHF',
-        language: 'German, French, Italian',
-        visaRequired: true,
-        bestMonths: ['june', 'july', 'august', 'september', 'december', 'january', 'february'],
-        description: 'Alpine paradise with stunning mountains, lakes, and chocolate.',
-        highlights: ['Swiss Alps', 'Interlaken', 'Zurich', 'Jungfrau', 'Lake Geneva'],
-        image: 'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=800'
+        id: 'uae',
+        name: 'United Arab Emirates',
+        region: 'middleEast',
+        flag: '🇦🇪',
+        currency: 'AED',
+        language: 'Arabic, English',
+        visaPolicy: 'visaOnArrival',
+        bestMonths: ['november', 'december', 'january', 'february', 'march'],
+        description: 'A dazzling blend of traditional Arabian culture and futuristic innovation. Dubai\'s iconic skyline, Abu Dhabi\'s cultural landmarks, and world-class shopping create an unforgettable experience.',
+        image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800'
     },
     {
         id: 'uk',
@@ -305,303 +157,83 @@ const countriesData = [
         region: 'europe',
         flag: '🇬🇧',
         currency: 'GBP',
-        currencySymbol: '£',
         language: 'English',
-        visaRequired: true,
+        visaPolicy: 'etaRequired',
         bestMonths: ['may', 'june', 'july', 'august', 'september'],
-        description: 'Royal heritage, charming countryside, and vibrant cities.',
-        highlights: ['London', 'Edinburgh', 'Stonehenge', 'Scottish Highlands', 'Oxford'],
+        description: 'Rich history meets modern culture in the UK. From London\'s iconic landmarks to Scottish highlands, centuries of heritage await alongside vibrant contemporary arts and entertainment.',
         image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800'
     },
     {
-        id: 'germany',
-        name: 'Germany',
+        id: 'singapore',
+        name: 'Singapore',
+        region: 'asia',
+        flag: '🇸🇬',
+        currency: 'SGD',
+        language: 'English, Mandarin, Malay, Tamil',
+        visaPolicy: 'visaFree',
+        bestMonths: ['february', 'march', 'april', 'july', 'august'],
+        description: 'A gleaming city-state where East meets West. World-class attractions, incredible food scene, stunning architecture, and seamless blend of cultures make Singapore a must-visit destination.',
+        image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800'
+    },
+    {
+        id: 'maldives',
+        name: 'Maldives',
+        region: 'asia',
+        flag: '🇲🇻',
+        currency: 'MVR',
+        language: 'Dhivehi, English',
+        visaPolicy: 'visaOnArrival',
+        bestMonths: ['november', 'december', 'january', 'february', 'march', 'april'],
+        description: 'Paradise on Earth with crystal-clear waters, overwater villas, and vibrant marine life. The ultimate destination for honeymoons, diving, and pure tropical relaxation.',
+        image: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800'
+    },
+    {
+        id: 'switzerland',
+        name: 'Switzerland',
         region: 'europe',
-        flag: '🇩🇪',
+        flag: '🇨🇭',
+        currency: 'CHF',
+        language: 'German, French, Italian',
+        visaPolicy: 'schengen',
+        bestMonths: ['june', 'july', 'august', 'september', 'december', 'january'],
+        description: 'Majestic Alps, pristine lakes, charming villages, and world-renowned chocolate and cheese. Switzerland offers breathtaking natural beauty and precision in everything from watches to trains.',
+        image: 'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=800'
+    },
+    {
+        id: 'greece',
+        name: 'Greece',
+        region: 'europe',
+        flag: '🇬🇷',
         currency: 'EUR',
-        currencySymbol: '€',
-        language: 'German',
-        visaRequired: true,
-        bestMonths: ['may', 'june', 'july', 'august', 'september', 'december'],
-        description: 'Castles, culture, beer, and efficiency.',
-        highlights: ['Berlin', 'Munich', 'Neuschwanstein Castle', 'Oktoberfest', 'Black Forest'],
-        image: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=800'
-    },
-    {
-        id: 'netherlands',
-        name: 'Netherlands',
-        region: 'europe',
-        flag: '🇳🇱',
-        currency: 'EUR',
-        currencySymbol: '€',
-        language: 'Dutch',
-        visaRequired: true,
-        bestMonths: ['april', 'may', 'june', 'july', 'august', 'september'],
-        description: 'Tulips, windmills, canals, and world-class museums.',
-        highlights: ['Amsterdam Canals', 'Van Gogh Museum', 'Keukenhof', 'Windmills', 'Anne Frank House'],
-        image: 'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=800'
-    },
-    {
-        id: 'portugal',
-        name: 'Portugal',
-        region: 'europe',
-        flag: '🇵🇹',
-        currency: 'EUR',
-        currencySymbol: '€',
-        language: 'Portuguese',
-        visaRequired: true,
-        bestMonths: ['march', 'april', 'may', 'june', 'september', 'october'],
-        description: 'Historic cities, stunning coastline, and delicious cuisine.',
-        highlights: ['Lisbon', 'Porto', 'Algarve', 'Sintra', 'Pastel de Nata'],
-        image: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800'
-    },
-    {
-        id: 'iceland',
-        name: 'Iceland',
-        region: 'europe',
-        flag: '🇮🇸',
-        currency: 'ISK',
-        currencySymbol: 'kr',
-        language: 'Icelandic',
-        visaRequired: true,
-        bestMonths: ['june', 'july', 'august', 'september', 'february', 'march'],
-        description: 'Land of fire and ice with geysers, glaciers, and Northern Lights.',
-        highlights: ['Northern Lights', 'Blue Lagoon', 'Golden Circle', 'Glaciers', 'Volcanoes'],
-        image: 'https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=800'
-    },
-    {
-        id: 'norway',
-        name: 'Norway',
-        region: 'europe',
-        flag: '🇳🇴',
-        currency: 'NOK',
-        currencySymbol: 'kr',
-        language: 'Norwegian',
-        visaRequired: true,
-        bestMonths: ['may', 'june', 'july', 'august', 'september', 'december', 'january'],
-        description: 'Dramatic fjords, Northern Lights, and stunning natural beauty.',
-        highlights: ['Fjords', 'Northern Lights', 'Oslo', 'Bergen', 'Midnight Sun'],
-        image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800'
-    },
-    
-    // MIDDLE EAST
-    {
-        id: 'uae',
-        name: 'United Arab Emirates',
-        region: 'middleEast',
-        flag: '🇦🇪',
-        currency: 'AED',
-        currencySymbol: 'د.إ',
-        language: 'Arabic, English',
-        visaRequired: true,
-        bestMonths: ['november', 'december', 'january', 'february', 'march'],
-        description: 'Futuristic cities, luxury shopping, and desert adventures.',
-        highlights: ['Burj Khalifa', 'Dubai Mall', 'Desert Safari', 'Abu Dhabi', 'Palm Jumeirah'],
-        image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800'
+        language: 'Greek',
+        visaPolicy: 'schengen',
+        bestMonths: ['april', 'may', 'june', 'september', 'october'],
+        description: 'Birthplace of democracy and Western civilization. Ancient ruins, whitewashed islands, crystal-clear Aegean waters, and legendary hospitality create the perfect Mediterranean escape.',
+        image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800'
     },
     {
         id: 'turkey',
         name: 'Turkey',
-        region: 'middleEast',
+        region: 'europe',
         flag: '🇹🇷',
         currency: 'TRY',
-        currencySymbol: '₺',
         language: 'Turkish',
-        visaRequired: true,
-        bestMonths: ['april', 'may', 'september', 'october', 'november'],
-        description: 'Bridge between East and West with rich history and stunning landscapes.',
-        highlights: ['Istanbul', 'Cappadocia', 'Pamukkale', 'Ephesus', 'Turkish Cuisine'],
-        image: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=800'
-    },
-    {
-        id: 'jordan',
-        name: 'Jordan',
-        region: 'middleEast',
-        flag: '🇯🇴',
-        currency: 'JOD',
-        currencySymbol: 'JD',
-        language: 'Arabic',
-        visaRequired: true,
-        bestMonths: ['march', 'april', 'may', 'october', 'november'],
-        description: 'Ancient wonders and dramatic desert landscapes.',
-        highlights: ['Petra', 'Wadi Rum', 'Dead Sea', 'Amman', 'Red Sea'],
-        image: 'https://images.unsplash.com/photo-1579606032821-4e6161c81571?w=800'
+        visaPolicy: 'eVisa',
+        bestMonths: ['april', 'may', 'september', 'october'],
+        description: 'Where East meets West, Turkey offers a unique blend of cultures. Ancient ruins, stunning mosques, beautiful coastlines, and world-famous cuisine await in this transcontinental nation.',
+        image: 'https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?w=800'
     },
     {
         id: 'egypt',
         name: 'Egypt',
-        region: 'middleEast',
+        region: 'africa',
         flag: '🇪🇬',
         currency: 'EGP',
-        currencySymbol: 'E£',
         language: 'Arabic',
-        visaRequired: true,
+        visaPolicy: 'visaOnArrival',
         bestMonths: ['october', 'november', 'december', 'january', 'february', 'march'],
-        description: 'Land of pharaohs with pyramids, temples, and Nile cruises.',
-        highlights: ['Pyramids of Giza', 'Luxor Temples', 'Nile Cruise', 'Valley of Kings', 'Red Sea Diving'],
+        description: 'Home to one of the world\'s oldest civilizations. The pyramids, Sphinx, Nile cruises, and ancient temples offer a journey through 5,000 years of human history.',
         image: 'https://images.unsplash.com/photo-1539768942893-daf53e448371?w=800'
-    },
-    
-    // NORTH AMERICA
-    {
-        id: 'usa',
-        name: 'United States',
-        region: 'northAmerica',
-        flag: '🇺🇸',
-        currency: 'USD',
-        currencySymbol: '$',
-        language: 'English',
-        visaRequired: true,
-        bestMonths: ['april', 'may', 'june', 'september', 'october'],
-        description: 'Diverse landscapes from beaches to mountains, iconic cities.',
-        highlights: ['New York', 'Grand Canyon', 'Las Vegas', 'San Francisco', 'National Parks'],
-        image: 'https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=800'
-    },
-    {
-        id: 'canada',
-        name: 'Canada',
-        region: 'northAmerica',
-        flag: '🇨🇦',
-        currency: 'CAD',
-        currencySymbol: 'C$',
-        language: 'English, French',
-        visaRequired: true,
-        bestMonths: ['june', 'july', 'august', 'september', 'december', 'january'],
-        description: 'Vast wilderness, stunning national parks, and vibrant cities.',
-        highlights: ['Niagara Falls', 'Banff', 'Vancouver', 'Toronto', 'Northern Lights'],
-        image: 'https://images.unsplash.com/photo-1517935706615-2717063c2225?w=800'
-    },
-    {
-        id: 'mexico',
-        name: 'Mexico',
-        region: 'northAmerica',
-        flag: '🇲🇽',
-        currency: 'MXN',
-        currencySymbol: 'Mex$',
-        language: 'Spanish',
-        visaRequired: false,
-        bestMonths: ['december', 'january', 'february', 'march', 'april'],
-        description: 'Ancient ruins, pristine beaches, and vibrant culture.',
-        highlights: ['Cancun', 'Chichen Itza', 'Mexico City', 'Tulum', 'Mexican Cuisine'],
-        image: 'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800'
-    },
-    
-    // SOUTH AMERICA
-    {
-        id: 'brazil',
-        name: 'Brazil',
-        region: 'southAmerica',
-        flag: '🇧🇷',
-        currency: 'BRL',
-        currencySymbol: 'R$',
-        language: 'Portuguese',
-        visaRequired: false,
-        bestMonths: ['march', 'april', 'may', 'september', 'october', 'november'],
-        description: 'Vibrant culture, rainforests, beaches, and Carnival.',
-        highlights: ['Christ the Redeemer', 'Amazon Rainforest', 'Rio Beaches', 'Iguazu Falls', 'Carnival'],
-        image: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800'
-    },
-    {
-        id: 'peru',
-        name: 'Peru',
-        region: 'southAmerica',
-        flag: '🇵🇪',
-        currency: 'PEN',
-        currencySymbol: 'S/',
-        language: 'Spanish',
-        visaRequired: false,
-        bestMonths: ['may', 'june', 'july', 'august', 'september'],
-        description: 'Ancient Incan wonders and diverse ecosystems.',
-        highlights: ['Machu Picchu', 'Cusco', 'Sacred Valley', 'Amazon', 'Lake Titicaca'],
-        image: 'https://images.unsplash.com/photo-1526392060635-9d6019884377?w=800'
-    },
-    {
-        id: 'argentina',
-        name: 'Argentina',
-        region: 'southAmerica',
-        flag: '🇦🇷',
-        currency: 'ARS',
-        currencySymbol: 'AR$',
-        language: 'Spanish',
-        visaRequired: false,
-        bestMonths: ['october', 'november', 'december', 'march', 'april'],
-        description: 'Tango, wine, glaciers, and stunning Patagonia.',
-        highlights: ['Buenos Aires', 'Patagonia', 'Iguazu Falls', 'Mendoza Wine', 'Glaciers'],
-        image: 'https://images.unsplash.com/photo-1612294037637-ec328d0e075e?w=800'
-    },
-    
-    // AFRICA
-    {
-        id: 'southafrica',
-        name: 'South Africa',
-        region: 'africa',
-        flag: '🇿🇦',
-        currency: 'ZAR',
-        currencySymbol: 'R',
-        language: 'English, Afrikaans',
-        visaRequired: false,
-        bestMonths: ['april', 'may', 'september', 'october', 'november'],
-        description: 'Safari adventures, stunning coastline, and vibrant cities.',
-        highlights: ['Cape Town', 'Kruger Safari', 'Table Mountain', 'Garden Route', 'Wine Regions'],
-        image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=800'
-    },
-    {
-        id: 'kenya',
-        name: 'Kenya',
-        region: 'africa',
-        flag: '🇰🇪',
-        currency: 'KES',
-        currencySymbol: 'KSh',
-        language: 'English, Swahili',
-        visaRequired: true,
-        bestMonths: ['july', 'august', 'september', 'october', 'january', 'february'],
-        description: 'Ultimate safari destination with the Great Migration.',
-        highlights: ['Masai Mara', 'Great Migration', 'Nairobi', 'Mount Kenya', 'Diani Beach'],
-        image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800'
-    },
-    {
-        id: 'morocco',
-        name: 'Morocco',
-        region: 'africa',
-        flag: '🇲🇦',
-        currency: 'MAD',
-        currencySymbol: 'MAD',
-        language: 'Arabic, French',
-        visaRequired: false,
-        bestMonths: ['march', 'april', 'may', 'october', 'november'],
-        description: 'Exotic markets, desert adventures, and ancient medinas.',
-        highlights: ['Marrakech', 'Sahara Desert', 'Fes Medina', 'Chefchaouen', 'Atlas Mountains'],
-        image: 'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=800'
-    },
-    {
-        id: 'tanzania',
-        name: 'Tanzania',
-        region: 'africa',
-        flag: '🇹🇿',
-        currency: 'TZS',
-        currencySymbol: 'TSh',
-        language: 'English, Swahili',
-        visaRequired: true,
-        bestMonths: ['june', 'july', 'august', 'september', 'january', 'february'],
-        description: 'Serengeti safaris and Mount Kilimanjaro adventures.',
-        highlights: ['Serengeti', 'Mount Kilimanjaro', 'Zanzibar', 'Ngorongoro Crater', 'Safari'],
-        image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800'
-    },
-    
-    // OCEANIA
-    {
-        id: 'australia',
-        name: 'Australia',
-        region: 'oceania',
-        flag: '🇦🇺',
-        currency: 'AUD',
-        currencySymbol: 'A$',
-        language: 'English',
-        visaRequired: true,
-        bestMonths: ['september', 'october', 'november', 'march', 'april', 'may'],
-        description: 'Unique wildlife, stunning beaches, and outback adventures.',
-        highlights: ['Sydney Opera House', 'Great Barrier Reef', 'Uluru', 'Melbourne', 'Gold Coast'],
-        image: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=800'
     },
     {
         id: 'newzealand',
@@ -609,340 +241,406 @@ const countriesData = [
         region: 'oceania',
         flag: '🇳🇿',
         currency: 'NZD',
-        currencySymbol: 'NZ$',
-        language: 'English, Maori',
-        visaRequired: true,
-        bestMonths: ['december', 'january', 'february', 'march', 'april'],
-        description: 'Dramatic landscapes from Lord of the Rings and adventure capital.',
-        highlights: ['Queenstown', 'Milford Sound', 'Hobbiton', 'Rotorua', 'Fiordland'],
+        language: 'English, Māori',
+        visaPolicy: 'etaRequired',
+        bestMonths: ['december', 'january', 'february', 'march'],
+        description: 'Dramatic landscapes that inspired Middle-earth. From glaciers to geysers, pristine fjords to rolling hills, New Zealand is an adventure lover\'s paradise with warm Kiwi hospitality.',
         image: 'https://images.unsplash.com/photo-1469521669194-babb45599def?w=800'
     },
     {
-        id: 'fiji',
-        name: 'Fiji',
-        region: 'oceania',
-        flag: '🇫🇯',
-        currency: 'FJD',
-        currencySymbol: 'FJ$',
-        language: 'English, Fijian',
-        visaRequired: false,
-        bestMonths: ['may', 'june', 'july', 'august', 'september', 'october'],
-        description: 'Tropical paradise with pristine beaches and warm hospitality.',
-        highlights: ['Mamanuca Islands', 'Coral Reefs', 'Bure Stays', 'Culture Villages', 'Diving'],
-        image: 'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=800'
+        id: 'vietnam',
+        name: 'Vietnam',
+        region: 'asia',
+        flag: '🇻🇳',
+        currency: 'VND',
+        language: 'Vietnamese',
+        visaPolicy: 'eVisa',
+        bestMonths: ['february', 'march', 'april', 'september', 'october'],
+        description: 'Stunning landscapes from Halong Bay to terraced rice fields, rich history, vibrant cities, and some of the world\'s best street food. An affordable and fascinating destination.',
+        image: 'https://images.unsplash.com/photo-1528127269322-539801943592?w=800'
+    },
+    {
+        id: 'mexico',
+        name: 'Mexico',
+        region: 'northAmerica',
+        flag: '🇲🇽',
+        currency: 'MXN',
+        language: 'Spanish',
+        visaPolicy: 'visaFree',
+        bestMonths: ['november', 'december', 'january', 'february', 'march', 'april'],
+        description: 'Ancient Mayan ruins, vibrant culture, stunning beaches, and world-renowned cuisine. Mexico offers an incredible mix of history, natural beauty, and warm hospitality.',
+        image: 'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800'
+    },
+    {
+        id: 'canada',
+        name: 'Canada',
+        region: 'northAmerica',
+        flag: '🇨🇦',
+        currency: 'CAD',
+        language: 'English, French',
+        visaPolicy: 'etaRequired',
+        bestMonths: ['june', 'july', 'august', 'september'],
+        description: 'Vast wilderness, stunning national parks, cosmopolitan cities, and friendly locals. From Niagara Falls to the Rocky Mountains, Canada offers natural wonders on a grand scale.',
+        image: 'https://images.unsplash.com/photo-1517935706615-2717063c2225?w=800'
+    },
+    {
+        id: 'southkorea',
+        name: 'South Korea',
+        region: 'asia',
+        flag: '🇰🇷',
+        currency: 'KRW',
+        language: 'Korean',
+        visaPolicy: 'visaFree',
+        bestMonths: ['march', 'april', 'may', 'september', 'october', 'november'],
+        description: 'Where ancient palaces meet K-pop culture. Seoul\'s vibrant energy, beautiful temples, stunning autumn foliage, and world-class cuisine make Korea an exciting destination.',
+        image: 'https://images.unsplash.com/photo-1517154421773-0529f29ea451?w=800'
+    },
+    {
+        id: 'morocco',
+        name: 'Morocco',
+        region: 'africa',
+        flag: '🇲🇦',
+        currency: 'MAD',
+        language: 'Arabic, French',
+        visaPolicy: 'visaFree',
+        bestMonths: ['march', 'april', 'may', 'september', 'october', 'november'],
+        description: 'A sensory feast of colorful souks, ancient medinas, Sahara desert adventures, and stunning architecture. Morocco offers an exotic escape just hours from Europe.',
+        image: 'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=800'
+    },
+    {
+        id: 'portugal',
+        name: 'Portugal',
+        region: 'europe',
+        flag: '🇵🇹',
+        currency: 'EUR',
+        language: 'Portuguese',
+        visaPolicy: 'schengen',
+        bestMonths: ['march', 'april', 'may', 'september', 'october'],
+        description: 'Charming cities, stunning coastlines, world-class wine, and warm hospitality. Portugal offers incredible value with rich history, beautiful beaches, and delicious cuisine.',
+        image: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800'
+    },
+    {
+        id: 'brazil',
+        name: 'Brazil',
+        region: 'southAmerica',
+        flag: '🇧🇷',
+        currency: 'BRL',
+        language: 'Portuguese',
+        visaPolicy: 'visaFree',
+        bestMonths: ['may', 'june', 'july', 'august', 'september'],
+        description: 'Samba rhythms, pristine beaches, Amazon rainforest, and vibrant cities. Brazil pulses with energy from Rio\'s carnival to Iguazu Falls\' thundering waters.',
+        image: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800'
+    },
+    {
+        id: 'indonesia',
+        name: 'Indonesia',
+        region: 'asia',
+        flag: '🇮🇩',
+        currency: 'IDR',
+        language: 'Indonesian',
+        visaPolicy: 'visaOnArrival',
+        bestMonths: ['april', 'may', 'june', 'july', 'august', 'september'],
+        description: 'Over 17,000 islands offering incredible diversity. From Bali\'s spiritual retreats to Komodo dragons, ancient temples to pristine diving spots, Indonesia has it all.',
+        image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800'
+    },
+    {
+        id: 'india',
+        name: 'India',
+        region: 'asia',
+        flag: '🇮🇳',
+        currency: 'INR',
+        language: 'Hindi, English',
+        visaPolicy: 'eVisa',
+        bestMonths: ['october', 'november', 'december', 'january', 'february', 'march'],
+        description: 'A land of incredible diversity spanning Himalayan peaks to tropical beaches. Ancient temples, magnificent palaces, vibrant culture, and spiritual experiences await in this fascinating country.',
+        image: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800'
     }
 ];
 
 // ============================================
-// CITIES/DESTINATIONS DATA
+// DESTINATIONS DATA - Major Cities & Attractions
 // ============================================
 const destinationsData = [
-    // INDIA
+    // FRANCE
     {
         id: 1,
-        name: 'Goa',
-        country: 'India',
-        countryId: 'india',
-        region: 'asia',
-        description: 'Sun, sand, and Portuguese heritage on India\'s western coast.',
-        image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800',
-        category: ['beach', 'nightlife', 'relaxation', 'food'],
-        highlights: ['Baga Beach', 'Old Goa Churches', 'Anjuna Flea Market', 'Water Sports', 'Nightlife'],
-        rating: 4.5,
-        reviews: 12450,
-        priceFrom: 5000,
-        currency: '₹',
-        bestTime: 'November to February',
-        bestMonths: ['november', 'december', 'january', 'february'],
-        duration: '4-5 days',
+        name: 'Paris',
+        country: 'France',
+        countryId: 'france',
+        region: 'europe',
+        category: ['romantic', 'cultural', 'heritage', 'food', 'shopping'],
         featured: true,
-        collections: ['beach', 'weekend', 'nightlife', 'december', 'january']
+        image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800',
+        rating: 4.8,
+        duration: '4-5 days',
+        bestTime: 'Apr-Jun, Sep-Oct',
+        bestMonths: ['april', 'may', 'june', 'september', 'october'],
+        visaPolicy: 'schengen',
+        description: 'The City of Light captivates visitors with its iconic landmarks, world-class museums, romantic ambiance, and exquisite cuisine. Paris is where art, fashion, and culture converge to create an unforgettable experience. Stroll along the Seine, explore charming neighborhoods, and indulge in pastries at corner cafés. Whether you\'re admiring masterpieces at the Louvre or watching the Eiffel Tower sparkle at night, Paris offers moments that stay with you forever.',
+        highlights: ['Eiffel Tower', 'Louvre Museum', 'Notre-Dame', 'Champs-Élysées', 'Montmartre'],
+        thingsToDo: ['Visit Versailles Palace', 'Seine River cruise', 'Explore Marais district', 'Shop at Galeries Lafayette', 'Taste French pastries']
     },
     {
         id: 2,
-        name: 'Manali',
-        country: 'India',
-        countryId: 'india',
-        region: 'asia',
-        description: 'Himalayan paradise with snow-capped peaks and adventure sports.',
-        image: 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=800',
-        category: ['mountains', 'adventure', 'honeymoon', 'trekking'],
-        highlights: ['Rohtang Pass', 'Solang Valley', 'Old Manali', 'River Rafting', 'Skiing'],
+        name: 'Nice & French Riviera',
+        country: 'France',
+        countryId: 'france',
+        region: 'europe',
+        category: ['beach', 'romantic', 'relaxation'],
+        featured: false,
+        image: 'https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?w=800',
         rating: 4.6,
-        reviews: 9876,
-        priceFrom: 8000,
-        currency: '₹',
-        bestTime: 'October to June',
-        bestMonths: ['october', 'november', 'december', 'january', 'february', 'march', 'april', 'may', 'june'],
-        duration: '5-6 days',
-        featured: true,
-        collections: ['mountains', 'honeymoon', 'adventure', 'december']
+        duration: '3-4 days',
+        bestTime: 'May-Sep',
+        bestMonths: ['may', 'june', 'july', 'august', 'september'],
+        visaPolicy: 'schengen',
+        description: 'The glamorous French Riviera offers stunning Mediterranean coastline, charming old towns, and endless sunshine. From Nice\'s famous Promenade des Anglais to the glitz of Monaco, the Côte d\'Azur has attracted artists, celebrities, and dreamers for over a century.',
+        highlights: ['Promenade des Anglais', 'Old Town Nice', 'Monaco', 'Cannes', 'Eze Village'],
+        thingsToDo: ['Beach hopping', 'Visit Monaco Casino', 'Explore hilltop villages', 'Wine tasting in Provence', 'Boat trip to islands']
     },
+    // JAPAN
     {
         id: 3,
-        name: 'Jaipur',
-        country: 'India',
-        countryId: 'india',
+        name: 'Tokyo',
+        country: 'Japan',
+        countryId: 'japan',
         region: 'asia',
-        description: 'The Pink City with magnificent forts, palaces, and rich culture.',
-        image: 'https://images.unsplash.com/photo-1477587458883-47145ed94245?w=800',
-        category: ['heritage', 'cultural', 'shopping', 'food'],
-        highlights: ['Amber Fort', 'Hawa Mahal', 'City Palace', 'Jantar Mantar', 'Bazaars'],
-        rating: 4.7,
-        reviews: 15678,
-        priceFrom: 6000,
-        currency: '₹',
-        bestTime: 'October to March',
-        bestMonths: ['october', 'november', 'december', 'january', 'february', 'march'],
-        duration: '3-4 days',
+        category: ['cultural', 'food', 'shopping', 'nightlife'],
         featured: true,
-        collections: ['heritage', 'cultural', 'shopping', 'february']
+        image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800',
+        rating: 4.9,
+        duration: '4-5 days',
+        bestTime: 'Mar-May, Sep-Nov',
+        bestMonths: ['march', 'april', 'may', 'september', 'october', 'november'],
+        visaPolicy: 'visaFree',
+        description: 'Japan\'s dazzling capital seamlessly blends ultra-modern technology with ancient traditions. From neon-lit Shibuya to serene temples, world-class sushi to quirky pop culture, Tokyo is a city of endless discovery. Experience the harmony of old and new as you navigate efficient trains, explore historic gardens, and witness the unique Japanese way of life.',
+        highlights: ['Senso-ji Temple', 'Shibuya Crossing', 'Meiji Shrine', 'Tokyo Skytree', 'Tsukiji Market'],
+        thingsToDo: ['Visit teamLab exhibitions', 'Explore Akihabara', 'Day trip to Mt. Fuji', 'Try authentic ramen', 'Shop in Harajuku']
     },
     {
         id: 4,
-        name: 'Kerala Backwaters',
-        country: 'India',
-        countryId: 'india',
+        name: 'Kyoto',
+        country: 'Japan',
+        countryId: 'japan',
         region: 'asia',
-        description: 'Serene houseboat cruises through palm-fringed waterways.',
-        image: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800',
-        category: ['relaxation', 'romantic', 'honeymoon', 'cultural'],
-        highlights: ['Houseboat Stay', 'Alleppey', 'Kumarakom', 'Ayurveda', 'Village Tours'],
-        rating: 4.8,
-        reviews: 11234,
-        priceFrom: 12000,
-        currency: '₹',
-        bestTime: 'September to March',
-        bestMonths: ['september', 'october', 'november', 'december', 'january', 'february', 'march'],
-        duration: '4-5 days',
+        category: ['heritage', 'cultural', 'pilgrimage', 'romantic'],
         featured: true,
-        collections: ['honeymoon', 'relaxation', 'romantic', 'november']
+        image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800',
+        rating: 4.9,
+        duration: '3-4 days',
+        bestTime: 'Mar-May, Oct-Nov',
+        bestMonths: ['march', 'april', 'may', 'october', 'november'],
+        visaPolicy: 'visaFree',
+        description: 'Japan\'s cultural heart preserves over 2,000 temples and shrines, traditional geisha districts, and imperial palaces. Kyoto offers a glimpse into old Japan with its bamboo groves, zen gardens, and timeless tea ceremonies. The city transforms dramatically with cherry blossoms in spring and fiery maple leaves in autumn.',
+        highlights: ['Fushimi Inari Shrine', 'Kinkaku-ji Golden Pavilion', 'Arashiyama Bamboo Grove', 'Gion District', 'Nijo Castle'],
+        thingsToDo: ['Tea ceremony experience', 'Geisha spotting in Gion', 'Zen garden meditation', 'Nara deer park day trip', 'Traditional kaiseki dinner']
     },
+    // ITALY
     {
         id: 5,
-        name: 'Ladakh',
-        country: 'India',
-        countryId: 'india',
-        region: 'asia',
-        description: 'High-altitude desert with dramatic landscapes and Buddhist monasteries.',
-        image: 'https://images.unsplash.com/photo-1589793907316-f94025d46cad?w=800',
-        category: ['mountains', 'adventure', 'cultural', 'trekking', 'offbeat'],
-        highlights: ['Pangong Lake', 'Nubra Valley', 'Khardung La', 'Monasteries', 'Magnetic Hill'],
-        rating: 4.9,
-        reviews: 8765,
-        priceFrom: 25000,
-        currency: '₹',
-        bestTime: 'June to September',
-        bestMonths: ['june', 'july', 'august', 'september'],
-        duration: '7-10 days',
+        name: 'Rome',
+        country: 'Italy',
+        countryId: 'italy',
+        region: 'europe',
+        category: ['heritage', 'cultural', 'food', 'romantic'],
         featured: true,
-        collections: ['adventure', 'offbeat', 'trekking', 'july', 'august']
+        image: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800',
+        rating: 4.8,
+        duration: '4-5 days',
+        bestTime: 'Apr-Jun, Sep-Oct',
+        bestMonths: ['april', 'may', 'june', 'september', 'october'],
+        visaPolicy: 'schengen',
+        description: 'The Eternal City is a living museum where ancient ruins stand alongside Renaissance masterpieces. Walk in the footsteps of emperors at the Colosseum, make a wish at Trevi Fountain, and savor authentic Italian cuisine in charming trattorias. Rome\'s dolce vita lifestyle, stunning art, and 3,000 years of history create an incomparable experience.',
+        highlights: ['Colosseum', 'Vatican City', 'Trevi Fountain', 'Pantheon', 'Roman Forum'],
+        thingsToDo: ['Vatican Museums tour', 'Toss coin in Trevi', 'Taste real Italian pizza', 'Explore Trastevere', 'Visit Borghese Gallery']
     },
     {
         id: 6,
-        name: 'Varanasi',
-        country: 'India',
-        countryId: 'india',
-        region: 'asia',
-        description: 'Sacred city on the banks of Ganges with ancient spirituality.',
-        image: 'https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=800',
-        category: ['pilgrimage', 'cultural', 'heritage', 'food'],
-        highlights: ['Ganga Aarti', 'Ghats', 'Kashi Vishwanath', 'Sarnath', 'Street Food'],
-        rating: 4.6,
-        reviews: 7654,
-        priceFrom: 4000,
-        currency: '₹',
-        bestTime: 'October to March',
-        bestMonths: ['october', 'november', 'december', 'january', 'february', 'march'],
+        name: 'Venice',
+        country: 'Italy',
+        countryId: 'italy',
+        region: 'europe',
+        category: ['romantic', 'heritage', 'cultural'],
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=800',
+        rating: 4.7,
         duration: '2-3 days',
-        featured: false,
-        collections: ['pilgrimage', 'cultural', 'heritage', 'november']
+        bestTime: 'Apr-Jun, Sep-Oct',
+        bestMonths: ['april', 'may', 'june', 'september', 'october'],
+        visaPolicy: 'schengen',
+        description: 'Built on 118 islands connected by bridges, Venice is unlike anywhere else on Earth. Glide through romantic canals, admire Byzantine architecture in St. Mark\'s Square, and get lost in labyrinthine alleyways. This floating city of art and history creates an atmosphere of pure magic.',
+        highlights: ['St. Mark\'s Basilica', 'Grand Canal', 'Rialto Bridge', 'Doge\'s Palace', 'Murano Island'],
+        thingsToDo: ['Gondola ride', 'Glass-making in Murano', 'Sunset at Rialto', 'Cicchetti food tour', 'Visit Burano\'s colorful houses']
     },
+    // USA
     {
         id: 7,
-        name: 'Udaipur',
-        country: 'India',
-        countryId: 'india',
-        region: 'asia',
-        description: 'City of Lakes with romantic palaces and royal heritage.',
-        image: 'https://images.unsplash.com/photo-1568495248636-6432b97bd949?w=800',
-        category: ['heritage', 'romantic', 'honeymoon', 'cultural'],
-        highlights: ['Lake Pichola', 'City Palace', 'Taj Lake Palace', 'Jag Mandir', 'Sunset Views'],
-        rating: 4.8,
-        reviews: 9432,
-        priceFrom: 7000,
-        currency: '₹',
-        bestTime: 'September to March',
-        bestMonths: ['september', 'october', 'november', 'december', 'january', 'february', 'march'],
-        duration: '3-4 days',
+        name: 'New York City',
+        country: 'United States',
+        countryId: 'usa',
+        region: 'northAmerica',
+        category: ['cultural', 'shopping', 'nightlife', 'food'],
         featured: true,
-        collections: ['honeymoon', 'romantic', 'heritage', 'february']
+        image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800',
+        rating: 4.8,
+        duration: '5-7 days',
+        bestTime: 'Apr-Jun, Sep-Nov',
+        bestMonths: ['april', 'may', 'june', 'september', 'october', 'november'],
+        visaPolicy: 'etaRequired',
+        description: 'The city that never sleeps pulses with energy from Times Square\'s bright lights to Central Park\'s green oasis. NYC is a global center for arts, fashion, cuisine, and entertainment. Every neighborhood has its own character, from Brooklyn\'s artsy vibes to Manhattan\'s towering ambitions.',
+        highlights: ['Statue of Liberty', 'Central Park', 'Times Square', 'Empire State Building', 'Brooklyn Bridge'],
+        thingsToDo: ['Broadway show', 'Museum Mile tour', 'Walk the High Line', 'Pizza tour', 'Top of the Rock sunset']
     },
     {
         id: 8,
-        name: 'Rishikesh',
-        country: 'India',
-        countryId: 'india',
-        region: 'asia',
-        description: 'Yoga capital of the world with thrilling adventure activities.',
-        image: 'https://images.unsplash.com/photo-1600627619286-c3a776db0e70?w=800',
-        category: ['adventure', 'pilgrimage', 'relaxation', 'trekking'],
-        highlights: ['River Rafting', 'Bungee Jumping', 'Yoga Ashrams', 'Laxman Jhula', 'Ganga Aarti'],
-        rating: 4.5,
-        reviews: 8765,
-        priceFrom: 5000,
-        currency: '₹',
-        bestTime: 'September to November, March to May',
+        name: 'Grand Canyon',
+        country: 'United States',
+        countryId: 'usa',
+        region: 'northAmerica',
+        category: ['adventure', 'trekking'],
+        featured: false,
+        image: 'https://images.unsplash.com/photo-1474044159687-1ee9f3a51722?w=800',
+        rating: 4.9,
+        duration: '2-3 days',
+        bestTime: 'Mar-May, Sep-Nov',
         bestMonths: ['march', 'april', 'may', 'september', 'october', 'november'],
-        duration: '3-4 days',
-        featured: false,
-        collections: ['adventure', 'pilgrimage', 'relaxation', 'october']
+        visaPolicy: 'etaRequired',
+        description: 'One of the world\'s most awe-inspiring natural wonders, the Grand Canyon reveals 2 billion years of Earth\'s history. The vast scale and colorful layers create an almost spiritual experience. Whether viewing from the rim or hiking into its depths, the canyon leaves visitors speechless.',
+        highlights: ['South Rim', 'Bright Angel Trail', 'Desert View', 'Havasu Falls', 'Skywalk'],
+        thingsToDo: ['Rim Trail walking', 'Helicopter tour', 'Mule ride', 'Stargazing', 'Sunrise photography']
     },
-    {
-        id: 9,
-        name: 'Andaman Islands',
-        country: 'India',
-        countryId: 'india',
-        region: 'asia',
-        description: 'Pristine beaches, coral reefs, and tropical paradise.',
-        image: 'https://images.unsplash.com/photo-1586508577428-120d6b072945?w=800',
-        category: ['beach', 'waterSports', 'honeymoon', 'relaxation'],
-        highlights: ['Havelock Island', 'Radhanagar Beach', 'Scuba Diving', 'Cellular Jail', 'Neil Island'],
-        rating: 4.7,
-        reviews: 6543,
-        priceFrom: 20000,
-        currency: '₹',
-        bestTime: 'November to May',
-        bestMonths: ['november', 'december', 'january', 'february', 'march', 'april', 'may'],
-        duration: '5-7 days',
-        featured: true,
-        collections: ['beach', 'honeymoon', 'waterSports', 'january', 'february']
-    },
-    {
-        id: 10,
-        name: 'Darjeeling',
-        country: 'India',
-        countryId: 'india',
-        region: 'asia',
-        description: 'Queen of Hills with tea gardens and Himalayan views.',
-        image: 'https://images.unsplash.com/photo-1622308644420-b20142dc993c?w=800',
-        category: ['mountains', 'relaxation', 'cultural', 'food'],
-        highlights: ['Tiger Hill Sunrise', 'Tea Gardens', 'Toy Train', 'Kanchenjunga Views', 'Monasteries'],
-        rating: 4.6,
-        reviews: 7890,
-        priceFrom: 8000,
-        currency: '₹',
-        bestTime: 'March to May, October to December',
-        bestMonths: ['march', 'april', 'may', 'october', 'november', 'december'],
-        duration: '4-5 days',
-        featured: false,
-        collections: ['mountains', 'relaxation', 'october', 'november']
-    },
-    
     // THAILAND
     {
-        id: 11,
+        id: 9,
         name: 'Bangkok',
         country: 'Thailand',
         countryId: 'thailand',
         region: 'asia',
-        description: 'Vibrant capital with ornate temples, street food, and nightlife.',
-        image: 'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800',
-        category: ['cultural', 'food', 'nightlife', 'shopping'],
-        highlights: ['Grand Palace', 'Wat Arun', 'Floating Markets', 'Street Food', 'Khao San Road'],
-        rating: 4.5,
-        reviews: 23456,
-        priceFrom: 25000,
-        currency: '₹',
-        bestTime: 'November to February',
-        bestMonths: ['november', 'december', 'january', 'february'],
-        duration: '4-5 days',
+        category: ['cultural', 'food', 'shopping', 'nightlife'],
         featured: true,
-        collections: ['international', 'food', 'shopping', 'december']
+        image: 'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800',
+        rating: 4.6,
+        duration: '3-4 days',
+        bestTime: 'Nov-Feb',
+        bestMonths: ['november', 'december', 'january', 'february'],
+        visaPolicy: 'visaFree',
+        description: 'Thailand\'s vibrant capital is a sensory overload of ornate temples, bustling markets, delicious street food, and modern luxury. Bangkok offers incredible contrasts - ancient Buddhas beside futuristic malls, peaceful temples near wild nightlife. The city\'s energy and warmth of its people make it unforgettable.',
+        highlights: ['Grand Palace', 'Wat Pho', 'Chatuchak Market', 'Khao San Road', 'Chao Phraya River'],
+        thingsToDo: ['Temple hopping', 'Street food tour', 'Thai massage', 'Floating market visit', 'Rooftop bar sunset']
     },
     {
-        id: 12,
+        id: 10,
         name: 'Phuket',
         country: 'Thailand',
         countryId: 'thailand',
         region: 'asia',
-        description: 'Thailand\'s largest island with stunning beaches and vibrant nightlife.',
-        image: 'https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=800',
-        category: ['beach', 'nightlife', 'waterSports', 'relaxation'],
-        highlights: ['Patong Beach', 'Phi Phi Islands', 'Big Buddha', 'Water Sports', 'Thai Massage'],
-        rating: 4.4,
-        reviews: 19876,
-        priceFrom: 30000,
-        currency: '₹',
-        bestTime: 'November to April',
-        bestMonths: ['november', 'december', 'january', 'february', 'march', 'april'],
-        duration: '5-6 days',
+        category: ['beach', 'relaxation', 'nightlife', 'adventure'],
         featured: true,
-        collections: ['beach', 'international', 'nightlife', 'january']
+        image: 'https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=800',
+        rating: 4.5,
+        duration: '4-5 days',
+        bestTime: 'Nov-Apr',
+        bestMonths: ['november', 'december', 'january', 'february', 'march', 'april'],
+        visaPolicy: 'visaFree',
+        description: 'Thailand\'s largest island offers stunning beaches, crystal-clear waters, and vibrant nightlife. From the bustling Patong Beach to tranquil hidden coves, Phuket caters to every type of traveler. Island hopping, Thai cuisine, and legendary hospitality complete the tropical paradise experience.',
+        highlights: ['Phi Phi Islands', 'Patong Beach', 'Big Buddha', 'Old Town', 'Phang Nga Bay'],
+        thingsToDo: ['Island hopping tour', 'Scuba diving', 'Thai cooking class', 'James Bond Island visit', 'Beach bar hopping']
     },
+    // SPAIN
+    {
+        id: 11,
+        name: 'Barcelona',
+        country: 'Spain',
+        countryId: 'spain',
+        region: 'europe',
+        category: ['cultural', 'beach', 'food', 'nightlife'],
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=800',
+        rating: 4.7,
+        duration: '4-5 days',
+        bestTime: 'Apr-Jun, Sep-Oct',
+        bestMonths: ['april', 'may', 'june', 'september', 'october'],
+        visaPolicy: 'schengen',
+        description: 'Gaudí\'s fantastical architecture, Mediterranean beaches, world-class dining, and vibrant nightlife make Barcelona irresistible. The city balances Catalan traditions with cosmopolitan energy. Stroll down La Rambla, marvel at Sagrada Familia, and experience tapas culture that extends well past midnight.',
+        highlights: ['Sagrada Familia', 'Park Güell', 'La Rambla', 'Gothic Quarter', 'La Boqueria Market'],
+        thingsToDo: ['Gaudí architecture tour', 'Beach afternoon', 'Tapas crawl', 'Flamenco show', 'Camp Nou stadium visit']
+    },
+    // AUSTRALIA
+    {
+        id: 12,
+        name: 'Sydney',
+        country: 'Australia',
+        countryId: 'australia',
+        region: 'oceania',
+        category: ['beach', 'cultural', 'adventure'],
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=800',
+        rating: 4.7,
+        duration: '4-5 days',
+        bestTime: 'Sep-Nov, Mar-May',
+        bestMonths: ['september', 'october', 'november', 'march', 'april', 'may'],
+        visaPolicy: 'etaRequired',
+        description: 'Australia\'s harbor city combines iconic landmarks with stunning beaches and a laid-back lifestyle. The Sydney Opera House and Harbour Bridge create one of the world\'s most recognizable skylines. Bondi Beach culture, world-class dining, and nearby natural wonders make Sydney a complete destination.',
+        highlights: ['Sydney Opera House', 'Harbour Bridge', 'Bondi Beach', 'Darling Harbour', 'Blue Mountains'],
+        thingsToDo: ['Opera House tour', 'Bridge climb', 'Bondi to Coogee walk', 'Ferry to Manly', 'Blue Mountains day trip']
+    },
+    // UAE
     {
         id: 13,
-        name: 'Chiang Mai',
-        country: 'Thailand',
-        countryId: 'thailand',
-        region: 'asia',
-        description: 'Cultural capital with ancient temples and mountain scenery.',
-        image: 'https://images.unsplash.com/photo-1556480831-bfc tried-image-url?w=800',
-        category: ['cultural', 'mountains', 'food', 'relaxation'],
-        highlights: ['Doi Suthep', 'Old City Temples', 'Night Bazaar', 'Elephant Sanctuaries', 'Thai Cooking'],
-        rating: 4.6,
-        reviews: 12345,
-        priceFrom: 22000,
-        currency: '₹',
-        bestTime: 'November to February',
-        bestMonths: ['november', 'december', 'january', 'february'],
+        name: 'Dubai',
+        country: 'United Arab Emirates',
+        countryId: 'uae',
+        region: 'middleEast',
+        category: ['shopping', 'adventure', 'beach', 'romantic'],
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800',
+        rating: 4.7,
         duration: '4-5 days',
-        featured: false,
-        collections: ['cultural', 'food', 'relaxation', 'november']
+        bestTime: 'Nov-Mar',
+        bestMonths: ['november', 'december', 'january', 'february', 'march'],
+        visaPolicy: 'visaOnArrival',
+        description: 'A city of superlatives where futuristic architecture rises from the desert. Dubai offers the world\'s tallest building, largest mall, and most luxurious experiences. Yet traditional souks and Arabian hospitality remain. From desert safaris to indoor skiing, Dubai makes the impossible possible.',
+        highlights: ['Burj Khalifa', 'Palm Jumeirah', 'Dubai Mall', 'Burj Al Arab', 'Gold Souk'],
+        thingsToDo: ['At the Top observation deck', 'Desert safari', 'Dubai Fountain show', 'Dhow cruise dinner', 'Ski Dubai experience']
     },
+    // UK
     {
         id: 14,
-        name: 'Krabi',
-        country: 'Thailand',
-        countryId: 'thailand',
-        region: 'asia',
-        description: 'Stunning limestone cliffs and pristine beaches.',
-        image: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800',
-        category: ['beach', 'adventure', 'waterSports', 'relaxation'],
-        highlights: ['Railay Beach', 'Four Islands', 'Rock Climbing', 'Kayaking', 'Emerald Pool'],
-        rating: 4.5,
-        reviews: 8765,
-        priceFrom: 28000,
-        currency: '₹',
-        bestTime: 'November to April',
-        bestMonths: ['november', 'december', 'january', 'february', 'march', 'april'],
-        duration: '4-5 days',
-        featured: false,
-        collections: ['beach', 'adventure', 'february']
+        name: 'London',
+        country: 'United Kingdom',
+        countryId: 'uk',
+        region: 'europe',
+        category: ['heritage', 'cultural', 'shopping', 'nightlife'],
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800',
+        rating: 4.8,
+        duration: '5-6 days',
+        bestTime: 'May-Sep',
+        bestMonths: ['may', 'june', 'july', 'august', 'september'],
+        visaPolicy: 'etaRequired',
+        description: 'A global capital where centuries of history meet cutting-edge culture. Royal palaces, world-class museums, West End theaters, and diverse neighborhoods make London endlessly fascinating. From afternoon tea to pub culture, London offers experiences both quintessentially British and wonderfully international.',
+        highlights: ['Big Ben & Parliament', 'Tower of London', 'British Museum', 'Buckingham Palace', 'Tower Bridge'],
+        thingsToDo: ['Changing of the Guard', 'Harry Potter studio tour', 'West End show', 'Borough Market food tour', 'Thames river cruise']
     },
-    
-    // BALI, INDONESIA
+    // SINGAPORE
     {
         id: 15,
-        name: 'Bali',
-        country: 'Indonesia',
-        countryId: 'indonesia',
+        name: 'Singapore',
+        country: 'Singapore',
+        countryId: 'singapore',
         region: 'asia',
-        description: 'Island of Gods with spiritual temples, rice terraces, and beaches.',
-        image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800',
-        category: ['beach', 'cultural', 'honeymoon', 'relaxation', 'adventure'],
-        highlights: ['Ubud', 'Tegallalang Rice Terraces', 'Tanah Lot', 'Beach Clubs', 'Uluwatu Temple'],
-        rating: 4.8,
-        reviews: 34567,
-        priceFrom: 35000,
-        currency: '₹',
-        bestTime: 'April to October',
-        bestMonths: ['april', 'may', 'june', 'july', 'august', 'september', 'october'],
-        duration: '6-8 days',
+        category: ['shopping', 'food', 'cultural', 'nightlife'],
         featured: true,
-        collections: ['honeymoon', 'international', 'beach', 'trending', 'may', 'june']
+        image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800',
+        rating: 4.7,
+        duration: '3-4 days',
+        bestTime: 'Feb-Apr',
+        bestMonths: ['february', 'march', 'april'],
+        visaPolicy: 'visaFree',
+        description: 'A futuristic city-state where diverse cultures blend seamlessly. Singapore dazzles with stunning architecture, incredible food from hawker centers to fine dining, and attractions for all ages. Efficient, clean, and safe, it\'s the perfect introduction to Asia or a stopover destination.',
+        highlights: ['Marina Bay Sands', 'Gardens by the Bay', 'Sentosa Island', 'Chinatown', 'Little India'],
+        thingsToDo: ['Supertree Grove light show', 'Hawker center food tour', 'Singapore Zoo', 'Universal Studios', 'Night Safari']
     },
-    
     // MALDIVES
     {
         id: 16,
@@ -950,573 +648,301 @@ const destinationsData = [
         country: 'Maldives',
         countryId: 'maldives',
         region: 'asia',
-        description: 'Ultimate tropical paradise with overwater villas and crystal waters.',
-        image: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800',
-        category: ['beach', 'honeymoon', 'luxury', 'waterSports', 'relaxation'],
-        highlights: ['Overwater Villas', 'Snorkeling', 'Underwater Restaurant', 'Sunset Dolphin Cruise', 'Spa'],
-        rating: 4.9,
-        reviews: 28765,
-        priceFrom: 80000,
-        currency: '₹',
-        bestTime: 'November to April',
-        bestMonths: ['november', 'december', 'january', 'february', 'march', 'april'],
-        duration: '5-7 days',
+        category: ['beach', 'honeymoon', 'romantic', 'relaxation'],
         featured: true,
-        collections: ['honeymoon', 'luxury', 'beach', 'international', 'december', 'january']
+        image: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800',
+        rating: 4.9,
+        duration: '5-7 days',
+        bestTime: 'Nov-Apr',
+        bestMonths: ['november', 'december', 'january', 'february', 'march', 'april'],
+        visaPolicy: 'visaOnArrival',
+        description: 'Paradise defined - crystal-clear turquoise waters, powder-white beaches, and luxurious overwater villas. The Maldives offers the ultimate escape from the world. Swim with manta rays, enjoy private island dining, and watch bioluminescent beaches glow at night. Pure tropical romance.',
+        highlights: ['Overwater villas', 'Coral reefs', 'Underwater dining', 'Whale shark watching', 'Private island beaches'],
+        thingsToDo: ['Snorkeling with turtles', 'Sunset dolphin cruise', 'Spa treatments', 'Underwater restaurant visit', 'Sandbank picnic']
     },
-    
-    // SINGAPORE
+    // SWITZERLAND
     {
         id: 17,
-        name: 'Singapore',
-        country: 'Singapore',
-        countryId: 'singapore',
-        region: 'asia',
-        description: 'Futuristic city-state with world-class attractions and food.',
-        image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800',
-        category: ['shopping', 'food', 'cultural', 'family'],
-        highlights: ['Marina Bay Sands', 'Gardens by the Bay', 'Sentosa', 'Universal Studios', 'Hawker Centers'],
-        rating: 4.7,
-        reviews: 21456,
-        priceFrom: 45000,
-        currency: '₹',
-        bestTime: 'February to April',
-        bestMonths: ['february', 'march', 'april', 'may', 'june', 'july'],
-        duration: '4-5 days',
-        featured: true,
-        collections: ['shopping', 'family', 'food', 'international', 'march']
-    },
-    
-    // DUBAI, UAE
-    {
-        id: 18,
-        name: 'Dubai',
-        country: 'United Arab Emirates',
-        countryId: 'uae',
-        region: 'middleEast',
-        description: 'Futuristic desert metropolis with luxury experiences.',
-        image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800',
-        category: ['shopping', 'luxury', 'adventure', 'family'],
-        highlights: ['Burj Khalifa', 'Dubai Mall', 'Desert Safari', 'Palm Jumeirah', 'Dubai Marina'],
-        rating: 4.6,
-        reviews: 32456,
-        priceFrom: 50000,
-        currency: '₹',
-        bestTime: 'November to March',
-        bestMonths: ['november', 'december', 'january', 'february', 'march'],
-        duration: '5-6 days',
-        featured: true,
-        collections: ['shopping', 'luxury', 'international', 'december', 'january']
-    },
-    
-    // EUROPE
-    {
-        id: 19,
-        name: 'Paris',
-        country: 'France',
-        countryId: 'france',
-        region: 'europe',
-        description: 'City of Love with iconic landmarks and world-class art.',
-        image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800',
-        category: ['romantic', 'cultural', 'food', 'shopping', 'heritage'],
-        highlights: ['Eiffel Tower', 'Louvre', 'Champs-Élysées', 'Notre Dame', 'French Cuisine'],
-        rating: 4.8,
-        reviews: 45678,
-        priceFrom: 120000,
-        currency: '₹',
-        bestTime: 'April to June, September to November',
-        bestMonths: ['april', 'may', 'june', 'september', 'october', 'november'],
-        duration: '5-7 days',
-        featured: true,
-        collections: ['romantic', 'honeymoon', 'international', 'may', 'september']
-    },
-    {
-        id: 20,
-        name: 'Rome',
-        country: 'Italy',
-        countryId: 'italy',
-        region: 'europe',
-        description: 'Eternal City with ancient ruins and incredible cuisine.',
-        image: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800',
-        category: ['heritage', 'cultural', 'food', 'romantic'],
-        highlights: ['Colosseum', 'Vatican', 'Trevi Fountain', 'Pantheon', 'Italian Food'],
-        rating: 4.7,
-        reviews: 38765,
-        priceFrom: 100000,
-        currency: '₹',
-        bestTime: 'April to June, September to October',
-        bestMonths: ['april', 'may', 'june', 'september', 'october'],
-        duration: '4-5 days',
-        featured: true,
-        collections: ['heritage', 'food', 'international', 'april', 'october']
-    },
-    {
-        id: 21,
-        name: 'Santorini',
-        country: 'Greece',
-        countryId: 'greece',
-        region: 'europe',
-        description: 'Stunning Greek island with iconic white and blue architecture.',
-        image: 'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800',
-        category: ['romantic', 'honeymoon', 'beach', 'relaxation'],
-        highlights: ['Oia Sunset', 'Caldera Views', 'Wine Tasting', 'Black Sand Beaches', 'Greek Food'],
-        rating: 4.9,
-        reviews: 26543,
-        priceFrom: 150000,
-        currency: '₹',
-        bestTime: 'April to October',
-        bestMonths: ['april', 'may', 'june', 'july', 'august', 'september', 'october'],
-        duration: '4-5 days',
-        featured: true,
-        collections: ['honeymoon', 'romantic', 'international', 'june', 'september']
-    },
-    {
-        id: 22,
         name: 'Swiss Alps',
         country: 'Switzerland',
         countryId: 'switzerland',
         region: 'europe',
-        description: 'Breathtaking Alpine scenery with world-class skiing and hiking.',
+        category: ['mountains', 'adventure', 'trekking', 'romantic'],
+        featured: true,
         image: 'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=800',
-        category: ['mountains', 'adventure', 'honeymoon', 'trekking'],
-        highlights: ['Jungfrau', 'Interlaken', 'Zermatt', 'Skiing', 'Scenic Trains'],
         rating: 4.9,
-        reviews: 19876,
-        priceFrom: 200000,
-        currency: '₹',
-        bestTime: 'June to September for hiking, December to March for skiing',
+        duration: '5-7 days',
+        bestTime: 'Jun-Sep, Dec-Mar',
         bestMonths: ['june', 'july', 'august', 'september', 'december', 'january', 'february', 'march'],
-        duration: '6-8 days',
+        visaPolicy: 'schengen',
+        description: 'Majestic peaks, pristine lakes, charming villages, and world-class infrastructure. The Swiss Alps offer year-round beauty - summer hiking trails through meadows of wildflowers, winter skiing on legendary slopes. Add Swiss precision, chocolate, and cheese for the perfect alpine escape.',
+        highlights: ['Matterhorn', 'Jungfrau', 'Lake Lucerne', 'Zermatt', 'Interlaken'],
+        thingsToDo: ['Jungfraujoch railway', 'Glacier Express journey', 'Alpine hiking', 'Paragliding', 'Cheese and chocolate tasting']
+    },
+    // GREECE
+    {
+        id: 18,
+        name: 'Santorini',
+        country: 'Greece',
+        countryId: 'greece',
+        region: 'europe',
+        category: ['romantic', 'honeymoon', 'beach', 'heritage'],
         featured: true,
-        collections: ['mountains', 'adventure', 'honeymoon', 'luxury', 'july', 'december']
-    },
-    {
-        id: 23,
-        name: 'Barcelona',
-        country: 'Spain',
-        countryId: 'spain',
-        region: 'europe',
-        description: 'Vibrant city with unique Gaudí architecture and beach life.',
-        image: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=800',
-        category: ['cultural', 'beach', 'food', 'nightlife', 'shopping'],
-        highlights: ['Sagrada Familia', 'La Rambla', 'Gothic Quarter', 'Barceloneta Beach', 'Tapas'],
-        rating: 4.7,
-        reviews: 28765,
-        priceFrom: 90000,
-        currency: '₹',
-        bestTime: 'May to June, September to October',
-        bestMonths: ['may', 'june', 'september', 'october'],
-        duration: '4-5 days',
-        featured: false,
-        collections: ['cultural', 'beach', 'food', 'may', 'september']
-    },
-    {
-        id: 24,
-        name: 'Amsterdam',
-        country: 'Netherlands',
-        countryId: 'netherlands',
-        region: 'europe',
-        description: 'Canal city with world-class museums and cycling culture.',
-        image: 'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=800',
-        category: ['cultural', 'romantic', 'food', 'nightlife'],
-        highlights: ['Canal Cruises', 'Van Gogh Museum', 'Anne Frank House', 'Tulip Season', 'Cycling'],
-        rating: 4.6,
-        reviews: 21345,
-        priceFrom: 85000,
-        currency: '₹',
-        bestTime: 'April to May, September to November',
-        bestMonths: ['april', 'may', 'september', 'october', 'november'],
+        image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800',
+        rating: 4.8,
         duration: '3-4 days',
-        featured: false,
-        collections: ['cultural', 'romantic', 'april', 'may']
+        bestTime: 'Apr-Jun, Sep-Oct',
+        bestMonths: ['april', 'may', 'june', 'september', 'october'],
+        visaPolicy: 'schengen',
+        description: 'Iconic white-washed buildings with blue domes cascading down volcanic cliffs into the sapphire Aegean Sea. Santorini\'s dramatic beauty, legendary sunsets, and romantic atmosphere make it one of the world\'s most photographed destinations. Wine tasting, ancient ruins, and black sand beaches complete the magic.',
+        highlights: ['Oia sunset', 'Fira', 'Red Beach', 'Akrotiri ruins', 'Caldera views'],
+        thingsToDo: ['Watch Oia sunset', 'Wine tasting tour', 'Catamaran cruise', 'Explore Akrotiri', 'Hot springs visit']
     },
+    // TURKEY
     {
-        id: 25,
-        name: 'London',
-        country: 'United Kingdom',
-        countryId: 'uk',
+        id: 19,
+        name: 'Istanbul',
+        country: 'Turkey',
+        countryId: 'turkey',
         region: 'europe',
-        description: 'Historic capital with royal heritage and modern culture.',
-        image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800',
-        category: ['cultural', 'heritage', 'shopping', 'food'],
-        highlights: ['Big Ben', 'Tower of London', 'British Museum', 'West End', 'Royal Parks'],
+        category: ['heritage', 'cultural', 'food', 'shopping'],
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?w=800',
         rating: 4.7,
-        reviews: 42345,
-        priceFrom: 110000,
-        currency: '₹',
-        bestTime: 'May to September',
-        bestMonths: ['may', 'june', 'july', 'august', 'september'],
-        duration: '5-6 days',
-        featured: true,
-        collections: ['cultural', 'heritage', 'shopping', 'june', 'july']
-    },
-    {
-        id: 26,
-        name: 'Iceland',
-        country: 'Iceland',
-        countryId: 'iceland',
-        region: 'europe',
-        description: 'Land of fire and ice with otherworldly landscapes.',
-        image: 'https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=800',
-        category: ['adventure', 'offbeat', 'relaxation'],
-        highlights: ['Northern Lights', 'Blue Lagoon', 'Golden Circle', 'Glaciers', 'Geysers'],
-        rating: 4.8,
-        reviews: 15678,
-        priceFrom: 180000,
-        currency: '₹',
-        bestTime: 'June to August for hiking, September to March for Northern Lights',
-        bestMonths: ['june', 'july', 'august', 'september', 'february', 'march'],
-        duration: '6-8 days',
-        featured: true,
-        collections: ['adventure', 'offbeat', 'february', 'march', 'july']
-    },
-    
-    // AMERICAS
-    {
-        id: 27,
-        name: 'New York',
-        country: 'United States',
-        countryId: 'usa',
-        region: 'northAmerica',
-        description: 'The city that never sleeps with iconic landmarks and culture.',
-        image: 'https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=800',
-        category: ['cultural', 'shopping', 'food', 'nightlife'],
-        highlights: ['Statue of Liberty', 'Times Square', 'Central Park', 'Broadway', 'Museums'],
-        rating: 4.8,
-        reviews: 56789,
-        priceFrom: 150000,
-        currency: '₹',
-        bestTime: 'April to June, September to November',
+        duration: '4-5 days',
+        bestTime: 'Apr-Jun, Sep-Nov',
         bestMonths: ['april', 'may', 'june', 'september', 'october', 'november'],
-        duration: '5-7 days',
+        visaPolicy: 'eVisa',
+        description: 'Straddling two continents, Istanbul is where East meets West in spectacular fashion. Byzantine churches, Ottoman mosques, bustling bazaars, and modern cafes create a mesmerizing tapestry. The Bosphorus provides stunning views while Turkish hospitality, cuisine, and culture captivate visitors.',
+        highlights: ['Hagia Sophia', 'Blue Mosque', 'Grand Bazaar', 'Topkapi Palace', 'Bosphorus'],
+        thingsToDo: ['Turkish bath experience', 'Bosphorus cruise', 'Bazaar shopping', 'Turkish breakfast feast', 'Whirling dervish show']
+    },
+    {
+        id: 20,
+        name: 'Cappadocia',
+        country: 'Turkey',
+        countryId: 'turkey',
+        region: 'europe',
+        category: ['adventure', 'heritage', 'romantic'],
         featured: true,
-        collections: ['cultural', 'shopping', 'international', 'april', 'october']
-    },
-    {
-        id: 28,
-        name: 'Grand Canyon',
-        country: 'United States',
-        countryId: 'usa',
-        region: 'northAmerica',
-        description: 'Natural wonder with breathtaking vistas and hiking trails.',
-        image: 'https://images.unsplash.com/photo-1474044159687-1ee9f3a51722?w=800',
-        category: ['adventure', 'trekking', 'offbeat'],
-        highlights: ['South Rim', 'Hiking Trails', 'Sunrise Views', 'Rafting', 'Helicopter Tours'],
+        image: 'https://images.unsplash.com/photo-1570939274717-7eda259b50ed?w=800',
         rating: 4.9,
-        reviews: 23456,
-        priceFrom: 180000,
-        currency: '₹',
-        bestTime: 'March to May, September to November',
-        bestMonths: ['march', 'april', 'may', 'september', 'october', 'november'],
-        duration: '3-4 days',
-        featured: false,
-        collections: ['adventure', 'trekking', 'march', 'october']
+        duration: '2-3 days',
+        bestTime: 'Apr-Jun, Sep-Oct',
+        bestMonths: ['april', 'may', 'june', 'september', 'october'],
+        visaPolicy: 'eVisa',
+        description: 'A landscape from another planet - fairy chimneys, ancient cave dwellings, and hundreds of hot air balloons at sunrise. Cappadocia\'s surreal rock formations, underground cities, and cave hotels offer experiences found nowhere else on Earth. Pure magic awaits in this UNESCO World Heritage site.',
+        highlights: ['Hot air balloon ride', 'Göreme Open Air Museum', 'Underground cities', 'Fairy chimneys', 'Cave hotels'],
+        thingsToDo: ['Sunrise balloon flight', 'ATV tour', 'Explore cave churches', 'Pottery workshop', 'Valley hikes']
     },
+    // EGYPT
     {
-        id: 29,
-        name: 'Machu Picchu',
-        country: 'Peru',
-        countryId: 'peru',
-        region: 'southAmerica',
-        description: 'Ancient Incan citadel in the Andes mountains.',
-        image: 'https://images.unsplash.com/photo-1526392060635-9d6019884377?w=800',
-        category: ['heritage', 'adventure', 'trekking', 'cultural'],
-        highlights: ['Inca Trail', 'Sacred Valley', 'Cusco', 'Sun Gate', 'Ancient Ruins'],
-        rating: 4.9,
-        reviews: 19876,
-        priceFrom: 200000,
-        currency: '₹',
-        bestTime: 'May to September',
-        bestMonths: ['may', 'june', 'july', 'august', 'september'],
-        duration: '5-7 days',
+        id: 21,
+        name: 'Cairo & Giza',
+        country: 'Egypt',
+        countryId: 'egypt',
+        region: 'africa',
+        category: ['heritage', 'cultural'],
         featured: true,
-        collections: ['heritage', 'adventure', 'trekking', 'july', 'august']
-    },
-    {
-        id: 30,
-        name: 'Rio de Janeiro',
-        country: 'Brazil',
-        countryId: 'brazil',
-        region: 'southAmerica',
-        description: 'Vibrant city with iconic beaches and Carnival culture.',
-        image: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800',
-        category: ['beach', 'cultural', 'nightlife', 'adventure'],
-        highlights: ['Christ the Redeemer', 'Copacabana', 'Sugarloaf Mountain', 'Carnival', 'Ipanema'],
+        image: 'https://images.unsplash.com/photo-1539768942893-daf53e448371?w=800',
         rating: 4.6,
-        reviews: 24567,
-        priceFrom: 180000,
-        currency: '₹',
-        bestTime: 'December to March',
-        bestMonths: ['december', 'january', 'february', 'march'],
-        duration: '5-7 days',
-        featured: false,
-        collections: ['beach', 'cultural', 'nightlife', 'february', 'march']
+        duration: '3-4 days',
+        bestTime: 'Oct-Apr',
+        bestMonths: ['october', 'november', 'december', 'january', 'february', 'march', 'april'],
+        visaPolicy: 'visaOnArrival',
+        description: 'Stand before the last surviving Wonder of the Ancient World - the Great Pyramid of Giza. Egypt\'s capital offers 5,000 years of history, from pharaonic treasures in the Egyptian Museum to the vibrant chaos of Khan el-Khalili bazaar. A journey through time unlike any other.',
+        highlights: ['Pyramids of Giza', 'Sphinx', 'Egyptian Museum', 'Khan el-Khalili', 'Nile River'],
+        thingsToDo: ['Pyramid tour with guide', 'Egyptian Museum visit', 'Felucca Nile cruise', 'Sound and light show', 'Bazaar shopping']
     },
-    
-    // AFRICA
+    // NEW ZEALAND
     {
-        id: 31,
-        name: 'Cape Town',
-        country: 'South Africa',
-        countryId: 'southafrica',
-        region: 'africa',
-        description: 'Stunning coastal city with mountains and vineyards.',
-        image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=800',
-        category: ['beach', 'adventure', 'wildlife', 'food'],
-        highlights: ['Table Mountain', 'Cape Point', 'Wine Regions', 'Robben Island', 'V&A Waterfront'],
-        rating: 4.7,
-        reviews: 18765,
-        priceFrom: 120000,
-        currency: '₹',
-        bestTime: 'November to March',
-        bestMonths: ['november', 'december', 'january', 'february', 'march'],
-        duration: '5-7 days',
-        featured: true,
-        collections: ['adventure', 'wildlife', 'international', 'november', 'december']
-    },
-    {
-        id: 32,
-        name: 'Masai Mara',
-        country: 'Kenya',
-        countryId: 'kenya',
-        region: 'africa',
-        description: 'World-famous safari destination with the Great Migration.',
-        image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800',
-        category: ['wildlife', 'adventure', 'offbeat'],
-        highlights: ['Great Migration', 'Big Five', 'Hot Air Balloon Safari', 'Masai Culture', 'Game Drives'],
-        rating: 4.9,
-        reviews: 12345,
-        priceFrom: 150000,
-        currency: '₹',
-        bestTime: 'July to October',
-        bestMonths: ['july', 'august', 'september', 'october'],
-        duration: '4-6 days',
-        featured: true,
-        collections: ['wildlife', 'adventure', 'july', 'august', 'september']
-    },
-    {
-        id: 33,
-        name: 'Marrakech',
-        country: 'Morocco',
-        countryId: 'morocco',
-        region: 'africa',
-        description: 'Exotic city with colorful souks and historic palaces.',
-        image: 'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=800',
-        category: ['cultural', 'shopping', 'food', 'heritage'],
-        highlights: ['Medina', 'Jemaa el-Fnaa', 'Majorelle Garden', 'Riads', 'Sahara Tours'],
-        rating: 4.5,
-        reviews: 16789,
-        priceFrom: 80000,
-        currency: '₹',
-        bestTime: 'March to May, September to November',
-        bestMonths: ['march', 'april', 'may', 'september', 'october', 'november'],
-        duration: '4-5 days',
-        featured: false,
-        collections: ['cultural', 'shopping', 'march', 'october']
-    },
-    
-    // OCEANIA
-    {
-        id: 34,
-        name: 'Sydney',
-        country: 'Australia',
-        countryId: 'australia',
-        region: 'oceania',
-        description: 'Harbor city with iconic Opera House and stunning beaches.',
-        image: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=800',
-        category: ['beach', 'cultural', 'food', 'nightlife'],
-        highlights: ['Opera House', 'Harbour Bridge', 'Bondi Beach', 'Wildlife', 'Blue Mountains'],
-        rating: 4.7,
-        reviews: 28765,
-        priceFrom: 180000,
-        currency: '₹',
-        bestTime: 'September to November, March to May',
-        bestMonths: ['march', 'april', 'may', 'september', 'october', 'november'],
-        duration: '5-7 days',
-        featured: true,
-        collections: ['beach', 'cultural', 'international', 'march', 'october']
-    },
-    {
-        id: 35,
-        name: 'Great Barrier Reef',
-        country: 'Australia',
-        countryId: 'australia',
-        region: 'oceania',
-        description: 'World\'s largest coral reef system with incredible marine life.',
-        image: 'https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=800',
-        category: ['waterSports', 'adventure', 'wildlife'],
-        highlights: ['Snorkeling', 'Scuba Diving', 'Coral Gardens', 'Marine Life', 'Island Hopping'],
-        rating: 4.9,
-        reviews: 21345,
-        priceFrom: 200000,
-        currency: '₹',
-        bestTime: 'June to October',
-        bestMonths: ['june', 'july', 'august', 'september', 'october'],
-        duration: '4-6 days',
-        featured: true,
-        collections: ['waterSports', 'adventure', 'wildlife', 'july', 'august']
-    },
-    {
-        id: 36,
+        id: 22,
         name: 'Queenstown',
         country: 'New Zealand',
         countryId: 'newzealand',
         region: 'oceania',
-        description: 'Adventure capital of the world with stunning scenery.',
-        image: 'https://images.unsplash.com/photo-1469521669194-babb45599def?w=800',
-        category: ['adventure', 'mountains', 'trekking'],
-        highlights: ['Bungee Jumping', 'Milford Sound', 'Skiing', 'Skydiving', 'Lord of the Rings Tours'],
-        rating: 4.8,
-        reviews: 15678,
-        priceFrom: 180000,
-        currency: '₹',
-        bestTime: 'December to February for summer, June to August for skiing',
-        bestMonths: ['december', 'january', 'february', 'june', 'july', 'august'],
-        duration: '5-7 days',
+        category: ['adventure', 'trekking', 'mountains'],
         featured: true,
-        collections: ['adventure', 'mountains', 'december', 'january', 'july']
-    }
-];
-
-// ============================================
-// ACTIVITIES DATA (Things to do)
-// ============================================
-const activitiesData = [
-    // Activity templates for common activities
-    {
-        id: 'scuba',
-        name: 'Scuba Diving',
-        icon: '🤿',
-        duration: '2-4 hours',
-        category: 'waterSports',
-        priceRange: '₹3,000 - ₹8,000',
-        description: 'Explore underwater worlds with certified instructors'
+        image: 'https://images.unsplash.com/photo-1469521669194-babb45599def?w=800',
+        rating: 4.8,
+        duration: '4-5 days',
+        bestTime: 'Dec-Mar',
+        bestMonths: ['december', 'january', 'february', 'march'],
+        visaPolicy: 'etaRequired',
+        description: 'The adventure capital of the world, nestled on the shores of crystal-clear Lake Wakatipu surrounded by dramatic mountains. Bungee jumping was invented here, and the adrenaline hasn\'t stopped since. From skiing to jet boating, Middle-earth scenery to world-class wine, Queenstown delivers unforgettable thrills.',
+        highlights: ['Lake Wakatipu', 'Milford Sound', 'Remarkables', 'Bungee jumping', 'Glenorchy'],
+        thingsToDo: ['Milford Sound cruise', 'Bungee or skydive', 'Jet boat ride', 'Wine tasting', 'Lord of the Rings tour']
     },
+    // VIETNAM
     {
-        id: 'snorkeling',
-        name: 'Snorkeling',
-        icon: '🏊',
-        duration: '1-2 hours',
-        category: 'waterSports',
-        priceRange: '₹500 - ₹2,000',
-        description: 'Discover colorful marine life in crystal-clear waters'
+        id: 23,
+        name: 'Halong Bay',
+        country: 'Vietnam',
+        countryId: 'vietnam',
+        region: 'asia',
+        category: ['beach', 'adventure', 'romantic'],
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1528127269322-539801943592?w=800',
+        rating: 4.7,
+        duration: '2-3 days',
+        bestTime: 'Mar-Jun, Sep-Nov',
+        bestMonths: ['march', 'april', 'may', 'june', 'september', 'october', 'november'],
+        visaPolicy: 'eVisa',
+        description: 'Nearly 2,000 limestone islands rise dramatically from emerald waters in this UNESCO World Heritage site. Cruise past towering karsts, explore hidden caves, and kayak through floating villages. Halong Bay\'s mystical beauty, especially at sunrise and sunset, creates an otherworldly experience.',
+        highlights: ['Cruising experience', 'Sung Sot Cave', 'Ti Top Island', 'Floating villages', 'Cat Ba Island'],
+        thingsToDo: ['Overnight cruise', 'Kayaking', 'Cave exploration', 'Sunrise tai chi', 'Local seafood dinner']
     },
+    // MEXICO
     {
-        id: 'parasailing',
-        name: 'Parasailing',
-        icon: '🪂',
-        duration: '15-30 minutes',
-        category: 'waterSports',
-        priceRange: '₹1,000 - ₹3,000',
-        description: 'Soar above the waters for breathtaking views'
+        id: 24,
+        name: 'Cancún & Riviera Maya',
+        country: 'Mexico',
+        countryId: 'mexico',
+        region: 'northAmerica',
+        category: ['beach', 'adventure', 'heritage'],
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1552074284-5e88ef1aef18?w=800',
+        rating: 4.6,
+        duration: '5-7 days',
+        bestTime: 'Dec-Apr',
+        bestMonths: ['december', 'january', 'february', 'march', 'april'],
+        visaPolicy: 'visaFree',
+        description: 'Caribbean paradise meets ancient Maya civilization. Stunning turquoise waters, white sand beaches, and nearby archaeological wonders like Chichen Itza and Tulum. Add cenotes (natural swimming holes), vibrant nightlife, and authentic Mexican cuisine for the ultimate beach vacation with culture.',
+        highlights: ['Chichen Itza', 'Tulum ruins', 'Cenotes', 'Isla Mujeres', 'Xcaret'],
+        thingsToDo: ['Visit Chichen Itza', 'Swim in cenotes', 'Snorkel with turtles', 'Day trip to Tulum', 'Mexican cooking class']
     },
+    // MOROCCO
     {
-        id: 'jetski',
-        name: 'Jet Skiing',
-        icon: '🚤',
-        duration: '15-30 minutes',
-        category: 'waterSports',
-        priceRange: '₹1,000 - ₹2,500',
-        description: 'Race across the waves on high-powered jet skis'
+        id: 25,
+        name: 'Marrakech',
+        country: 'Morocco',
+        countryId: 'morocco',
+        region: 'africa',
+        category: ['cultural', 'heritage', 'food', 'shopping'],
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=800',
+        rating: 4.6,
+        duration: '3-4 days',
+        bestTime: 'Mar-May, Sep-Nov',
+        bestMonths: ['march', 'april', 'may', 'september', 'october', 'november'],
+        visaPolicy: 'visaFree',
+        description: 'A feast for the senses - labyrinthine souks, stunning riads, aromatic spices, and the bustling Jemaa el-Fnaa square. The Red City offers exotic adventure just hours from Europe. Ornate palaces, traditional hammams, and Moroccan hospitality transport you to another world.',
+        highlights: ['Jemaa el-Fnaa', 'Majorelle Garden', 'Bahia Palace', 'Souks', 'Saadian Tombs'],
+        thingsToDo: ['Get lost in the souks', 'Hammam spa experience', 'Cooking class', 'Sahara desert trip', 'Rooftop sunset drinks']
     },
+    // PORTUGAL
     {
-        id: 'rafting',
-        name: 'White Water Rafting',
-        icon: '🚣',
-        duration: '2-4 hours',
-        category: 'adventure',
-        priceRange: '₹1,500 - ₹4,000',
-        description: 'Navigate thrilling rapids with expert guides'
+        id: 26,
+        name: 'Lisbon',
+        country: 'Portugal',
+        countryId: 'portugal',
+        region: 'europe',
+        category: ['heritage', 'cultural', 'food', 'nightlife'],
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800',
+        rating: 4.7,
+        duration: '3-4 days',
+        bestTime: 'Mar-May, Sep-Oct',
+        bestMonths: ['march', 'april', 'may', 'september', 'october'],
+        visaPolicy: 'schengen',
+        description: 'Europe\'s sunniest capital, built on seven hills with vintage trams, stunning tiles, and captivating fado music. Lisbon offers incredible value with world-class cuisine, historic neighborhoods, and a thriving creative scene. Nearby beaches and the fairytale village of Sintra add more magic.',
+        highlights: ['Belém Tower', 'Alfama', 'Sintra', 'Time Out Market', 'Tram 28'],
+        thingsToDo: ['Ride Tram 28', 'Visit Sintra palaces', 'Taste pastéis de nata', 'Fado night', 'Sunset drinks in Alfama']
     },
+    // BRAZIL
     {
-        id: 'bungee',
-        name: 'Bungee Jumping',
-        icon: '🎢',
-        duration: '30 minutes',
-        category: 'adventure',
-        priceRange: '₹3,000 - ₹5,000',
-        description: 'Take the ultimate leap of faith'
+        id: 27,
+        name: 'Rio de Janeiro',
+        country: 'Brazil',
+        countryId: 'brazil',
+        region: 'southAmerica',
+        category: ['beach', 'cultural', 'nightlife', 'adventure'],
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800',
+        rating: 4.6,
+        duration: '4-5 days',
+        bestTime: 'May-Oct',
+        bestMonths: ['may', 'june', 'july', 'august', 'september', 'october'],
+        visaPolicy: 'visaFree',
+        description: 'The Marvelous City lives up to its name - Christ the Redeemer watching over golden beaches, dramatic mountains, and vibrant neighborhoods. Rio\'s samba rhythms, beach culture, and zest for life are infectious. From Copacabana to Carnival, the energy is absolutely electric.',
+        highlights: ['Christ the Redeemer', 'Sugarloaf Mountain', 'Copacabana Beach', 'Ipanema', 'Santa Teresa'],
+        thingsToDo: ['Corcovado to Christ', 'Cable car to Sugarloaf', 'Samba class', 'Beach volleyball', 'Favela tour']
     },
+    // INDONESIA
     {
-        id: 'skydiving',
-        name: 'Skydiving',
-        icon: '🪂',
-        duration: '3-4 hours',
-        category: 'adventure',
-        priceRange: '₹25,000 - ₹40,000',
-        description: 'Experience free-fall from thousands of feet'
+        id: 28,
+        name: 'Bali',
+        country: 'Indonesia',
+        countryId: 'indonesia',
+        region: 'asia',
+        category: ['beach', 'honeymoon', 'relaxation', 'cultural', 'adventure'],
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800',
+        rating: 4.8,
+        duration: '5-7 days',
+        bestTime: 'Apr-Oct',
+        bestMonths: ['april', 'may', 'june', 'july', 'august', 'september', 'october'],
+        visaPolicy: 'visaOnArrival',
+        description: 'The Island of the Gods enchants with emerald rice terraces, sacred temples, pristine beaches, and spiritual energy. Bali offers something for everyone - yoga retreats, world-class surfing, vibrant nightlife, traditional ceremonies, and some of the most beautiful sunsets on Earth.',
+        highlights: ['Ubud', 'Tanah Lot Temple', 'Tegallalang Rice Terraces', 'Seminyak beaches', 'Uluwatu'],
+        thingsToDo: ['Sunrise at Mt. Batur', 'Ubud Monkey Forest', 'Rice terrace walk', 'Balinese spa', 'Temple ceremonies']
     },
+    // SOUTH KOREA
     {
-        id: 'trekking',
-        name: 'Mountain Trekking',
-        icon: '🥾',
-        duration: 'Half day to multi-day',
-        category: 'trekking',
-        priceRange: '₹500 - ₹20,000',
-        description: 'Hike through scenic mountain trails'
+        id: 29,
+        name: 'Seoul',
+        country: 'South Korea',
+        countryId: 'southkorea',
+        region: 'asia',
+        category: ['cultural', 'food', 'shopping', 'nightlife'],
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1517154421773-0529f29ea451?w=800',
+        rating: 4.7,
+        duration: '4-5 days',
+        bestTime: 'Mar-May, Sep-Nov',
+        bestMonths: ['march', 'april', 'may', 'september', 'october', 'november'],
+        visaPolicy: 'visaFree',
+        description: 'Where ancient palaces meet K-pop culture, Seoul pulses with energy. Historic Hanok villages sit beside futuristic skyscrapers. The food scene - from street food to michelin-star - is extraordinary. Add in incredible shopping, K-beauty, and the famous Korean hospitality for an unforgettable city experience.',
+        highlights: ['Gyeongbokgung Palace', 'Bukchon Hanok Village', 'Myeongdong', 'N Seoul Tower', 'Hongdae'],
+        thingsToDo: ['Hanbok photoshoot at palace', 'Korean BBQ dinner', 'K-beauty shopping', 'DMZ tour', 'Nightlife in Gangnam']
     },
+    // INDIA
     {
-        id: 'spa',
-        name: 'Spa & Wellness',
-        icon: '🧖',
-        duration: '1-3 hours',
-        category: 'relaxation',
-        priceRange: '₹2,000 - ₹15,000',
-        description: 'Rejuvenate with traditional therapies'
+        id: 30,
+        name: 'Jaipur',
+        country: 'India',
+        countryId: 'india',
+        region: 'asia',
+        category: ['heritage', 'cultural', 'shopping'],
+        featured: false,
+        image: 'https://images.unsplash.com/photo-1477587458883-47145ed94245?w=800',
+        rating: 4.6,
+        duration: '3-4 days',
+        bestTime: 'Oct-Mar',
+        bestMonths: ['october', 'november', 'december', 'january', 'february', 'march'],
+        visaPolicy: 'eVisa',
+        description: 'The Pink City dazzles with majestic forts, opulent palaces, and a kaleidoscope of colors. Jaipur is the gateway to royal Rajasthan, where elephant rides to hilltop forts, intricate craftsmanship, and warm hospitality create experiences fit for royalty.',
+        highlights: ['Amber Fort', 'Hawa Mahal', 'City Palace', 'Jantar Mantar', 'Nahargarh Fort'],
+        thingsToDo: ['Elephant ride to Amber Fort', 'Sunset at Nahargarh', 'Bazaar shopping', 'Block printing workshop', 'Traditional Rajasthani dinner']
     },
+    // CANADA
     {
-        id: 'safari',
-        name: 'Wildlife Safari',
-        icon: '🦁',
-        duration: '3-6 hours',
-        category: 'wildlife',
-        priceRange: '₹3,000 - ₹15,000',
-        description: 'Spot exotic wildlife in their natural habitat'
-    },
-    {
-        id: 'foodtour',
-        name: 'Food Tour',
-        icon: '🍜',
-        duration: '3-4 hours',
-        category: 'food',
-        priceRange: '₹1,500 - ₹5,000',
-        description: 'Taste local delicacies with expert guides'
-    },
-    {
-        id: 'cooking',
-        name: 'Cooking Class',
-        icon: '👨‍🍳',
-        duration: '3-4 hours',
-        category: 'food',
-        priceRange: '₹2,000 - ₹6,000',
-        description: 'Learn to cook authentic local dishes'
-    },
-    {
-        id: 'heritage',
-        name: 'Heritage Walk',
-        icon: '🏛️',
-        duration: '2-4 hours',
-        category: 'cultural',
-        priceRange: '₹500 - ₹2,000',
-        description: 'Explore historical sites with local experts'
-    },
-    {
-        id: 'sunset',
-        name: 'Sunset Cruise',
-        icon: '🌅',
-        duration: '2-3 hours',
-        category: 'romantic',
-        priceRange: '₹2,000 - ₹8,000',
-        description: 'Watch magical sunsets from the water'
-    },
-    {
-        id: 'hotairballoon',
-        name: 'Hot Air Balloon',
-        icon: '🎈',
-        duration: '1-2 hours',
-        category: 'adventure',
-        priceRange: '₹8,000 - ₹20,000',
-        description: 'Float above stunning landscapes at sunrise'
+        id: 31,
+        name: 'Banff & Canadian Rockies',
+        country: 'Canada',
+        countryId: 'canada',
+        region: 'northAmerica',
+        category: ['mountains', 'adventure', 'trekking'],
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1517935706615-2717063c2225?w=800',
+        rating: 4.9,
+        duration: '5-7 days',
+        bestTime: 'Jun-Sep',
+        bestMonths: ['june', 'july', 'august', 'september'],
+        visaPolicy: 'etaRequired',
+        description: 'Turquoise lakes reflecting snow-capped peaks, abundant wildlife, and endless wilderness. The Canadian Rockies offer nature at its most spectacular. From Lake Louise\'s impossibly blue waters to Jasper\'s dark sky preserve, this is where adventure and serenity meet.',
+        highlights: ['Lake Louise', 'Moraine Lake', 'Banff National Park', 'Icefields Parkway', 'Jasper'],
+        thingsToDo: ['Kayak Lake Louise', 'Drive Icefields Parkway', 'Wildlife spotting', 'Hot springs soak', 'Hiking trails']
     }
 ];
 
@@ -1524,138 +950,46 @@ const activitiesData = [
 // HELPER FUNCTIONS
 // ============================================
 
-/**
- * Get destinations by category
- */
-function getDestinationsByCategory(categoryId) {
-    if (categoryId === 'all') return destinationsData;
-    return destinationsData.filter(dest => dest.category.includes(categoryId));
+function getDestinationsByCategory(category) {
+    if (category === 'all') return destinationsData;
+    return destinationsData.filter(d => d.category.includes(category));
 }
 
-/**
- * Get destinations by country
- */
+function getDestinationsByRegion(region) {
+    return destinationsData.filter(d => d.region === region);
+}
+
 function getDestinationsByCountry(countryId) {
-    return destinationsData.filter(dest => dest.countryId === countryId);
+    return destinationsData.filter(d => d.countryId === countryId);
 }
 
-/**
- * Get destinations by region
- */
-function getDestinationsByRegion(regionId) {
-    return destinationsData.filter(dest => dest.region === regionId);
-}
-
-/**
- * Get destinations by collection (month or special)
- */
-function getDestinationsByCollection(collectionId) {
-    return destinationsData.filter(dest => dest.collections && dest.collections.includes(collectionId));
-}
-
-/**
- * Get destinations by best month to visit
- */
 function getDestinationsByMonth(month) {
-    return destinationsData.filter(dest => dest.bestMonths && dest.bestMonths.includes(month));
+    return destinationsData.filter(d => d.bestMonths && d.bestMonths.includes(month));
 }
 
-/**
- * Get featured destinations
- */
 function getFeaturedDestinations() {
-    return destinationsData.filter(dest => dest.featured);
+    return destinationsData.filter(d => d.featured);
 }
 
-/**
- * Search destinations
- */
+function getDestinationById(id) {
+    return destinationsData.find(d => d.id === id);
+}
+
+function getCountryById(id) {
+    return countriesData.find(c => c.id === id);
+}
+
+function getVisaPolicyText(policy) {
+    return visaPolicies[policy] || 'Check visa requirements';
+}
+
+// Search function
 function searchDestinations(query) {
-    const searchTerm = query.toLowerCase();
-    return destinationsData.filter(dest => 
-        dest.name.toLowerCase().includes(searchTerm) ||
-        dest.country.toLowerCase().includes(searchTerm) ||
-        dest.description.toLowerCase().includes(searchTerm) ||
-        dest.highlights.some(h => h.toLowerCase().includes(searchTerm))
+    const q = query.toLowerCase();
+    return destinationsData.filter(d => 
+        d.name.toLowerCase().includes(q) ||
+        d.country.toLowerCase().includes(q) ||
+        d.description.toLowerCase().includes(q) ||
+        d.highlights.some(h => h.toLowerCase().includes(q))
     );
-}
-
-/**
- * Get country by ID
- */
-function getCountryById(countryId) {
-    return countriesData.find(country => country.id === countryId);
-}
-
-/**
- * Get destinations sorted by rating
- */
-function getTopRatedDestinations(limit = 10) {
-    return [...destinationsData]
-        .sort((a, b) => b.rating - a.rating)
-        .slice(0, limit);
-}
-
-/**
- * Get budget-friendly destinations
- */
-function getBudgetDestinations(maxPrice) {
-    return destinationsData
-        .filter(dest => dest.priceFrom <= maxPrice)
-        .sort((a, b) => a.priceFrom - b.priceFrom);
-}
-
-/**
- * Filter destinations by multiple criteria
- */
-function filterDestinations(filters) {
-    let results = [...destinationsData];
-    
-    if (filters.category && filters.category !== 'all') {
-        results = results.filter(d => d.category.includes(filters.category));
-    }
-    if (filters.region) {
-        results = results.filter(d => d.region === filters.region);
-    }
-    if (filters.country) {
-        results = results.filter(d => d.countryId === filters.country);
-    }
-    if (filters.maxPrice) {
-        results = results.filter(d => d.priceFrom <= filters.maxPrice);
-    }
-    if (filters.minRating) {
-        results = results.filter(d => d.rating >= filters.minRating);
-    }
-    if (filters.month) {
-        results = results.filter(d => d.bestMonths && d.bestMonths.includes(filters.month));
-    }
-    if (filters.duration) {
-        // Parse duration filter (e.g., "short" for < 4 days, "medium" for 4-7, "long" for 7+)
-        // Add logic as needed
-    }
-    
-    return results;
-}
-
-// Export for use in other files
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        destinationCategories,
-        destinationCollections,
-        regions,
-        countriesData,
-        destinationsData,
-        activitiesData,
-        getDestinationsByCategory,
-        getDestinationsByCountry,
-        getDestinationsByRegion,
-        getDestinationsByCollection,
-        getDestinationsByMonth,
-        getFeaturedDestinations,
-        searchDestinations,
-        getCountryById,
-        getTopRatedDestinations,
-        getBudgetDestinations,
-        filterDestinations
-    };
 }
