@@ -474,6 +474,43 @@
             .converter-card {
                 padding: 1.5rem;
             }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.25rem;
+            }
+            
+            .rates-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .currency-tabs {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .tab-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+                white-space: nowrap;
+            }
+            
+            .currency-search {
+                flex-direction: column;
+            }
+            
+            .currency-search input {
+                padding: 0.875rem 0.875rem 0.875rem 2.5rem;
+            }
+            
+            .quick-amounts {
+                justify-content: center;
+            }
         }
         
         @media (max-width: 480px) {
@@ -508,6 +545,60 @@
             
             .rate-value {
                 font-size: 0.9rem;
+            }
+            
+            .currency-flag {
+                font-size: 1.5rem;
+            }
+            
+            .quick-btn {
+                padding: 0.4rem 0.75rem;
+                font-size: 0.85rem;
+            }
+            
+            .converter-footer {
+                padding: 1.5rem 1rem;
+                margin-top: 2rem;
+            }
+            
+            .rate-flag {
+                font-size: 1.5rem;
+            }
+            
+            .rate-code {
+                font-size: 0.9rem;
+            }
+            
+            .rate-name {
+                font-size: 0.75rem;
+            }
+            
+            .rate-price {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            .converter-card {
+                padding: 1rem;
+            }
+            
+            .currency-select-wrapper {
+                padding: 0.6rem 0.75rem;
+            }
+            
+            .amount-input {
+                font-size: 1.25rem;
+            }
+            
+            .result-amount {
+                font-size: 1.25rem;
+            }
+            
+            .swap-btn {
+                width: 48px;
+                height: 48px;
+                font-size: 1.25rem;
             }
         }
     </style>
