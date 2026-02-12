@@ -1718,17 +1718,520 @@
                         ]
                     }
                 ]
+            },
+            // US Visa Checklist (B1/B2 Tourist/Business)
+            'US': {
+                name: 'United States',
+                categories: [
+                    {
+                        title: '📄 Mandatory Documents (All Applicants)',
+                        items: [
+                            'Valid passport with at least 6 months validity beyond intended stay',
+                            'DS-160 online application confirmation page with barcode',
+                            'Visa appointment confirmation letter',
+                            'One recent passport photo (51mm x 51mm, white background, no glasses)',
+                            'Visa fee payment receipt (MRV fee)',
+                            'Previous US visas (if any)'
+                        ]
+                    },
+                    {
+                        title: '💰 Financial Documents',
+                        items: [
+                            'Bank statements (last 6 months) showing sufficient funds',
+                            'Income Tax Returns (last 3 years)',
+                            'Fixed deposit certificates',
+                            'Property documents/investment proofs',
+                            'Sponsorship letter with sponsor\'s financial documents (if applicable)'
+                        ]
+                    },
+                    {
+                        title: '💼 Employment Evidence',
+                        items: [
+                            'Employment letter on company letterhead (position, salary, tenure, leave approval)',
+                            'Last 3-6 months salary slips',
+                            'Company ID card',
+                            'Business registration/ownership documents (if self-employed)',
+                            'Company profile and financials (for business owners)'
+                        ]
+                    },
+                    {
+                        title: '🎓 Students',
+                        items: [
+                            'College/University enrollment letter',
+                            'Student ID card',
+                            'Transcripts/mark sheets',
+                            'Parents\' financial documents as sponsors'
+                        ]
+                    },
+                    {
+                        title: '✈️ Travel Details',
+                        items: [
+                            'Travel itinerary (cities, dates, purpose)',
+                            'Hotel reservations (tentative)',
+                            'Round-trip flight itinerary (don\'t purchase until visa approved)',
+                            'Invitation letter (if visiting family/friends with their ID proof)'
+                        ]
+                    },
+                    {
+                        title: '🏠 Ties to Home Country',
+                        items: [
+                            'Property ownership documents',
+                            'Family ties proof (marriage certificate, children\'s birth certificates)',
+                            'Ongoing business commitments',
+                            'Employment continuation letter'
+                        ]
+                    }
+                ]
+            },
+            // Canada Visa Checklist
+            'CA': {
+                name: 'Canada',
+                categories: [
+                    {
+                        title: '📄 Mandatory Documents (All Applicants)',
+                        items: [
+                            'Valid passport with at least 6 months validity',
+                            'Two recent passport photos (35mm x 45mm, white background)',
+                            'Completed IMM 5257 application form',
+                            'Family Information Form (IMM 5645)',
+                            'Proof of visa fee payment',
+                            'Biometrics appointment confirmation'
+                        ]
+                    },
+                    {
+                        title: '💰 Financial Documents',
+                        items: [
+                            'Bank statements (last 6 months)',
+                            'Proof of sufficient funds for trip',
+                            'Income Tax Returns (last 3 years)',
+                            'Employment letter with salary details',
+                            'Fixed deposits/investments proof'
+                        ]
+                    },
+                    {
+                        title: '✈️ Travel Details',
+                        items: [
+                            'Purpose of visit statement',
+                            'Detailed travel itinerary',
+                            'Hotel/accommodation reservations',
+                            'Return flight reservation',
+                            'Invitation letter (if visiting someone)'
+                        ]
+                    },
+                    {
+                        title: '🏠 Ties to Home Country',
+                        items: [
+                            'Property documents',
+                            'Employment/business proof',
+                            'Family ties documentation',
+                            'Leave approval from employer'
+                        ]
+                    },
+                    {
+                        title: '👨‍👩‍👧 If Visiting Family/Friends',
+                        items: [
+                            'Invitation letter from host in Canada',
+                            'Host\'s proof of status in Canada (PR card/citizenship)',
+                            'Host\'s recent tax assessment',
+                            'Relationship proof with host'
+                        ]
+                    }
+                ]
+            },
+            // Japan Visa Checklist
+            'JP': {
+                name: 'Japan',
+                categories: [
+                    {
+                        title: '📄 Mandatory Documents (All Applicants)',
+                        items: [
+                            'Valid passport with blank pages',
+                            'Completed visa application form',
+                            'One passport photo (45mm x 45mm, white background)',
+                            'Flight itinerary',
+                            'Daily schedule/itinerary in Japan'
+                        ]
+                    },
+                    {
+                        title: '💰 Financial Documents',
+                        items: [
+                            'Bank statements (last 3 months)',
+                            'Income Tax Returns',
+                            'Certificate of employment with salary',
+                            'Company registration (for business owners)'
+                        ]
+                    },
+                    {
+                        title: '✈️ Travel Details',
+                        items: [
+                            'Confirmed hotel bookings for entire stay',
+                            'Round-trip flight reservation',
+                            'Day-by-day itinerary'
+                        ]
+                    },
+                    {
+                        title: '👨‍👩‍👧 If Visiting Someone',
+                        items: [
+                            'Invitation letter from Japanese host',
+                            'Host\'s residence certificate (Juminhyo)',
+                            'Guarantor letter (Guarantee of Kinship)',
+                            'Host\'s tax certificate'
+                        ]
+                    }
+                ]
+            },
+            // China Visa Checklist
+            'CN': {
+                name: 'China',
+                categories: [
+                    {
+                        title: '📄 Mandatory Documents (All Applicants)',
+                        items: [
+                            'Valid passport with at least 6 months validity and 2 blank pages',
+                            'Completed China visa application form',
+                            'One recent passport photo (48mm x 33mm, white background)',
+                            'Copy of passport data page',
+                            'Previous Chinese visas (if any)'
+                        ]
+                    },
+                    {
+                        title: '✈️ Travel Documents',
+                        items: [
+                            'Round-trip flight booking',
+                            'Hotel reservations for entire stay',
+                            'Detailed travel itinerary'
+                        ]
+                    },
+                    {
+                        title: '💼 For Business Visit',
+                        items: [
+                            'Invitation letter from Chinese company',
+                            'Company letter of introduction',
+                            'Business license of inviting company'
+                        ]
+                    },
+                    {
+                        title: '👨‍👩‍👧 For Family Visit',
+                        items: [
+                            'Invitation letter from relative in China',
+                            'Host\'s Chinese ID copy',
+                            'Proof of relationship',
+                            'Host\'s residence permit (for foreigners in China)'
+                        ]
+                    }
+                ]
+            },
+            // UAE/Dubai Visa Checklist
+            'AE': {
+                name: 'United Arab Emirates',
+                categories: [
+                    {
+                        title: '📄 Mandatory Documents (All Applicants)',
+                        items: [
+                            'Valid passport with at least 6 months validity',
+                            'Passport-size photo with white background',
+                            'Completed visa application form',
+                            'Passport front and back page scan'
+                        ]
+                    },
+                    {
+                        title: '💰 Financial Documents',
+                        items: [
+                            'Bank statements (last 3 months)',
+                            'Proof of sufficient funds',
+                            'Employment letter (for employed)'
+                        ]
+                    },
+                    {
+                        title: '✈️ Travel & Stay',
+                        items: [
+                            'Confirmed round-trip flight booking',
+                            'Hotel reservation',
+                            'Travel itinerary'
+                        ]
+                    },
+                    {
+                        title: '👨‍👩‍👧 If Visiting Family',
+                        items: [
+                            'Invitation letter from UAE resident',
+                            'Sponsor\'s Emirates ID copy',
+                            'Sponsor\'s visa page copy',
+                            'Relationship proof'
+                        ]
+                    }
+                ]
+            },
+            // Thailand Visa Checklist (for those requiring visa)
+            'TH': {
+                name: 'Thailand',
+                categories: [
+                    {
+                        title: '📄 Mandatory Documents',
+                        items: [
+                            'Valid passport with at least 6 months validity',
+                            'Completed visa application form',
+                            'Two passport-size photos (35mm x 45mm)',
+                            'Visa fee payment'
+                        ]
+                    },
+                    {
+                        title: '💰 Financial Proof',
+                        items: [
+                            'Bank statements (last 3 months)',
+                            'Proof of funds (10,000 THB per person / 20,000 THB per family)',
+                            'Employment proof or business registration'
+                        ]
+                    },
+                    {
+                        title: '✈️ Travel Details',
+                        items: [
+                            'Confirmed round-trip air ticket',
+                            'Hotel/accommodation booking',
+                            'Travel itinerary'
+                        ]
+                    }
+                ]
+            },
+            // Malaysia Visa Checklist
+            'MY': {
+                name: 'Malaysia',
+                categories: [
+                    {
+                        title: '📄 Mandatory Documents',
+                        items: [
+                            'Valid passport with at least 6 months validity',
+                            'Passport-size photos',
+                            'Completed eVisa application',
+                            'Passport bio-page scan'
+                        ]
+                    },
+                    {
+                        title: '✈️ Travel & Financial',
+                        items: [
+                            'Return flight ticket',
+                            'Hotel booking confirmation',
+                            'Bank statements showing sufficient funds',
+                            'Travel itinerary'
+                        ]
+                    }
+                ]
+            },
+            // Indonesia/Bali Visa
+            'ID': {
+                name: 'Indonesia',
+                categories: [
+                    {
+                        title: '📄 Visa on Arrival Documents',
+                        items: [
+                            'Valid passport with at least 6 months validity',
+                            'Return/onward flight ticket',
+                            'Visa fee (cash USD or IDR)',
+                            'Proof of accommodation'
+                        ]
+                    },
+                    {
+                        title: '📱 E-Visa (E-VOA) Documents',
+                        items: [
+                            'Passport bio-page scan',
+                            'Passport-size photo',
+                            'Return ticket',
+                            'Credit/debit card for payment'
+                        ]
+                    }
+                ]
+            },
+            // Vietnam Visa Checklist
+            'VN': {
+                name: 'Vietnam',
+                categories: [
+                    {
+                        title: '📄 E-Visa Documents',
+                        items: [
+                            'Valid passport with at least 6 months validity',
+                            'Passport data page scan (JPEG/PNG)',
+                            'Recent passport photo (4x6cm, white background)',
+                            'Credit card for online payment'
+                        ]
+                    },
+                    {
+                        title: '✈️ Travel Details',
+                        items: [
+                            'Intended entry point',
+                            'Accommodation address in Vietnam',
+                            'Travel dates'
+                        ]
+                    }
+                ]
+            },
+            // Egypt E-Visa
+            'EG': {
+                name: 'Egypt',
+                categories: [
+                    {
+                        title: '📄 E-Visa Documents',
+                        items: [
+                            'Valid passport with at least 6 months validity',
+                            'Passport scan (color, clear)',
+                            'Recent passport photo',
+                            'Hotel reservation',
+                            'Return flight ticket'
+                        ]
+                    },
+                    {
+                        title: '💰 Financial',
+                        items: [
+                            'Credit/debit card for payment',
+                            'Proof of sufficient funds (optional but helpful)'
+                        ]
+                    }
+                ]
+            },
+            // New Zealand
+            'NZ': {
+                name: 'New Zealand',
+                categories: [
+                    {
+                        title: '📄 Visitor Visa Documents',
+                        items: [
+                            'Valid passport with at least 3 months validity beyond departure',
+                            'Completed visitor visa application',
+                            'Passport-size photos',
+                            'Application fee payment'
+                        ]
+                    },
+                    {
+                        title: '💰 Financial Documents',
+                        items: [
+                            'Bank statements (NZD $1,000 per month of stay)',
+                            'Employment letter',
+                            'Evidence of ties to home country'
+                        ]
+                    },
+                    {
+                        title: '✈️ Travel Details',
+                        items: [
+                            'Return flight booking or funds to purchase',
+                            'Accommodation arrangements',
+                            'Travel itinerary'
+                        ]
+                    },
+                    {
+                        title: '🏥 Health & Character',
+                        items: [
+                            'Chest X-ray (if from certain countries)',
+                            'Medical certificate (if staying 6+ months)',
+                            'Police certificate (if staying 24+ months)'
+                        ]
+                    }
+                ]
+            },
+            // Saudi Arabia
+            'SA': {
+                name: 'Saudi Arabia',
+                categories: [
+                    {
+                        title: '📄 Tourist Visa (E-Visa) Documents',
+                        items: [
+                            'Valid passport with at least 6 months validity',
+                            'Passport-size photo',
+                            'Completed online application',
+                            'Credit/debit card for payment'
+                        ]
+                    },
+                    {
+                        title: '✈️ Travel Details',
+                        items: [
+                            'Travel dates',
+                            'Hotel booking',
+                            'Return flight'
+                        ]
+                    }
+                ]
+            },
+            // South Korea
+            'KR': {
+                name: 'South Korea',
+                categories: [
+                    {
+                        title: '📄 Mandatory Documents',
+                        items: [
+                            'Valid passport with at least 6 months validity',
+                            'Completed visa application form',
+                            'One passport photo (35mm x 45mm, white background)',
+                            'Visa fee'
+                        ]
+                    },
+                    {
+                        title: '💰 Financial Documents',
+                        items: [
+                            'Bank statements (last 3 months)',
+                            'Employment certificate',
+                            'Income Tax Returns',
+                            'Proof of assets'
+                        ]
+                    },
+                    {
+                        title: '✈️ Travel Details',
+                        items: [
+                            'Round-trip flight reservation',
+                            'Detailed travel itinerary',
+                            'Hotel booking'
+                        ]
+                    },
+                    {
+                        title: '👨‍👩‍👧 If Visiting Someone',
+                        items: [
+                            'Invitation letter from Korean host',
+                            'Host\'s ID copy',
+                            'Proof of relationship'
+                        ]
+                    }
+                ]
+            },
+            // Sri Lanka
+            'LK': {
+                name: 'Sri Lanka',
+                categories: [
+                    {
+                        title: '📄 ETA Documents',
+                        items: [
+                            'Valid passport',
+                            'Return/onward travel ticket',
+                            'Proof of sufficient funds',
+                            'Accommodation details'
+                        ]
+                    }
+                ]
+            },
+            // Maldives
+            'MV': {
+                name: 'Maldives',
+                categories: [
+                    {
+                        title: '📄 Visa on Arrival Documents',
+                        items: [
+                            'Valid passport with at least 1 month validity',
+                            'Return/onward ticket',
+                            'Confirmed hotel booking',
+                            'Proof of sufficient funds ($100+$50 per day)'
+                        ]
+                    }
+                ]
             }
         };
 
-        // Get checklist for a destination (Indian passport)
-        function getChecklistForDestination(destCode) {
+        // Get checklist for a destination (any passport)
+        function getChecklistForDestination(destCode, visaType) {
+            // Only show checklist if visa is required (not visa-free)
+            if (visaType === 'visa-free') {
+                return null;
+            }
             // Direct match
             if (visaChecklists[destCode]) {
                 return visaChecklists[destCode];
             }
             // Check if it's a Schengen country
-            if (visaChecklists['SCHENGEN'].countries.includes(destCode)) {
+            if (visaChecklists['SCHENGEN'] && visaChecklists['SCHENGEN'].countries && visaChecklists['SCHENGEN'].countries.includes(destCode)) {
                 return visaChecklists['SCHENGEN'];
             }
             return null;
@@ -1946,13 +2449,13 @@
                     </div>
                     ` : ''}
 
-                    ${nationality === 'IN' && getChecklistForDestination(destination) ? `
+                    ${getChecklistForDestination(destination, visa.type) ? `
                     <div class="checklist-container">
                         <div class="checklist-header">
-                            <h3>📋 Document Checklist for Indian Passport Holders</h3>
+                            <h3>📋 Document Checklist for ${getChecklistForDestination(destination, visa.type).name}</h3>
                             <span class="checklist-badge">DETAILED</span>
                         </div>
-                        ${getChecklistForDestination(destination).categories.map((cat, index) => `
+                        ${getChecklistForDestination(destination, visa.type).categories.map((cat, index) => `
                         <div class="checklist-category">
                             <div class="category-header ${index === 0 ? 'active' : ''}" onclick="toggleCategory(this)">
                                 <span class="category-title">${cat.title}</span>
