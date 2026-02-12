@@ -1334,33 +1334,410 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+    /* Hero Section - Compact */
+    .hero-section {
+        min-height: auto;
+        padding: 1.5rem 1rem 2rem;
+    }
+    
     .hero-title {
-        font-size: 2rem;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
     }
     
     .hero-subtitle {
-        font-size: 1rem;
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
     }
     
     .hero-logo-svg {
-        width: 200px;
+        width: 160px;
+        margin-bottom: 0.75rem;
     }
     
+    .hero-cta {
+        padding: 0.6rem 1.25rem;
+        font-size: 0.85rem;
+    }
+    
+    /* Section Titles - Compact */
     .section-title {
-        font-size: 1.75rem;
+        font-size: 1.35rem;
+        margin-bottom: 1.25rem;
     }
     
+    .section-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* All Sections - Compact Padding */
+    .features-section,
+    .about-section,
+    .cta-section,
+    .founder-section,
+    .feedback-section,
+    .problem-section,
+    .help-section,
+    .pricing-section,
+    .difference-section,
+    .values-section,
+    .why-paid-section,
+    .comparison-section {
+        padding: 1.75rem 1rem;
+    }
+    
+    /* Feature Cards - Compact */
+    .features-grid {
+        gap: 0.75rem;
+    }
+    
+    .feature-card {
+        padding: 1rem;
+        border-radius: 12px;
+    }
+    
+    .feature-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .feature-icon.visa-icon-wrapper {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .visa-3d-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .feature-card h3 {
+        font-size: 1rem;
+        margin-bottom: 0.4rem;
+    }
+    
+    .feature-card p {
+        font-size: 0.8rem;
+        line-height: 1.4;
+        margin-bottom: 0.5rem;
+    }
+    
+    .feature-link {
+        font-size: 0.8rem;
+    }
+    
+    /* About Section - Compact */
     .about-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1.25rem;
+    }
+    
+    .about-text h2 {
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .about-text p {
+        font-size: 0.85rem;
+        line-height: 1.5;
+        margin-bottom: 0.75rem;
     }
     
     .about-stats {
         justify-content: center;
+        gap: 1rem;
+        margin-top: 1rem;
     }
     
-    .cta-content h2 {
+    .stat-number {
+        font-size: 1.4rem;
+    }
+    
+    .stat-label {
+        font-size: 0.75rem;
+    }
+    
+    .about-card {
+        padding: 1rem;
+        border-radius: 12px;
+    }
+    
+    .about-icon {
         font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .about-card h4 {
+        font-size: 0.95rem;
+        margin-bottom: 0.35rem;
+    }
+    
+    .about-card p {
+        font-size: 0.8rem;
+    }
+    
+    /* Comparison Grid - Compact */
+    .comparison-grid,
+    .help-grid,
+    .pricing-grid,
+    .difference-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .comparison-column {
+        padding: 1.25rem;
+        border-radius: 14px;
+    }
+    
+    .comparison-column h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .comparison-list li {
+        padding: 0.5rem 0;
+        font-size: 0.85rem;
+    }
+    
+    /* Help Section - Compact */
+    .help-card {
+        padding: 1.25rem;
+        border-radius: 14px;
+    }
+    
+    .help-card h3 {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .help-list li,
+    .help-examples li {
+        padding: 0.4rem 0;
+        font-size: 0.85rem;
+    }
+    
+    /* Pricing - Compact */
+    .pricing-card {
+        padding: 1.25rem;
+        border-radius: 16px;
+    }
+    
+    .pricing-badge {
+        padding: 0.35rem 0.75rem;
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+    }
+    
+    .pricing-features li {
+        padding: 0.4rem 0;
+        font-size: 0.85rem;
+    }
+    
+    .pricing-btn {
+        padding: 0.6rem 1.25rem;
+        font-size: 0.85rem;
+    }
+    
+    /* Stats Section - Compact */
+    .stats-row {
+        gap: 0.75rem;
+    }
+    
+    .stat-item {
+        padding: 0.75rem;
+    }
+    
+    .stat-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .stat-value {
+        font-size: 1.25rem;
+    }
+    
+    .stat-title {
+        font-size: 0.7rem;
+    }
+    
+    /* Values Grid - Compact */
+    .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+    
+    .value-card {
+        padding: 1rem;
+        border-radius: 12px;
+    }
+    
+    .value-icon {
+        font-size: 1.75rem;
+        margin-bottom: 0.4rem;
+    }
+    
+    .value-card h4 {
+        font-size: 0.9rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .value-card p {
+        font-size: 0.75rem;
+    }
+    
+    /* Difference Cards - Compact */
+    .difference-card {
+        padding: 1.25rem;
+        border-radius: 14px;
+    }
+    
+    .difference-icon {
+        font-size: 1.75rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .difference-card h4 {
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .difference-card p {
+        font-size: 0.8rem;
+    }
+    
+    /* Founder Section - Compact */
+    .founder-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.25rem;
+        gap: 1rem;
+    }
+    
+    .founder-image {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .founder-info h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .founder-info .founder-title {
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .founder-bio {
+        font-size: 0.85rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .founder-fun {
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    
+    .fun-fact {
+        padding: 0.35rem 0.75rem;
+        font-size: 0.75rem;
+    }
+    
+    /* CTA Section - Compact */
+    .cta-content h2 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .cta-content p {
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+    }
+    
+    .cta-btn {
+        padding: 0.65rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Feedback Section - Compact */
+    .feedback-form {
+        padding: 1.25rem;
+    }
+    
+    .feedback-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .feedback-row label {
+        font-size: 0.85rem;
+    }
+    
+    .rating-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1.1rem;
+    }
+    
+    .feedback-input,
+    .feedback-textarea {
+        padding: 0.6rem;
+        font-size: 0.85rem;
+    }
+    
+    .feedback-submit {
+        padding: 0.6rem 1.25rem;
+        font-size: 0.85rem;
+    }
+    
+    /* Comparison Table - Compact */
+    .comparison-table th,
+    .comparison-table td {
+        padding: 0.6rem 0.4rem;
+        font-size: 0.75rem;
+    }
+    
+    /* Free Comparison - Compact */
+    .free-comparison-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .free-column {
+        padding: 1rem;
+    }
+    
+    .free-column h3 {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .free-column li {
+        padding: 0.5rem 0;
+        font-size: 0.85rem;
+    }
+    
+    /* Footer - Compact */
+    .page-footer {
+        padding: 1rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Extra Small Screens */
+    .hero-title {
+        font-size: 1.3rem;
+    }
+    
+    .hero-logo-svg {
+        width: 140px;
+    }
+    
+    .section-title {
+        font-size: 1.2rem;
     }
     
     .features-section,
@@ -1372,48 +1749,41 @@
     .help-section,
     .pricing-section,
     .difference-section,
-    .values-section {
-        padding: 3rem 1.5rem;
-    }
-    
-    .comparison-grid,
-    .help-grid,
-    .pricing-grid,
-    .difference-grid {
-        grid-template-columns: 1fr;
+    .values-section,
+    .why-paid-section,
+    .comparison-section {
+        padding: 1.5rem 0.75rem;
     }
     
     .values-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .founder-card {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .founder-fun {
-        justify-content: center;
-    }
-    
-    .feedback-row {
         grid-template-columns: 1fr;
-    }
-    
-    .rating-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 1.3rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .values-grid {
-        grid-template-columns: 1fr;
+        gap: 0.6rem;
     }
     
     .about-stats {
-        flex-direction: column;
-        gap: 1.5rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+    
+    .stat-item {
+        min-width: calc(50% - 0.5rem);
+    }
+    
+    .feature-card {
+        padding: 0.85rem;
+    }
+    
+    .feature-icon {
+        font-size: 1.75rem;
+    }
+    
+    .feature-card h3 {
+        font-size: 0.95rem;
+    }
+    
+    .feature-card p {
+        font-size: 0.75rem;
     }
 }
+
