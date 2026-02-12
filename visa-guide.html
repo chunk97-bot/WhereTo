@@ -1451,17 +1451,9 @@
                     </div>
 
                     <div class="visa-details">
-                        <div class="detail-item">
-                            <span class="detail-label">Length of Stay</span>
-                            <span class="detail-value">${visa.stay}</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Visa Fee</span>
-                            <span class="detail-value">${visa.fee}</span>
-                        </div>
                         ${visa.process ? `
                         <div class="detail-item">
-                            <span class="detail-label">Processing</span>
+                            <span class="detail-label">Processing Time</span>
                             <span class="detail-value">${visa.process}</span>
                         </div>
                         ` : ''}
