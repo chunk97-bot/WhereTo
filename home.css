@@ -493,11 +493,13 @@
 }
 
 .founder-note {
-    margin-top: 1rem;
-    padding: 1rem;
-    background: rgba(0, 212, 255, 0.1);
-    border-radius: 12px;
-    border-left: 3px solid #00d4ff;
+    margin-top: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(0, 212, 255, 0.1) 100%);
+    border-radius: 16px;
+    border-left: 4px solid #8b5cf6;
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
 /* Problem Section */
@@ -1278,6 +1280,13 @@
         font-size: 0.8rem;
     }
     
+    .founder-note {
+        margin-top: 1rem;
+        padding: 0.75rem 1rem;
+        font-size: 0.8rem;
+        border-radius: 10px;
+    }
+    
     /* Comparison Grid - Keep Side by Side on Mobile */
     .comparison-grid,
     .help-grid,
@@ -1672,6 +1681,12 @@
     
     .about-card p {
         font-size: 0.7rem;
+    }
+    
+    .founder-note {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.7rem;
+        margin-top: 0.75rem;
     }
     
     /* Features Grid - Keep 2 columns */
