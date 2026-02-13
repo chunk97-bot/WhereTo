@@ -96,12 +96,16 @@
 
         /* Main Layout */
         .region-main {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
+        }
+
+        .region-top {
             display: grid;
             grid-template-columns: 1fr 350px;
             gap: 2rem;
+            margin-bottom: 2rem;
         }
 
         .region-content {
@@ -114,6 +118,11 @@
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
+        }
+
+        /* Countries Section - Full Width */
+        .countries-full-section {
+            width: 100%;
         }
 
         /* Info Cards */
@@ -224,7 +233,7 @@
 
         .countries-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 1.5rem;
             margin-top: 1rem;
         }
@@ -657,8 +666,8 @@
 
         <!-- Main Content -->
         <main class="region-main">
-            <div class="region-content">
-                <!-- Countries Section -->
+            <!-- Countries Section - Full Width -->
+            <div class="countries-full-section">
                 <div class="countries-section">
                     <div class="section-header">
                         <h3>🏳️ Countries to Explore</h3>
@@ -668,7 +677,10 @@
                         <!-- Countries loaded dynamically -->
                     </div>
                 </div>
+            </div>
 
+            <div class="region-top">
+            <div class="region-content">
                 <!-- Region Map -->
                 <div class="map-container" id="mapSection">
                     <div class="map-header">
@@ -734,6 +746,7 @@
                         <!-- Loaded dynamically -->
                     </div>
                 </div>
+            </div>
             </div>
         </main>
 
