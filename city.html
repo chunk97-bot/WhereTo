@@ -12,168 +12,423 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <meta name="theme-color" content="#0f0f23">
     
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="pages.css">
+    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="pages.css?v=4">
+    
+    <!-- Leaflet CSS for Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Righteous&display=swap" rel="stylesheet">
+    
     <style>
-        /* City Detail Page Specific Styles */
-        .city-hero {
+        /* City Detail Specific Styles - Matching destination-detail.html */
+        .detail-hero {
             position: relative;
-            height: 300px;
-            margin-top: -1rem;
-            margin-bottom: 2rem;
-            border-radius: 0 0 30px 30px;
-            overflow: hidden;
-        }
-
-        .city-hero-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            height: 50vh;
+            min-height: 350px;
+            max-height: 500px;
             background-size: cover;
             background-position: center;
         }
 
-        .city-hero-overlay {
+        .hero-overlay {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(to bottom, rgba(15, 15, 35, 0.3) 0%, rgba(15, 15, 35, 0.95) 100%);
+            background: linear-gradient(to bottom, 
+                rgba(15, 15, 35, 0.3) 0%, 
+                rgba(15, 15, 35, 0.5) 50%,
+                rgba(15, 15, 35, 0.95) 100%);
         }
 
-        .city-hero-content {
-            position: relative;
-            z-index: 2;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
+        .hero-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
             padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .city-hero h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
+        .breadcrumb {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .breadcrumb a {
+            color: #00d4ff;
+            text-decoration: none;
+        }
+
+        .dest-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
             margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #fff 0%, #667eea 100%);
+            background: linear-gradient(135deg, #fff 0%, #00d4ff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .city-hero-meta {
+        .dest-subtitle {
             display: flex;
-            gap: 1.5rem;
             flex-wrap: wrap;
-            font-size: 0.95rem;
+            gap: 1.5rem;
+            align-items: center;
+            font-size: 1rem;
             color: rgba(255, 255, 255, 0.8);
         }
 
-        .city-hero-meta span {
+        .dest-location {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.3rem;
         }
 
-        /* Info Grid */
-        .city-info-grid {
+        .detail-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-            padding: 0 1rem;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
         }
 
+        .detail-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .detail-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Info Cards */
         .info-card {
-            background: linear-gradient(145deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
             border-radius: 16px;
-            padding: 1.25rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Quick Info */
+        .quick-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #00d4ff;
+        }
+
+        /* Description */
+        .description-text {
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Budget Section */
+        .budget-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+        }
+
+        .budget-item {
             text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .info-card-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+        .budget-item.budget {
+            border-color: rgba(34, 197, 94, 0.3);
         }
 
-        .info-card-label {
-            font-size: 0.8rem;
+        .budget-item.mid {
+            border-color: rgba(251, 191, 36, 0.3);
+        }
+
+        .budget-item.luxury {
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        .budget-label {
+            font-size: 0.75rem;
             color: rgba(255, 255, 255, 0.6);
             margin-bottom: 0.25rem;
         }
 
-        .info-card-value {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #fff;
+        .budget-value {
+            font-size: 1.2rem;
+            font-weight: 700;
         }
 
-        /* Description Section */
-        .city-description-section {
-            padding: 0 1rem;
-            margin-bottom: 2rem;
-        }
+        .budget-item.budget .budget-value { color: #22c55e; }
+        .budget-item.mid .budget-value { color: #fbbf24; }
+        .budget-item.luxury .budget-value { color: #a855f7; }
 
-        .city-description-section p {
-            font-size: 1.05rem;
-            line-height: 1.7;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        /* Attractions Section */
-        .attractions-list {
-            display: grid;
-            gap: 1rem;
-            padding: 0 1rem;
-        }
-
-        .attraction-item {
+        /* Highlights */
+        .highlights-list {
             display: flex;
-            gap: 1rem;
-            padding: 1.25rem;
-            background: linear-gradient(145deg, rgba(102, 126, 234, 0.08), rgba(118, 75, 162, 0.08));
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 16px;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .highlight-item {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            color: #00d4ff;
+        }
+
+        /* CTA Card */
+        .cta-card {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .cta-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s ease;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
-        .attraction-item:hover {
-            border-color: rgba(102, 126, 234, 0.2);
-            transform: translateX(5px);
-        }
-
-        .attraction-icon {
-            font-size: 2rem;
-            width: 50px;
-            text-align: center;
+        .nova-btn-icon {
+            width: 24px;
+            height: 24px;
             flex-shrink: 0;
         }
 
-        .attraction-content h4 {
-            font-size: 1.1rem;
+        .trip-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
             font-weight: 600;
-            margin-bottom: 0.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .trip-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .trip-btn.saved {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .trip-btn.saved:hover {
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Toast notification */
+        .trip-toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .trip-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .trip-toast a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .trip-toast a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Attractions Accordion */
+        .attractions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .attraction-accordion {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .attraction-accordion:hover {
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .attraction-accordion.expanded {
+            border-color: rgba(0, 212, 255, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .attraction-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .attraction-header:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .attraction-header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .attraction-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 212, 255, 0.15);
+            border-radius: 10px;
+        }
+
+        .attraction-title {
+            font-size: 1rem;
+            font-weight: 500;
             color: #fff;
         }
 
-        .attraction-content p {
-            font-size: 0.9rem;
+        .attraction-type {
+            font-size: 0.75rem;
+            color: #00d4ff;
+            background: rgba(0, 212, 255, 0.15);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            white-space: nowrap;
+            margin-right: 1rem;
+        }
+
+        .attraction-toggle {
+            font-size: 1rem;
             color: rgba(255, 255, 255, 0.6);
-            line-height: 1.5;
+            transition: transform 0.3s ease;
+        }
+
+        .attraction-accordion.expanded .attraction-toggle {
+            transform: rotate(180deg);
+            color: #00d4ff;
+        }
+
+        .attraction-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .attraction-accordion.expanded .attraction-content {
+            max-height: 200px;
+        }
+
+        .attraction-details {
+            padding: 0 1.25rem 1.25rem 1.25rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1rem;
         }
 
         /* Tips Section */
         .tips-list {
-            display: grid;
+            display: flex;
+            flex-direction: column;
             gap: 0.75rem;
-            padding: 0 1rem;
         }
 
         .tip-item {
@@ -195,61 +450,336 @@
             font-size: 0.95rem;
             color: rgba(255, 255, 255, 0.8);
             line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Country Info */
+        .country-flag {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .country-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .country-detail {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .country-detail:last-child {
+            border-bottom: none;
+        }
+
+        .country-detail span:first-child {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Best Months */
+        .months-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+
+        .month-tag {
+            text-align: center;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            font-size: 0.75rem;
+        }
+
+        .month-tag.best {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        /* City Map Section */
+        .city-map-section {
+            margin-top: 2rem;
+        }
+
+        .map-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .map-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .map-header h3 {
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0;
+        }
+
+        .map-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .map-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 212, 255, 0.4);
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .map-btn:hover {
+            background: rgba(0, 212, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
+        }
+
+        #cityMap {
+            width: 100%;
+            height: 400px;
+            border-radius: 16px;
+            z-index: 1;
+            background: #1a1a2e;
+        }
+
+        .map-legend {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .legend-title {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .legend-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.4rem 0.75rem;
+            border-radius: 20px;
+        }
+
+        .legend-icon {
+            font-size: 1rem;
+        }
+
+        /* Custom Leaflet marker styling */
+        .custom-marker {
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+            border: 2px solid white;
+            width: 36px;
+            height: 36px;
+        }
+
+        .custom-div-icon {
+            background: transparent !important;
+            border: none !important;
+        }
+
+        .leaflet-container {
+            background: #e5e3df;
+        }
+
+        .marker-popup {
+            text-align: center;
+        }
+
+        .marker-popup h4 {
+            margin: 0 0 0.25rem 0;
+            font-size: 0.95rem;
+            color: #1a1a2e;
+        }
+
+        .marker-popup .popup-type {
+            font-size: 0.75rem;
+            color: #666;
+            text-transform: capitalize;
+        }
+
+        .city-center-marker {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+        }
+
+        /* Leaflet popup customization */
+        .leaflet-popup-content-wrapper {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 14px rgba(0, 0, 0, 0.15);
+        }
+
+        .leaflet-popup-content {
+            margin: 0.75rem 1rem;
+        }
+
+        .leaflet-popup-tip {
+            background: white;
+        }
+
+        /* Map loading state */
+        .map-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .map-loading .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(0, 212, 255, 0.2);
+            border-top-color: #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            top: 80px;
+            left: 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(0, 212, 255, 0.3);
         }
 
         /* Responsive */
+        @media (max-width: 992px) {
+            .detail-main {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-sidebar {
+                order: -1;
+            }
+        }
+
         @media (max-width: 768px) {
-            .city-hero {
-                height: 250px;
+            .dest-title {
+                font-size: 2rem;
             }
 
-            .city-hero h1 {
-                font-size: 1.8rem;
+            .detail-hero {
+                height: 40vh;
             }
 
-            .city-hero-meta {
-                gap: 1rem;
-                font-size: 0.85rem;
+            .detail-main {
+                padding: 1rem;
             }
 
-            .city-info-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .quick-info {
+                grid-template-columns: 1fr;
             }
 
-            .attraction-item {
+            .months-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .budget-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #cityMap {
+                height: 300px;
+            }
+
+            .map-header {
                 flex-direction: column;
-                gap: 0.5rem;
+                align-items: flex-start;
             }
 
-            .attraction-icon {
-                width: auto;
+            .map-actions {
+                width: 100%;
+            }
+
+            .map-btn {
+                flex: 1;
+                justify-content: center;
             }
         }
 
         @media (max-width: 480px) {
-            .city-hero {
-                height: 200px;
-                border-radius: 0 0 20px 20px;
+            .dest-title {
+                font-size: 1.75rem;
             }
 
-            .city-hero h1 {
-                font-size: 1.5rem;
+            .dest-subtitle {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-start;
             }
 
-            .city-hero-content {
-                padding: 1.25rem;
-            }
-
-            .info-card {
-                padding: 1rem;
-            }
-
-            .info-card-icon {
-                font-size: 1.5rem;
-            }
-
-            .info-card-value {
-                font-size: 1rem;
+            .back-btn {
+                top: 70px;
+                left: 1rem;
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -276,7 +806,7 @@
             </div>
             <div class="nav-links">
                 <a href="home.html" class="nav-link">🏠 Home</a>
-                <a href="nova.html" class="nav-link"><svg class="nav-robot-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="robotHead4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00f5ff"/><stop offset="50%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient><linearGradient id="robotGlow4" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#fff;stop-opacity:0.8"/><stop offset="100%" style="stop-color:#fff;stop-opacity:0"/></linearGradient><filter id="neonGlow4"><feGaussianBlur stdDeviation="0.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect x="4" y="7" width="16" height="13" rx="4" fill="url(#robotHead4)" filter="url(#neonGlow4)"/><rect x="5" y="8" width="14" height="4" rx="2" fill="url(#robotGlow4)" opacity="0.4"/><rect x="7" y="3" width="10" height="5" rx="2.5" fill="url(#robotHead4)"/><circle cx="8.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="15.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="8.5" cy="12.5" r="1.5" fill="#00f5ff"/><circle cx="15.5" cy="12.5" r="1.5" fill="#00f5ff"/><rect x="10" y="16" width="4" height="2" rx="1" fill="#ec4899"/><rect x="11" y="0" width="2" height="4" rx="1" fill="url(#robotHead4)"/><circle cx="12" cy="0" r="1.5" fill="#00f5ff"><animate attributeName="r" values="1.5;2;1.5" dur="1.5s" repeatCount="indefinite"/></circle><rect x="1" y="10" width="3" height="6" rx="1.5" fill="url(#robotHead4)"/><rect x="20" y="10" width="3" height="6" rx="1.5" fill="url(#robotHead4)"/></svg> NOVA</a>
+                <a href="nova.html" class="nav-link"><svg class="nav-robot-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="robotHead3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00f5ff"/><stop offset="50%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient><linearGradient id="robotGlow3" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#fff;stop-opacity:0.8"/><stop offset="100%" style="stop-color:#fff;stop-opacity:0"/></linearGradient><filter id="neonGlow3"><feGaussianBlur stdDeviation="0.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect x="4" y="7" width="16" height="13" rx="4" fill="url(#robotHead3)" filter="url(#neonGlow3)"/><rect x="5" y="8" width="14" height="4" rx="2" fill="url(#robotGlow3)" opacity="0.4"/><rect x="7" y="3" width="10" height="5" rx="2.5" fill="url(#robotHead3)"/><circle cx="8.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="15.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="8.5" cy="12.5" r="1.5" fill="#00f5ff"/><circle cx="15.5" cy="12.5" r="1.5" fill="#00f5ff"/><rect x="10" y="16" width="4" height="2" rx="1" fill="#ec4899"/><rect x="11" y="0" width="2" height="4" rx="1" fill="url(#robotHead3)"/><circle cx="12" cy="0" r="1.5" fill="#00f5ff"><animate attributeName="r" values="1.5;2;1.5" dur="1.5s" repeatCount="indefinite"/></circle><rect x="1" y="10" width="3" height="6" rx="1.5" fill="url(#robotHead3)"/><rect x="20" y="10" width="3" height="6" rx="1.5" fill="url(#robotHead3)"/></svg> NOVA</a>
                 <a href="destinations.html" class="nav-link active">🌍 Destinations</a>
                 <a href="trip-planner.html" class="nav-link">🗓️ Trip Planner</a>
                 <a href="visa-guide.html" class="nav-link"><svg class="nav-visa-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 5L20 2V20L4 23Z" fill="#4a90c2"/><path d="M4 5L20 2L21 3L5 6Z" fill="#7fc4e8"/><path d="M20 2L21 3V21L20 20Z" fill="#2d5a87"/><circle cx="12" cy="11" r="4" stroke="#fff" stroke-width="1.2" fill="none"/><line x1="9" y1="14" x2="15" y2="8" stroke="#fff" stroke-width="1.2"/><rect x="7" y="17" width="8" height="1" fill="#fff" opacity="0.6"/></svg> Visa Guide</a>
@@ -286,91 +816,159 @@
             <button class="nav-toggle" id="navToggle">☰</button>
         </nav>
 
-        <!-- Page Header with Breadcrumb -->
-        <header class="page-header" style="padding-bottom: 0.5rem;">
-            <!-- Breadcrumb -->
-            <nav class="breadcrumb">
-                <a href="destinations.html">Destinations</a>
-                <span class="separator">›</span>
-                <a href="#" id="regionLink">Region</a>
-                <span class="separator">›</span>
-                <a href="#" id="countryLink">Country</a>
-                <span class="separator">›</span>
-                <span id="cityBreadcrumb">City</span>
-            </nav>
-        </header>
-
-        <!-- City Hero -->
-        <div class="city-hero" id="cityHero">
-            <div class="city-hero-image" id="cityHeroImage"></div>
-            <div class="city-hero-overlay"></div>
-            <div class="city-hero-content">
-                <h1 id="cityName">Loading...</h1>
-                <div class="city-hero-meta">
-                    <span id="cityCountry">📍 Country</span>
-                    <span id="cityRegion">🌍 Region</span>
+        <!-- Hero Section -->
+        <section class="detail-hero" id="heroSection">
+            <div class="hero-overlay"></div>
+            <a href="#" class="back-btn" id="backBtn">← Back to Country</a>
+            <div class="hero-content">
+                <div class="breadcrumb">
+                    <a href="destinations.html">Destinations</a>
+                    <span>›</span>
+                    <a href="#" id="regionLink">Region</a>
+                    <span>›</span>
+                    <a href="#" id="countryLink">Country</a>
+                    <span>›</span>
+                    <span id="cityBreadcrumb">City</span>
+                </div>
+                <h1 class="dest-title" id="cityTitle">Loading...</h1>
+                <div class="dest-subtitle">
+                    <span class="dest-location" id="cityLocation">📍 Loading...</span>
+                    <span id="cityPopulation">👥 --</span>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- Main Content -->
-        <main class="page-content">
-            <!-- Quick Info Cards -->
-            <section class="dest-section">
-                <div class="city-info-grid" id="infoGrid">
-                    <div class="info-card">
-                        <div class="info-card-icon">💰</div>
-                        <div class="info-card-label">Daily Budget</div>
-                        <div class="info-card-value" id="infoBudget">$--</div>
-                    </div>
-                    <div class="info-card">
-                        <div class="info-card-icon">📅</div>
-                        <div class="info-card-label">Best Time</div>
-                        <div class="info-card-value" id="infoBestTime">--</div>
-                    </div>
-                    <div class="info-card">
-                        <div class="info-card-icon">👥</div>
-                        <div class="info-card-label">Population</div>
-                        <div class="info-card-value" id="infoPopulation">--</div>
-                    </div>
-                    <div class="info-card">
-                        <div class="info-card-icon">🗺️</div>
-                        <div class="info-card-label">Region</div>
-                        <div class="info-card-value" id="infoRegion">--</div>
-                    </div>
+        <main class="detail-main">
+            <div class="detail-content">
+                <!-- Description -->
+                <div class="info-card">
+                    <h3>📝 About This City</h3>
+                    <p class="description-text" id="cityDescription">Loading description...</p>
                 </div>
-            </section>
 
-            <!-- Description -->
-            <section class="dest-section city-description-section">
-                <p id="cityDescription">Loading city description...</p>
-            </section>
+                <!-- Budget Breakdown -->
+                <div class="info-card">
+                    <h3>💰 Daily Budget Guide</h3>
+                    <div class="budget-grid">
+                        <div class="budget-item budget">
+                            <div class="budget-label">Budget</div>
+                            <div class="budget-value" id="budgetLow">$--</div>
+                        </div>
+                        <div class="budget-item mid">
+                            <div class="budget-label">Mid-Range</div>
+                            <div class="budget-value" id="budgetMid">$--</div>
+                        </div>
+                        <div class="budget-item luxury">
+                            <div class="budget-label">Luxury</div>
+                            <div class="budget-value" id="budgetLuxury">$--</div>
+                        </div>
+                    </div>
+                </div>
 
-            <!-- Attractions -->
-            <section class="dest-section">
-                <div class="section-header">
-                    <h2>🏛️ Top Attractions</h2>
+                <!-- Attractions -->
+                <div class="info-card">
+                    <h3>🏛️ Top Attractions</h3>
+                    <div class="attractions-list" id="attractionsList">
+                        <!-- Loaded dynamically -->
+                    </div>
                 </div>
-                <div class="attractions-list" id="attractionsList">
-                    <!-- Attractions loaded dynamically -->
-                </div>
-            </section>
 
-            <!-- Travel Tips -->
-            <section class="dest-section">
-                <div class="section-header">
-                    <h2>💡 Travel Tips</h2>
+                <!-- Travel Tips -->
+                <div class="info-card">
+                    <h3>💡 Travel Tips</h3>
+                    <div class="tips-list" id="tipsList">
+                        <!-- Loaded dynamically -->
+                    </div>
                 </div>
-                <div class="tips-list" id="tipsList">
-                    <!-- Tips loaded dynamically -->
-                </div>
-            </section>
 
-            <!-- Back Button -->
-            <div class="action-buttons">
-                <a href="#" id="backToCountry" class="back-btn">
-                    ← Back to Country
-                </a>
+                <!-- City Map Section -->
+                <div class="city-map-section" id="cityMapSection">
+                    <div class="map-container">
+                        <div class="map-header">
+                            <h3>🗺️ <span id="mapTitle">City Map</span></h3>
+                            <div class="map-actions">
+                                <button class="map-btn" onclick="resetMapView()" title="Reset view">
+                                    🎯 Center
+                                </button>
+                                <button class="map-btn" onclick="toggleLandmarks()" id="toggleLandmarksBtn" title="Toggle landmarks">
+                                    📍 Landmarks
+                                </button>
+                            </div>
+                        </div>
+                        <div id="cityMap">
+                            <div class="map-loading">
+                                <div class="spinner"></div>
+                                <span>Loading map...</span>
+                            </div>
+                        </div>
+                        <div class="map-legend" id="mapLegend">
+                            <div class="legend-title">Map Legend</div>
+                            <div class="legend-items" id="legendItems">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-sidebar">
+                <!-- Ask NOVA Card -->
+                <div class="info-card cta-card">
+                    <button class="cta-btn" onclick="askNova()">
+                        <svg class="nova-btn-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="novaBtnGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00f5ff"/><stop offset="50%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient></defs><rect x="4" y="7" width="16" height="13" rx="4" fill="url(#novaBtnGrad)"/><rect x="7" y="3" width="10" height="5" rx="2.5" fill="url(#novaBtnGrad)"/><circle cx="8.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="15.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="8.5" cy="12.5" r="1.5" fill="#00f5ff"/><circle cx="15.5" cy="12.5" r="1.5" fill="#00f5ff"/><rect x="10" y="16" width="4" height="2" rx="1" fill="#ec4899"/></svg>
+                        Ask NOVA
+                    </button>
+                    <button class="trip-btn" id="tripPlannerBtn" onclick="toggleTripPlanner()">
+                        <span id="tripBtnIcon">📌</span> <span id="tripBtnText">Add to Trip Planner</span>
+                    </button>
+                </div>
+
+                <!-- Quick Info -->
+                <div class="info-card">
+                    <h3>📋 Quick Info</h3>
+                    <div class="quick-info">
+                        <div class="info-item">
+                            <span class="info-label">Best Time</span>
+                            <span class="info-value" id="bestTime">--</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Avg Budget</span>
+                            <span class="info-value" id="avgBudget">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Best Months -->
+                <div class="info-card">
+                    <h3>📅 Best Months to Visit</h3>
+                    <div class="months-grid" id="monthsGrid">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Country Info -->
+                <div class="info-card" id="countryCard">
+                    <h3>🌐 Country Info</h3>
+                    <div style="text-align: center;">
+                        <div class="country-flag" id="countryFlag">🏳️</div>
+                        <h4 id="countryName">Loading...</h4>
+                    </div>
+                    <div class="country-details">
+                        <div class="country-detail">
+                            <span>Capital</span>
+                            <span id="countryCapital">--</span>
+                        </div>
+                        <div class="country-detail">
+                            <span>Currency</span>
+                            <span id="countryCurrency">--</span>
+                        </div>
+                        <div class="country-detail">
+                            <span>Language</span>
+                            <span id="countryLanguage">--</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
 
@@ -379,21 +977,27 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <h3>WhereTo</h3>
-                    <p>Your AI-powered travel companion</p>
+                    <p>Your Next Journey Starts Here</p>
                 </div>
                 <div class="footer-links">
-                    <a href="home.html">Home</a>
+                    <a href="nova.html">NOVA</a>
                     <a href="destinations.html">Destinations</a>
                     <a href="trip-planner.html">Trip Planner</a>
-                    <a href="nova.html">NOVA AI</a>
+                    <a href="visa-guide.html">Visa Guide</a>
+                    <a href="budget-calculator.html">Budget</a>
+                    <a href="currency-converter.html">Currency</a>
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2025 WhereTo. All rights reserved.</p>
+                <div class="footer-bottom">
+                    <p>Made with ❤️ for travelers everywhere</p>
+                    <p>© 2026 WhereTo. All rights reserved.</p>
+                </div>
             </div>
         </footer>
     </div>
 
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
     <script src="regions-data.js"></script>
     <script>
         // Get IDs from URL
@@ -402,20 +1006,30 @@
         const countryId = urlParams.get('country');
         const regionId = urlParams.get('region');
 
-        // Attraction icons based on type/name
-        const attractionIcons = {
-            'museum': '🏛️',
+        let currentCity = null;
+        let currentCountry = null;
+        let currentRegion = null;
+        let cityMap = null;
+        let mapMarkers = [];
+        let landmarksVisible = true;
+
+        // Attraction icons based on type
+        const typeIcons = {
+            'landmark': '🏛️',
+            'museum': '🖼️',
             'palace': '🏰',
             'castle': '🏰',
             'church': '⛪',
             'cathedral': '⛪',
             'mosque': '🕌',
+            'religious': '🕍',
             'temple': '🛕',
             'monastery': '🕍',
             'park': '🌳',
             'garden': '🌷',
             'beach': '🏖️',
             'mountain': '⛰️',
+            'nature': '🏞️',
             'lake': '🏞️',
             'waterfall': '💦',
             'tower': '🗼',
@@ -423,19 +1037,28 @@
             'market': '🛒',
             'square': '🏛️',
             'street': '🛤️',
+            'neighborhood': '🏘️',
             'zoo': '🦁',
             'aquarium': '🐠',
+            'historic': '🏛️',
+            'unesco': '🌍',
+            'viewpoint': '👁️',
+            'food': '🍽️',
+            'shopping': '🛍️',
+            'activity': '🎯',
+            'experience': '✨',
             'default': '📍'
         };
 
-        function getAttractionIcon(name) {
-            const nameLower = name.toLowerCase();
-            for (const [keyword, icon] of Object.entries(attractionIcons)) {
-                if (nameLower.includes(keyword)) {
+        function getAttractionIcon(type) {
+            if (!type) return typeIcons.default;
+            const typeLower = type.toLowerCase();
+            for (const [keyword, icon] of Object.entries(typeIcons)) {
+                if (typeLower.includes(keyword)) {
                     return icon;
                 }
             }
-            return attractionIcons.default;
+            return typeIcons.default;
         }
 
         // Initialize page
@@ -450,77 +1073,130 @@
                 return;
             }
 
-            // Get city details
-            const city = getCityDetails(regionId, countryId, cityId);
+            // Get city details using the helper function from regions-data.js
+            currentCity = getCityDetails(regionId, countryId, cityId);
 
-            if (!city) {
+            if (!currentCity) {
                 showError('City not found');
                 return;
             }
 
-            // Get region and country info for breadcrumbs
+            // Get region and country info
             const regions = getAllRegions();
-            const region = regions.find(r => r.id === regionId);
+            currentRegion = regions.find(r => r.id === regionId);
             const countries = getCountriesByRegion(regionId);
-            const country = countries.find(c => c.id === countryId);
+            currentCountry = countries.find(c => c.id === countryId);
 
             // Update breadcrumbs and links
             const regionLink = document.getElementById('regionLink');
             regionLink.href = `region.html?id=${regionId}`;
-            regionLink.textContent = region ? region.name : 'Region';
+            regionLink.textContent = currentRegion ? currentRegion.name : 'Region';
 
             const countryLink = document.getElementById('countryLink');
             countryLink.href = `country.html?id=${countryId}&region=${regionId}`;
-            countryLink.textContent = country ? country.name : 'Country';
+            countryLink.textContent = currentCountry ? currentCountry.name : 'Country';
 
-            document.getElementById('cityBreadcrumb').textContent = city.name;
+            document.getElementById('cityBreadcrumb').textContent = currentCity.name;
 
             // Update back button
-            document.getElementById('backToCountry').href = `country.html?id=${countryId}&region=${regionId}`;
-            document.getElementById('backToCountry').textContent = `← Back to ${country ? country.name : 'Country'}`;
+            const backBtn = document.getElementById('backBtn');
+            backBtn.href = `country.html?id=${countryId}&region=${regionId}`;
+            backBtn.textContent = `← Back to ${currentCountry ? currentCountry.name : 'Country'}`;
 
             // Update page title
-            document.title = `${city.name} - WhereTo | Travel Guide`;
+            document.title = `${currentCity.name}, ${currentCity.country} - WhereTo`;
 
             // Update hero
-            document.getElementById('cityHeroImage').style.backgroundImage = `url('${city.image}')`;
-            document.getElementById('cityName').textContent = city.name;
-            document.getElementById('cityCountry').innerHTML = `📍 ${city.country}`;
-            document.getElementById('cityRegion').innerHTML = `🌍 ${city.region}`;
-
-            // Update info cards
-            document.getElementById('infoBudget').textContent = `$${city.avgBudget}/day`;
-            document.getElementById('infoBestTime').textContent = city.bestTime;
-            document.getElementById('infoPopulation').textContent = city.population;
-            document.getElementById('infoRegion').textContent = city.region;
+            document.getElementById('heroSection').style.backgroundImage = `url('${currentCity.image}')`;
+            document.getElementById('cityTitle').textContent = currentCity.name;
+            document.getElementById('cityLocation').innerHTML = `📍 ${currentCity.country}`;
+            document.getElementById('cityPopulation').innerHTML = `👥 ${currentCity.population}`;
 
             // Update description
-            document.getElementById('cityDescription').textContent = city.description;
+            document.getElementById('cityDescription').textContent = currentCity.description;
+
+            // Update budget info
+            if (currentCity.avgBudget && typeof currentCity.avgBudget === 'object') {
+                document.getElementById('budgetLow').textContent = `$${currentCity.avgBudget.budget}`;
+                document.getElementById('budgetMid').textContent = `$${currentCity.avgBudget.mid}`;
+                document.getElementById('budgetLuxury').textContent = `$${currentCity.avgBudget.luxury}`;
+                document.getElementById('avgBudget').textContent = `$${currentCity.avgBudget.mid}/day`;
+            } else {
+                const budget = currentCity.avgBudget || 100;
+                document.getElementById('budgetLow').textContent = `$${Math.round(budget * 0.6)}`;
+                document.getElementById('budgetMid').textContent = `$${budget}`;
+                document.getElementById('budgetLuxury').textContent = `$${Math.round(budget * 2.5)}`;
+                document.getElementById('avgBudget').textContent = `$${budget}/day`;
+            }
+
+            // Update best time
+            document.getElementById('bestTime').textContent = currentCity.bestTime;
 
             // Load attractions
-            loadAttractions(city.attractions);
+            loadAttractions(currentCity.attractions);
 
             // Load tips
-            loadTips(city.tips);
+            loadTips(currentCity.tips);
+
+            // Load months grid
+            loadMonthsGrid();
+
+            // Update country info
+            if (currentCountry) {
+                document.getElementById('countryFlag').textContent = currentCountry.flag;
+                document.getElementById('countryName').textContent = currentCountry.name;
+                document.getElementById('countryCapital').textContent = currentCountry.capital || '--';
+                document.getElementById('countryCurrency').textContent = currentCountry.currency;
+                document.getElementById('countryLanguage').textContent = currentCountry.language;
+            }
+
+            // Initialize map
+            initCityMap();
+
+            // Update trip planner button state
+            updateTripPlannerButton();
         }
 
         function loadAttractions(attractions) {
             const container = document.getElementById('attractionsList');
             
-            container.innerHTML = attractions.map(attraction => `
-                <div class="attraction-item">
-                    <div class="attraction-icon">${getAttractionIcon(attraction.name)}</div>
+            if (!attractions || attractions.length === 0) {
+                container.innerHTML = '<p style="color: rgba(255,255,255,0.6);">No attractions listed yet.</p>';
+                return;
+            }
+
+            container.innerHTML = attractions.map((attraction, index) => `
+                <div class="attraction-accordion" data-index="${index}">
+                    <div class="attraction-header" onclick="toggleAttraction(${index})">
+                        <div class="attraction-header-left">
+                            <span class="attraction-icon">${getAttractionIcon(attraction.type)}</span>
+                            <span class="attraction-title">${attraction.name}</span>
+                        </div>
+                        <span class="attraction-type">${attraction.type || 'Attraction'}</span>
+                        <span class="attraction-toggle">▼</span>
+                    </div>
                     <div class="attraction-content">
-                        <h4>${attraction.name}</h4>
-                        <p>${attraction.description}</p>
+                        <div class="attraction-details">${attraction.description}</div>
                     </div>
                 </div>
             `).join('');
         }
 
+        function toggleAttraction(index) {
+            const accordion = document.querySelector(`.attraction-accordion[data-index="${index}"]`);
+            if (accordion) {
+                accordion.classList.toggle('expanded');
+            }
+        }
+
         function loadTips(tips) {
             const container = document.getElementById('tipsList');
             
+            if (!tips || tips.length === 0) {
+                container.innerHTML = '<p style="color: rgba(255,255,255,0.6);">No tips available yet.</p>';
+                return;
+            }
+
             container.innerHTML = tips.map(tip => `
                 <div class="tip-item">
                     <p>${tip}</p>
@@ -528,8 +1204,375 @@
             `).join('');
         }
 
+        function loadMonthsGrid() {
+            const monthsGrid = document.getElementById('monthsGrid');
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            
+            // Parse best time to determine best months
+            const bestTime = currentCity.bestTime ? currentCity.bestTime.toLowerCase() : '';
+            const bestMonths = [];
+            
+            const monthMap = {
+                'january': 0, 'february': 1, 'march': 2, 'april': 3, 'may': 4, 'june': 5,
+                'july': 6, 'august': 7, 'september': 8, 'october': 9, 'november': 10, 'december': 11,
+                'jan': 0, 'feb': 1, 'mar': 2, 'apr': 3, 'jun': 5, 'jul': 6, 'aug': 7, 'sep': 8, 'oct': 9, 'nov': 10, 'dec': 11
+            };
+            
+            for (const [name, idx] of Object.entries(monthMap)) {
+                if (bestTime.includes(name)) {
+                    bestMonths.push(idx);
+                }
+            }
+
+            monthsGrid.innerHTML = months.map((month, index) => {
+                const isBest = bestMonths.includes(index);
+                return `<div class="month-tag ${isBest ? 'best' : ''}">${month}</div>`;
+            }).join('');
+        }
+
+        // ============================================
+        // MAP FUNCTIONALITY
+        // ============================================
+        function initCityMap() {
+            // Get coordinates from city name using a simple lookup
+            const cityCoords = getCityCoordinates(currentCity.name, currentCity.country);
+            
+            if (!cityCoords) {
+                document.getElementById('cityMapSection').style.display = 'none';
+                return;
+            }
+
+            // Update map title
+            document.getElementById('mapTitle').textContent = `${currentCity.name} Map`;
+
+            // Clear loading state
+            const mapContainer = document.getElementById('cityMap');
+            mapContainer.innerHTML = '';
+
+            setTimeout(() => {
+                cityMap = L.map('cityMap', {
+                    center: cityCoords,
+                    zoom: 13,
+                    zoomControl: true,
+                    scrollWheelZoom: true
+                });
+
+                // Add OpenStreetMap tiles
+                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                    maxZoom: 19
+                }).addTo(cityMap);
+
+                // Add city center marker
+                const centerMarker = L.marker(cityCoords, {
+                    icon: createCustomIcon('📍', 'city-center-marker')
+                }).addTo(cityMap);
+                centerMarker.bindPopup(`
+                    <div class="marker-popup">
+                        <h4>${currentCity.name}</h4>
+                        <div class="popup-type">City Center</div>
+                    </div>
+                `);
+                mapMarkers.push(centerMarker);
+
+                // Add attraction markers if we have coordinates
+                if (currentCity.attractions && currentCity.attractions.length > 0) {
+                    addAttractionMarkers(cityCoords);
+                }
+
+                // Update legend
+                updateMapLegend();
+
+                setTimeout(() => {
+                    cityMap.invalidateSize();
+                    cityMap.setView(cityCoords, 13);
+                }, 200);
+            }, 100);
+        }
+
+        function createCustomIcon(emoji, extraClass = '') {
+            return L.divIcon({
+                html: `<div class="custom-marker ${extraClass}">${emoji}</div>`,
+                className: 'custom-div-icon',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -40]
+            });
+        }
+
+        function addAttractionMarkers(centerCoords) {
+            // Place attraction markers in a circle around center
+            const radius = 0.01; // ~1km
+            currentCity.attractions.forEach((attraction, index) => {
+                const angle = (index / currentCity.attractions.length) * 2 * Math.PI;
+                const lat = centerCoords[0] + radius * Math.cos(angle);
+                const lng = centerCoords[1] + radius * Math.sin(angle);
+                
+                const marker = L.marker([lat, lng], {
+                    icon: createCustomIcon(getAttractionIcon(attraction.type))
+                }).addTo(cityMap);
+                
+                marker.bindPopup(`
+                    <div class="marker-popup">
+                        <h4>${getAttractionIcon(attraction.type)} ${attraction.name}</h4>
+                        <div class="popup-type">${attraction.type || 'Attraction'}</div>
+                    </div>
+                `);
+                
+                mapMarkers.push(marker);
+            });
+        }
+
+        function updateMapLegend() {
+            const legendItems = document.getElementById('legendItems');
+            
+            if (!currentCity.attractions || currentCity.attractions.length === 0) {
+                legendItems.innerHTML = `
+                    <div class="legend-item">
+                        <span class="legend-icon">📍</span>
+                        <span>City Center</span>
+                    </div>
+                `;
+                return;
+            }
+
+            // Get unique types
+            const types = [...new Set(currentCity.attractions.map(a => a.type).filter(Boolean))];
+            
+            let html = `
+                <div class="legend-item">
+                    <span class="legend-icon">📍</span>
+                    <span>City Center</span>
+                </div>
+            `;
+            
+            types.slice(0, 6).forEach(type => {
+                html += `
+                    <div class="legend-item">
+                        <span class="legend-icon">${getAttractionIcon(type)}</span>
+                        <span>${type}</span>
+                    </div>
+                `;
+            });
+            
+            legendItems.innerHTML = html;
+        }
+
+        function resetMapView() {
+            if (cityMap && currentCity) {
+                const coords = getCityCoordinates(currentCity.name, currentCity.country);
+                if (coords) {
+                    cityMap.setView(coords, 13);
+                }
+            }
+        }
+
+        function toggleLandmarks() {
+            landmarksVisible = !landmarksVisible;
+            const btn = document.getElementById('toggleLandmarksBtn');
+            
+            mapMarkers.forEach((marker, index) => {
+                if (index === 0) return; // Skip city center
+                
+                if (landmarksVisible) {
+                    marker.addTo(cityMap);
+                } else {
+                    cityMap.removeLayer(marker);
+                }
+            });
+            
+            btn.innerHTML = landmarksVisible ? '📍 Landmarks' : '📍 Show All';
+            btn.style.opacity = landmarksVisible ? '1' : '0.6';
+        }
+
+        // City coordinates lookup (common cities)
+        function getCityCoordinates(cityName, country) {
+            const coords = {
+                // Major cities coordinates
+                'Paris': [48.8566, 2.3522],
+                'London': [51.5074, -0.1278],
+                'Tokyo': [35.6762, 139.6503],
+                'New York': [40.7128, -74.0060],
+                'Dubai': [25.2048, 55.2708],
+                'Singapore': [1.3521, 103.8198],
+                'Bangkok': [13.7563, 100.5018],
+                'Rome': [41.9028, 12.4964],
+                'Barcelona': [41.3851, 2.1734],
+                'Amsterdam': [52.3676, 4.9041],
+                'Vienna': [48.2082, 16.3738],
+                'Prague': [50.0755, 14.4378],
+                'Berlin': [52.5200, 13.4050],
+                'Madrid': [40.4168, -3.7038],
+                'Istanbul': [41.0082, 28.9784],
+                'Sydney': [33.8688, 151.2093],
+                'Melbourne': [-37.8136, 144.9631],
+                'Bali': [-8.3405, 115.0920],
+                'Hong Kong': [22.3193, 114.1694],
+                'Seoul': [37.5665, 126.9780],
+                'Mumbai': [19.0760, 72.8777],
+                'Delhi': [28.7041, 77.1025],
+                'Cairo': [30.0444, 31.2357],
+                'Cape Town': [-33.9249, 18.4241],
+                'Rio de Janeiro': [-22.9068, -43.1729],
+                'Buenos Aires': [-34.6037, -58.3816],
+                'Mexico City': [19.4326, -99.1332],
+                'Toronto': [43.6532, -79.3832],
+                'Los Angeles': [34.0522, -118.2437],
+                'San Francisco': [37.7749, -122.4194],
+                'Miami': [25.7617, -80.1918],
+                'Zurich': [47.3769, 8.5417],
+                'Geneva': [46.2044, 6.1432],
+                'Munich': [48.1351, 11.5820],
+                'Venice': [45.4408, 12.3155],
+                'Florence': [43.7696, 11.2558],
+                'Milan': [45.4642, 9.1900],
+                'Athens': [37.9838, 23.7275],
+                'Lisbon': [38.7223, -9.1393],
+                'Dublin': [53.3498, -6.2603],
+                'Edinburgh': [55.9533, -3.1883],
+                'Brussels': [50.8503, 4.3517],
+                'Copenhagen': [55.6761, 12.5683],
+                'Stockholm': [59.3293, 18.0686],
+                'Oslo': [59.9139, 10.7522],
+                'Helsinki': [60.1699, 24.9384],
+                'Warsaw': [52.2297, 21.0122],
+                'Budapest': [47.4979, 19.0402],
+                'Marrakech': [31.6295, -7.9811],
+                'Jerusalem': [31.7683, 35.2137],
+                'Tel Aviv': [32.0853, 34.7818],
+                'Mecca': [21.3891, 39.8579],
+                'Medina': [24.5247, 39.5692],
+                'Riyadh': [24.7136, 46.6753],
+                'Jeddah': [21.4858, 39.1925],
+                'Abu Dhabi': [24.4539, 54.3773],
+                'Doha': [25.2854, 51.5310],
+                'Muscat': [23.5880, 58.3829],
+                'Kuala Lumpur': [3.1390, 101.6869],
+                'Jakarta': [-6.2088, 106.8456],
+                'Manila': [14.5995, 120.9842],
+                'Hanoi': [21.0285, 105.8542],
+                'Ho Chi Minh City': [10.8231, 106.6297],
+                'Colombo': [6.9271, 79.8612],
+                'Kathmandu': [27.7172, 85.3240],
+                'Taipei': [25.0330, 121.5654],
+                'Osaka': [34.6937, 135.5023],
+                'Kyoto': [35.0116, 135.7681],
+                'Beijing': [39.9042, 116.4074],
+                'Shanghai': [31.2304, 121.4737],
+                'Tirana': [41.3275, 19.8189],
+                'Salzburg': [47.8095, 13.0550],
+                'Brussels': [50.8503, 4.3517],
+                'Split': [43.5081, 16.4402],
+                'Dubrovnik': [42.6507, 18.0944],
+                'Lyon': [45.7640, 4.8357],
+                'Nice': [43.7102, 7.2620],
+                'Bordeaux': [44.8378, -0.5792],
+                'Hamburg': [53.5511, 9.9937],
+                'Cologne': [50.9375, 6.9603],
+                'Santorini': [36.3932, 25.4615],
+                'Crete': [35.2401, 24.8093],
+                'Reykjavik': [64.1466, -21.9426],
+                'Krakow': [50.0647, 19.9450],
+                'Porto': [41.1579, -8.6291],
+                'Seville': [37.3891, -5.9845],
+                'Lucerne': [47.0502, 8.3093],
+                'Edinburgh': [55.9533, -3.1883],
+                'Manchester': [53.4808, -2.2426],
+                'Liverpool': [53.4084, -2.9916],
+                'Auckland': [-36.8509, 174.7645],
+                'Queenstown': [-45.0312, 168.6626],
+                'Fiji': [-17.7134, 178.0650],
+                'Phuket': [7.8804, 98.3923],
+                'Chiang Mai': [18.7883, 98.9853],
+                'Bora Bora': [-16.5004, -151.7415],
+                'Maldives': [3.2028, 73.2207],
+                'Zanzibar': [-6.1659, 39.2026],
+                'Nairobi': [-1.2921, 36.8219],
+                'Victoria Falls': [-17.9243, 25.8572],
+                'Petra': [30.3285, 35.4444],
+                'Amman': [31.9454, 35.9284]
+            };
+            
+            return coords[cityName] || null;
+        }
+
+        // ============================================
+        // TRIP PLANNER FUNCTIONALITY
+        // ============================================
+        function isInTripPlanner() {
+            const saved = JSON.parse(localStorage.getItem('tripPlanner') || '[]');
+            const tripId = `city_${regionId}_${countryId}_${cityId}`;
+            return saved.some(d => d.tripId === tripId);
+        }
+
+        function updateTripPlannerButton() {
+            const btn = document.getElementById('tripPlannerBtn');
+            const icon = document.getElementById('tripBtnIcon');
+            const text = document.getElementById('tripBtnText');
+            
+            if (isInTripPlanner()) {
+                btn.classList.add('saved');
+                icon.textContent = '✓';
+                text.textContent = 'Added to Trip Planner';
+            } else {
+                btn.classList.remove('saved');
+                icon.textContent = '📌';
+                text.textContent = 'Add to Trip Planner';
+            }
+        }
+
+        function toggleTripPlanner() {
+            let saved = JSON.parse(localStorage.getItem('tripPlanner') || '[]');
+            const tripId = `city_${regionId}_${countryId}_${cityId}`;
+            
+            if (isInTripPlanner()) {
+                saved = saved.filter(d => d.tripId !== tripId);
+                localStorage.setItem('tripPlanner', JSON.stringify(saved));
+                updateTripPlannerButton();
+            } else {
+                const tripData = {
+                    tripId: tripId,
+                    id: currentCity.id,
+                    name: currentCity.name,
+                    country: currentCity.country,
+                    region: currentCity.region,
+                    image: currentCity.image,
+                    bestTime: currentCity.bestTime,
+                    avgBudget: typeof currentCity.avgBudget === 'object' ? currentCity.avgBudget.mid : currentCity.avgBudget,
+                    attractions: currentCity.attractions,
+                    tips: currentCity.tips,
+                    type: 'city',
+                    addedAt: new Date().toISOString()
+                };
+                saved.push(tripData);
+                localStorage.setItem('tripPlanner', JSON.stringify(saved));
+                updateTripPlannerButton();
+                showTripPlannerToast();
+            }
+        }
+
+        function showTripPlannerToast() {
+            const toast = document.createElement('div');
+            toast.className = 'trip-toast';
+            toast.innerHTML = `
+                <span>✓ Added to Trip Planner</span>
+                <a href="trip-planner.html">View Trip →</a>
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.classList.add('show'), 100);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function askNova() {
+            window.location.href = `nova.html?ask=${encodeURIComponent(`Tell me more about ${currentCity.name}, ${currentCity.country}`)}`;
+        }
+
         function showError(message) {
-            document.getElementById('cityName').textContent = message;
+            document.getElementById('cityTitle').textContent = message;
             document.getElementById('cityDescription').textContent = 'Please go back and select a valid city.';
             document.getElementById('attractionsList').innerHTML = '';
             document.getElementById('tipsList').innerHTML = '';

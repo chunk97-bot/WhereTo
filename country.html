@@ -6,17 +6,620 @@
     <title>Explore Country - WhereTo | Travel Destinations</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Explore cities and destinations in this country. Find travel guides, tips, and information for your next adventure.">
+    <meta name="description" content="Explore cities and destinations in this country. Find travel guides, tips, budget information, and maps for your next adventure.">
     <meta name="robots" content="index, follow">
     
     <link rel="icon" type="image/png" href="favicon.png">
     <meta name="theme-color" content="#0f0f23">
     
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="pages.css">
+    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="pages.css?v=4">
+    
+    <!-- Leaflet CSS for Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Righteous&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Country Detail Styles */
+        .country-hero {
+            position: relative;
+            height: 50vh;
+            min-height: 350px;
+            max-height: 500px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, 
+                rgba(15, 15, 35, 0.3) 0%, 
+                rgba(15, 15, 35, 0.5) 50%,
+                rgba(15, 15, 35, 0.95) 100%);
+        }
+
+        .hero-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .breadcrumb a {
+            color: #00d4ff;
+            text-decoration: none;
+        }
+
+        .country-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .country-title .flag {
+            font-size: 3.5rem;
+        }
+
+        .country-title .name {
+            background: linear-gradient(135deg, #fff 0%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .country-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Main Layout */
+        .country-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+        }
+
+        .country-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .country-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Info Cards */
+        .info-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* CTA Card */
+        .cta-card {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .cta-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .nova-btn-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .trip-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .trip-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .trip-btn.saved {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .trip-btn.saved:hover {
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Toast notification */
+        .trip-toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .trip-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .trip-toast a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+        }
+
+        /* Country Details */
+        .quick-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #00d4ff;
+        }
+
+        /* Cities Grid */
+        .cities-section h3 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .city-card {
+            position: relative;
+            height: 280px;
+            border-radius: 20px;
+            overflow: hidden;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .city-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .city-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .city-card:hover .city-image {
+            transform: scale(1.08);
+        }
+
+        .city-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(15, 15, 35, 0.95) 0%, rgba(15, 15, 35, 0.3) 100%);
+        }
+
+        .city-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+        }
+
+        .city-content h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .city-description {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .city-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+        }
+
+        .city-meta span {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .city-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 212, 255, 0.9);
+            color: white;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Map Section */
+        .map-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .map-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .map-header h3 {
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0;
+        }
+
+        .map-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .map-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 212, 255, 0.4);
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .map-btn:hover {
+            background: rgba(0, 212, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        #countryMap {
+            width: 100%;
+            height: 400px;
+            border-radius: 16px;
+            z-index: 1;
+            background: #1a1a2e;
+        }
+
+        .map-legend {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+        }
+
+        .legend-title {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .legend-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.4rem 0.75rem;
+            border-radius: 20px;
+        }
+
+        /* Custom Leaflet markers */
+        .custom-marker {
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+            border: 2px solid white;
+            width: 36px;
+            height: 36px;
+        }
+
+        .custom-div-icon {
+            background: transparent !important;
+            border: none !important;
+        }
+
+        .marker-popup {
+            text-align: center;
+        }
+
+        .marker-popup h4 {
+            margin: 0 0 0.25rem 0;
+            font-size: 0.95rem;
+            color: #1a1a2e;
+        }
+
+        .marker-popup .popup-type {
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        .leaflet-popup-content-wrapper {
+            background: white;
+            border-radius: 12px;
+        }
+
+        .leaflet-popup-content {
+            margin: 0.75rem 1rem;
+        }
+
+        /* Capital marker */
+        .capital-marker {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+        }
+
+        /* Map loading */
+        .map-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .map-loading .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(0, 212, 255, 0.2);
+            border-top-color: #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            top: 80px;
+            left: 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(0, 212, 255, 0.3);
+        }
+
+        /* Highlights */
+        .highlights-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .highlight-tag {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            color: #00d4ff;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .country-main {
+                grid-template-columns: 1fr;
+            }
+
+            .country-sidebar {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .country-title {
+                font-size: 2rem;
+            }
+
+            .country-title .flag {
+                font-size: 2.5rem;
+            }
+
+            .country-hero {
+                height: 40vh;
+            }
+
+            .country-main {
+                padding: 1rem;
+            }
+
+            .cities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #countryMap {
+                height: 300px;
+            }
+
+            .map-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .map-actions {
+                width: 100%;
+            }
+
+            .map-btn {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .country-title {
+                flex-direction: column;
+                gap: 0.25rem;
+                font-size: 1.75rem;
+            }
+
+            .back-btn {
+                top: 70px;
+                left: 1rem;
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="page-container">
@@ -50,50 +653,125 @@
             <button class="nav-toggle" id="navToggle">☰</button>
         </nav>
 
-        <!-- Page Header -->
-        <header class="page-header destinations-header">
-            <!-- Static Planes -->
-            <div class="planes-container">
-                <div class="flying-plane plane-1">✈️</div>
-                <div class="flying-plane plane-2">✈️</div>
-                <div class="flying-plane plane-3">✈️</div>
-                <div class="flying-plane plane-4">✈️</div>
+        <!-- Hero Section -->
+        <section class="country-hero" id="heroSection">
+            <div class="hero-overlay"></div>
+            <a href="#" class="back-btn" id="backBtn">← Back to Region</a>
+            <div class="hero-content">
+                <div class="breadcrumb">
+                    <a href="destinations.html">Destinations</a>
+                    <span>›</span>
+                    <a href="#" id="regionLink">Region</a>
+                    <span>›</span>
+                    <span id="countryBreadcrumb">Country</span>
+                </div>
+                <div class="country-title">
+                    <span class="flag" id="countryFlag">🏳️</span>
+                    <span class="name" id="countryName">Loading...</span>
+                </div>
+                <p class="country-subtitle" id="countryDescription">Discover beautiful cities and destinations</p>
             </div>
-
-            <!-- Breadcrumb -->
-            <nav class="breadcrumb">
-                <a href="destinations.html">Destinations</a>
-                <span class="separator">›</span>
-                <a href="#" id="regionLink">Region</a>
-                <span class="separator">›</span>
-                <span id="countryBreadcrumb">Country</span>
-            </nav>
-
-            <h1 id="countryTitle">
-                <span class="country-flag-hero" id="countryFlag">🏳️</span>
-                <span id="countryName">Loading...</span>
-            </h1>
-            <p id="countryDescription">Explore amazing cities and destinations in this country</p>
-        </header>
+        </section>
 
         <!-- Main Content -->
-        <main class="page-content">
-            <!-- Cities Section -->
-            <section class="dest-section">
-                <div class="section-header">
-                    <h2>🏙️ Cities to Visit</h2>
-                    <span id="cityCount">0 cities</span>
+        <main class="country-main">
+            <div class="country-content">
+                <!-- Cities Section -->
+                <div class="info-card cities-section">
+                    <h3>🏙️ Cities to Explore <span id="cityCount" style="font-size: 0.85rem; color: #00d4ff; font-weight: normal;">0 cities</span></h3>
+                    <div class="cities-grid" id="citiesGrid">
+                        <!-- Cities loaded dynamically -->
+                    </div>
                 </div>
-                <div class="cities-grid" id="citiesGrid">
-                    <!-- Cities loaded dynamically -->
-                </div>
-            </section>
 
-            <!-- Back Button -->
-            <div class="action-buttons">
-                <a href="#" id="backToRegion" class="back-btn">
-                    ← Back to Region
-                </a>
+                <!-- Country Map -->
+                <div class="map-container" id="mapSection">
+                    <div class="map-header">
+                        <h3>🗺️ <span id="mapTitle">Country Map</span></h3>
+                        <div class="map-actions">
+                            <button class="map-btn" onclick="resetMapView()" title="Reset view">
+                                🎯 Center
+                            </button>
+                            <button class="map-btn" onclick="toggleCities()" id="toggleCitiesBtn" title="Toggle city markers">
+                                📍 Cities
+                            </button>
+                        </div>
+                    </div>
+                    <div id="countryMap">
+                        <div class="map-loading">
+                            <div class="spinner"></div>
+                            <span>Loading map...</span>
+                        </div>
+                    </div>
+                    <div class="map-legend">
+                        <div class="legend-title">Map Legend</div>
+                        <div class="legend-items" id="legendItems">
+                            <div class="legend-item">
+                                <span>⭐</span>
+                                <span>Capital</span>
+                            </div>
+                            <div class="legend-item">
+                                <span>🏙️</span>
+                                <span>Cities</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="country-sidebar">
+                <!-- Ask NOVA Card -->
+                <div class="info-card cta-card">
+                    <button class="cta-btn" onclick="askNova()">
+                        <svg class="nova-btn-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="novaBtnGrad2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00f5ff"/><stop offset="50%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient></defs><rect x="4" y="7" width="16" height="13" rx="4" fill="url(#novaBtnGrad2)"/><rect x="7" y="3" width="10" height="5" rx="2.5" fill="url(#novaBtnGrad2)"/><circle cx="8.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="15.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="8.5" cy="12.5" r="1.5" fill="#00f5ff"/><circle cx="15.5" cy="12.5" r="1.5" fill="#00f5ff"/><rect x="10" y="16" width="4" height="2" rx="1" fill="#ec4899"/></svg>
+                        Ask NOVA
+                    </button>
+                    <button class="trip-btn" id="tripPlannerBtn" onclick="toggleTripPlanner()">
+                        <span id="tripBtnIcon">📌</span> <span id="tripBtnText">Add to Trip Planner</span>
+                    </button>
+                </div>
+
+                <!-- Quick Info -->
+                <div class="info-card">
+                    <h3>📋 Country Info</h3>
+                    <div class="quick-info">
+                        <div class="info-item">
+                            <span class="info-label">Capital</span>
+                            <span class="info-value" id="countryCapital">--</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Currency</span>
+                            <span class="info-value" id="countryCurrency">--</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Language</span>
+                            <span class="info-value" id="countryLanguage">--</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Visa</span>
+                            <span class="info-value" id="countryVisa">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Region Info -->
+                <div class="info-card">
+                    <h3>🌍 Region</h3>
+                    <a href="#" id="regionLinkSidebar" style="color: #00d4ff; text-decoration: none; font-weight: 600;">
+                        <span id="regionName">--</span> →
+                    </a>
+                    <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 0.5rem;">
+                        Explore more countries in this region
+                    </p>
+                </div>
+
+                <!-- Highlights -->
+                <div class="info-card" id="highlightsCard" style="display: none;">
+                    <h3>✨ Highlights</h3>
+                    <div class="highlights-list" id="highlightsList">
+                        <!-- Dynamic -->
+                    </div>
+                </div>
             </div>
         </main>
 
@@ -102,27 +780,40 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <h3>WhereTo</h3>
-                    <p>Your AI-powered travel companion</p>
+                    <p>Your Next Journey Starts Here</p>
                 </div>
                 <div class="footer-links">
-                    <a href="home.html">Home</a>
+                    <a href="nova.html">NOVA</a>
                     <a href="destinations.html">Destinations</a>
                     <a href="trip-planner.html">Trip Planner</a>
-                    <a href="nova.html">NOVA AI</a>
+                    <a href="visa-guide.html">Visa Guide</a>
+                    <a href="budget-calculator.html">Budget</a>
+                    <a href="currency-converter.html">Currency</a>
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2025 WhereTo. All rights reserved.</p>
+                <div class="footer-bottom">
+                    <p>Made with ❤️ for travelers everywhere</p>
+                    <p>© 2026 WhereTo. All rights reserved.</p>
+                </div>
             </div>
         </footer>
     </div>
 
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
     <script src="regions-data.js"></script>
     <script>
         // Get country ID and region ID from URL
         const urlParams = new URLSearchParams(window.location.search);
         const countryId = urlParams.get('id');
         const regionId = urlParams.get('region');
+
+        let currentCountry = null;
+        let currentRegion = null;
+        let countryCities = [];
+        let countryMap = null;
+        let cityMarkers = [];
+        let citiesVisible = true;
 
         // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
@@ -138,62 +829,439 @@
 
             // Get region info
             const regions = getAllRegions();
-            const region = regions.find(r => r.id === regionId);
+            currentRegion = regions.find(r => r.id === regionId);
 
-            if (!region) {
+            if (!currentRegion) {
                 showError('Region not found');
                 return;
             }
 
             // Get country info
             const countries = getCountriesByRegion(regionId);
-            const country = countries.find(c => c.id === countryId);
+            currentCountry = countries.find(c => c.id === countryId);
 
-            if (!country) {
+            if (!currentCountry) {
                 showError('Country not found');
                 return;
             }
 
-            // Update region link
+            // Get cities for this country
+            countryCities = getCitiesByCountry(regionId, countryId);
+
+            // Update page elements
+            document.title = `${currentCountry.name} - WhereTo | Travel Destinations`;
+            
+            // Update breadcrumbs and links
             const regionLink = document.getElementById('regionLink');
             regionLink.href = `region.html?id=${regionId}`;
-            regionLink.textContent = region.name;
+            regionLink.textContent = currentRegion.name;
+
+            document.getElementById('countryBreadcrumb').textContent = currentCountry.name;
 
             // Update back button
-            document.getElementById('backToRegion').href = `region.html?id=${regionId}`;
-            document.getElementById('backToRegion').textContent = `← Back to ${region.name}`;
+            const backBtn = document.getElementById('backBtn');
+            backBtn.href = `region.html?id=${regionId}`;
+            backBtn.textContent = `← Back to ${currentRegion.name}`;
 
-            // Update page title and header
-            document.title = `${country.name} - WhereTo | Travel Destinations`;
-            document.getElementById('countryFlag').textContent = country.flag;
-            document.getElementById('countryName').textContent = country.name;
-            document.getElementById('countryDescription').textContent = `Discover beautiful cities and destinations in ${country.name}`;
-            document.getElementById('countryBreadcrumb').textContent = country.name;
+            // Update hero
+            if (countryCities.length > 0 && countryCities[0].image) {
+                document.getElementById('heroSection').style.backgroundImage = `url('${countryCities[0].image}')`;
+            }
+            
+            document.getElementById('countryFlag').textContent = currentCountry.flag;
+            document.getElementById('countryName').textContent = currentCountry.name;
+            document.getElementById('countryDescription').textContent = `Discover ${countryCities.length} amazing ${countryCities.length === 1 ? 'city' : 'cities'} in ${currentCountry.name}`;
+
+            // Update quick info
+            document.getElementById('countryCapital').textContent = currentCountry.capital || '--';
+            document.getElementById('countryCurrency').textContent = currentCountry.currency || '--';
+            document.getElementById('countryLanguage').textContent = currentCountry.language || '--';
+            document.getElementById('countryVisa').textContent = currentCountry.visa || '--';
+
+            // Update region sidebar
+            document.getElementById('regionLinkSidebar').href = `region.html?id=${regionId}`;
+            document.getElementById('regionName').textContent = currentRegion.name;
 
             // Load cities
             loadCities();
+
+            // Initialize map
+            initCountryMap();
+
+            // Show highlights if we have cities
+            if (countryCities.length > 0) {
+                showHighlights();
+            }
+
+            // Update trip planner button state
+            updateTripPlannerButton();
         }
 
         function loadCities() {
             const container = document.getElementById('citiesGrid');
-            const cities = getCitiesByCountry(regionId, countryId);
-            
-            document.getElementById('cityCount').textContent = `${cities.length} ${cities.length === 1 ? 'city' : 'cities'}`;
+            document.getElementById('cityCount').textContent = `${countryCities.length} ${countryCities.length === 1 ? 'city' : 'cities'}`;
 
-            container.innerHTML = cities.map(city => `
-                <a href="city.html?id=${city.id}&country=${countryId}&region=${regionId}" class="city-card">
-                    <div class="city-image" style="background-image: url('${city.image}')"></div>
-                    <div class="city-overlay"></div>
-                    <div class="city-content">
-                        <h3>${city.name}</h3>
-                        <p class="city-description">${city.description.substring(0, 60)}...</p>
-                        <div class="city-meta">
-                            <span class="city-budget">💰 $${city.avgBudget}/day</span>
-                            <span class="city-time">📅 ${city.bestTime}</span>
+            if (countryCities.length === 0) {
+                container.innerHTML = '<p style="color: rgba(255,255,255,0.6); grid-column: 1/-1;">No cities available yet. Check back soon!</p>';
+                return;
+            }
+
+            container.innerHTML = countryCities.map((city, index) => {
+                const budget = typeof city.avgBudget === 'object' ? city.avgBudget.mid : city.avgBudget;
+                return `
+                    <a href="city.html?id=${city.id}&country=${countryId}&region=${regionId}" class="city-card">
+                        <div class="city-image" style="background-image: url('${city.image}')"></div>
+                        <div class="city-overlay"></div>
+                        ${index === 0 ? '<span class="city-badge">Popular</span>' : ''}
+                        <div class="city-content">
+                            <h4>${city.name}</h4>
+                            <p class="city-description">${city.description.substring(0, 80)}...</p>
+                            <div class="city-meta">
+                                <span>💰 $${budget}/day</span>
+                                <span>📅 ${city.bestTime}</span>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            `).join('');
+                    </a>
+                `;
+            }).join('');
+        }
+
+        function showHighlights() {
+            const card = document.getElementById('highlightsCard');
+            const list = document.getElementById('highlightsList');
+            
+            // Get random attractions from cities as highlights
+            const highlights = [];
+            countryCities.forEach(city => {
+                if (city.attractions && city.attractions.length > 0) {
+                    highlights.push(city.attractions[0].name);
+                }
+            });
+
+            if (highlights.length > 0) {
+                card.style.display = 'block';
+                list.innerHTML = highlights.slice(0, 5).map(h => `
+                    <span class="highlight-tag">${h}</span>
+                `).join('');
+            }
+        }
+
+        // ============================================
+        // MAP FUNCTIONALITY
+        // ============================================
+        function initCountryMap() {
+            const countryCoords = getCountryCoordinates(currentCountry.name);
+            
+            if (!countryCoords) {
+                document.getElementById('mapSection').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('mapTitle').textContent = `${currentCountry.name} Map`;
+
+            const mapContainer = document.getElementById('countryMap');
+            mapContainer.innerHTML = '';
+
+            setTimeout(() => {
+                countryMap = L.map('countryMap', {
+                    center: countryCoords.center,
+                    zoom: countryCoords.zoom || 6,
+                    zoomControl: true,
+                    scrollWheelZoom: true
+                });
+
+                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                    maxZoom: 19
+                }).addTo(countryMap);
+
+                // Add capital marker
+                if (currentCountry.capital && countryCoords.capital) {
+                    const capitalMarker = L.marker(countryCoords.capital, {
+                        icon: createCustomIcon('⭐', 'capital-marker')
+                    }).addTo(countryMap);
+                    capitalMarker.bindPopup(`
+                        <div class="marker-popup">
+                            <h4>${currentCountry.capital}</h4>
+                            <div class="popup-type">Capital</div>
+                        </div>
+                    `);
+                }
+
+                // Add city markers
+                addCityMarkers();
+
+                setTimeout(() => {
+                    countryMap.invalidateSize();
+                }, 200);
+            }, 100);
+        }
+
+        function createCustomIcon(emoji, extraClass = '') {
+            return L.divIcon({
+                html: `<div class="custom-marker ${extraClass}">${emoji}</div>`,
+                className: 'custom-div-icon',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -40]
+            });
+        }
+
+        function addCityMarkers() {
+            countryCities.forEach(city => {
+                const coords = getCityCoordinates(city.name);
+                if (coords) {
+                    const marker = L.marker(coords, {
+                        icon: createCustomIcon('🏙️')
+                    }).addTo(countryMap);
+                    
+                    marker.bindPopup(`
+                        <div class="marker-popup">
+                            <h4>${city.name}</h4>
+                            <div class="popup-type">
+                                <a href="city.html?id=${city.id}&country=${countryId}&region=${regionId}" 
+                                   style="color: #00d4ff; text-decoration: none;">View Details →</a>
+                            </div>
+                        </div>
+                    `);
+                    
+                    cityMarkers.push(marker);
+                }
+            });
+        }
+
+        function resetMapView() {
+            if (countryMap && currentCountry) {
+                const coords = getCountryCoordinates(currentCountry.name);
+                if (coords) {
+                    countryMap.setView(coords.center, coords.zoom || 6);
+                }
+            }
+        }
+
+        function toggleCities() {
+            citiesVisible = !citiesVisible;
+            const btn = document.getElementById('toggleCitiesBtn');
+            
+            cityMarkers.forEach(marker => {
+                if (citiesVisible) {
+                    marker.addTo(countryMap);
+                } else {
+                    countryMap.removeLayer(marker);
+                }
+            });
+            
+            btn.innerHTML = citiesVisible ? '📍 Cities' : '📍 Show Cities';
+            btn.style.opacity = citiesVisible ? '1' : '0.6';
+        }
+
+        // Country coordinates lookup
+        function getCountryCoordinates(countryName) {
+            const coords = {
+                'France': { center: [46.2276, 2.2137], zoom: 6, capital: [48.8566, 2.3522] },
+                'Spain': { center: [40.4637, -3.7492], zoom: 6, capital: [40.4168, -3.7038] },
+                'Italy': { center: [41.8719, 12.5674], zoom: 6, capital: [41.9028, 12.4964] },
+                'Germany': { center: [51.1657, 10.4515], zoom: 6, capital: [52.5200, 13.4050] },
+                'United Kingdom': { center: [55.3781, -3.4360], zoom: 6, capital: [51.5074, -0.1278] },
+                'Japan': { center: [36.2048, 138.2529], zoom: 6, capital: [35.6762, 139.6503] },
+                'Thailand': { center: [15.8700, 100.9925], zoom: 6, capital: [13.7563, 100.5018] },
+                'Indonesia': { center: [-0.7893, 113.9213], zoom: 5, capital: [-6.2088, 106.8456] },
+                'Singapore': { center: [1.3521, 103.8198], zoom: 11, capital: [1.3521, 103.8198] },
+                'Malaysia': { center: [4.2105, 101.9758], zoom: 6, capital: [3.1390, 101.6869] },
+                'Vietnam': { center: [14.0583, 108.2772], zoom: 6, capital: [21.0285, 105.8542] },
+                'Philippines': { center: [12.8797, 121.7740], zoom: 6, capital: [14.5995, 120.9842] },
+                'India': { center: [20.5937, 78.9629], zoom: 5, capital: [28.7041, 77.1025] },
+                'Sri Lanka': { center: [7.8731, 80.7718], zoom: 7, capital: [6.9271, 79.8612] },
+                'Australia': { center: [-25.2744, 133.7751], zoom: 4, capital: [-35.2809, 149.1300] },
+                'New Zealand': { center: [-40.9006, 174.8860], zoom: 5, capital: [-41.2865, 174.7762] },
+                'United States': { center: [37.0902, -95.7129], zoom: 4, capital: [38.9072, -77.0369] },
+                'Canada': { center: [56.1304, -106.3468], zoom: 4, capital: [45.4215, -75.6972] },
+                'Mexico': { center: [23.6345, -102.5528], zoom: 5, capital: [19.4326, -99.1332] },
+                'Brazil': { center: [-14.2350, -51.9253], zoom: 4, capital: [-15.8267, -47.9218] },
+                'Argentina': { center: [-38.4161, -63.6167], zoom: 4, capital: [-34.6037, -58.3816] },
+                'Peru': { center: [-9.1900, -75.0152], zoom: 5, capital: [-12.0464, -77.0428] },
+                'UAE': { center: [23.4241, 53.8478], zoom: 7, capital: [24.4539, 54.3773] },
+                'Saudi Arabia': { center: [23.8859, 45.0792], zoom: 5, capital: [24.7136, 46.6753] },
+                'Egypt': { center: [26.8206, 30.8025], zoom: 6, capital: [30.0444, 31.2357] },
+                'Morocco': { center: [31.7917, -7.0926], zoom: 6, capital: [33.9716, -6.8498] },
+                'South Africa': { center: [-30.5595, 22.9375], zoom: 5, capital: [-25.7479, 28.2293] },
+                'Kenya': { center: [-0.0236, 37.9062], zoom: 6, capital: [-1.2921, 36.8219] },
+                'Turkey': { center: [38.9637, 35.2433], zoom: 6, capital: [39.9334, 32.8597] },
+                'Greece': { center: [39.0742, 21.8243], zoom: 6, capital: [37.9838, 23.7275] },
+                'Croatia': { center: [45.1000, 15.2000], zoom: 7, capital: [45.8150, 15.9819] },
+                'Portugal': { center: [39.3999, -8.2245], zoom: 6, capital: [38.7223, -9.1393] },
+                'Netherlands': { center: [52.1326, 5.2913], zoom: 7, capital: [52.3676, 4.9041] },
+                'Belgium': { center: [50.5039, 4.4699], zoom: 8, capital: [50.8503, 4.3517] },
+                'Austria': { center: [47.5162, 14.5501], zoom: 7, capital: [48.2082, 16.3738] },
+                'Switzerland': { center: [46.8182, 8.2275], zoom: 8, capital: [46.9480, 7.4474] },
+                'Czech Republic': { center: [49.8175, 15.4730], zoom: 7, capital: [50.0755, 14.4378] },
+                'Poland': { center: [51.9194, 19.1451], zoom: 6, capital: [52.2297, 21.0122] },
+                'Hungary': { center: [47.1625, 19.5033], zoom: 7, capital: [47.4979, 19.0402] },
+                'Ireland': { center: [53.1424, -7.6921], zoom: 7, capital: [53.3498, -6.2603] },
+                'Norway': { center: [60.4720, 8.4689], zoom: 5, capital: [59.9139, 10.7522] },
+                'Sweden': { center: [60.1282, 18.6435], zoom: 5, capital: [59.3293, 18.0686] },
+                'Denmark': { center: [56.2639, 9.5018], zoom: 7, capital: [55.6761, 12.5683] },
+                'Finland': { center: [61.9241, 25.7482], zoom: 5, capital: [60.1699, 24.9384] },
+                'Iceland': { center: [64.9631, -19.0208], zoom: 6, capital: [64.1466, -21.9426] },
+                'Russia': { center: [61.5240, 105.3188], zoom: 3, capital: [55.7558, 37.6173] },
+                'China': { center: [35.8617, 104.1954], zoom: 4, capital: [39.9042, 116.4074] },
+                'South Korea': { center: [35.9078, 127.7669], zoom: 7, capital: [37.5665, 126.9780] },
+                'Taiwan': { center: [23.6978, 120.9605], zoom: 7, capital: [25.0330, 121.5654] },
+                'Hong Kong': { center: [22.3193, 114.1694], zoom: 11, capital: [22.3193, 114.1694] },
+                'Nepal': { center: [28.3949, 84.1240], zoom: 7, capital: [27.7172, 85.3240] },
+                'Jordan': { center: [30.5852, 36.2384], zoom: 7, capital: [31.9454, 35.9284] },
+                'Israel': { center: [31.0461, 34.8516], zoom: 8, capital: [31.7683, 35.2137] },
+                'Qatar': { center: [25.3548, 51.1839], zoom: 8, capital: [25.2854, 51.5310] },
+                'Oman': { center: [21.4735, 55.9754], zoom: 6, capital: [23.5880, 58.3829] },
+                'Maldives': { center: [3.2028, 73.2207], zoom: 7, capital: [4.1755, 73.5093] },
+                'Tanzania': { center: [-6.3690, 34.8888], zoom: 6, capital: [-6.1630, 35.7516] },
+                'Zimbabwe': { center: [-19.0154, 29.1549], zoom: 6, capital: [-17.8252, 31.0335] },
+                'Cuba': { center: [21.5218, -77.7812], zoom: 7, capital: [23.1136, -82.3666] },
+                'Colombia': { center: [4.5709, -74.2973], zoom: 5, capital: [4.7110, -74.0721] },
+                'Chile': { center: [-35.6751, -71.5430], zoom: 4, capital: [-33.4489, -70.6693] },
+                'Costa Rica': { center: [9.7489, -83.7534], zoom: 7, capital: [9.9281, -84.0907] }
+            };
+            
+            return coords[countryName] || null;
+        }
+
+        // City coordinates lookup
+        function getCityCoordinates(cityName) {
+            const coords = {
+                'Paris': [48.8566, 2.3522],
+                'London': [51.5074, -0.1278],
+                'Tokyo': [35.6762, 139.6503],
+                'New York': [40.7128, -74.0060],
+                'Dubai': [25.2048, 55.2708],
+                'Singapore': [1.3521, 103.8198],
+                'Bangkok': [13.7563, 100.5018],
+                'Rome': [41.9028, 12.4964],
+                'Barcelona': [41.3851, 2.1734],
+                'Amsterdam': [52.3676, 4.9041],
+                'Vienna': [48.2082, 16.3738],
+                'Prague': [50.0755, 14.4378],
+                'Berlin': [52.5200, 13.4050],
+                'Madrid': [40.4168, -3.7038],
+                'Istanbul': [41.0082, 28.9784],
+                'Sydney': [-33.8688, 151.2093],
+                'Melbourne': [-37.8136, 144.9631],
+                'Bali': [-8.3405, 115.0920],
+                'Hong Kong': [22.3193, 114.1694],
+                'Seoul': [37.5665, 126.9780],
+                'Mumbai': [19.0760, 72.8777],
+                'Delhi': [28.7041, 77.1025],
+                'Cairo': [30.0444, 31.2357],
+                'Cape Town': [-33.9249, 18.4241],
+                'Zurich': [47.3769, 8.5417],
+                'Geneva': [46.2044, 6.1432],
+                'Munich': [48.1351, 11.5820],
+                'Venice': [45.4408, 12.3155],
+                'Florence': [43.7696, 11.2558],
+                'Milan': [45.4642, 9.1900],
+                'Nice': [43.7102, 7.2620],
+                'Lyon': [45.7640, 4.8357],
+                'Bordeaux': [44.8378, -0.5792],
+                'Osaka': [34.6937, 135.5023],
+                'Kyoto': [35.0116, 135.7681],
+                'Athens': [37.9838, 23.7275],
+                'Lisbon': [38.7223, -9.1393],
+                'Dublin': [53.3498, -6.2603],
+                'Edinburgh': [55.9533, -3.1883],
+                'Copenhagen': [55.6761, 12.5683],
+                'Stockholm': [59.3293, 18.0686],
+                'Oslo': [59.9139, 10.7522],
+                'Marrakech': [31.6295, -7.9811],
+                'Kuala Lumpur': [3.1390, 101.6869],
+                'Hanoi': [21.0285, 105.8542],
+                'Ho Chi Minh City': [10.8231, 106.6297],
+                'Manila': [14.5995, 120.9842],
+                'Colombo': [6.9271, 79.8612],
+                'Auckland': [-36.8509, 174.7645],
+                'Queenstown': [-45.0312, 168.6626],
+                'Phuket': [7.8804, 98.3923],
+                'Chiang Mai': [18.7883, 98.9853],
+                'Nairobi': [-1.2921, 36.8219],
+                'Seville': [37.3891, -5.9845],
+                'Porto': [41.1579, -8.6291]
+            };
+            
+            return coords[cityName] || null;
+        }
+
+        // ============================================
+        // TRIP PLANNER FUNCTIONALITY
+        // ============================================
+        function isInTripPlanner() {
+            const saved = JSON.parse(localStorage.getItem('tripPlanner') || '[]');
+            const tripId = `country_${regionId}_${countryId}`;
+            return saved.some(d => d.tripId === tripId);
+        }
+
+        function updateTripPlannerButton() {
+            const btn = document.getElementById('tripPlannerBtn');
+            const icon = document.getElementById('tripBtnIcon');
+            const text = document.getElementById('tripBtnText');
+            
+            if (isInTripPlanner()) {
+                btn.classList.add('saved');
+                icon.textContent = '✓';
+                text.textContent = 'Added to Trip Planner';
+            } else {
+                btn.classList.remove('saved');
+                icon.textContent = '📌';
+                text.textContent = 'Add to Trip Planner';
+            }
+        }
+
+        function toggleTripPlanner() {
+            let saved = JSON.parse(localStorage.getItem('tripPlanner') || '[]');
+            const tripId = `country_${regionId}_${countryId}`;
+            
+            if (isInTripPlanner()) {
+                saved = saved.filter(d => d.tripId !== tripId);
+                localStorage.setItem('tripPlanner', JSON.stringify(saved));
+                updateTripPlannerButton();
+            } else {
+                const tripData = {
+                    tripId: tripId,
+                    id: currentCountry.id,
+                    name: currentCountry.name,
+                    flag: currentCountry.flag,
+                    region: currentRegion.name,
+                    regionId: regionId,
+                    image: countryCities.length > 0 ? countryCities[0].image : '',
+                    capital: currentCountry.capital,
+                    currency: currentCountry.currency,
+                    language: currentCountry.language,
+                    citiesCount: countryCities.length,
+                    type: 'country',
+                    addedAt: new Date().toISOString()
+                };
+                saved.push(tripData);
+                localStorage.setItem('tripPlanner', JSON.stringify(saved));
+                updateTripPlannerButton();
+                showTripPlannerToast();
+            }
+        }
+
+        function showTripPlannerToast() {
+            const toast = document.createElement('div');
+            toast.className = 'trip-toast';
+            toast.innerHTML = `
+                <span>✓ Added to Trip Planner</span>
+                <a href="trip-planner.html">View Trip →</a>
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.classList.add('show'), 100);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function askNova() {
+            window.location.href = `nova.html?ask=${encodeURIComponent(`Tell me about traveling to ${currentCountry.name}`)}`;
         }
 
         function showError(message) {
@@ -201,9 +1269,9 @@
             document.getElementById('countryName').textContent = message;
             document.getElementById('countryDescription').textContent = 'Please go back and select a valid country.';
             document.getElementById('citiesGrid').innerHTML = `
-                <div class="error-message">
+                <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
                     <p>${message}</p>
-                    <a href="destinations.html" class="back-btn">← Back to Destinations</a>
+                    <a href="destinations.html" style="color: #00d4ff;">← Back to Destinations</a>
                 </div>
             `;
         }

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Region - WhereTo | Travel Destinations</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Explore countries and destinations in this region. Find travel guides, tips, and information for your next adventure.">
+    <meta name="robots" content="index, follow">
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta name="theme-color" content="#0f0f23">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Righteous&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page-container">
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <a href="home.html">
+                    <svg viewBox="0 0 200 50" class="nav-logo-svg">
+                        <text x="5" y="35" class="nav-brand-text">WhereTo</text>
+                        <circle cx="175" cy="28" r="6" fill="#ff6b6b" class="nav-pin-dot"/>
+                        <circle cx="175" cy="27" r="2.5" fill="white"/>
+                        <g class="nav-flying-plane">
+                            <path d="M0 0 L-6 -2 L-5 0 L-6 2 Z" fill="#008cff"/>
+                            <path d="M-3 -4 L-1.5 0 L-3 4 L-4 0 Z" fill="#008cff" opacity="0.7"/>
+                        </g>
+                        <path class="nav-plane-trail" d="M100 38 Q130 25 150 30 Q170 35 180 22" 
+                              fill="none" stroke="rgba(0,140,255,0.3)" stroke-width="1.5" 
+                              stroke-dasharray="4 3" stroke-linecap="round"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="home.html" class="nav-link">🏠 Home</a>
+                <a href="nova.html" class="nav-link"><svg class="nav-robot-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="robotHead4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00f5ff"/><stop offset="50%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient><linearGradient id="robotGlow4" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#fff;stop-opacity:0.8"/><stop offset="100%" style="stop-color:#fff;stop-opacity:0"/></linearGradient><filter id="neonGlow4"><feGaussianBlur stdDeviation="0.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect x="4" y="7" width="16" height="13" rx="4" fill="url(#robotHead4)" filter="url(#neonGlow4)"/><rect x="5" y="8" width="14" height="4" rx="2" fill="url(#robotGlow4)" opacity="0.4"/><rect x="7" y="3" width="10" height="5" rx="2.5" fill="url(#robotHead4)"/><circle cx="8.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="15.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="8.5" cy="12.5" r="1.5" fill="#00f5ff"/><circle cx="15.5" cy="12.5" r="1.5" fill="#00f5ff"/><rect x="10" y="16" width="4" height="2" rx="1" fill="#ec4899"/><rect x="11" y="0" width="2" height="4" rx="1" fill="url(#robotHead4)"/><circle cx="12" cy="0" r="1.5" fill="#00f5ff"><animate attributeName="r" values="1.5;2;1.5" dur="1.5s" repeatCount="indefinite"/></circle><rect x="1" y="10" width="3" height="6" rx="1.5" fill="url(#robotHead4)"/><rect x="20" y="10" width="3" height="6" rx="1.5" fill="url(#robotHead4)"/></svg> NOVA</a>
+                <a href="destinations.html" class="nav-link active">🌍 Destinations</a>
+                <a href="trip-planner.html" class="nav-link">🗓️ Trip Planner</a>
+                <a href="visa-guide.html" class="nav-link"><svg class="nav-visa-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 5L20 2V20L4 23Z" fill="#4a90c2"/><path d="M4 5L20 2L21 3L5 6Z" fill="#7fc4e8"/><path d="M20 2L21 3V21L20 20Z" fill="#2d5a87"/><circle cx="12" cy="11" r="4" stroke="#fff" stroke-width="1.2" fill="none"/><line x1="9" y1="14" x2="15" y2="8" stroke="#fff" stroke-width="1.2"/><rect x="7" y="17" width="8" height="1" fill="#fff" opacity="0.6"/></svg> Visa Guide</a>
+                <a href="budget-calculator.html" class="nav-link">💰 Budget</a>
+                <a href="currency-converter.html" class="nav-link">💱 Currency</a>
+            </div>
+            <button class="nav-toggle" id="navToggle">☰</button>
+        </nav>
+
+        <!-- Page Header -->
+        <header class="page-header destinations-header">
+            <!-- Static Planes -->
+            <div class="planes-container">
+                <div class="flying-plane plane-1">✈️</div>
+                <div class="flying-plane plane-2">✈️</div>
+                <div class="flying-plane plane-3">✈️</div>
+                <div class="flying-plane plane-4">✈️</div>
+            </div>
+
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="destinations.html">Destinations</a>
+                <span class="separator">›</span>
+                <span id="regionBreadcrumb">Region</span>
+            </nav>
+
+            <h1 id="regionTitle">
+                <span class="region-emoji" id="regionEmoji">🌍</span>
+                <span id="regionName">Loading...</span>
+            </h1>
+            <p id="regionDescription">Explore amazing countries and destinations in this region</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="page-content">
+            <!-- Countries Section -->
+            <section class="dest-section">
+                <div class="section-header">
+                    <h2>🏳️ Countries to Explore</h2>
+                    <span id="countryCount">0 countries</span>
+                </div>
+                <div class="countries-grid" id="countriesGrid">
+                    <!-- Countries loaded dynamically -->
+                </div>
+            </section>
+
+            <!-- Back Button -->
+            <div class="action-buttons">
+                <a href="destinations.html" class="back-btn">
+                    ← Back to All Regions
+                </a>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="page-footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>WhereTo</h3>
+                    <p>Your AI-powered travel companion</p>
+                </div>
+                <div class="footer-links">
+                    <a href="home.html">Home</a>
+                    <a href="destinations.html">Destinations</a>
+                    <a href="trip-planner.html">Trip Planner</a>
+                    <a href="nova.html">NOVA AI</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 WhereTo. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="regions-data.js"></script>
+    <script>
+        // Get region ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const regionId = urlParams.get('id');
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePage();
+            setupNavToggle();
+        });
+
+        function initializePage() {
+            if (!regionId) {
+                showError('No region specified');
+                return;
+            }
+
+            const regions = getAllRegions();
+            const region = regions.find(r => r.id === regionId);
+
+            if (!region) {
+                showError('Region not found');
+                return;
+            }
+
+            // Update page title and header
+            document.title = `${region.name} - WhereTo | Travel Destinations`;
+            document.getElementById('regionEmoji').textContent = region.emoji;
+            document.getElementById('regionName').textContent = region.name;
+            document.getElementById('regionDescription').textContent = region.description;
+            document.getElementById('regionBreadcrumb').textContent = region.name;
+
+            // Load countries
+            loadCountries();
+        }
+
+        function loadCountries() {
+            const container = document.getElementById('countriesGrid');
+            const countries = getCountriesByRegion(regionId);
+            
+            document.getElementById('countryCount').textContent = `${countries.length} ${countries.length === 1 ? 'country' : 'countries'}`;
+
+            container.innerHTML = countries.map(country => `
+                <a href="country.html?id=${country.id}&region=${regionId}" class="country-card">
+                    <div class="country-image" style="background-image: url('${country.image}')"></div>
+                    <div class="country-overlay"></div>
+                    <div class="country-content">
+                        <span class="country-flag">${country.flag}</span>
+                        <h3>${country.name}</h3>
+                        <span class="country-count">${country.cityCount} ${country.cityCount === 1 ? 'city' : 'cities'}</span>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        function showError(message) {
+            document.getElementById('regionEmoji').textContent = '❌';
+            document.getElementById('regionName').textContent = message;
+            document.getElementById('regionDescription').textContent = 'Please go back and select a valid region.';
+            document.getElementById('countriesGrid').innerHTML = `
+                <div class="error-message">
+                    <p>${message}</p>
+                    <a href="destinations.html" class="back-btn">← Back to Destinations</a>
+                </div>
+            `;
+        }
+
+        function setupNavToggle() {
+            const navToggle = document.getElementById('navToggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (navToggle) {
+                navToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    navToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+                });
+            }
+        }
+    </script>
+</body>
+</html>

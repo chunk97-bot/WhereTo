@@ -6,17 +6,571 @@
     <title>Explore Region - WhereTo | Travel Destinations</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Explore countries and destinations in this region. Find travel guides, tips, and information for your next adventure.">
+    <meta name="description" content="Explore countries and destinations in this region. Find travel guides, tips, maps, and information for your next adventure.">
     <meta name="robots" content="index, follow">
     
     <link rel="icon" type="image/png" href="favicon.png">
     <meta name="theme-color" content="#0f0f23">
     
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="pages.css">
+    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="pages.css?v=4">
+    
+    <!-- Leaflet CSS for Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Righteous&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Region Detail Styles */
+        .region-hero {
+            position: relative;
+            height: 50vh;
+            min-height: 350px;
+            max-height: 500px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, 
+                rgba(15, 15, 35, 0.3) 0%, 
+                rgba(15, 15, 35, 0.5) 50%,
+                rgba(15, 15, 35, 0.95) 100%);
+        }
+
+        .hero-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .breadcrumb a {
+            color: #00d4ff;
+            text-decoration: none;
+        }
+
+        .region-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .region-title .emoji {
+            font-size: 3.5rem;
+        }
+
+        .region-title .name {
+            background: linear-gradient(135deg, #fff 0%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .region-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+        }
+
+        /* Main Layout */
+        .region-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+        }
+
+        .region-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .region-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Info Cards */
+        .info-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* CTA Card */
+        .cta-card {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .cta-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .nova-btn-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #00d4ff;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 0.25rem;
+        }
+
+        /* Countries Grid */
+        .countries-section h3 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .countries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .country-card {
+            position: relative;
+            height: 220px;
+            border-radius: 20px;
+            overflow: hidden;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .country-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .country-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .country-card:hover .country-image {
+            transform: scale(1.08);
+        }
+
+        .country-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(15, 15, 35, 0.95) 0%, rgba(15, 15, 35, 0.3) 100%);
+        }
+
+        .country-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .country-content .country-flag {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .country-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .country-count {
+            font-size: 0.85rem;
+            color: #00d4ff;
+        }
+
+        /* Map Section */
+        .map-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .map-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .map-header h3 {
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0;
+        }
+
+        .map-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .map-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 212, 255, 0.4);
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .map-btn:hover {
+            background: rgba(0, 212, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        #regionMap {
+            width: 100%;
+            height: 400px;
+            border-radius: 16px;
+            z-index: 1;
+            background: #1a1a2e;
+        }
+
+        .map-legend {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+        }
+
+        .legend-title {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .legend-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.4rem 0.75rem;
+            border-radius: 20px;
+        }
+
+        /* Custom Leaflet markers */
+        .custom-marker {
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+            border: 2px solid white;
+            width: 36px;
+            height: 36px;
+        }
+
+        .custom-div-icon {
+            background: transparent !important;
+            border: none !important;
+        }
+
+        .marker-popup {
+            text-align: center;
+        }
+
+        .marker-popup h4 {
+            margin: 0 0 0.25rem 0;
+            font-size: 0.95rem;
+            color: #1a1a2e;
+        }
+
+        .marker-popup .popup-type {
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        .leaflet-popup-content-wrapper {
+            background: white;
+            border-radius: 12px;
+        }
+
+        .leaflet-popup-content {
+            margin: 0.75rem 1rem;
+        }
+
+        /* Map loading */
+        .map-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .map-loading .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(0, 212, 255, 0.2);
+            border-top-color: #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            top: 80px;
+            left: 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(0, 212, 255, 0.3);
+        }
+
+        /* Popular Destinations */
+        .popular-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .popular-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+
+        .popular-item:hover {
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .popular-item .flag {
+            font-size: 1.5rem;
+        }
+
+        .popular-item .info {
+            flex: 1;
+        }
+
+        .popular-item .name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .popular-item .count {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .popular-item .arrow {
+            color: #00d4ff;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .region-main {
+                grid-template-columns: 1fr;
+            }
+
+            .region-sidebar {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .region-title {
+                font-size: 2rem;
+            }
+
+            .region-title .emoji {
+                font-size: 2.5rem;
+            }
+
+            .region-hero {
+                height: 40vh;
+            }
+
+            .region-main {
+                padding: 1rem;
+            }
+
+            .countries-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            #regionMap {
+                height: 300px;
+            }
+
+            .map-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .map-actions {
+                width: 100%;
+            }
+
+            .map-btn {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .region-title {
+                flex-direction: column;
+                gap: 0.25rem;
+                font-size: 1.75rem;
+            }
+
+            .countries-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .back-btn {
+                top: 70px;
+                left: 1rem;
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="page-container">
@@ -40,7 +594,7 @@
             </div>
             <div class="nav-links">
                 <a href="home.html" class="nav-link">🏠 Home</a>
-                <a href="nova.html" class="nav-link"><svg class="nav-robot-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="robotHead4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00f5ff"/><stop offset="50%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient><linearGradient id="robotGlow4" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#fff;stop-opacity:0.8"/><stop offset="100%" style="stop-color:#fff;stop-opacity:0"/></linearGradient><filter id="neonGlow4"><feGaussianBlur stdDeviation="0.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect x="4" y="7" width="16" height="13" rx="4" fill="url(#robotHead4)" filter="url(#neonGlow4)"/><rect x="5" y="8" width="14" height="4" rx="2" fill="url(#robotGlow4)" opacity="0.4"/><rect x="7" y="3" width="10" height="5" rx="2.5" fill="url(#robotHead4)"/><circle cx="8.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="15.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="8.5" cy="12.5" r="1.5" fill="#00f5ff"/><circle cx="15.5" cy="12.5" r="1.5" fill="#00f5ff"/><rect x="10" y="16" width="4" height="2" rx="1" fill="#ec4899"/><rect x="11" y="0" width="2" height="4" rx="1" fill="url(#robotHead4)"/><circle cx="12" cy="0" r="1.5" fill="#00f5ff"><animate attributeName="r" values="1.5;2;1.5" dur="1.5s" repeatCount="indefinite"/></circle><rect x="1" y="10" width="3" height="6" rx="1.5" fill="url(#robotHead4)"/><rect x="20" y="10" width="3" height="6" rx="1.5" fill="url(#robotHead4)"/></svg> NOVA</a>
+                <a href="nova.html" class="nav-link"><svg class="nav-robot-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="robotHead5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00f5ff"/><stop offset="50%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient><linearGradient id="robotGlow5" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#fff;stop-opacity:0.8"/><stop offset="100%" style="stop-color:#fff;stop-opacity:0"/></linearGradient><filter id="neonGlow5"><feGaussianBlur stdDeviation="0.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect x="4" y="7" width="16" height="13" rx="4" fill="url(#robotHead5)" filter="url(#neonGlow5)"/><rect x="5" y="8" width="14" height="4" rx="2" fill="url(#robotGlow5)" opacity="0.4"/><rect x="7" y="3" width="10" height="5" rx="2.5" fill="url(#robotHead5)"/><circle cx="8.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="15.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="8.5" cy="12.5" r="1.5" fill="#00f5ff"/><circle cx="15.5" cy="12.5" r="1.5" fill="#00f5ff"/><rect x="10" y="16" width="4" height="2" rx="1" fill="#ec4899"/><rect x="11" y="0" width="2" height="4" rx="1" fill="url(#robotHead5)"/><circle cx="12" cy="0" r="1.5" fill="#00f5ff"><animate attributeName="r" values="1.5;2;1.5" dur="1.5s" repeatCount="indefinite"/></circle><rect x="1" y="10" width="3" height="6" rx="1.5" fill="url(#robotHead5)"/><rect x="20" y="10" width="3" height="6" rx="1.5" fill="url(#robotHead5)"/></svg> NOVA</a>
                 <a href="destinations.html" class="nav-link active">🌍 Destinations</a>
                 <a href="trip-planner.html" class="nav-link">🗓️ Trip Planner</a>
                 <a href="visa-guide.html" class="nav-link"><svg class="nav-visa-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 5L20 2V20L4 23Z" fill="#4a90c2"/><path d="M4 5L20 2L21 3L5 6Z" fill="#7fc4e8"/><path d="M20 2L21 3V21L20 20Z" fill="#2d5a87"/><circle cx="12" cy="11" r="4" stroke="#fff" stroke-width="1.2" fill="none"/><line x1="9" y1="14" x2="15" y2="8" stroke="#fff" stroke-width="1.2"/><rect x="7" y="17" width="8" height="1" fill="#fff" opacity="0.6"/></svg> Visa Guide</a>
@@ -50,48 +604,100 @@
             <button class="nav-toggle" id="navToggle">☰</button>
         </nav>
 
-        <!-- Page Header -->
-        <header class="page-header destinations-header">
-            <!-- Static Planes -->
-            <div class="planes-container">
-                <div class="flying-plane plane-1">✈️</div>
-                <div class="flying-plane plane-2">✈️</div>
-                <div class="flying-plane plane-3">✈️</div>
-                <div class="flying-plane plane-4">✈️</div>
+        <!-- Hero Section -->
+        <section class="region-hero" id="heroSection">
+            <div class="hero-overlay"></div>
+            <a href="destinations.html" class="back-btn">← All Regions</a>
+            <div class="hero-content">
+                <div class="breadcrumb">
+                    <a href="destinations.html">Destinations</a>
+                    <span>›</span>
+                    <span id="regionBreadcrumb">Region</span>
+                </div>
+                <div class="region-title">
+                    <span class="emoji" id="regionEmoji">🌍</span>
+                    <span class="name" id="regionName">Loading...</span>
+                </div>
+                <p class="region-subtitle" id="regionDescription">Explore amazing countries and destinations in this region</p>
             </div>
-
-            <!-- Breadcrumb -->
-            <nav class="breadcrumb">
-                <a href="destinations.html">Destinations</a>
-                <span class="separator">›</span>
-                <span id="regionBreadcrumb">Region</span>
-            </nav>
-
-            <h1 id="regionTitle">
-                <span class="region-emoji" id="regionEmoji">🌍</span>
-                <span id="regionName">Loading...</span>
-            </h1>
-            <p id="regionDescription">Explore amazing countries and destinations in this region</p>
-        </header>
+        </section>
 
         <!-- Main Content -->
-        <main class="page-content">
-            <!-- Countries Section -->
-            <section class="dest-section">
-                <div class="section-header">
-                    <h2>🏳️ Countries to Explore</h2>
-                    <span id="countryCount">0 countries</span>
+        <main class="region-main">
+            <div class="region-content">
+                <!-- Countries Section -->
+                <div class="info-card countries-section">
+                    <h3>🏳️ Countries to Explore <span id="countryCount" style="font-size: 0.85rem; color: #00d4ff; font-weight: normal;">0 countries</span></h3>
+                    <div class="countries-grid" id="countriesGrid">
+                        <!-- Countries loaded dynamically -->
+                    </div>
                 </div>
-                <div class="countries-grid" id="countriesGrid">
-                    <!-- Countries loaded dynamically -->
-                </div>
-            </section>
 
-            <!-- Back Button -->
-            <div class="action-buttons">
-                <a href="destinations.html" class="back-btn">
-                    ← Back to All Regions
-                </a>
+                <!-- Region Map -->
+                <div class="map-container" id="mapSection">
+                    <div class="map-header">
+                        <h3>🗺️ <span id="mapTitle">Region Map</span></h3>
+                        <div class="map-actions">
+                            <button class="map-btn" onclick="resetMapView()" title="Reset view">
+                                🎯 Center
+                            </button>
+                            <button class="map-btn" onclick="toggleCountries()" id="toggleCountriesBtn" title="Toggle country markers">
+                                📍 Countries
+                            </button>
+                        </div>
+                    </div>
+                    <div id="regionMap">
+                        <div class="map-loading">
+                            <div class="spinner"></div>
+                            <span>Loading map...</span>
+                        </div>
+                    </div>
+                    <div class="map-legend">
+                        <div class="legend-title">Map Legend</div>
+                        <div class="legend-items" id="legendItems">
+                            <div class="legend-item">
+                                <span>🏳️</span>
+                                <span>Country Capital</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="region-sidebar">
+                <!-- Ask NOVA Card -->
+                <div class="info-card cta-card">
+                    <button class="cta-btn" onclick="askNova()">
+                        <svg class="nova-btn-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="novaBtnGrad3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00f5ff"/><stop offset="50%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient></defs><rect x="4" y="7" width="16" height="13" rx="4" fill="url(#novaBtnGrad3)"/><rect x="7" y="3" width="10" height="5" rx="2.5" fill="url(#novaBtnGrad3)"/><circle cx="8.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="15.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="8.5" cy="12.5" r="1.5" fill="#00f5ff"/><circle cx="15.5" cy="12.5" r="1.5" fill="#00f5ff"/><rect x="10" y="16" width="4" height="2" rx="1" fill="#ec4899"/></svg>
+                        Ask NOVA
+                    </button>
+                    <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6); text-align: center; margin: 0;">
+                        Get travel advice for this region
+                    </p>
+                </div>
+
+                <!-- Region Stats -->
+                <div class="info-card">
+                    <h3>📊 Region Overview</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value" id="totalCountries">0</div>
+                            <div class="stat-label">Countries</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="totalCities">0</div>
+                            <div class="stat-label">Cities</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Popular Destinations -->
+                <div class="info-card">
+                    <h3>⭐ Popular Destinations</h3>
+                    <div class="popular-list" id="popularList">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
             </div>
         </main>
 
@@ -100,26 +706,38 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <h3>WhereTo</h3>
-                    <p>Your AI-powered travel companion</p>
+                    <p>Your Next Journey Starts Here</p>
                 </div>
                 <div class="footer-links">
-                    <a href="home.html">Home</a>
+                    <a href="nova.html">NOVA</a>
                     <a href="destinations.html">Destinations</a>
                     <a href="trip-planner.html">Trip Planner</a>
-                    <a href="nova.html">NOVA AI</a>
+                    <a href="visa-guide.html">Visa Guide</a>
+                    <a href="budget-calculator.html">Budget</a>
+                    <a href="currency-converter.html">Currency</a>
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2025 WhereTo. All rights reserved.</p>
+                <div class="footer-bottom">
+                    <p>Made with ❤️ for travelers everywhere</p>
+                    <p>© 2026 WhereTo. All rights reserved.</p>
+                </div>
             </div>
         </footer>
     </div>
 
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
     <script src="regions-data.js"></script>
     <script>
         // Get region ID from URL
         const urlParams = new URLSearchParams(window.location.search);
         const regionId = urlParams.get('id');
+
+        let currentRegion = null;
+        let regionCountries = [];
+        let regionMap = null;
+        let countryMarkers = [];
+        let countriesVisible = true;
 
         // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
@@ -134,41 +752,282 @@
             }
 
             const regions = getAllRegions();
-            const region = regions.find(r => r.id === regionId);
+            currentRegion = regions.find(r => r.id === regionId);
 
-            if (!region) {
+            if (!currentRegion) {
                 showError('Region not found');
                 return;
             }
 
-            // Update page title and header
-            document.title = `${region.name} - WhereTo | Travel Destinations`;
-            document.getElementById('regionEmoji').textContent = region.emoji;
-            document.getElementById('regionName').textContent = region.name;
-            document.getElementById('regionDescription').textContent = region.description;
-            document.getElementById('regionBreadcrumb').textContent = region.name;
+            // Get countries for this region
+            regionCountries = getCountriesByRegion(regionId);
+
+            // Update page elements
+            document.title = `${currentRegion.name} - WhereTo | Travel Destinations`;
+            
+            // Update hero
+            document.getElementById('heroSection').style.backgroundImage = `url('${currentRegion.image || getRegionImage(regionId)}')`;
+            document.getElementById('regionEmoji').textContent = currentRegion.emoji;
+            document.getElementById('regionName').textContent = currentRegion.name;
+            document.getElementById('regionDescription').textContent = currentRegion.description;
+            document.getElementById('regionBreadcrumb').textContent = currentRegion.name;
+
+            // Update stats
+            document.getElementById('totalCountries').textContent = regionCountries.length;
+            const totalCities = regionCountries.reduce((sum, c) => sum + (c.cityCount || 0), 0);
+            document.getElementById('totalCities').textContent = totalCities;
 
             // Load countries
             loadCountries();
+
+            // Load popular destinations
+            loadPopularDestinations();
+
+            // Initialize map
+            initRegionMap();
+        }
+
+        function getRegionImage(id) {
+            const images = {
+                'europe': 'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=1600',
+                'asia': 'https://images.unsplash.com/photo-1480796927426-f609979314bd?w=1600',
+                'north-america': 'https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=1600',
+                'south-america': 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1600',
+                'africa': 'https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=1600',
+                'middle-east': 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1600',
+                'oceania': 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=1600'
+            };
+            return images[id] || 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1600';
         }
 
         function loadCountries() {
             const container = document.getElementById('countriesGrid');
-            const countries = getCountriesByRegion(regionId);
-            
-            document.getElementById('countryCount').textContent = `${countries.length} ${countries.length === 1 ? 'country' : 'countries'}`;
+            document.getElementById('countryCount').textContent = `${regionCountries.length} ${regionCountries.length === 1 ? 'country' : 'countries'}`;
 
-            container.innerHTML = countries.map(country => `
+            if (regionCountries.length === 0) {
+                container.innerHTML = '<p style="color: rgba(255,255,255,0.6); grid-column: 1/-1;">No countries available yet. Check back soon!</p>';
+                return;
+            }
+
+            container.innerHTML = regionCountries.map(country => `
                 <a href="country.html?id=${country.id}&region=${regionId}" class="country-card">
                     <div class="country-image" style="background-image: url('${country.image}')"></div>
                     <div class="country-overlay"></div>
                     <div class="country-content">
                         <span class="country-flag">${country.flag}</span>
-                        <h3>${country.name}</h3>
+                        <h4>${country.name}</h4>
                         <span class="country-count">${country.cityCount} ${country.cityCount === 1 ? 'city' : 'cities'}</span>
                     </div>
                 </a>
             `).join('');
+        }
+
+        function loadPopularDestinations() {
+            const container = document.getElementById('popularList');
+            
+            // Sort by city count and take top 4
+            const popular = [...regionCountries]
+                .sort((a, b) => (b.cityCount || 0) - (a.cityCount || 0))
+                .slice(0, 4);
+
+            if (popular.length === 0) {
+                container.innerHTML = '<p style="color: rgba(255,255,255,0.6);">No destinations available yet.</p>';
+                return;
+            }
+
+            container.innerHTML = popular.map(country => `
+                <a href="country.html?id=${country.id}&region=${regionId}" class="popular-item">
+                    <span class="flag">${country.flag}</span>
+                    <div class="info">
+                        <div class="name">${country.name}</div>
+                        <div class="count">${country.cityCount} cities</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            `).join('');
+        }
+
+        // ============================================
+        // MAP FUNCTIONALITY
+        // ============================================
+        function initRegionMap() {
+            const regionCoords = getRegionCoordinates(regionId);
+            
+            if (!regionCoords) {
+                document.getElementById('mapSection').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('mapTitle').textContent = `${currentRegion.name} Map`;
+
+            const mapContainer = document.getElementById('regionMap');
+            mapContainer.innerHTML = '';
+
+            setTimeout(() => {
+                regionMap = L.map('regionMap', {
+                    center: regionCoords.center,
+                    zoom: regionCoords.zoom || 4,
+                    zoomControl: true,
+                    scrollWheelZoom: true
+                });
+
+                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                    maxZoom: 19
+                }).addTo(regionMap);
+
+                // Add country markers
+                addCountryMarkers();
+
+                setTimeout(() => {
+                    regionMap.invalidateSize();
+                }, 200);
+            }, 100);
+        }
+
+        function createCustomIcon(emoji, extraClass = '') {
+            return L.divIcon({
+                html: `<div class="custom-marker ${extraClass}">${emoji}</div>`,
+                className: 'custom-div-icon',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -40]
+            });
+        }
+
+        function addCountryMarkers() {
+            regionCountries.forEach(country => {
+                const coords = getCountryCoordinates(country.name);
+                if (coords) {
+                    const marker = L.marker(coords.center || coords, {
+                        icon: createCustomIcon(country.flag)
+                    }).addTo(regionMap);
+                    
+                    marker.bindPopup(`
+                        <div class="marker-popup">
+                            <h4>${country.flag} ${country.name}</h4>
+                            <div class="popup-type">
+                                <a href="country.html?id=${country.id}&region=${regionId}" 
+                                   style="color: #00d4ff; text-decoration: none;">View Details →</a>
+                            </div>
+                        </div>
+                    `);
+                    
+                    countryMarkers.push(marker);
+                }
+            });
+        }
+
+        function resetMapView() {
+            if (regionMap) {
+                const coords = getRegionCoordinates(regionId);
+                if (coords) {
+                    regionMap.setView(coords.center, coords.zoom || 4);
+                }
+            }
+        }
+
+        function toggleCountries() {
+            countriesVisible = !countriesVisible;
+            const btn = document.getElementById('toggleCountriesBtn');
+            
+            countryMarkers.forEach(marker => {
+                if (countriesVisible) {
+                    marker.addTo(regionMap);
+                } else {
+                    regionMap.removeLayer(marker);
+                }
+            });
+            
+            btn.innerHTML = countriesVisible ? '📍 Countries' : '📍 Show Countries';
+            btn.style.opacity = countriesVisible ? '1' : '0.6';
+        }
+
+        // Region coordinates lookup
+        function getRegionCoordinates(regionId) {
+            const coords = {
+                'europe': { center: [50, 10], zoom: 4 },
+                'asia': { center: [25, 100], zoom: 3 },
+                'north-america': { center: [40, -100], zoom: 3 },
+                'south-america': { center: [-15, -60], zoom: 3 },
+                'africa': { center: [0, 20], zoom: 3 },
+                'middle-east': { center: [25, 45], zoom: 4 },
+                'oceania': { center: [-25, 140], zoom: 4 }
+            };
+            return coords[regionId] || null;
+        }
+
+        // Country coordinates lookup
+        function getCountryCoordinates(countryName) {
+            const coords = {
+                'France': { center: [46.2276, 2.2137] },
+                'Spain': { center: [40.4637, -3.7492] },
+                'Italy': { center: [41.8719, 12.5674] },
+                'Germany': { center: [51.1657, 10.4515] },
+                'United Kingdom': { center: [55.3781, -3.4360] },
+                'Japan': { center: [36.2048, 138.2529] },
+                'Thailand': { center: [15.8700, 100.9925] },
+                'Indonesia': { center: [-0.7893, 113.9213] },
+                'Singapore': { center: [1.3521, 103.8198] },
+                'Malaysia': { center: [4.2105, 101.9758] },
+                'Vietnam': { center: [14.0583, 108.2772] },
+                'Philippines': { center: [12.8797, 121.7740] },
+                'India': { center: [20.5937, 78.9629] },
+                'Sri Lanka': { center: [7.8731, 80.7718] },
+                'Australia': { center: [-25.2744, 133.7751] },
+                'New Zealand': { center: [-40.9006, 174.8860] },
+                'United States': { center: [37.0902, -95.7129] },
+                'Canada': { center: [56.1304, -106.3468] },
+                'Mexico': { center: [23.6345, -102.5528] },
+                'Brazil': { center: [-14.2350, -51.9253] },
+                'Argentina': { center: [-38.4161, -63.6167] },
+                'Peru': { center: [-9.1900, -75.0152] },
+                'UAE': { center: [23.4241, 53.8478] },
+                'Saudi Arabia': { center: [23.8859, 45.0792] },
+                'Egypt': { center: [26.8206, 30.8025] },
+                'Morocco': { center: [31.7917, -7.0926] },
+                'South Africa': { center: [-30.5595, 22.9375] },
+                'Kenya': { center: [-0.0236, 37.9062] },
+                'Turkey': { center: [38.9637, 35.2433] },
+                'Greece': { center: [39.0742, 21.8243] },
+                'Croatia': { center: [45.1000, 15.2000] },
+                'Portugal': { center: [39.3999, -8.2245] },
+                'Netherlands': { center: [52.1326, 5.2913] },
+                'Belgium': { center: [50.5039, 4.4699] },
+                'Austria': { center: [47.5162, 14.5501] },
+                'Switzerland': { center: [46.8182, 8.2275] },
+                'Czech Republic': { center: [49.8175, 15.4730] },
+                'Poland': { center: [51.9194, 19.1451] },
+                'Hungary': { center: [47.1625, 19.5033] },
+                'Ireland': { center: [53.1424, -7.6921] },
+                'Norway': { center: [60.4720, 8.4689] },
+                'Sweden': { center: [60.1282, 18.6435] },
+                'Denmark': { center: [56.2639, 9.5018] },
+                'Finland': { center: [61.9241, 25.7482] },
+                'Iceland': { center: [64.9631, -19.0208] },
+                'Russia': { center: [61.5240, 105.3188] },
+                'China': { center: [35.8617, 104.1954] },
+                'South Korea': { center: [35.9078, 127.7669] },
+                'Taiwan': { center: [23.6978, 120.9605] },
+                'Hong Kong': { center: [22.3193, 114.1694] },
+                'Nepal': { center: [28.3949, 84.1240] },
+                'Jordan': { center: [30.5852, 36.2384] },
+                'Israel': { center: [31.0461, 34.8516] },
+                'Qatar': { center: [25.3548, 51.1839] },
+                'Oman': { center: [21.4735, 55.9754] },
+                'Maldives': { center: [3.2028, 73.2207] },
+                'Tanzania': { center: [-6.3690, 34.8888] },
+                'Zimbabwe': { center: [-19.0154, 29.1549] },
+                'Cuba': { center: [21.5218, -77.7812] },
+                'Colombia': { center: [4.5709, -74.2973] },
+                'Chile': { center: [-35.6751, -71.5430] },
+                'Costa Rica': { center: [9.7489, -83.7534] }
+            };
+            return coords[countryName] || null;
+        }
+
+        function askNova() {
+            window.location.href = `nova.html?ask=${encodeURIComponent(`Tell me about traveling to ${currentRegion.name}`)}`;
         }
 
         function showError(message) {
@@ -176,9 +1035,9 @@
             document.getElementById('regionName').textContent = message;
             document.getElementById('regionDescription').textContent = 'Please go back and select a valid region.';
             document.getElementById('countriesGrid').innerHTML = `
-                <div class="error-message">
+                <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
                     <p>${message}</p>
-                    <a href="destinations.html" class="back-btn">← Back to Destinations</a>
+                    <a href="destinations.html" style="color: #00d4ff;">← Back to Destinations</a>
                 </div>
             `;
         }
