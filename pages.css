@@ -41,52 +41,19 @@
     fill: #00d4ff;
 }
 
-/* ===== NAV LOGO ANIMATIONS ===== */
+/* ===== NAV LOGO - STATIC (NO ANIMATION) ===== */
 .nav-pin-dot {
-    animation: navPinPulse 2s ease-in-out infinite;
-}
-
-@keyframes navPinPulse {
-    0%, 100% { 
-        r: 6;
-        opacity: 1;
-    }
-    50% { 
-        r: 7;
-        opacity: 0.7;
-    }
+    r: 6;
+    opacity: 1;
 }
 
 .nav-flying-plane {
-    animation: navFlyAcross 3s ease-in-out infinite;
-}
-
-@keyframes navFlyAcross {
-    0% {
-        transform: translate(100px, 38px) rotate(-10deg);
-        opacity: 0;
-    }
-    15% {
-        opacity: 1;
-    }
-    85% {
-        opacity: 1;
-    }
-    100% {
-        transform: translate(175px, 22px) rotate(5deg);
-        opacity: 0;
-    }
+    transform: translate(140px, 30px) rotate(-5deg);
+    opacity: 1;
 }
 
 .nav-plane-trail {
-    stroke-dashoffset: 50;
-    animation: navTrailDash 3s linear infinite;
-}
-
-@keyframes navTrailDash {
-    to {
-        stroke-dashoffset: 0;
-    }
+    stroke-dashoffset: 0;
 }
 
 .nav-links {

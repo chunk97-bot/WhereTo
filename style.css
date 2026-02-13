@@ -86,57 +86,20 @@
     margin-top: 0.5rem;
 }
 
-/* Flying plane animation */
+/* Static flying plane - no animation */
 .flying-plane {
-    animation: flyAcross 4s ease-in-out infinite;
+    /* No animation - static position handled by pages.css */
 }
 
-@keyframes flyAcross {
-    0% {
-        transform: translate(10px, 75px) rotate(-20deg);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    50% {
-        transform: translate(150px, 45px) rotate(-10deg);
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        transform: translate(290px, 25px) rotate(-30deg);
-        opacity: 0;
-    }
-}
-
-/* Pin pulse */
+/* Static pin dot - no animation */
 .pin-dot {
-    animation: pinPulse 2s ease-in-out infinite;
+    transform: scale(1);
+    filter: drop-shadow(0 0 4px rgba(255, 107, 107, 0.4));
 }
 
-@keyframes pinPulse {
-    0%, 100% { 
-        transform: scale(1);
-        filter: drop-shadow(0 0 0 rgba(255, 107, 107, 0));
-    }
-    50% { 
-        transform: scale(1.1);
-        filter: drop-shadow(0 0 8px rgba(255, 107, 107, 0.6));
-    }
-}
-
-/* Trail animation */
+/* Static trail - no animation */
 .plane-trail {
-    stroke-dashoffset: 100;
-    animation: dashMove 4s linear infinite;
-}
-
-@keyframes dashMove {
-    to {
-        stroke-dashoffset: 0;
-    }
+    stroke-dashoffset: 0;
 }
 
 /* Header logo styles */
@@ -158,80 +121,26 @@
     letter-spacing: 1px;
 }
 
-/* Header flying plane animation */
+/* Static header flying plane - no animation */
 .header-flying-plane {
-    animation: headerFlyAcross 3s ease-in-out infinite;
+    transform: translate(175px, 35px) rotate(-20deg);
+    opacity: 1;
 }
 
-@keyframes headerFlyAcross {
-    0% {
-        transform: translate(130px, 48px) rotate(-15deg);
-        opacity: 0;
-    }
-    15% {
-        opacity: 1;
-    }
-    50% {
-        transform: translate(175px, 38px) rotate(-20deg);
-    }
-    85% {
-        opacity: 1;
-    }
-    100% {
-        transform: translate(215px, 22px) rotate(-30deg);
-        opacity: 0;
-    }
-}
-
-/* Header trail animation */
+/* Static header trail - no animation */
 .header-plane-trail {
-    stroke-dashoffset: 50;
-    animation: headerDashMove 3s linear infinite;
+    stroke-dashoffset: 0;
 }
 
-@keyframes headerDashMove {
-    to {
-        stroke-dashoffset: 0;
-    }
-}
-
-/* Header pin pulse animation */
+/* Static header pin - no animation */
 .header-pin {
-    animation: headerPinPulse 2s ease-in-out infinite;
+    r: 6;
+    opacity: 1;
 }
 
-@keyframes headerPinPulse {
-    0%, 100% { 
-        r: 6;
-        opacity: 1;
-    }
-    50% { 
-        r: 7;
-        opacity: 0.8;
-    }
-}
-
+/* Static header plane - no animation */
 .header-plane {
-    animation: headerPlaneMove 3s ease-in-out infinite;
-}
-
-@keyframes headerPlaneMove {
-    0%, 100% { 
-        transform: translate(145px, 10px); 
-    }
-    50% { 
-        transform: translate(148px, 8px); 
-    }
-}
-
-.header-pin {
-    animation: headerPinPulse 2s ease-in-out infinite;
-    transform-origin: center;
-}
-
-@keyframes headerPinPulse {
-    0%, 100% { r: 6; }
-    50% { r: 7; }
+    transform: translate(147px, 9px);
 }
 
 .header-logo-mark {
@@ -282,8 +191,7 @@
     width: 120px;
     height: 40px;
     top: 15%;
-    left: -120px;
-    animation: cloudMove 15s linear infinite;
+    left: 15%;
 }
 
 .cloud-1::before {
@@ -304,9 +212,7 @@
     width: 150px;
     height: 50px;
     top: 35%;
-    left: -150px;
-    animation: cloudMove 20s linear infinite;
-    animation-delay: 5s;
+    left: 55%;
 }
 
 .cloud-2::before {
@@ -327,9 +233,7 @@
     width: 100px;
     height: 35px;
     top: 60%;
-    left: -100px;
-    animation: cloudMove 12s linear infinite;
-    animation-delay: 2s;
+    left: 80%;
 }
 
 .cloud-3::before {
@@ -346,12 +250,7 @@
     left: 40px;
 }
 
-@keyframes cloudMove {
-    from { transform: translateX(0); }
-    to { transform: translateX(calc(100vw + 200px)); }
-}
-
-/* Background Plane */
+/* Background Plane - Static */
 .splash-bg-plane {
     position: absolute;
     width: 300px;
@@ -360,12 +259,7 @@
     top: 10%;
     right: -100px;
     opacity: 0.5;
-    animation: bgPlaneFloat 6s ease-in-out infinite;
-}
-
-@keyframes bgPlaneFloat {
-    0%, 100% { transform: translate(0, 0) rotate(15deg); }
-    50% { transform: translate(-20px, 20px) rotate(20deg); }
+    transform: rotate(18deg);
 }
 
 /* Slide Container */

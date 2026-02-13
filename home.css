@@ -38,7 +38,6 @@
     height: 60px;
     top: 15%;
     left: 10%;
-    animation: floatCloud 20s ease-in-out infinite;
 }
 
 .hero-clouds .cloud-2 {
@@ -46,7 +45,6 @@
     height: 45px;
     top: 30%;
     right: 15%;
-    animation: floatCloud 25s ease-in-out infinite reverse;
 }
 
 .hero-clouds .cloud-3 {
@@ -54,105 +52,51 @@
     height: 50px;
     bottom: 25%;
     left: 20%;
-    animation: floatCloud 22s ease-in-out infinite;
 }
 
-/* Floating planes in background */
+/* Static floating planes in background */
 .floating-plane {
     position: absolute;
     font-size: 2rem;
     opacity: 0.2;
-    animation: flyAcrossScreen 15s linear infinite;
     color: #00d4ff;
 }
 
 .floating-plane.plane-1 {
     top: 20%;
-    animation-delay: 0s;
-    animation-duration: 18s;
+    left: 15%;
 }
 
 .floating-plane.plane-2 {
     top: 50%;
-    animation-delay: 5s;
-    animation-duration: 22s;
+    left: 55%;
     font-size: 1.5rem;
 }
 
 .floating-plane.plane-3 {
     top: 75%;
-    animation-delay: 10s;
-    animation-duration: 20s;
+    left: 85%;
     font-size: 2.5rem;
 }
 
-@keyframes flyAcrossScreen {
-    0% {
-        left: -10%;
-        transform: rotate(-5deg);
-    }
-    100% {
-        left: 110%;
-        transform: rotate(5deg);
-    }
-}
-
-@keyframes floatCloud {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(30px); }
-}
-
-/* ===== HERO LOGO ANIMATIONS ===== */
+/* ===== HERO LOGO - STATIC (NO ANIMATION) ===== */
 .hero-brand-text {
     font-family: 'Righteous', cursive;
     font-size: 52px;
 }
 
 .hero-pin-dot {
-    animation: heroPinPulse 2s ease-in-out infinite;
-}
-
-@keyframes heroPinPulse {
-    0%, 100% { 
-        r: 12;
-        opacity: 1;
-    }
-    50% { 
-        r: 14;
-        opacity: 0.8;
-    }
+    r: 12;
+    opacity: 1;
 }
 
 .hero-flying-plane {
-    animation: heroFlyAcross 4s ease-in-out infinite;
-}
-
-@keyframes heroFlyAcross {
-    0% {
-        transform: translate(10px, 70px) rotate(-15deg);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        transform: translate(290px, 30px) rotate(10deg);
-        opacity: 0;
-    }
+    transform: translate(150px, 50px) rotate(-5deg);
+    opacity: 1;
 }
 
 .hero-plane-trail {
-    stroke-dashoffset: 100;
-    animation: heroTrailDash 4s linear infinite;
-}
-
-@keyframes heroTrailDash {
-    to {
-        stroke-dashoffset: 0;
-    }
+    stroke-dashoffset: 0;
 }
 
 /* ===== ENTRANCE ANIMATIONS ===== */
