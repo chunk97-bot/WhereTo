@@ -15,6 +15,8 @@
     
     <link rel="stylesheet" href="style.css?v=2">
     <link rel="stylesheet" href="pages.css?v=5">
+    <!-- Flatpickr Date Picker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Righteous&display=swap" rel="stylesheet">
@@ -319,6 +321,186 @@
         .date-group input::-webkit-datetime-edit-year-field:focus {
             background: linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(139, 92, 246, 0.3));
             color: white;
+        }
+
+        /* Flatpickr Futuristic Theme */
+        .flatpickr-calendar {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 100%) !important;
+            border: 2px solid rgba(0, 212, 255, 0.4) !important;
+            border-radius: 16px !important;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 212, 255, 0.2) !important;
+            font-family: 'Inter', sans-serif !important;
+            overflow: hidden;
+        }
+
+        .flatpickr-calendar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00d4ff, #8b5cf6, #ec4899);
+        }
+
+        .flatpickr-months {
+            background: rgba(0, 212, 255, 0.1) !important;
+            padding: 0.5rem !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .flatpickr-months .flatpickr-month {
+            background: transparent !important;
+            color: white !important;
+            fill: white !important;
+        }
+
+        .flatpickr-current-month {
+            font-size: 1.1rem !important;
+            font-weight: 600 !important;
+            color: #00d4ff !important;
+        }
+
+        .flatpickr-current-month .flatpickr-monthDropdown-months {
+            background: rgba(15, 15, 35, 0.95) !important;
+            border: 1px solid rgba(0, 212, 255, 0.3) !important;
+            border-radius: 8px !important;
+            color: #00d4ff !important;
+            font-weight: 500 !important;
+        }
+
+        .flatpickr-current-month .flatpickr-monthDropdown-months option {
+            background: #0f0f23 !important;
+            color: white !important;
+        }
+
+        .flatpickr-current-month .numInputWrapper span.arrowUp,
+        .flatpickr-current-month .numInputWrapper span.arrowDown {
+            border: 0 !important;
+        }
+
+        .flatpickr-current-month .numInputWrapper span.arrowUp:after {
+            border-bottom-color: #00d4ff !important;
+        }
+
+        .flatpickr-current-month .numInputWrapper span.arrowDown:after {
+            border-top-color: #00d4ff !important;
+        }
+
+        .flatpickr-current-month input.cur-year {
+            color: #8b5cf6 !important;
+            font-weight: 600 !important;
+        }
+
+        .flatpickr-months .flatpickr-prev-month,
+        .flatpickr-months .flatpickr-next-month {
+            fill: #00d4ff !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .flatpickr-months .flatpickr-prev-month:hover,
+        .flatpickr-months .flatpickr-next-month:hover {
+            fill: #8b5cf6 !important;
+        }
+
+        .flatpickr-months .flatpickr-prev-month svg,
+        .flatpickr-months .flatpickr-next-month svg {
+            fill: inherit !important;
+        }
+
+        .flatpickr-weekdays {
+            background: transparent !important;
+        }
+
+        span.flatpickr-weekday {
+            color: rgba(0, 212, 255, 0.8) !important;
+            font-weight: 600 !important;
+            font-size: 0.85rem !important;
+            text-transform: uppercase !important;
+        }
+
+        .flatpickr-days {
+            border: none !important;
+        }
+
+        .dayContainer {
+            padding: 0.5rem !important;
+        }
+
+        .flatpickr-day {
+            color: rgba(255, 255, 255, 0.85) !important;
+            border: 1px solid transparent !important;
+            border-radius: 10px !important;
+            font-weight: 500 !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .flatpickr-day:hover {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(139, 92, 246, 0.2)) !important;
+            border-color: rgba(0, 212, 255, 0.4) !important;
+            color: white !important;
+        }
+
+        .flatpickr-day.today {
+            border-color: #8b5cf6 !important;
+            background: rgba(139, 92, 246, 0.2) !important;
+        }
+
+        .flatpickr-day.today:hover {
+            background: rgba(139, 92, 246, 0.3) !important;
+        }
+
+        .flatpickr-day.selected,
+        .flatpickr-day.startRange,
+        .flatpickr-day.endRange {
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%) !important;
+            border-color: transparent !important;
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4) !important;
+        }
+
+        .flatpickr-day.selected:hover,
+        .flatpickr-day.startRange:hover,
+        .flatpickr-day.endRange:hover {
+            background: linear-gradient(135deg, #00b8e6 0%, #7c4ce0 100%) !important;
+        }
+
+        .flatpickr-day.inRange {
+            background: rgba(0, 212, 255, 0.15) !important;
+            border-color: transparent !important;
+            box-shadow: none !important;
+        }
+
+        .flatpickr-day.flatpickr-disabled,
+        .flatpickr-day.flatpickr-disabled:hover,
+        .flatpickr-day.prevMonthDay,
+        .flatpickr-day.nextMonthDay {
+            color: rgba(255, 255, 255, 0.2) !important;
+            background: transparent !important;
+        }
+
+        .flatpickr-day.flatpickr-disabled {
+            cursor: not-allowed !important;
+            text-decoration: line-through !important;
+        }
+
+        .flatpickr-time {
+            border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+            background: rgba(0, 212, 255, 0.05) !important;
+        }
+
+        .flatpickr-time input {
+            color: #00d4ff !important;
+            font-weight: 600 !important;
+        }
+
+        .flatpickr-time .flatpickr-time-separator {
+            color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        .flatpickr-time .flatpickr-am-pm {
+            color: #8b5cf6 !important;
+            font-weight: 600 !important;
         }
 
         .generate-btn {
@@ -637,6 +819,8 @@
         </footer>
     </div>
 
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         // Mobile nav toggle
         document.getElementById('navToggle').addEventListener('click', function() {
@@ -649,26 +833,29 @@
             const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
             const twoWeeks = new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000);
             
-            // Format today's date as YYYY-MM-DD for min attribute
-            const todayStr = today.toISOString().split('T')[0];
-            
-            const startDateInput = document.getElementById('startDate');
-            const endDateInput = document.getElementById('endDate');
-            
-            // Set minimum dates to prevent selecting past dates
-            startDateInput.min = todayStr;
-            endDateInput.min = todayStr;
-            
-            // Set default values
-            startDateInput.valueAsDate = nextWeek;
-            endDateInput.valueAsDate = twoWeeks;
-            
-            // Update end date min when start date changes
-            startDateInput.addEventListener('change', function() {
-                endDateInput.min = this.value;
-                if (endDateInput.value < this.value) {
-                    endDateInput.value = this.value;
+            // Initialize Flatpickr for start date
+            const startPicker = flatpickr('#startDate', {
+                minDate: 'today',
+                defaultDate: nextWeek,
+                dateFormat: 'd-m-Y',
+                disableMobile: true,
+                animate: true,
+                onChange: function(selectedDates, dateStr, instance) {
+                    // Update end date minimum
+                    endPicker.set('minDate', selectedDates[0]);
+                    if (endPicker.selectedDates[0] < selectedDates[0]) {
+                        endPicker.setDate(selectedDates[0]);
+                    }
                 }
+            });
+            
+            // Initialize Flatpickr for end date
+            const endPicker = flatpickr('#endDate', {
+                minDate: 'today',
+                defaultDate: twoWeeks,
+                dateFormat: 'd-m-Y',
+                disableMobile: true,
+                animate: true
             });
             
             loadSavedDestinations();
@@ -727,8 +914,11 @@
         // Generate AI Itinerary
         function generateItinerary() {
             const saved = JSON.parse(localStorage.getItem('tripPlanner') || '[]');
-            const startDate = new Date(document.getElementById('startDate').value);
-            const endDate = new Date(document.getElementById('endDate').value);
+            // Get dates from flatpickr instances
+            const startInput = document.getElementById('startDate');
+            const endInput = document.getElementById('endDate');
+            const startDate = startInput._flatpickr.selectedDates[0];
+            const endDate = endInput._flatpickr.selectedDates[0];
             const output = document.getElementById('itineraryOutput');
 
             if (saved.length < 2) {
