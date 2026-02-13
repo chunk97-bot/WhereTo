@@ -248,7 +248,108 @@
             box-shadow: none;
         }
 
-        /* Activities Section */
+        /* Activities Section - Accordion Style */
+        .activities-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .activity-accordion {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .activity-accordion:hover {
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .activity-accordion.expanded {
+            border-color: rgba(0, 212, 255, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .activity-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .activity-header:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .activity-header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .activity-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 212, 255, 0.15);
+            border-radius: 10px;
+        }
+
+        .activity-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .activity-duration {
+            font-size: 0.75rem;
+            color: #00d4ff;
+            background: rgba(0, 212, 255, 0.15);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            white-space: nowrap;
+            margin-right: 1rem;
+        }
+
+        .activity-toggle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            transition: transform 0.3s ease;
+        }
+
+        .activity-accordion.expanded .activity-toggle {
+            transform: rotate(180deg);
+            color: #00d4ff;
+        }
+
+        .activity-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .activity-accordion.expanded .activity-content {
+            max-height: 300px;
+        }
+
+        .activity-details {
+            padding: 0 1.25rem 1.25rem 1.25rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1rem;
+        }
+
+        /* Legacy grid support for old data format */
         .activities-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -269,10 +370,6 @@
         .activity-card:hover {
             background: rgba(255, 255, 255, 0.08);
             border-color: rgba(0, 212, 255, 0.3);
-        }
-
-        .activity-icon {
-            font-size: 2rem;
         }
 
         .activity-info h4 {
@@ -510,7 +607,7 @@
                 <!-- Activities -->
                 <div class="info-card">
                     <h3>🎯 Things To Do</h3>
-                    <div class="activities-grid" id="activitiesGrid">
+                    <div class="activities-list" id="activitiesList">
                         <!-- Loaded dynamically -->
                     </div>
                 </div>
@@ -674,16 +771,64 @@
         }
 
         function loadActivities() {
-            const grid = document.getElementById('activitiesGrid');
+            const list = document.getElementById('activitiesList');
+            const thingsToDo = currentDestination.thingsToDo || [];
             
-            // Get activities based on destination categories
-            const relevantActivities = activitiesData.filter(activity => 
-                currentDestination.category.includes(activity.category)
-            ).slice(0, 6);
+            // Activity icons based on keywords
+            const getActivityIcon = (name) => {
+                const n = name.toLowerCase();
+                if (n.includes('museum') || n.includes('gallery') || n.includes('art')) return '🖼️';
+                if (n.includes('food') || n.includes('eat') || n.includes('pizza') || n.includes('pastry') || n.includes('cooking')) return '🍽️';
+                if (n.includes('walk') || n.includes('stroll') || n.includes('tour')) return '🚶';
+                if (n.includes('church') || n.includes('cathedral') || n.includes('temple') || n.includes('basilica')) return '⛪';
+                if (n.includes('palace') || n.includes('castle')) return '🏰';
+                if (n.includes('cruise') || n.includes('boat') || n.includes('kayak')) return '🚢';
+                if (n.includes('beach') || n.includes('swim')) return '🏖️';
+                if (n.includes('hike') || n.includes('climb') || n.includes('mountain')) return '🥾';
+                if (n.includes('wine') || n.includes('beer') || n.includes('vodka') || n.includes('drink')) return '🍷';
+                if (n.includes('shop') || n.includes('market')) return '🛍️';
+                if (n.includes('concert') || n.includes('opera') || n.includes('music')) return '🎵';
+                if (n.includes('night') || n.includes('bar') || n.includes('club')) return '🌃';
+                if (n.includes('sunset') || n.includes('sunrise')) return '🌅';
+                if (n.includes('day trip') || n.includes('excursion')) return '🚗';
+                if (n.includes('bath') || n.includes('spa') || n.includes('thermal')) return '♨️';
+                if (n.includes('watch') || n.includes('view')) return '👀';
+                if (n.includes('float') || n.includes('dead sea')) return '🌊';
+                if (n.includes('desert') || n.includes('safari')) return '🏜️';
+                return '📍';
+            };
 
-            if (relevantActivities.length === 0) {
-                // Show generic activities
-                grid.innerHTML = currentDestination.highlights.slice(0, 4).map(h => `
+            // Check if we have enhanced format (objects) or old format (strings)
+            if (thingsToDo.length > 0 && typeof thingsToDo[0] === 'object') {
+                // Enhanced accordion format
+                list.innerHTML = thingsToDo.map((activity, index) => `
+                    <div class="activity-accordion" data-index="${index}">
+                        <div class="activity-header" onclick="toggleActivity(${index})">
+                            <div class="activity-header-left">
+                                <span class="activity-icon">${getActivityIcon(activity.name)}</span>
+                                <span class="activity-title">${activity.name}</span>
+                            </div>
+                            <span class="activity-duration">${activity.duration}</span>
+                            <span class="activity-toggle">▼</span>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-details">${activity.details}</div>
+                        </div>
+                    </div>
+                `).join('');
+            } else if (thingsToDo.length > 0) {
+                // Old string format - display as simple cards
+                list.innerHTML = thingsToDo.map(item => `
+                    <div class="activity-card">
+                        <span class="activity-icon">${getActivityIcon(item)}</span>
+                        <div class="activity-info">
+                            <h4>${item}</h4>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                // Fallback to highlights
+                list.innerHTML = currentDestination.highlights.slice(0, 4).map(h => `
                     <div class="activity-card">
                         <span class="activity-icon">📍</span>
                         <div class="activity-info">
@@ -692,16 +837,13 @@
                         </div>
                     </div>
                 `).join('');
-            } else {
-                grid.innerHTML = relevantActivities.map(activity => `
-                    <div class="activity-card">
-                        <span class="activity-icon">${activity.icon}</span>
-                        <div class="activity-info">
-                            <h4>${activity.name}</h4>
-                            <span class="activity-meta">${activity.duration}</span>
-                        </div>
-                    </div>
-                `).join('');
+            }
+        }
+
+        function toggleActivity(index) {
+            const accordion = document.querySelector(`.activity-accordion[data-index="${index}"]`);
+            if (accordion) {
+                accordion.classList.toggle('expanded');
             }
         }
 
