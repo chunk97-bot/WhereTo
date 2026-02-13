@@ -128,7 +128,7 @@
             <!-- All Destinations Grid -->
             <section class="dest-section all-destinations-section">
                 <div class="section-header">
-                    <h2 id="gridTitle"><span class="section-emoji">�</span> Top Destinations</h2>
+                    <h2 id="gridTitle"><span class="section-emoji">🔥</span> Top Destinations</h2>
                     <div class="sort-options">
                         <select id="sortSelect">
                             <option value="featured">Featured</option>
@@ -333,7 +333,16 @@
                     break;
                 case 'featured':
                 default:
-                    destinations.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+                    // Sort by most visited cities globally
+                    const topCityOrder = [9, 1, 14, 13, 15, 3, 4, 5, 6, 7]; // Bangkok, Paris, London, Dubai, Singapore, Tokyo...
+                    destinations.sort((a, b) => {
+                        const aIndex = topCityOrder.indexOf(a.id);
+                        const bIndex = topCityOrder.indexOf(b.id);
+                        if (aIndex === -1 && bIndex === -1) return 0;
+                        if (aIndex === -1) return 1;
+                        if (bIndex === -1) return -1;
+                        return aIndex - bIndex;
+                    });
             }
 
             // Limit to 10 if no filter/search is active
@@ -457,7 +466,7 @@
             document.querySelector('[data-category="all"]').classList.add('active');
             document.querySelectorAll('.quick-filter').forEach(btn => btn.classList.remove('active'));
             document.querySelector('[data-filter="featured"]').classList.add('active');
-            document.getElementById('gridTitle').innerHTML = '<span class="section-emoji">�</span> Top Destinations';
+            document.getElementById('gridTitle').innerHTML = '<span class="section-emoji">🔥</span> Top Destinations';
             loadAllDestinations();
         }
 
