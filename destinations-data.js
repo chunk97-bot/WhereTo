@@ -63,6 +63,7 @@ const countriesData = [
         currency: 'EUR',
         language: 'French',
         visaPolicy: 'schengen',
+        displayLevel: 'featured',
         bestMonths: ['april', 'may', 'june', 'september', 'october'],
         description: 'The world\'s most visited country, France captivates with its art, fashion, gastronomy, and culture. From the iconic Eiffel Tower to lavender fields of Provence, every corner tells a story.',
         image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800'
@@ -75,6 +76,7 @@ const countriesData = [
         currency: 'JPY',
         language: 'Japanese',
         visaPolicy: 'visaFree',
+        displayLevel: 'featured',
         bestMonths: ['march', 'april', 'october', 'november'],
         description: 'A fascinating blend of ancient traditions and cutting-edge technology. Experience serene temples, cherry blossoms, world-class cuisine, and the unique culture that defines the Land of the Rising Sun.',
         image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800'
@@ -87,6 +89,7 @@ const countriesData = [
         currency: 'EUR',
         language: 'Italian',
         visaPolicy: 'schengen',
+        displayLevel: 'featured',
         bestMonths: ['april', 'may', 'september', 'october'],
         description: 'The cradle of the Renaissance, Italy offers unparalleled art, architecture, and cuisine. From Rome\'s ancient ruins to Venice\'s romantic canals, every region has its own character and charm.',
         image: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800'
@@ -99,6 +102,7 @@ const countriesData = [
         currency: 'USD',
         language: 'English',
         visaPolicy: 'etaRequired',
+        displayLevel: 'featured',
         bestMonths: ['may', 'june', 'september', 'october'],
         description: 'From the skyscrapers of New York to the natural wonders of the Grand Canyon, the USA offers incredible diversity. Experience vibrant cities, stunning national parks, and endless entertainment options.',
         image: 'https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=800'
@@ -111,6 +115,7 @@ const countriesData = [
         currency: 'THB',
         language: 'Thai',
         visaPolicy: 'visaFree',
+        displayLevel: 'featured',
         bestMonths: ['november', 'december', 'january', 'february'],
         description: 'The Land of Smiles welcomes travelers with stunning beaches, ornate temples, delicious street food, and warm hospitality. Perfect blend of relaxation, adventure, and cultural immersion.',
         image: 'https://images.unsplash.com/photo-1528181304800-259b08848526?w=800'
@@ -123,6 +128,7 @@ const countriesData = [
         currency: 'EUR',
         language: 'Spanish',
         visaPolicy: 'schengen',
+        displayLevel: 'featured',
         bestMonths: ['april', 'may', 'september', 'october'],
         description: 'Passionate flamenco, stunning architecture from Gaudí to Moorish palaces, world-famous cuisine, and beautiful beaches. Spain offers a vibrant lifestyle that captivates every visitor.',
         image: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=800'
@@ -135,6 +141,7 @@ const countriesData = [
         currency: 'AUD',
         language: 'English',
         visaPolicy: 'etaRequired',
+        displayLevel: 'featured',
         bestMonths: ['september', 'october', 'november', 'march', 'april'],
         description: 'The land down under offers unique wildlife, the Great Barrier Reef, cosmopolitan cities, and vast outback adventures. A continent of contrasts that rewards the adventurous traveler.',
         image: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=800'
@@ -147,6 +154,7 @@ const countriesData = [
         currency: 'AED',
         language: 'Arabic, English',
         visaPolicy: 'visaOnArrival',
+        displayLevel: 'featured',
         bestMonths: ['november', 'december', 'january', 'february', 'march'],
         description: 'A dazzling blend of traditional Arabian culture and futuristic innovation. Dubai\'s iconic skyline, Abu Dhabi\'s cultural landmarks, and world-class shopping create an unforgettable experience.',
         image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800'
@@ -159,6 +167,7 @@ const countriesData = [
         currency: 'GBP',
         language: 'English',
         visaPolicy: 'etaRequired',
+        displayLevel: 'featured',
         bestMonths: ['may', 'june', 'july', 'august', 'september'],
         description: 'Rich history meets modern culture in the UK. From London\'s iconic landmarks to Scottish highlands, centuries of heritage await alongside vibrant contemporary arts and entertainment.',
         image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800'
@@ -171,6 +180,7 @@ const countriesData = [
         currency: 'SGD',
         language: 'English, Mandarin, Malay, Tamil',
         visaPolicy: 'visaFree',
+        displayLevel: 'featured',
         bestMonths: ['february', 'march', 'april', 'july', 'august'],
         description: 'A gleaming city-state where East meets West. World-class attractions, incredible food scene, stunning architecture, and seamless blend of cultures make Singapore a must-visit destination.',
         image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800'

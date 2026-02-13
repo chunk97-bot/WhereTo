@@ -344,7 +344,7 @@
 
         function loadCountries() {
             const container = document.getElementById('countriesGrid');
-            const featuredCountries = countriesData.slice(0, 12); // Show first 12
+            const featuredCountries = countriesData.filter(c => c.displayLevel === 'featured');
             
             container.innerHTML = featuredCountries.map(country => `
                 <div class="country-card" onclick="filterByCountry('${country.id}')">
