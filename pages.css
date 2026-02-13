@@ -1554,8 +1554,9 @@
     }
     
     .destinations-grid {
-        grid-template-columns: 1fr;
-        padding: 1rem;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+        padding: 0.75rem;
     }
     
     .planner-container {
