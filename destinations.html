@@ -304,6 +304,9 @@
             
             let destinations = [...destinationsData];
 
+            // Check if any filter or search is active
+            const hasActiveFilter = (currentFilter && currentFilter !== 'all') || searchQuery;
+
             // Apply category filter
             if (currentFilter && currentFilter !== 'all') {
                 destinations = destinations.filter(d => d.category.includes(currentFilter));
@@ -331,6 +334,11 @@
                 case 'featured':
                 default:
                     destinations.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+            }
+
+            // Limit to 10 if no filter/search is active
+            if (!hasActiveFilter) {
+                destinations = destinations.slice(0, 10);
             }
 
             if (destinations.length === 0) {
@@ -365,31 +373,15 @@
         // ==========================================
 
         function createDestinationCard(dest) {
-            const isSaved = isDestinationSaved(dest.id);
             return `
                 <div class="destination-card" data-id="${dest.id}">
                     <div class="card-image" style="background-image: url('${dest.image}')" onclick="viewDestination(${dest.id})">
                         ${dest.featured ? '<span class="featured-badge">⭐ Featured</span>' : ''}
-                        <button class="save-trip-btn ${isSaved ? 'saved' : ''}" onclick="event.stopPropagation(); toggleSaveTrip(${dest.id})" title="${isSaved ? 'Remove from Trip' : 'Save to Trip'}">
-                            ${isSaved ? '✓' : '📌'}
-                        </button>
-                        <div class="card-categories">
-                            ${dest.category.slice(0, 2).map(cat => {
-                                const catInfo = destinationCategories.find(c => c.id === cat);
-                                return catInfo ? `<span class="cat-tag">${catInfo.icon}</span>` : '';
-                            }).join('')}
-                        </div>
                     </div>
                     <div class="card-content" onclick="viewDestination(${dest.id})">
                         <h3>${dest.name}</h3>
                         <p class="location">📍 ${dest.country}</p>
                         <p class="description">${dest.description.substring(0, 80)}...</p>
-                        <div class="highlights">
-                            ${dest.highlights.slice(0, 3).map(h => `<span class="highlight-tag">${h}</span>`).join('')}
-                        </div>
-                        <div class="card-meta">
-                            <span class="rating">⭐ ${dest.rating}</span>
-                        </div>
                         <div class="card-footer">
                             <span class="duration">🕐 ${dest.duration}</span>
                             <span class="best-time">📅 ${dest.bestTime.split(',')[0]}</span>
