@@ -31,7 +31,7 @@ if ($pythonAvailable) {
         $response = $context.Response
         
         $localPath = $request.Url.LocalPath
-        if ($localPath -eq "/") { $localPath = "/index.html" }
+        if ($localPath -eq "/") { $localPath = "/home.html" }
         
         $filePath = Join-Path $path $localPath.TrimStart("/")
         

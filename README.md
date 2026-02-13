@@ -19,7 +19,7 @@ A web-based travel chatbot that helps you discover destinations, get travel advi
 ## 🚀 Quick Start
 
 ### Option 1: Open Directly
-Simply open `index.html` in your web browser.
+Simply open `nova.html` in your web browser.
 
 ### Option 2: Local Server (Recommended)
 ```bash
@@ -39,7 +39,7 @@ Then visit `http://localhost:8000` in your browser.
 
 ```
 WhereTo/
-├── index.html        # Main HTML page
+├── nova.html         # NOVA AI Chat page
 ├── style.css         # Styling and animations
 ├── chat.js           # Chatbot logic and responses
 ├── destinations.js   # Travel knowledge base
