@@ -16,7 +16,7 @@ const regionsData = {
                 currency: 'Albanian Lek (ALL)',
                 language: 'Albanian',
                 description: 'Hidden gem of the Balkans with stunning beaches, ancient ruins, and vibrant culture',
-                image: 'https://images.unsplash.com/photo-1596005554384-d293674c91d7?w=800',
+                image: 'https://images.unsplash.com/photo-1586878341523-f65c55cfa1ef?w=800',
                 cities: {
                     tirana: {
                         id: 'tirana',
@@ -24,7 +24,7 @@ const regionsData = {
                         country: 'Albania',
                         region: 'Schengen',
                         description: 'Colorful capital city with Ottoman, Italian and Soviet architectural influences',
-                        image: 'https://images.unsplash.com/photo-1578328819058-b69f3a3eb0b6?w=800',
+                        image: 'https://images.unsplash.com/photo-1586878341523-f65c55cfa1ef?w=800',
                         population: '520,000',
                         bestTime: 'April to June, September to October',
                         avgBudget: { budget: 40, mid: 80, luxury: 200 },
@@ -53,7 +53,7 @@ const regionsData = {
                 currency: 'Euro (€)',
                 language: 'German',
                 description: 'Alpine beauty meets imperial grandeur with world-class music and coffee culture',
-                image: 'https://images.unsplash.com/photo-1516550893923-42d28e5677af?w=800',
+                image: 'https://images.unsplash.com/photo-1609856878074-cf31e21ccb6b?w=800',
                 cities: {
                     vienna: {
                         id: 'vienna',
@@ -61,7 +61,7 @@ const regionsData = {
                         country: 'Austria',
                         region: 'Schengen',
                         description: 'Imperial capital famous for classical music, coffee houses, and stunning architecture',
-                        image: 'https://images.unsplash.com/photo-1516550893923-42d28e5677af?w=800',
+                        image: 'https://images.unsplash.com/photo-1516550893880-a3592c78dc77?w=800',
                         population: '1,900,000',
                         bestTime: 'April to May, September to October',
                         avgBudget: { budget: 80, mid: 150, luxury: 400 },
@@ -9821,8 +9821,11 @@ function getCountriesByRegion(regionId) {
     return Object.values(region.countries).map(country => ({
         id: country.id,
         name: country.name,
+        code: country.code,
         flag: country.flag,
         capital: country.capital,
+        currency: country.currency,
+        language: country.language,
         description: country.description,
         image: country.image,
         cityCount: Object.keys(country.cities).length,

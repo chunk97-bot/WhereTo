@@ -1301,26 +1301,176 @@
         }
 
         function addAttractionMarkers(centerCoords) {
-            // Place attraction markers in a circle around center
-            const radius = 0.01; // ~1km
-            currentCity.attractions.forEach((attraction, index) => {
-                const angle = (index / currentCity.attractions.length) * 2 * Math.PI;
-                const lat = centerCoords[0] + radius * Math.cos(angle);
-                const lng = centerCoords[1] + radius * Math.sin(angle);
-                
-                const marker = L.marker([lat, lng], {
-                    icon: createCustomIcon(getAttractionIcon(attraction.type))
-                }).addTo(cityMap);
-                
-                marker.bindPopup(`
-                    <div class="marker-popup">
-                        <h4>${getAttractionIcon(attraction.type)} ${attraction.name}</h4>
-                        <div class="popup-type">${attraction.type || 'Attraction'}</div>
-                    </div>
-                `);
-                
-                mapMarkers.push(marker);
-            });
+            // Get landmark data if available, otherwise place in a spread pattern
+            const landmarks = getLandmarkCoordinates(currentCity.name);
+            
+            if (landmarks && Object.keys(landmarks).length > 0) {
+                // Use real landmark coordinates
+                currentCity.attractions.forEach((attraction) => {
+                    const landmarkCoords = landmarks[attraction.name];
+                    if (landmarkCoords) {
+                        const marker = L.marker(landmarkCoords, {
+                            icon: createCustomIcon(getAttractionIcon(attraction.type))
+                        }).addTo(cityMap);
+                        
+                        marker.bindPopup(`
+                            <div class="marker-popup">
+                                <h4>${getAttractionIcon(attraction.type)} ${attraction.name}</h4>
+                                <div class="popup-type">${attraction.type || 'Attraction'}</div>
+                            </div>
+                        `);
+                        
+                        mapMarkers.push(marker);
+                    }
+                });
+            }
+            
+            // Place remaining attractions in a spread pattern around center
+            const placedNames = landmarks ? Object.keys(landmarks) : [];
+            const unplacedAttractions = currentCity.attractions.filter(a => !placedNames.includes(a.name));
+            
+            if (unplacedAttractions.length > 0) {
+                // Use varied radii for more natural spread
+                const baseRadius = 0.015; // ~1.5km
+                unplacedAttractions.forEach((attraction, index) => {
+                    const angle = (index / unplacedAttractions.length) * 2 * Math.PI + (Math.random() * 0.3);
+                    const radiusVariation = baseRadius * (0.5 + Math.random() * 0.8);
+                    const lat = centerCoords[0] + radiusVariation * Math.cos(angle);
+                    const lng = centerCoords[1] + radiusVariation * Math.sin(angle) * 1.3;
+                    
+                    const marker = L.marker([lat, lng], {
+                        icon: createCustomIcon(getAttractionIcon(attraction.type))
+                    }).addTo(cityMap);
+                    
+                    marker.bindPopup(`
+                        <div class="marker-popup">
+                            <h4>${getAttractionIcon(attraction.type)} ${attraction.name}</h4>
+                            <div class="popup-type">${attraction.type || 'Attraction'}</div>
+                        </div>
+                    `);
+                    
+                    mapMarkers.push(marker);
+                });
+            }
+        }
+
+        // Landmark coordinates for major cities
+        function getLandmarkCoordinates(cityName) {
+            const landmarks = {
+                'Paris': {
+                    'Eiffel Tower': [48.8584, 2.2945],
+                    'Louvre Museum': [48.8606, 2.3376],
+                    'Notre-Dame': [48.8530, 2.3499],
+                    'Arc de Triomphe': [48.8738, 2.2950],
+                    'Sacré-Cœur': [48.8867, 2.3431],
+                    'Champs-Élysées': [48.8698, 2.3075],
+                    'Montmartre': [48.8867, 2.3431]
+                },
+                'London': {
+                    'Big Ben': [51.5007, -0.1246],
+                    'Tower of London': [51.5081, -0.0759],
+                    'Buckingham Palace': [51.5014, -0.1419],
+                    'British Museum': [51.5194, -0.1270],
+                    'London Eye': [51.5033, -0.1196],
+                    'Tower Bridge': [51.5055, -0.0754],
+                    'Westminster Abbey': [51.4994, -0.1273]
+                },
+                'Rome': {
+                    'Colosseum': [41.8902, 12.4922],
+                    'Vatican City': [41.9029, 12.4534],
+                    'Trevi Fountain': [41.9009, 12.4833],
+                    'Pantheon': [41.8986, 12.4769],
+                    'Roman Forum': [41.8925, 12.4853],
+                    'Spanish Steps': [41.9060, 12.4828],
+                    'St. Peter\'s Basilica': [41.9022, 12.4539]
+                },
+                'Tokyo': {
+                    'Shibuya Crossing': [35.6595, 139.7004],
+                    'Senso-ji Temple': [35.7148, 139.7967],
+                    'Tokyo Tower': [35.6586, 139.7454],
+                    'Meiji Shrine': [35.6764, 139.6993],
+                    'Tokyo Skytree': [35.7101, 139.8107],
+                    'Imperial Palace': [35.6852, 139.7528],
+                    'Shinjuku': [35.6896, 139.6917]
+                },
+                'New York': {
+                    'Statue of Liberty': [40.6892, -74.0445],
+                    'Central Park': [40.7829, -73.9654],
+                    'Times Square': [40.7580, -73.9855],
+                    'Empire State Building': [40.7484, -73.9857],
+                    'Brooklyn Bridge': [40.7061, -73.9969],
+                    'One World Trade Center': [40.7127, -74.0134]
+                },
+                'Dubai': {
+                    'Burj Khalifa': [25.1972, 55.2744],
+                    'Palm Jumeirah': [25.1124, 55.1390],
+                    'Dubai Mall': [25.1985, 55.2796],
+                    'Burj Al Arab': [25.1412, 55.1853],
+                    'Dubai Marina': [25.0805, 55.1403],
+                    'Dubai Frame': [25.2354, 55.3005]
+                },
+                'Barcelona': {
+                    'Sagrada Familia': [41.4036, 2.1744],
+                    'Park Güell': [41.4145, 2.1527],
+                    'La Rambla': [41.3797, 2.1734],
+                    'Casa Batlló': [41.3916, 2.1650],
+                    'Gothic Quarter': [41.3833, 2.1761],
+                    'Camp Nou': [41.3809, 2.1228]
+                },
+                'Amsterdam': {
+                    'Anne Frank House': [52.3752, 4.8840],
+                    'Rijksmuseum': [52.3600, 4.8852],
+                    'Van Gogh Museum': [52.3584, 4.8811],
+                    'Dam Square': [52.3731, 4.8932],
+                    'Canal Ring': [52.3676, 4.9041],
+                    'Vondelpark': [52.3579, 4.8686]
+                },
+                'Vienna': {
+                    'Schönbrunn Palace': [48.1845, 16.3122],
+                    'St. Stephen\'s Cathedral': [48.2082, 16.3738],
+                    'Belvedere Palace': [48.1914, 16.3805],
+                    'Hofburg Palace': [48.2064, 16.3649],
+                    'Vienna State Opera': [48.2034, 16.3689]
+                },
+                'Singapore': {
+                    'Marina Bay Sands': [1.2834, 103.8607],
+                    'Gardens by the Bay': [1.2816, 103.8636],
+                    'Sentosa Island': [1.2494, 103.8303],
+                    'Orchard Road': [1.3048, 103.8318],
+                    'Merlion Park': [1.2868, 103.8545],
+                    'Chinatown': [1.2839, 103.8443]
+                },
+                'Bangkok': {
+                    'Grand Palace': [13.7500, 100.4914],
+                    'Wat Pho': [13.7465, 100.4927],
+                    'Wat Arun': [13.7437, 100.4888],
+                    'Chatuchak Market': [13.7999, 100.5506],
+                    'Khao San Road': [13.7582, 100.4971]
+                },
+                'Istanbul': {
+                    'Hagia Sophia': [41.0086, 28.9802],
+                    'Blue Mosque': [41.0054, 28.9768],
+                    'Topkapi Palace': [41.0115, 28.9833],
+                    'Grand Bazaar': [41.0106, 28.9680],
+                    'Galata Tower': [41.0256, 28.9741],
+                    'Bosphorus': [41.0411, 29.0083]
+                },
+                'Sydney': {
+                    'Sydney Opera House': [-33.8568, 151.2153],
+                    'Sydney Harbour Bridge': [-33.8523, 151.2108],
+                    'Bondi Beach': [-33.8915, 151.2767],
+                    'Darling Harbour': [-33.8723, 151.1987],
+                    'The Rocks': [-33.8590, 151.2085]
+                },
+                'Prague': {
+                    'Charles Bridge': [50.0865, 14.4114],
+                    'Prague Castle': [50.0911, 14.4017],
+                    'Old Town Square': [50.0875, 14.4213],
+                    'Astronomical Clock': [50.0870, 14.4206],
+                    'St. Vitus Cathedral': [50.0909, 14.4006]
+                }
+            };
+            return landmarks[cityName] || null;
         }
 
         function updateMapLegend() {
@@ -1385,17 +1535,12 @@
             btn.style.opacity = landmarksVisible ? '1' : '0.6';
         }
 
-        // City coordinates lookup (common cities)
+        // City coordinates lookup (comprehensive list)
         function getCityCoordinates(cityName, country) {
             const coords = {
-                // Major cities coordinates
+                // Europe
                 'Paris': [48.8566, 2.3522],
                 'London': [51.5074, -0.1278],
-                'Tokyo': [35.6762, 139.6503],
-                'New York': [40.7128, -74.0060],
-                'Dubai': [25.2048, 55.2708],
-                'Singapore': [1.3521, 103.8198],
-                'Bangkok': [13.7563, 100.5018],
                 'Rome': [41.9028, 12.4964],
                 'Barcelona': [41.3851, 2.1734],
                 'Amsterdam': [52.3676, 4.9041],
@@ -1403,26 +1548,6 @@
                 'Prague': [50.0755, 14.4378],
                 'Berlin': [52.5200, 13.4050],
                 'Madrid': [40.4168, -3.7038],
-                'Istanbul': [41.0082, 28.9784],
-                'Sydney': [33.8688, 151.2093],
-                'Melbourne': [-37.8136, 144.9631],
-                'Bali': [-8.3405, 115.0920],
-                'Hong Kong': [22.3193, 114.1694],
-                'Seoul': [37.5665, 126.9780],
-                'Mumbai': [19.0760, 72.8777],
-                'Delhi': [28.7041, 77.1025],
-                'Cairo': [30.0444, 31.2357],
-                'Cape Town': [-33.9249, 18.4241],
-                'Rio de Janeiro': [-22.9068, -43.1729],
-                'Buenos Aires': [-34.6037, -58.3816],
-                'Mexico City': [19.4326, -99.1332],
-                'Toronto': [43.6532, -79.3832],
-                'Los Angeles': [34.0522, -118.2437],
-                'San Francisco': [37.7749, -122.4194],
-                'Miami': [25.7617, -80.1918],
-                'Zurich': [47.3769, 8.5417],
-                'Geneva': [46.2044, 6.1432],
-                'Munich': [48.1351, 11.5820],
                 'Venice': [45.4408, 12.3155],
                 'Florence': [43.7696, 11.2558],
                 'Milan': [45.4642, 9.1900],
@@ -1437,31 +1562,11 @@
                 'Helsinki': [60.1699, 24.9384],
                 'Warsaw': [52.2297, 21.0122],
                 'Budapest': [47.4979, 19.0402],
-                'Marrakech': [31.6295, -7.9811],
-                'Jerusalem': [31.7683, 35.2137],
-                'Tel Aviv': [32.0853, 34.7818],
-                'Mecca': [21.3891, 39.8579],
-                'Medina': [24.5247, 39.5692],
-                'Riyadh': [24.7136, 46.6753],
-                'Jeddah': [21.4858, 39.1925],
-                'Abu Dhabi': [24.4539, 54.3773],
-                'Doha': [25.2854, 51.5310],
-                'Muscat': [23.5880, 58.3829],
-                'Kuala Lumpur': [3.1390, 101.6869],
-                'Jakarta': [-6.2088, 106.8456],
-                'Manila': [14.5995, 120.9842],
-                'Hanoi': [21.0285, 105.8542],
-                'Ho Chi Minh City': [10.8231, 106.6297],
-                'Colombo': [6.9271, 79.8612],
-                'Kathmandu': [27.7172, 85.3240],
-                'Taipei': [25.0330, 121.5654],
-                'Osaka': [34.6937, 135.5023],
-                'Kyoto': [35.0116, 135.7681],
-                'Beijing': [39.9042, 116.4074],
-                'Shanghai': [31.2304, 121.4737],
+                'Zurich': [47.3769, 8.5417],
+                'Geneva': [46.2044, 6.1432],
+                'Munich': [48.1351, 11.5820],
                 'Tirana': [41.3275, 19.8189],
                 'Salzburg': [47.8095, 13.0550],
-                'Brussels': [50.8503, 4.3517],
                 'Split': [43.5081, 16.4402],
                 'Dubrovnik': [42.6507, 18.0944],
                 'Lyon': [45.7640, 4.8357],
@@ -1476,21 +1581,152 @@
                 'Porto': [41.1579, -8.6291],
                 'Seville': [37.3891, -5.9845],
                 'Lucerne': [47.0502, 8.3093],
-                'Edinburgh': [55.9533, -3.1883],
                 'Manchester': [53.4808, -2.2426],
                 'Liverpool': [53.4084, -2.9916],
+                'Monaco': [43.7384, 7.4246],
+                'Cannes': [43.5528, 7.0174],
+                'Naples': [40.8518, 14.2681],
+                'Amalfi': [40.6340, 14.6027],
+                'Verona': [45.4384, 10.9916],
+                'Cinque Terre': [44.1461, 9.6439],
+                'Granada': [37.1773, -3.5986],
+                'Valencia': [39.4699, -0.3763],
+                'Bruges': [51.2093, 3.2247],
+                'Ghent': [51.0543, 3.7174],
+                'Rotterdam': [51.9244, 4.4777],
+                'The Hague': [52.0705, 4.3007],
+                'Innsbruck': [47.2692, 11.4041],
+                'Hallstatt': [47.5622, 13.6493],
+                'Interlaken': [46.6863, 7.8632],
+                'Zermatt': [46.0207, 7.7491],
+                'Bergen': [60.3913, 5.3221],
+                'Gothenburg': [57.7089, 11.9746],
+                'Malmo': [55.6050, 13.0038],
+                'Tallinn': [59.4370, 24.7536],
+                'Riga': [56.9496, 24.1052],
+                'Vilnius': [54.6872, 25.2797],
+                'Ljubljana': [46.0569, 14.5058],
+                'Zagreb': [45.8150, 15.9819],
+                'Belgrade': [44.7866, 20.4489],
+                'Sarajevo': [43.8563, 18.4131],
+                'Bucharest': [44.4268, 26.1025],
+                'Sofia': [42.6977, 23.3219],
+                'Bratislava': [48.1486, 17.1077],
+                'Ljubljana': [46.0569, 14.5058],
+                // Asia
+                'Tokyo': [35.6762, 139.6503],
+                'Kyoto': [35.0116, 135.7681],
+                'Osaka': [34.6937, 135.5023],
+                'Singapore': [1.3521, 103.8198],
+                'Bangkok': [13.7563, 100.5018],
+                'Hong Kong': [22.3193, 114.1694],
+                'Seoul': [37.5665, 126.9780],
+                'Beijing': [39.9042, 116.4074],
+                'Shanghai': [31.2304, 121.4737],
+                'Taipei': [25.0330, 121.5654],
+                'Kuala Lumpur': [3.1390, 101.6869],
+                'Jakarta': [-6.2088, 106.8456],
+                'Manila': [14.5995, 120.9842],
+                'Hanoi': [21.0285, 105.8542],
+                'Ho Chi Minh City': [10.8231, 106.6297],
+                'Bali': [-8.3405, 115.0920],
+                'Phuket': [7.8804, 98.3923],
+                'Chiang Mai': [18.7883, 98.9853],
+                'Mumbai': [19.0760, 72.8777],
+                'Delhi': [28.7041, 77.1025],
+                'New Delhi': [28.6139, 77.2090],
+                'Jaipur': [26.9124, 75.7873],
+                'Agra': [27.1767, 78.0081],
+                'Goa': [15.2993, 74.1240],
+                'Colombo': [6.9271, 79.8612],
+                'Kathmandu': [27.7172, 85.3240],
+                'Hiroshima': [34.3853, 132.4553],
+                'Nara': [34.6851, 135.8048],
+                'Sapporo': [43.0618, 141.3545],
+                'Busan': [35.1796, 129.0756],
+                'Jeju': [33.4996, 126.5312],
+                'Xi\'an': [34.3416, 108.9398],
+                'Guilin': [25.2736, 110.2901],
+                'Siem Reap': [13.3633, 103.8600],
+                'Luang Prabang': [19.8850, 102.1347],
+                'Yogyakarta': [-7.7956, 110.3695],
+                'Penang': [5.4141, 100.3288],
+                'Langkawi': [6.3500, 99.8000],
+                'Cebu': [10.3157, 123.8854],
+                'Boracay': [11.9674, 121.9248],
+                'El Nido': [11.1930, 119.3960],
+                'Hoi An': [15.8801, 108.3380],
+                'Da Nang': [16.0544, 108.2022],
+                'Halong Bay': [20.9101, 107.1839],
+                'Kandy': [7.2906, 80.6337],
+                'Galle': [6.0535, 80.2210],
+                'Ella': [6.8667, 81.0466],
+                // Middle East
+                'Dubai': [25.2048, 55.2708],
+                'Abu Dhabi': [24.4539, 54.3773],
+                'Istanbul': [41.0082, 28.9784],
+                'Jerusalem': [31.7683, 35.2137],
+                'Tel Aviv': [32.0853, 34.7818],
+                'Petra': [30.3285, 35.4444],
+                'Amman': [31.9454, 35.9284],
+                'Mecca': [21.3891, 39.8579],
+                'Medina': [24.5247, 39.5692],
+                'Riyadh': [24.7136, 46.6753],
+                'Jeddah': [21.4858, 39.1925],
+                'Doha': [25.2854, 51.5310],
+                'Muscat': [23.5880, 58.3829],
+                'Cairo': [30.0444, 31.2357],
+                'Marrakech': [31.6295, -7.9811],
+                'Fes': [34.0181, -5.0078],
+                'Casablanca': [33.5731, -7.5898],
+                // Africa
+                'Cape Town': [-33.9249, 18.4241],
+                'Johannesburg': [-26.2041, 28.0473],
+                'Nairobi': [-1.2921, 36.8219],
+                'Zanzibar': [-6.1659, 39.2026],
+                'Victoria Falls': [-17.9243, 25.8572],
+                'Luxor': [25.6872, 32.6396],
+                'Tunis': [36.8065, 10.1815],
+                'Accra': [5.6037, -0.1870],
+                'Lagos': [6.5244, 3.3792],
+                'Addis Ababa': [-9.0320, 38.7469],
+                // Americas
+                'New York': [40.7128, -74.0060],
+                'Los Angeles': [34.0522, -118.2437],
+                'San Francisco': [37.7749, -122.4194],
+                'Miami': [25.7617, -80.1918],
+                'Las Vegas': [36.1699, -115.1398],
+                'Chicago': [41.8781, -87.6298],
+                'Toronto': [43.6532, -79.3832],
+                'Vancouver': [49.2827, -123.1207],
+                'Montreal': [45.5017, -73.5673],
+                'Mexico City': [19.4326, -99.1332],
+                'Cancun': [21.1619, -86.8515],
+                'Havana': [23.1136, -82.3666],
+                'Rio de Janeiro': [-22.9068, -43.1729],
+                'Buenos Aires': [-34.6037, -58.3816],
+                'Lima': [-12.0464, -77.0428],
+                'Cusco': [-13.5319, -71.9675],
+                'Machu Picchu': [-13.1631, -72.5450],
+                'Bogota': [4.7110, -74.0721],
+                'Cartagena': [10.3910, -75.4794],
+                'Santiago': [-33.4489, -70.6693],
+                'San Jose': [9.9281, -84.0907],
+                // Oceania
+                'Sydney': [-33.8688, 151.2093],
+                'Melbourne': [-37.8136, 144.9631],
+                'Brisbane': [-27.4705, 153.0260],
+                'Perth': [-31.9505, 115.8605],
                 'Auckland': [-36.8509, 174.7645],
                 'Queenstown': [-45.0312, 168.6626],
                 'Fiji': [-17.7134, 178.0650],
-                'Phuket': [7.8804, 98.3923],
-                'Chiang Mai': [18.7883, 98.9853],
                 'Bora Bora': [-16.5004, -151.7415],
                 'Maldives': [3.2028, 73.2207],
-                'Zanzibar': [-6.1659, 39.2026],
-                'Nairobi': [-1.2921, 36.8219],
-                'Victoria Falls': [-17.9243, 25.8572],
-                'Petra': [30.3285, 35.4444],
-                'Amman': [31.9454, 35.9284]
+                'Cairns': [-16.9186, 145.7781],
+                'Gold Coast': [-28.0167, 153.4000],
+                'Wellington': [-41.2865, 174.7762],
+                'Rotorua': [-38.1368, 176.2497],
+                'Tahiti': [-17.6509, -149.4260]
             };
             
             return coords[cityName] || null;

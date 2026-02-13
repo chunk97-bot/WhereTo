@@ -195,10 +195,31 @@
         }
 
         /* Countries Grid */
-        .countries-section h3 {
+        .countries-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header h3 {
+            font-size: 1.3rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .country-badge {
+            font-size: 0.85rem;
+            color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
         }
 
         .countries-grid {
@@ -260,6 +281,18 @@
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
             display: block;
+            line-height: 1;
+        }
+
+        .country-content .country-code {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #00d4ff;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.25rem;
+            text-decoration: underline;
+            text-underline-offset: 4px;
         }
 
         .country-content h4 {
@@ -626,8 +659,11 @@
         <main class="region-main">
             <div class="region-content">
                 <!-- Countries Section -->
-                <div class="info-card countries-section">
-                    <h3>🏳️ Countries to Explore <span id="countryCount" style="font-size: 0.85rem; color: #00d4ff; font-weight: normal;">0 countries</span></h3>
+                <div class="countries-section">
+                    <div class="section-header">
+                        <h3>🏳️ Countries to Explore</h3>
+                        <span id="countryCount" class="country-badge">0 countries</span>
+                    </div>
                     <div class="countries-grid" id="countriesGrid">
                         <!-- Countries loaded dynamically -->
                     </div>
@@ -814,7 +850,7 @@
                     <div class="country-image" style="background-image: url('${country.image}')"></div>
                     <div class="country-overlay"></div>
                     <div class="country-content">
-                        <span class="country-flag">${country.flag}</span>
+                        <span class="country-code">${country.code || country.flag}</span>
                         <h4>${country.name}</h4>
                         <span class="country-count">${country.cityCount} ${country.cityCount === 1 ? 'city' : 'cities'}</span>
                     </div>
