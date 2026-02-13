@@ -1204,57 +1204,62 @@
             const mapContainer = document.getElementById('cityMap');
             mapContainer.innerHTML = '';
 
-            // Initialize Leaflet map
-            cityMap = L.map('cityMap', {
-                center: mapData.center,
-                zoom: mapData.zoom,
-                zoomControl: true,
-                scrollWheelZoom: true
-            });
-
-            // Add tile layer (using CartoDB dark matter for dark theme)
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-                subdomains: 'abcd',
-                maxZoom: 19
-            }).addTo(cityMap);
-
-            // Add city center marker
-            const centerMarker = L.marker(mapData.center, {
-                icon: createCustomIcon('📍', 'city-center-marker')
-            }).addTo(cityMap);
-            centerMarker.bindPopup(`
-                <div class="marker-popup">
-                    <h4>${currentDestination.name} City Center</h4>
-                    <div class="popup-type">City Center</div>
-                </div>
-            `);
-            mapMarkers.push(centerMarker);
-
-            // Add landmark markers
-            if (mapData.landmarks && mapData.landmarks.length > 0) {
-                mapData.landmarks.forEach(landmark => {
-                    const marker = L.marker([landmark.lat, landmark.lng], {
-                        icon: createCustomIcon(landmark.icon)
-                    }).addTo(cityMap);
-                    
-                    marker.bindPopup(`
-                        <div class="marker-popup">
-                            <h4>${landmark.icon} ${landmark.name}</h4>
-                            <div class="popup-type">${formatLandmarkType(landmark.type)}</div>
-                        </div>
-                    `);
-                    
-                    mapMarkers.push(marker);
+            // Use setTimeout to ensure container is ready
+            setTimeout(() => {
+                // Initialize Leaflet map
+                cityMap = L.map('cityMap', {
+                    center: mapData.center,
+                    zoom: mapData.zoom,
+                    zoomControl: true,
+                    scrollWheelZoom: true
                 });
 
-                // Update legend
-                updateMapLegend(mapData.landmarks);
-            }
+                // Add tile layer (using CartoDB dark matter for dark theme)
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                    subdomains: 'abcd',
+                    maxZoom: 19
+                }).addTo(cityMap);
 
-            // Invalidate size after a short delay to ensure proper rendering
-            setTimeout(() => {
-                cityMap.invalidateSize();
+                // Add city center marker
+                const centerMarker = L.marker(mapData.center, {
+                    icon: createCustomIcon('📍', 'city-center-marker')
+                }).addTo(cityMap);
+                centerMarker.bindPopup(`
+                    <div class="marker-popup">
+                        <h4>${currentDestination.name} City Center</h4>
+                        <div class="popup-type">City Center</div>
+                    </div>
+                `);
+                mapMarkers.push(centerMarker);
+
+                // Add landmark markers
+                if (mapData.landmarks && mapData.landmarks.length > 0) {
+                    mapData.landmarks.forEach(landmark => {
+                        const marker = L.marker([landmark.lat, landmark.lng], {
+                            icon: createCustomIcon(landmark.icon)
+                        }).addTo(cityMap);
+                        
+                        marker.bindPopup(`
+                            <div class="marker-popup">
+                                <h4>${landmark.icon} ${landmark.name}</h4>
+                                <div class="popup-type">${formatLandmarkType(landmark.type)}</div>
+                            </div>
+                        `);
+                        
+                        mapMarkers.push(marker);
+                    });
+
+                    // Update legend
+                    updateMapLegend(mapData.landmarks);
+                }
+
+                // Invalidate size and reset view after a short delay
+                setTimeout(() => {
+                    cityMap.invalidateSize();
+                    // Force set the view after invalidation
+                    cityMap.setView(mapData.center, mapData.zoom);
+                }, 200);
             }, 100);
         }
 
