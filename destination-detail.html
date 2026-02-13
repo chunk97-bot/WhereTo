@@ -247,6 +247,74 @@
             flex-shrink: 0;
         }
 
+        .trip-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .trip-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .trip-btn.saved {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .trip-btn.saved:hover {
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Toast notification */
+        .trip-toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .trip-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .trip-toast a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .trip-toast a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
         .cta-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
@@ -1056,6 +1124,9 @@
                 <!-- Ask NOVA Card -->
                 <div class="info-card cta-card">
                     <button class="cta-btn" onclick="askChatbot()"><svg class="nova-btn-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="novaBtnGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00f5ff"/><stop offset="50%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient></defs><rect x="4" y="7" width="16" height="13" rx="4" fill="url(#novaBtnGrad)"/><rect x="7" y="3" width="10" height="5" rx="2.5" fill="url(#novaBtnGrad)"/><circle cx="8.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="15.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="8.5" cy="12.5" r="1.5" fill="#00f5ff"/><circle cx="15.5" cy="12.5" r="1.5" fill="#00f5ff"/><rect x="10" y="16" width="4" height="2" rx="1" fill="#ec4899"/></svg> Ask NOVA</button>
+                    <button class="trip-btn" id="tripPlannerBtn" onclick="toggleTripPlanner()">
+                        <span id="tripBtnIcon">📌</span> <span id="tripBtnText">Add to Trip Planner</span>
+                    </button>
                 </div>
 
                 <!-- Quick Info -->
@@ -1228,6 +1299,9 @@
             // Initialize map
             initCityMap();
 
+            // Update trip planner button state
+            updateTripPlannerButton();
+
         }
 
         function loadMonthsGrid() {
@@ -1328,6 +1402,77 @@
         function askChatbot() {
             // Navigate to chat with question
             window.location.href = `index.html?ask=${encodeURIComponent(`Tell me more about ${currentDestination.name}`)}`;
+        }
+
+        // ============================================
+        // TRIP PLANNER FUNCTIONALITY
+        // ============================================
+        function isInTripPlanner() {
+            const saved = JSON.parse(localStorage.getItem('tripPlanner') || '[]');
+            return saved.some(d => d.id === currentDestination.id);
+        }
+
+        function updateTripPlannerButton() {
+            const btn = document.getElementById('tripPlannerBtn');
+            const icon = document.getElementById('tripBtnIcon');
+            const text = document.getElementById('tripBtnText');
+            
+            if (isInTripPlanner()) {
+                btn.classList.add('saved');
+                icon.textContent = '✓';
+                text.textContent = 'Added to Trip Planner';
+            } else {
+                btn.classList.remove('saved');
+                icon.textContent = '📌';
+                text.textContent = 'Add to Trip Planner';
+            }
+        }
+
+        function toggleTripPlanner() {
+            let saved = JSON.parse(localStorage.getItem('tripPlanner') || '[]');
+            
+            if (isInTripPlanner()) {
+                // Remove from trip planner
+                saved = saved.filter(d => d.id !== currentDestination.id);
+                localStorage.setItem('tripPlanner', JSON.stringify(saved));
+                updateTripPlannerButton();
+            } else {
+                // Add to trip planner
+                const tripData = {
+                    id: currentDestination.id,
+                    name: currentDestination.name,
+                    country: currentDestination.country,
+                    image: currentDestination.image,
+                    duration: currentDestination.duration,
+                    bestTime: currentDestination.bestTime,
+                    highlights: currentDestination.highlights,
+                    thingsToDo: currentDestination.thingsToDo,
+                    addedAt: new Date().toISOString()
+                };
+                saved.push(tripData);
+                localStorage.setItem('tripPlanner', JSON.stringify(saved));
+                updateTripPlannerButton();
+                
+                // Show confirmation
+                showTripPlannerToast();
+            }
+        }
+
+        function showTripPlannerToast() {
+            // Create toast notification
+            const toast = document.createElement('div');
+            toast.className = 'trip-toast';
+            toast.innerHTML = `
+                <span>✓ Added to Trip Planner</span>
+                <a href="trip-planner.html">View Trip →</a>
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.classList.add('show'), 100);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         }
 
         // ============================================
