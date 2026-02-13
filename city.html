@@ -204,7 +204,14 @@
         .budget-item.mid .budget-value { color: #fbbf24; }
         .budget-item.luxury .budget-value { color: #a855f7; }
 
-        /* Highlights */
+        /* Highlights & Attractions Tags */
+        .highlights-section h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
         .highlights-list {
             display: flex;
             flex-wrap: wrap;
@@ -218,6 +225,63 @@
             border-radius: 25px;
             font-size: 0.85rem;
             color: #00d4ff;
+            cursor: default;
+            transition: all 0.2s ease;
+        }
+
+        .highlight-item:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Perfect For Section */
+        .perfect-for-section h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .perfect-for-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .perfect-tag {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            cursor: default;
+            transition: all 0.2s ease;
+        }
+
+        .perfect-tag:hover {
+            transform: translateY(-2px);
+        }
+
+        .perfect-tag.cultural { background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.4); color: #a78bfa; }
+        .perfect-tag.food { background: rgba(251, 191, 36, 0.15); border: 1px solid rgba(251, 191, 36, 0.4); color: #fbbf24; }
+        .perfect-tag.shopping { background: rgba(236, 72, 153, 0.15); border: 1px solid rgba(236, 72, 153, 0.4); color: #ec4899; }
+        .perfect-tag.nightlife { background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.4); color: #c084fc; }
+        .perfect-tag.nature { background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.4); color: #22c55e; }
+        .perfect-tag.adventure { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); color: #f59e0b; }
+        .perfect-tag.history { background: rgba(180, 83, 9, 0.15); border: 1px solid rgba(180, 83, 9, 0.4); color: #d97706; }
+        .perfect-tag.beach { background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.4); color: #3b82f6; }
+        .perfect-tag.romantic { background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.4); color: #f43f5e; }
+
+        /* Time Estimate Badge */
+        .time-badge {
+            background: rgba(0, 212, 255, 0.15);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: #00d4ff;
+            white-space: nowrap;
         }
 
         /* CTA Card */
@@ -459,6 +523,18 @@
             margin-bottom: 0.5rem;
         }
 
+        .country-code-badge {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(0, 212, 255, 0.4);
+            border-radius: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00d4ff;
+            letter-spacing: 2px;
+        }
+
         .country-details {
             display: flex;
             flex-direction: column;
@@ -556,6 +632,22 @@
             background: rgba(0, 212, 255, 0.25);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
+        }
+
+        .map-btn.active {
+            background: rgba(0, 212, 255, 0.3);
+            border-color: rgba(0, 212, 255, 0.6);
+        }
+
+        .map-btn.download {
+            background: rgba(244, 63, 94, 0.15);
+            border-color: rgba(244, 63, 94, 0.4);
+            color: #f43f5e;
+        }
+
+        .map-btn.download:hover {
+            background: rgba(244, 63, 94, 0.25);
+            box-shadow: 0 5px 15px rgba(244, 63, 94, 0.2);
         }
 
         #cityMap {
@@ -843,41 +935,30 @@
             <div class="detail-content">
                 <!-- Description -->
                 <div class="info-card">
-                    <h3>📝 About This City</h3>
+                    <h3>📝 About This Destination</h3>
                     <p class="description-text" id="cityDescription">Loading description...</p>
                 </div>
 
-                <!-- Budget Breakdown -->
-                <div class="info-card">
-                    <h3>💰 Daily Budget Guide</h3>
-                    <div class="budget-grid">
-                        <div class="budget-item budget">
-                            <div class="budget-label">Budget</div>
-                            <div class="budget-value" id="budgetLow">$--</div>
-                        </div>
-                        <div class="budget-item mid">
-                            <div class="budget-label">Mid-Range</div>
-                            <div class="budget-value" id="budgetMid">$--</div>
-                        </div>
-                        <div class="budget-item luxury">
-                            <div class="budget-label">Luxury</div>
-                            <div class="budget-value" id="budgetLuxury">$--</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Attractions -->
-                <div class="info-card">
-                    <h3>🏛️ Top Attractions</h3>
-                    <div class="attractions-list" id="attractionsList">
+                <!-- Highlights & Attractions -->
+                <div class="info-card highlights-section">
+                    <h3>✨ Highlights & Attractions</h3>
+                    <div class="highlights-list" id="highlightsList">
                         <!-- Loaded dynamically -->
                     </div>
                 </div>
 
-                <!-- Travel Tips -->
+                <!-- Perfect For -->
+                <div class="info-card perfect-for-section">
+                    <h3>🎯 Perfect For</h3>
+                    <div class="perfect-for-grid" id="perfectForGrid">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Things To Do -->
                 <div class="info-card">
-                    <h3>💡 Travel Tips</h3>
-                    <div class="tips-list" id="tipsList">
+                    <h3>📋 Things To Do</h3>
+                    <div class="attractions-list" id="attractionsList">
                         <!-- Loaded dynamically -->
                     </div>
                 </div>
@@ -888,11 +969,14 @@
                         <div class="map-header">
                             <h3>🗺️ <span id="mapTitle">City Map</span></h3>
                             <div class="map-actions">
-                                <button class="map-btn" onclick="resetMapView()" title="Reset view">
-                                    🎯 Center
+                                <button class="map-btn active" onclick="toggleMapLayer('explore')" id="exploreBtn">
+                                    🔍 Explore
                                 </button>
-                                <button class="map-btn" onclick="toggleLandmarks()" id="toggleLandmarksBtn" title="Toggle landmarks">
+                                <button class="map-btn" onclick="toggleMapLayer('landmarks')" id="landmarksBtn">
                                     📍 Landmarks
+                                </button>
+                                <button class="map-btn download" onclick="downloadMap()" id="downloadBtn">
+                                    ⬇️ Download HD
                                 </button>
                             </div>
                         </div>
@@ -903,7 +987,7 @@
                             </div>
                         </div>
                         <div class="map-legend" id="mapLegend">
-                            <div class="legend-title">Map Legend</div>
+                            <div class="legend-title">MAP LEGEND</div>
                             <div class="legend-items" id="legendItems">
                                 <!-- Populated dynamically -->
                             </div>
@@ -926,15 +1010,15 @@
 
                 <!-- Quick Info -->
                 <div class="info-card">
-                    <h3>📋 Quick Info</h3>
+                    <h3>⚡ Quick Info</h3>
                     <div class="quick-info">
                         <div class="info-item">
                             <span class="info-label">Best Time</span>
                             <span class="info-value" id="bestTime">--</span>
                         </div>
                         <div class="info-item">
-                            <span class="info-label">Avg Budget</span>
-                            <span class="info-value" id="avgBudget">--</span>
+                            <span class="info-label">Minimum Stay</span>
+                            <span class="info-value" id="minStay">--</span>
                         </div>
                     </div>
                 </div>
@@ -950,15 +1034,11 @@
                 <!-- Country Info -->
                 <div class="info-card" id="countryCard">
                     <h3>🌐 Country Info</h3>
-                    <div style="text-align: center;">
-                        <div class="country-flag" id="countryFlag">🏳️</div>
-                        <h4 id="countryName">Loading...</h4>
+                    <div style="text-align: center; margin-bottom: 1rem;">
+                        <div class="country-code-badge" id="countryCode">--</div>
+                        <h4 id="countryName" style="margin-top: 0.5rem;">Loading...</h4>
                     </div>
                     <div class="country-details">
-                        <div class="country-detail">
-                            <span>Capital</span>
-                            <span id="countryCapital">--</span>
-                        </div>
                         <div class="country-detail">
                             <span>Currency</span>
                             <span id="countryCurrency">--</span>
@@ -966,6 +1046,10 @@
                         <div class="country-detail">
                             <span>Language</span>
                             <span id="countryLanguage">--</span>
+                        </div>
+                        <div class="country-detail">
+                            <span>Visa Policy</span>
+                            <span id="visaPolicy">--</span>
                         </div>
                     </div>
                 </div>
@@ -1110,44 +1194,36 @@
             document.getElementById('heroSection').style.backgroundImage = `url('${currentCity.image}')`;
             document.getElementById('cityTitle').textContent = currentCity.name;
             document.getElementById('cityLocation').innerHTML = `📍 ${currentCity.country}`;
-            document.getElementById('cityPopulation').innerHTML = `👥 ${currentCity.population}`;
+            document.getElementById('cityPopulation').innerHTML = `⭐ ${currentCity.rating || '4.8'}`;
 
             // Update description
             document.getElementById('cityDescription').textContent = currentCity.description;
 
-            // Update budget info
-            if (currentCity.avgBudget && typeof currentCity.avgBudget === 'object') {
-                document.getElementById('budgetLow').textContent = `$${currentCity.avgBudget.budget}`;
-                document.getElementById('budgetMid').textContent = `$${currentCity.avgBudget.mid}`;
-                document.getElementById('budgetLuxury').textContent = `$${currentCity.avgBudget.luxury}`;
-                document.getElementById('avgBudget').textContent = `$${currentCity.avgBudget.mid}/day`;
-            } else {
-                const budget = currentCity.avgBudget || 100;
-                document.getElementById('budgetLow').textContent = `$${Math.round(budget * 0.6)}`;
-                document.getElementById('budgetMid').textContent = `$${budget}`;
-                document.getElementById('budgetLuxury').textContent = `$${Math.round(budget * 2.5)}`;
-                document.getElementById('avgBudget').textContent = `$${budget}/day`;
-            }
-
             // Update best time
-            document.getElementById('bestTime').textContent = currentCity.bestTime;
+            document.getElementById('bestTime').textContent = formatBestTime(currentCity.bestTime);
 
-            // Load attractions
+            // Update minimum stay
+            document.getElementById('minStay').textContent = calculateMinStay(currentCity.attractions);
+
+            // Load highlights from attractions
+            loadHighlights(currentCity.attractions);
+
+            // Load "Perfect For" categories
+            loadPerfectFor(currentCity.attractions);
+
+            // Load Things To Do (attractions with time estimates)
             loadAttractions(currentCity.attractions);
-
-            // Load tips
-            loadTips(currentCity.tips);
 
             // Load months grid
             loadMonthsGrid();
 
             // Update country info
             if (currentCountry) {
-                document.getElementById('countryFlag').textContent = currentCountry.flag;
+                document.getElementById('countryCode').textContent = getCountryCode(currentCountry.name);
                 document.getElementById('countryName').textContent = currentCountry.name;
-                document.getElementById('countryCapital').textContent = currentCountry.capital || '--';
-                document.getElementById('countryCurrency').textContent = currentCountry.currency;
+                document.getElementById('countryCurrency').textContent = extractCurrencyCode(currentCountry.currency);
                 document.getElementById('countryLanguage').textContent = currentCountry.language;
+                document.getElementById('visaPolicy').textContent = getVisaPolicy(currentCountry.name);
             }
 
             // Initialize map
@@ -1157,12 +1233,181 @@
             updateTripPlannerButton();
         }
 
+        // Helper functions for new features
+        function formatBestTime(bestTime) {
+            if (!bestTime) return '--';
+            // Abbreviate months if too long
+            const shortened = bestTime
+                .replace('September', 'Sep')
+                .replace('November', 'Nov')
+                .replace('October', 'Oct')
+                .replace('December', 'Dec')
+                .replace('January', 'Jan')
+                .replace('February', 'Feb');
+            return shortened.length > 30 ? shortened.split(',')[0] : shortened;
+        }
+
+        function calculateMinStay(attractions) {
+            if (!attractions || attractions.length === 0) return '2-3 days';
+            const count = attractions.length;
+            if (count <= 3) return '2-3 days';
+            if (count <= 5) return '3-4 days';
+            if (count <= 7) return '4-5 days';
+            return '5-7 days';
+        }
+
+        function getCountryCode(countryName) {
+            const codes = {
+                'Japan': 'JP', 'France': 'FR', 'Italy': 'IT', 'Spain': 'ES', 'Germany': 'DE',
+                'United Kingdom': 'GB', 'United States': 'US', 'Canada': 'CA', 'Australia': 'AU',
+                'China': 'CN', 'India': 'IN', 'Brazil': 'BR', 'Mexico': 'MX', 'Thailand': 'TH',
+                'Vietnam': 'VN', 'Indonesia': 'ID', 'Malaysia': 'MY', 'Singapore': 'SG',
+                'South Korea': 'KR', 'Taiwan': 'TW', 'Hong Kong': 'HK', 'Philippines': 'PH',
+                'Greece': 'GR', 'Portugal': 'PT', 'Netherlands': 'NL', 'Belgium': 'BE',
+                'Switzerland': 'CH', 'Austria': 'AT', 'Czech Republic': 'CZ', 'Poland': 'PL',
+                'Hungary': 'HU', 'Croatia': 'HR', 'Turkey': 'TR', 'Morocco': 'MA',
+                'Egypt': 'EG', 'South Africa': 'ZA', 'UAE': 'AE', 'Argentina': 'AR',
+                'Peru': 'PE', 'Colombia': 'CO', 'Chile': 'CL', 'New Zealand': 'NZ',
+                'Ireland': 'IE', 'Scotland': 'GB', 'Iceland': 'IS', 'Norway': 'NO',
+                'Sweden': 'SE', 'Denmark': 'DK', 'Finland': 'FI', 'Russia': 'RU',
+                'Albania': 'AL', 'Andorra': 'AD', 'Armenia': 'AM', 'Azerbaijan': 'AZ',
+                'Belarus': 'BY', 'Bosnia and Herzegovina': 'BA', 'Bulgaria': 'BG',
+                'Cyprus': 'CY', 'Estonia': 'EE', 'Georgia': 'GE', 'Kosovo': 'XK',
+                'Latvia': 'LV', 'Liechtenstein': 'LI', 'Lithuania': 'LT', 'Luxembourg': 'LU',
+                'Malta': 'MT', 'Moldova': 'MD', 'Monaco': 'MC', 'Montenegro': 'ME',
+                'North Macedonia': 'MK', 'Romania': 'RO', 'San Marino': 'SM', 'Serbia': 'RS',
+                'Slovakia': 'SK', 'Slovenia': 'SI', 'Ukraine': 'UA', 'Vatican City': 'VA'
+            };
+            return codes[countryName] || countryName.substring(0, 2).toUpperCase();
+        }
+
+        function extractCurrencyCode(currency) {
+            if (!currency) return '--';
+            // Extract code in parentheses or return as-is
+            const match = currency.match(/\(([^)]+)\)/);
+            return match ? match[1] : currency;
+        }
+
+        function getVisaPolicy(countryName) {
+            const visaPolicies = {
+                'Japan': 'Visa-free for most nationalities',
+                'France': 'Schengen visa required',
+                'Italy': 'Schengen visa required',
+                'Spain': 'Schengen visa required',
+                'Germany': 'Schengen visa required',
+                'United Kingdom': 'eVisa available',
+                'United States': 'ESTA for visa waiver countries',
+                'Thailand': 'Visa on arrival for many',
+                'Singapore': 'Visa-free for most',
+                'UAE': 'Visa on arrival for many',
+                'Australia': 'eVisa (ETA) required',
+                'New Zealand': 'NZeTA required',
+                'China': 'Visa required',
+                'India': 'eVisa available',
+                'Brazil': 'Visa-free for many',
+                'Mexico': 'Visa-free for many',
+                'Turkey': 'eVisa available',
+                'Morocco': 'Visa-free for many',
+                'Egypt': 'Visa on arrival',
+                'South Africa': 'Visa required for some'
+            };
+            return visaPolicies[countryName] || 'Check requirements';
+        }
+
+        function loadHighlights(attractions) {
+            const container = document.getElementById('highlightsList');
+            
+            if (!attractions || attractions.length === 0) {
+                container.innerHTML = '<span class="highlight-item">Explore local culture</span>';
+                return;
+            }
+
+            container.innerHTML = attractions.slice(0, 6).map(attraction => 
+                `<span class="highlight-item">${attraction.name}</span>`
+            ).join('');
+        }
+
+        function loadPerfectFor(attractions) {
+            const container = document.getElementById('perfectForGrid');
+            
+            // Derive categories from attraction types
+            const categories = new Set();
+            const typeToCategory = {
+                'temple': 'cultural', 'shrine': 'cultural', 'museum': 'cultural', 'palace': 'cultural',
+                'church': 'cultural', 'cathedral': 'cultural', 'historic': 'history', 'unesco': 'history',
+                'castle': 'history', 'monastery': 'cultural',
+                'market': 'food', 'food': 'food', 'street': 'food',
+                'shopping': 'shopping', 'neighborhood': 'shopping',
+                'beach': 'beach', 'nature': 'nature', 'park': 'nature', 'garden': 'nature',
+                'mountain': 'adventure', 'waterfall': 'adventure', 'activity': 'adventure',
+                'art': 'cultural', 'tower': 'cultural', 'bridge': 'cultural',
+                'viewpoint': 'romantic', 'experience': 'adventure'
+            };
+            const categoryIcons = {
+                'cultural': '🏛️', 'food': '🍜', 'shopping': '🛍️', 'nightlife': '🌃',
+                'nature': '🌿', 'adventure': '🎯', 'history': '📜', 'beach': '🏖️', 'romantic': '💕'
+            };
+            const categoryLabels = {
+                'cultural': 'Cultural', 'food': 'Food & Cuisine', 'shopping': 'Shopping',
+                'nightlife': 'Nightlife', 'nature': 'Nature', 'adventure': 'Adventure',
+                'history': 'History', 'beach': 'Beach', 'romantic': 'Romantic'
+            };
+
+            if (attractions && attractions.length > 0) {
+                attractions.forEach(a => {
+                    const type = (a.type || '').toLowerCase();
+                    for (const [key, cat] of Object.entries(typeToCategory)) {
+                        if (type.includes(key)) {
+                            categories.add(cat);
+                            break;
+                        }
+                    }
+                });
+            }
+
+            // Default categories if none found
+            if (categories.size === 0) {
+                categories.add('cultural');
+                categories.add('food');
+            }
+
+            // Also add shopping and nightlife for cities with markets or neighborhoods
+            if (attractions && attractions.some(a => a.type?.toLowerCase().includes('market'))) {
+                categories.add('shopping');
+            }
+
+            container.innerHTML = Array.from(categories).slice(0, 4).map(cat => 
+                `<span class="perfect-tag ${cat}">${categoryIcons[cat] || '✨'} ${categoryLabels[cat] || cat}</span>`
+            ).join('');
+        }
+
         function loadAttractions(attractions) {
             const container = document.getElementById('attractionsList');
             
             if (!attractions || attractions.length === 0) {
-                container.innerHTML = '<p style="color: rgba(255,255,255,0.6);">No attractions listed yet.</p>';
+                container.innerHTML = '<p style="color: rgba(255,255,255,0.6);">No activities listed yet.</p>';
                 return;
+            }
+
+            // Time estimates based on attraction type
+            const timeEstimates = {
+                'temple': '2-3 hours', 'shrine': '1-2 hours', 'museum': '2-4 hours',
+                'palace': '2-3 hours', 'castle': '2-3 hours', 'church': '1 hour',
+                'cathedral': '1-2 hours', 'park': '2-3 hours', 'garden': '1-2 hours',
+                'market': '2-3 hours', 'beach': 'Half day', 'mountain': 'Full day',
+                'neighborhood': '3-4 hours', 'street': '2-3 hours', 'tower': '1-2 hours',
+                'art': '2-3 hours', 'theme park': 'Full day', 'landmark': '1-2 hours',
+                'viewpoint': '1 hour', 'nature': 'Half day', 'waterfall': 'Half day',
+                'default': '2-3 hours'
+            };
+
+            function getTimeEstimate(type) {
+                if (!type) return timeEstimates.default;
+                const typeLower = type.toLowerCase();
+                for (const [key, time] of Object.entries(timeEstimates)) {
+                    if (typeLower.includes(key)) return time;
+                }
+                return timeEstimates.default;
             }
 
             container.innerHTML = attractions.map((attraction, index) => `
@@ -1172,7 +1417,7 @@
                             <span class="attraction-icon">${getAttractionIcon(attraction.type)}</span>
                             <span class="attraction-title">${attraction.name}</span>
                         </div>
-                        <span class="attraction-type">${attraction.type || 'Attraction'}</span>
+                        <span class="time-badge">${getTimeEstimate(attraction.type)}</span>
                         <span class="attraction-toggle">▼</span>
                     </div>
                     <div class="attraction-content">
@@ -1189,19 +1434,30 @@
             }
         }
 
-        function loadTips(tips) {
-            const container = document.getElementById('tipsList');
+        // Map layer toggle functions
+        function toggleMapLayer(layer) {
+            const exploreBtn = document.getElementById('exploreBtn');
+            const landmarksBtn = document.getElementById('landmarksBtn');
             
-            if (!tips || tips.length === 0) {
-                container.innerHTML = '<p style="color: rgba(255,255,255,0.6);">No tips available yet.</p>';
-                return;
+            if (layer === 'explore') {
+                exploreBtn.classList.add('active');
+                landmarksBtn.classList.remove('active');
+                // Show all markers
+                mapMarkers.forEach(m => m.addTo(cityMap));
+            } else {
+                exploreBtn.classList.remove('active');
+                landmarksBtn.classList.add('active');
+                // Show only landmark markers
+                toggleLandmarks();
             }
+        }
 
-            container.innerHTML = tips.map(tip => `
-                <div class="tip-item">
-                    <p>${tip}</p>
-                </div>
-            `).join('');
+        function downloadMap() {
+            // Open the map in a new tab for download
+            const cityCoords = getCityCoordinates(currentCity.name, currentCity.country);
+            if (cityCoords) {
+                window.open(`https://www.openstreetmap.org/#map=14/${cityCoords[0]}/${cityCoords[1]}`, '_blank');
+            }
         }
 
         function loadMonthsGrid() {
