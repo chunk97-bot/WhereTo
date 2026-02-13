@@ -364,6 +364,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0 auto 1rem auto;
     animation: iconBounce 2s ease-in-out infinite;
 }
 
@@ -375,6 +376,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0 auto 1rem auto;
     animation: iconBounce 2s ease-in-out infinite;
 }
 
@@ -1249,6 +1251,18 @@
     .feature-icon.visa-icon-wrapper {
         width: 32px;
         height: 32px;
+        margin: 0 auto 0.35rem auto;
+    }
+    
+    .feature-icon.nova-icon-wrapper {
+        width: 32px;
+        height: 32px;
+        margin: 0 auto 0.35rem auto;
+    }
+    
+    .nova-feature-icon {
+        width: 32px;
+        height: 32px;
     }
     
     .visa-3d-icon {
@@ -1747,6 +1761,18 @@
     }
     
     .feature-icon.visa-icon-wrapper {
+        width: 26px;
+        height: 26px;
+        margin: 0 auto 0.2rem auto;
+    }
+    
+    .feature-icon.nova-icon-wrapper {
+        width: 26px;
+        height: 26px;
+        margin: 0 auto 0.2rem auto;
+    }
+    
+    .nova-feature-icon {
         width: 26px;
         height: 26px;
     }
