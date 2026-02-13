@@ -955,6 +955,22 @@ body {
     filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.15));
 }
 
+/* Navigation Robot Icon */
+.nav-robot-icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: -4px;
+    margin-right: 4px;
+    filter: drop-shadow(0 0 3px rgba(0, 245, 255, 0.5));
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.nav-item:hover .nav-robot-icon,
+.nav-link:hover .nav-robot-icon {
+    filter: drop-shadow(0 0 6px rgba(0, 245, 255, 0.8)) drop-shadow(0 0 12px rgba(139, 92, 246, 0.6));
+    transform: scale(1.1);
+}
+
 /* ===== WEATHER WIDGET ===== */
 .weather-widget {
     position: absolute;
