@@ -256,11 +256,49 @@
             border-radius: 8px;
             color: white;
             font-size: 0.9rem;
+            color-scheme: dark;
         }
 
         .date-group input:focus {
             outline: none;
             border-color: #00d4ff;
+        }
+
+        /* Custom date picker styling */
+        .date-group input::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .date-group input::-webkit-calendar-picker-indicator:hover {
+            opacity: 1;
+        }
+
+        .date-group input::-webkit-datetime-edit {
+            color: #00d4ff;
+        }
+
+        .date-group input::-webkit-datetime-edit-fields-wrapper {
+            color: #00d4ff;
+        }
+
+        .date-group input::-webkit-datetime-edit-text {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .date-group input::-webkit-datetime-edit-month-field,
+        .date-group input::-webkit-datetime-edit-day-field,
+        .date-group input::-webkit-datetime-edit-year-field {
+            color: #00d4ff;
+        }
+
+        .date-group input::-webkit-datetime-edit-month-field:focus,
+        .date-group input::-webkit-datetime-edit-day-field:focus,
+        .date-group input::-webkit-datetime-edit-year-field:focus {
+            background: rgba(0, 212, 255, 0.2);
+            color: white;
         }
 
         .generate-btn {
@@ -333,6 +371,13 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+
+        .itinerary-header h2 .header-emoji {
+            -webkit-text-fill-color: initial;
+            background: none;
+            -webkit-background-clip: initial;
+            background-clip: initial;
         }
 
         .itinerary-header p {
@@ -680,7 +725,7 @@
             let html = `
                 <div class="itinerary-result">
                     <div class="itinerary-header">
-                        <h2>🗺️ Your ${days}-Day Adventure</h2>
+                        <h2><span class="header-emoji">🗺️</span> Your ${days}-Day Adventure</h2>
                         <p>${optimizedRoute.length} destinations · Optimized by geography</p>
                     </div>
             `;
