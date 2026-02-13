@@ -111,14 +111,13 @@
                 </div>
             </section>
 
-            <!-- Explore Countries -->
-            <section class="dest-section countries-section">
+            <!-- Explore by Region -->
+            <section class="dest-section regions-section">
                 <div class="section-header">
-                    <h2><span class="section-emoji">🌐</span> Top Countries to Explore</h2>
-                    <a href="#" class="see-all" onclick="showAllCountries()">See All →</a>
+                    <h2><span class="section-emoji">🌐</span> Explore by Region</h2>
                 </div>
-                <div class="countries-grid" id="countriesGrid">
-                    <!-- Country cards loaded dynamically -->
+                <div class="regions-grid" id="regionsGrid">
+                    <!-- Region cards loaded dynamically -->
                 </div>
             </section>
 
@@ -193,6 +192,7 @@
     </div>
 
     <script src="destinations-data.js"></script>
+    <script src="regions-data.js"></script>
     <script>
         // State management
         let currentFilter = 'all';
@@ -207,10 +207,10 @@
 
         function initializePage() {
             loadFeaturedDestinations();
+            loadRegions();
             loadCollections();
             loadMonthsCarousel();
             loadAllDestinations();
-            loadCountries();
         }
 
         function setupEventListeners() {
@@ -379,21 +379,20 @@
             }
         }
 
-        function loadCountries() {
-            const container = document.getElementById('countriesGrid');
-            const featuredCountries = countriesData.filter(c => c.displayLevel === 'featured');
+        function loadRegions() {
+            const container = document.getElementById('regionsGrid');
+            const regions = getAllRegions();
             
-            container.innerHTML = featuredCountries.map(country => `
-                <div class="country-card" onclick="filterByCountry('${country.id}')">
-                    <div class="country-image" style="background-image: url('${country.image}')">
-                        <div class="country-overlay"></div>
+            container.innerHTML = regions.map(region => `
+                <a href="region.html?id=${region.id}" class="region-card">
+                    <div class="region-image" style="background-image: url('${region.image}')"></div>
+                    <div class="region-overlay"></div>
+                    <div class="region-content">
+                        <span class="region-icon">${region.emoji}</span>
+                        <h3>${region.name}</h3>
+                        <span class="region-country-count">${region.countryCount} countries</span>
                     </div>
-                    <div class="country-content">
-                        <span class="country-flag">${country.flag}</span>
-                        <h3>${country.name}</h3>
-                        <span class="country-count">${getDestinationsByCountry(country.id).length} places</span>
-                    </div>
-                </div>
+                </a>
             `).join('');
         }
 

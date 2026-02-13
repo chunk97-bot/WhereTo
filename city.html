@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Details - WhereTo | Travel Guide</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Complete travel guide with attractions, tips, budget information, and best time to visit.">
+    <meta name="robots" content="index, follow">
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta name="theme-color" content="#0f0f23">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Righteous&display=swap" rel="stylesheet">
+    <style>
+        /* City Detail Page Specific Styles */
+        .city-hero {
+            position: relative;
+            height: 300px;
+            margin-top: -1rem;
+            margin-bottom: 2rem;
+            border-radius: 0 0 30px 30px;
+            overflow: hidden;
+        }
+
+        .city-hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .city-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(15, 15, 35, 0.3) 0%, rgba(15, 15, 35, 0.95) 100%);
+        }
+
+        .city-hero-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+        }
+
+        .city-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff 0%, #667eea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .city-hero-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .city-hero-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Info Grid */
+        .city-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+
+        .info-card {
+            background: linear-gradient(145deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .info-card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.25rem;
+        }
+
+        .info-card-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Description Section */
+        .city-description-section {
+            padding: 0 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .city-description-section p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Attractions Section */
+        .attractions-list {
+            display: grid;
+            gap: 1rem;
+            padding: 0 1rem;
+        }
+
+        .attraction-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: linear-gradient(145deg, rgba(102, 126, 234, 0.08), rgba(118, 75, 162, 0.08));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .attraction-item:hover {
+            border-color: rgba(102, 126, 234, 0.2);
+            transform: translateX(5px);
+        }
+
+        .attraction-icon {
+            font-size: 2rem;
+            width: 50px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .attraction-content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: #fff;
+        }
+
+        .attraction-content p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.5;
+        }
+
+        /* Tips Section */
+        .tips-list {
+            display: grid;
+            gap: 0.75rem;
+            padding: 0 1rem;
+        }
+
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem 1.25rem;
+            background: linear-gradient(145deg, rgba(0, 212, 255, 0.08), rgba(139, 92, 246, 0.08));
+            border-left: 3px solid #00d4ff;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .tip-item::before {
+            content: "💡";
+            font-size: 1rem;
+        }
+
+        .tip-item p {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .city-hero {
+                height: 250px;
+            }
+
+            .city-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .city-hero-meta {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .city-info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .attraction-item {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .attraction-icon {
+                width: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .city-hero {
+                height: 200px;
+                border-radius: 0 0 20px 20px;
+            }
+
+            .city-hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .city-hero-content {
+                padding: 1.25rem;
+            }
+
+            .info-card {
+                padding: 1rem;
+            }
+
+            .info-card-icon {
+                font-size: 1.5rem;
+            }
+
+            .info-card-value {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <a href="home.html">
+                    <svg viewBox="0 0 200 50" class="nav-logo-svg">
+                        <text x="5" y="35" class="nav-brand-text">WhereTo</text>
+                        <circle cx="175" cy="28" r="6" fill="#ff6b6b" class="nav-pin-dot"/>
+                        <circle cx="175" cy="27" r="2.5" fill="white"/>
+                        <g class="nav-flying-plane">
+                            <path d="M0 0 L-6 -2 L-5 0 L-6 2 Z" fill="#008cff"/>
+                            <path d="M-3 -4 L-1.5 0 L-3 4 L-4 0 Z" fill="#008cff" opacity="0.7"/>
+                        </g>
+                        <path class="nav-plane-trail" d="M100 38 Q130 25 150 30 Q170 35 180 22" 
+                              fill="none" stroke="rgba(0,140,255,0.3)" stroke-width="1.5" 
+                              stroke-dasharray="4 3" stroke-linecap="round"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="home.html" class="nav-link">🏠 Home</a>
+                <a href="nova.html" class="nav-link"><svg class="nav-robot-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="robotHead4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00f5ff"/><stop offset="50%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient><linearGradient id="robotGlow4" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#fff;stop-opacity:0.8"/><stop offset="100%" style="stop-color:#fff;stop-opacity:0"/></linearGradient><filter id="neonGlow4"><feGaussianBlur stdDeviation="0.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect x="4" y="7" width="16" height="13" rx="4" fill="url(#robotHead4)" filter="url(#neonGlow4)"/><rect x="5" y="8" width="14" height="4" rx="2" fill="url(#robotGlow4)" opacity="0.4"/><rect x="7" y="3" width="10" height="5" rx="2.5" fill="url(#robotHead4)"/><circle cx="8.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="15.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="8.5" cy="12.5" r="1.5" fill="#00f5ff"/><circle cx="15.5" cy="12.5" r="1.5" fill="#00f5ff"/><rect x="10" y="16" width="4" height="2" rx="1" fill="#ec4899"/><rect x="11" y="0" width="2" height="4" rx="1" fill="url(#robotHead4)"/><circle cx="12" cy="0" r="1.5" fill="#00f5ff"><animate attributeName="r" values="1.5;2;1.5" dur="1.5s" repeatCount="indefinite"/></circle><rect x="1" y="10" width="3" height="6" rx="1.5" fill="url(#robotHead4)"/><rect x="20" y="10" width="3" height="6" rx="1.5" fill="url(#robotHead4)"/></svg> NOVA</a>
+                <a href="destinations.html" class="nav-link active">🌍 Destinations</a>
+                <a href="trip-planner.html" class="nav-link">🗓️ Trip Planner</a>
+                <a href="visa-guide.html" class="nav-link"><svg class="nav-visa-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 5L20 2V20L4 23Z" fill="#4a90c2"/><path d="M4 5L20 2L21 3L5 6Z" fill="#7fc4e8"/><path d="M20 2L21 3V21L20 20Z" fill="#2d5a87"/><circle cx="12" cy="11" r="4" stroke="#fff" stroke-width="1.2" fill="none"/><line x1="9" y1="14" x2="15" y2="8" stroke="#fff" stroke-width="1.2"/><rect x="7" y="17" width="8" height="1" fill="#fff" opacity="0.6"/></svg> Visa Guide</a>
+                <a href="budget-calculator.html" class="nav-link">💰 Budget</a>
+                <a href="currency-converter.html" class="nav-link">💱 Currency</a>
+            </div>
+            <button class="nav-toggle" id="navToggle">☰</button>
+        </nav>
+
+        <!-- Page Header with Breadcrumb -->
+        <header class="page-header" style="padding-bottom: 0.5rem;">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="destinations.html">Destinations</a>
+                <span class="separator">›</span>
+                <a href="#" id="regionLink">Region</a>
+                <span class="separator">›</span>
+                <a href="#" id="countryLink">Country</a>
+                <span class="separator">›</span>
+                <span id="cityBreadcrumb">City</span>
+            </nav>
+        </header>
+
+        <!-- City Hero -->
+        <div class="city-hero" id="cityHero">
+            <div class="city-hero-image" id="cityHeroImage"></div>
+            <div class="city-hero-overlay"></div>
+            <div class="city-hero-content">
+                <h1 id="cityName">Loading...</h1>
+                <div class="city-hero-meta">
+                    <span id="cityCountry">📍 Country</span>
+                    <span id="cityRegion">🌍 Region</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="page-content">
+            <!-- Quick Info Cards -->
+            <section class="dest-section">
+                <div class="city-info-grid" id="infoGrid">
+                    <div class="info-card">
+                        <div class="info-card-icon">💰</div>
+                        <div class="info-card-label">Daily Budget</div>
+                        <div class="info-card-value" id="infoBudget">$--</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">📅</div>
+                        <div class="info-card-label">Best Time</div>
+                        <div class="info-card-value" id="infoBestTime">--</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">👥</div>
+                        <div class="info-card-label">Population</div>
+                        <div class="info-card-value" id="infoPopulation">--</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">🗺️</div>
+                        <div class="info-card-label">Region</div>
+                        <div class="info-card-value" id="infoRegion">--</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Description -->
+            <section class="dest-section city-description-section">
+                <p id="cityDescription">Loading city description...</p>
+            </section>
+
+            <!-- Attractions -->
+            <section class="dest-section">
+                <div class="section-header">
+                    <h2>🏛️ Top Attractions</h2>
+                </div>
+                <div class="attractions-list" id="attractionsList">
+                    <!-- Attractions loaded dynamically -->
+                </div>
+            </section>
+
+            <!-- Travel Tips -->
+            <section class="dest-section">
+                <div class="section-header">
+                    <h2>💡 Travel Tips</h2>
+                </div>
+                <div class="tips-list" id="tipsList">
+                    <!-- Tips loaded dynamically -->
+                </div>
+            </section>
+
+            <!-- Back Button -->
+            <div class="action-buttons">
+                <a href="#" id="backToCountry" class="back-btn">
+                    ← Back to Country
+                </a>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="page-footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>WhereTo</h3>
+                    <p>Your AI-powered travel companion</p>
+                </div>
+                <div class="footer-links">
+                    <a href="home.html">Home</a>
+                    <a href="destinations.html">Destinations</a>
+                    <a href="trip-planner.html">Trip Planner</a>
+                    <a href="nova.html">NOVA AI</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 WhereTo. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="regions-data.js"></script>
+    <script>
+        // Get IDs from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const cityId = urlParams.get('id');
+        const countryId = urlParams.get('country');
+        const regionId = urlParams.get('region');
+
+        // Attraction icons based on type/name
+        const attractionIcons = {
+            'museum': '🏛️',
+            'palace': '🏰',
+            'castle': '🏰',
+            'church': '⛪',
+            'cathedral': '⛪',
+            'mosque': '🕌',
+            'temple': '🛕',
+            'monastery': '🕍',
+            'park': '🌳',
+            'garden': '🌷',
+            'beach': '🏖️',
+            'mountain': '⛰️',
+            'lake': '🏞️',
+            'waterfall': '💦',
+            'tower': '🗼',
+            'bridge': '🌉',
+            'market': '🛒',
+            'square': '🏛️',
+            'street': '🛤️',
+            'zoo': '🦁',
+            'aquarium': '🐠',
+            'default': '📍'
+        };
+
+        function getAttractionIcon(name) {
+            const nameLower = name.toLowerCase();
+            for (const [keyword, icon] of Object.entries(attractionIcons)) {
+                if (nameLower.includes(keyword)) {
+                    return icon;
+                }
+            }
+            return attractionIcons.default;
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePage();
+            setupNavToggle();
+        });
+
+        function initializePage() {
+            if (!cityId || !countryId || !regionId) {
+                showError('No city specified');
+                return;
+            }
+
+            // Get city details
+            const city = getCityDetails(regionId, countryId, cityId);
+
+            if (!city) {
+                showError('City not found');
+                return;
+            }
+
+            // Get region and country info for breadcrumbs
+            const regions = getAllRegions();
+            const region = regions.find(r => r.id === regionId);
+            const countries = getCountriesByRegion(regionId);
+            const country = countries.find(c => c.id === countryId);
+
+            // Update breadcrumbs and links
+            const regionLink = document.getElementById('regionLink');
+            regionLink.href = `region.html?id=${regionId}`;
+            regionLink.textContent = region ? region.name : 'Region';
+
+            const countryLink = document.getElementById('countryLink');
+            countryLink.href = `country.html?id=${countryId}&region=${regionId}`;
+            countryLink.textContent = country ? country.name : 'Country';
+
+            document.getElementById('cityBreadcrumb').textContent = city.name;
+
+            // Update back button
+            document.getElementById('backToCountry').href = `country.html?id=${countryId}&region=${regionId}`;
+            document.getElementById('backToCountry').textContent = `← Back to ${country ? country.name : 'Country'}`;
+
+            // Update page title
+            document.title = `${city.name} - WhereTo | Travel Guide`;
+
+            // Update hero
+            document.getElementById('cityHeroImage').style.backgroundImage = `url('${city.image}')`;
+            document.getElementById('cityName').textContent = city.name;
+            document.getElementById('cityCountry').innerHTML = `📍 ${city.country}`;
+            document.getElementById('cityRegion').innerHTML = `🌍 ${city.region}`;
+
+            // Update info cards
+            document.getElementById('infoBudget').textContent = `$${city.avgBudget}/day`;
+            document.getElementById('infoBestTime').textContent = city.bestTime;
+            document.getElementById('infoPopulation').textContent = city.population;
+            document.getElementById('infoRegion').textContent = city.region;
+
+            // Update description
+            document.getElementById('cityDescription').textContent = city.description;
+
+            // Load attractions
+            loadAttractions(city.attractions);
+
+            // Load tips
+            loadTips(city.tips);
+        }
+
+        function loadAttractions(attractions) {
+            const container = document.getElementById('attractionsList');
+            
+            container.innerHTML = attractions.map(attraction => `
+                <div class="attraction-item">
+                    <div class="attraction-icon">${getAttractionIcon(attraction.name)}</div>
+                    <div class="attraction-content">
+                        <h4>${attraction.name}</h4>
+                        <p>${attraction.description}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadTips(tips) {
+            const container = document.getElementById('tipsList');
+            
+            container.innerHTML = tips.map(tip => `
+                <div class="tip-item">
+                    <p>${tip}</p>
+                </div>
+            `).join('');
+        }
+
+        function showError(message) {
+            document.getElementById('cityName').textContent = message;
+            document.getElementById('cityDescription').textContent = 'Please go back and select a valid city.';
+            document.getElementById('attractionsList').innerHTML = '';
+            document.getElementById('tipsList').innerHTML = '';
+        }
+
+        function setupNavToggle() {
+            const navToggle = document.getElementById('navToggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (navToggle) {
+                navToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    navToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+                });
+            }
+        }
+    </script>
+</body>
+</html>
