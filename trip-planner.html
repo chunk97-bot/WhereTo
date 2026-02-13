@@ -633,7 +633,9 @@
         // Remove destination from saved
         function removeDestination(id) {
             let saved = JSON.parse(localStorage.getItem('tripPlanner') || '[]');
-            saved = saved.filter(dest => dest.id !== id);
+            // Convert to number for comparison since IDs are stored as numbers
+            const numId = parseInt(id, 10);
+            saved = saved.filter(dest => dest.id !== numId);
             localStorage.setItem('tripPlanner', JSON.stringify(saved));
             loadSavedDestinations();
         }
