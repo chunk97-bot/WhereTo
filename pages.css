@@ -1583,20 +1583,22 @@
 }
 /* ===== DESTINATIONS PAGE - NEW STYLES ===== */
 
-/* Destinations Hero with Animated Planes */
-.destinations-header {
+/* Destinations Hero with Static Planes */
+.destinations-header,
+.page-hero {
     position: relative;
     padding: 3rem 2rem;
     overflow: hidden;
     background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
 }
 
-.destinations-header .hero-content {
+.destinations-header .hero-content,
+.page-hero .hero-content {
     position: relative;
     z-index: 10;
 }
 
-/* Animated Planes Container */
+/* Static Planes Container */
 .planes-container {
     position: absolute;
     top: 0;
@@ -1607,13 +1609,12 @@
     pointer-events: none;
 }
 
-/* Flying Plane with Trail */
+/* Static Plane with Trail */
 .flying-plane {
     position: absolute;
     font-size: 28px;
     filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.8));
-    animation: flyAcross 12s linear infinite;
-    opacity: 0;
+    opacity: 1;
 }
 
 .flying-plane::after {
@@ -1629,19 +1630,18 @@
     filter: blur(1px);
 }
 
-/* Plane 1 - Main plane */
+/* Plane 1 - Top left area */
 .plane-1 {
     top: 25%;
-    animation-duration: 10s;
-    animation-delay: 0s;
+    left: 15%;
+    filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.8));
 }
 
-/* Plane 2 - Higher and faster */
+/* Plane 2 - Top right */
 .plane-2 {
     top: 15%;
+    left: 75%;
     font-size: 20px;
-    animation-duration: 14s;
-    animation-delay: 3s;
     filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.8));
 }
 
@@ -1650,12 +1650,11 @@
     background: linear-gradient(90deg, transparent, #8b5cf6, #ec4899);
 }
 
-/* Plane 3 - Lower and slower */
+/* Plane 3 - Bottom center-right */
 .plane-3 {
     top: 60%;
+    left: 55%;
     font-size: 24px;
-    animation-duration: 16s;
-    animation-delay: 6s;
     filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.7));
 }
 
@@ -1664,13 +1663,12 @@
     background: linear-gradient(90deg, transparent, #ec4899, #00d4ff);
 }
 
-/* Plane 4 - Small background plane */
+/* Plane 4 - Middle left */
 .plane-4 {
     top: 40%;
+    left: 85%;
     font-size: 16px;
-    animation-duration: 20s;
-    animation-delay: 8s;
-    opacity: 0.6;
+    opacity: 0.7;
     filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.5));
 }
 
@@ -1679,46 +1677,25 @@
     height: 2px;
 }
 
-@keyframes flyAcross {
-    0% {
-        left: -100px;
-        opacity: 0;
-    }
-    5% {
-        opacity: 1;
-    }
-    95% {
-        opacity: 1;
-    }
-    100% {
-        left: 110%;
-        opacity: 0;
-    }
-}
-
-/* Glowing particles/stars */
+/* Static glowing particles/stars */
 .glow-particle {
     position: absolute;
     width: 4px;
     height: 4px;
     background: #00d4ff;
     border-radius: 50%;
-    animation: twinkle 3s ease-in-out infinite;
+    opacity: 0.6;
+    box-shadow: 0 0 8px currentColor;
 }
 
-.glow-particle:nth-child(5) { top: 20%; left: 10%; animation-delay: 0s; }
-.glow-particle:nth-child(6) { top: 30%; left: 25%; animation-delay: 0.5s; background: #8b5cf6; }
-.glow-particle:nth-child(7) { top: 15%; left: 40%; animation-delay: 1s; }
-.glow-particle:nth-child(8) { top: 45%; left: 55%; animation-delay: 1.5s; background: #ec4899; }
-.glow-particle:nth-child(9) { top: 25%; left: 70%; animation-delay: 2s; }
-.glow-particle:nth-child(10) { top: 50%; left: 85%; animation-delay: 2.5s; background: #8b5cf6; }
-.glow-particle:nth-child(11) { top: 35%; left: 15%; animation-delay: 0.7s; background: #ec4899; }
-.glow-particle:nth-child(12) { top: 55%; left: 35%; animation-delay: 1.2s; }
-
-@keyframes twinkle {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 10px currentColor; }
-}
+.glow-particle:nth-child(5) { top: 20%; left: 10%; }
+.glow-particle:nth-child(6) { top: 30%; left: 25%; background: #8b5cf6; }
+.glow-particle:nth-child(7) { top: 15%; left: 40%; }
+.glow-particle:nth-child(8) { top: 45%; left: 55%; background: #ec4899; }
+.glow-particle:nth-child(9) { top: 25%; left: 70%; }
+.glow-particle:nth-child(10) { top: 50%; left: 85%; background: #8b5cf6; }
+.glow-particle:nth-child(11) { top: 35%; left: 15%; background: #ec4899; }
+.glow-particle:nth-child(12) { top: 55%; left: 35%; }
 
 /* Hero Search */
 

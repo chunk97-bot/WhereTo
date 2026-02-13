@@ -65,8 +65,16 @@
         
         /* Header */
         .header {
+            position: relative;
             text-align: center;
             padding: 3rem 2rem 2rem;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
+            overflow: hidden;
+        }
+
+        .header .hero-content {
+            position: relative;
+            z-index: 10;
         }
         
         .header h1 {
@@ -1391,8 +1399,25 @@
 
         <!-- Header -->
     <header class="header">
-        <h1><span class="header-emoji">💰</span> Smart Budget Tracker</h1>
-        <p>Just type what you spent!</p>
+        <!-- Static Planes -->
+        <div class="planes-container">
+            <div class="flying-plane plane-1">✈️</div>
+            <div class="flying-plane plane-2">✈️</div>
+            <div class="flying-plane plane-3">✈️</div>
+            <div class="flying-plane plane-4">✈️</div>
+            <div class="glow-particle"></div>
+            <div class="glow-particle"></div>
+            <div class="glow-particle"></div>
+            <div class="glow-particle"></div>
+            <div class="glow-particle"></div>
+            <div class="glow-particle"></div>
+            <div class="glow-particle"></div>
+            <div class="glow-particle"></div>
+        </div>
+        <div class="hero-content">
+            <h1><span class="header-emoji">💰</span> Smart Budget Tracker</h1>
+            <p>Just type what you spent!</p>
+        </div>
     </header>
 
     <!-- Main Content -->

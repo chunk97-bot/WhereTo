@@ -42,12 +42,18 @@
         
         /* Hero Section */
         .hero-section {
-            background: linear-gradient(135deg, rgba(0, 140, 255, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
-            backdrop-filter: blur(20px);
+            position: relative;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
             padding: 3rem 2rem;
             color: #fff;
             text-align: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .hero-section .hero-content {
+            position: relative;
+            z-index: 10;
         }
         
         .hero-section h1 {
@@ -912,8 +918,25 @@
 
     <!-- Hero -->
     <section class="hero-section">
-        <h1>💱 Currency Converter</h1>
-        <p>Trusted exchange rates for 150+ world currencies</p>
+        <!-- Static Planes -->
+        <div class="planes-container">
+            <div class="flying-plane plane-1">✈️</div>
+            <div class="flying-plane plane-2">✈️</div>
+            <div class="flying-plane plane-3">✈️</div>
+            <div class="flying-plane plane-4">✈️</div>
+            <div class="glow-particle"></div>
+            <div class="glow-particle"></div>
+            <div class="glow-particle"></div>
+            <div class="glow-particle"></div>
+            <div class="glow-particle"></div>
+            <div class="glow-particle"></div>
+            <div class="glow-particle"></div>
+            <div class="glow-particle"></div>
+        </div>
+        <div class="hero-content">
+            <h1>💱 Currency Converter</h1>
+            <p>Trusted exchange rates for 150+ world currencies</p>
+        </div>
     </section>
 
     <!-- Main Content -->
