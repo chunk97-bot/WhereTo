@@ -843,7 +843,7 @@
                 <div class="itinerary-placeholder">
                     <div class="placeholder-icon">🗺️</div>
                     <h3>Your Itinerary Will Appear Here</h3>
-                    <p>Save at least 2 destinations, set your dates, and click "Generate Smart Itinerary" to create an AI-optimized travel plan based on geography</p>
+                    <p>Save at least 1 destination, set your dates, and click "Generate Smart Itinerary" to create an AI-optimized travel plan</p>
                 </div>
             </div>
         </main>
@@ -975,12 +975,12 @@
             const endDate = endInput._flatpickr.selectedDates[0];
             const output = document.getElementById('itineraryOutput');
 
-            if (saved.length < 2) {
+            if (saved.length < 1) {
                 output.innerHTML = `
                     <div class="itinerary-placeholder">
                         <div class="placeholder-icon">⚠️</div>
-                        <h3>Need More Destinations</h3>
-                        <p>Please save at least 2 destinations to generate an optimized itinerary</p>
+                        <h3>No Destinations Saved</h3>
+                        <p>Please save at least 1 destination to generate your itinerary</p>
                     </div>
                 `;
                 return;
