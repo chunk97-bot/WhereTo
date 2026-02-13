@@ -10,6 +10,10 @@
     
     <link rel="stylesheet" href="style.css?v=2">
     <link rel="stylesheet" href="pages.css?v=4">
+    
+    <!-- Leaflet CSS for Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Righteous&display=swap" rel="stylesheet">
@@ -525,6 +529,256 @@
                 font-size: 0.8rem;
             }
         }
+
+        /* City Map Section */
+        .city-map-section {
+            margin-top: 2rem;
+        }
+
+        .map-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .map-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .map-header h3 {
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0;
+        }
+
+        .map-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .map-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 212, 255, 0.4);
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .map-btn:hover {
+            background: rgba(0, 212, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
+        }
+
+        .map-btn.download-btn {
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+            border: none;
+            color: white;
+        }
+
+        .map-btn.download-btn:hover {
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        #cityMap {
+            width: 100%;
+            height: 450px;
+            border-radius: 16px;
+            z-index: 1;
+            background: #1a1a2e;
+        }
+
+        .map-legend {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .legend-title {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .legend-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.4rem 0.75rem;
+            border-radius: 20px;
+        }
+
+        .legend-icon {
+            font-size: 1rem;
+        }
+
+        /* Custom Leaflet marker styling */
+        .custom-marker {
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+            border: 2px solid white;
+        }
+
+        .marker-popup {
+            text-align: center;
+        }
+
+        .marker-popup h4 {
+            margin: 0 0 0.25rem 0;
+            font-size: 0.95rem;
+            color: #1a1a2e;
+        }
+
+        .marker-popup .popup-type {
+            font-size: 0.75rem;
+            color: #666;
+            text-transform: capitalize;
+        }
+
+        .city-center-marker {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+        }
+
+        /* Leaflet popup customization */
+        .leaflet-popup-content-wrapper {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 14px rgba(0, 0, 0, 0.15);
+        }
+
+        .leaflet-popup-content {
+            margin: 0.75rem 1rem;
+        }
+
+        .leaflet-popup-tip {
+            background: white;
+        }
+
+        /* Map loading state */
+        .map-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 450px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .map-loading .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(0, 212, 255, 0.2);
+            border-top-color: #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Download overlay */
+        .download-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 15, 35, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .download-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .download-progress {
+            text-align: center;
+            color: white;
+        }
+
+        .download-progress h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .download-progress p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            #cityMap {
+                height: 350px;
+            }
+
+            .map-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .map-actions {
+                width: 100%;
+            }
+
+            .map-btn {
+                flex: 1;
+                justify-content: center;
+            }
+
+            .legend-items {
+                gap: 0.5rem;
+            }
+
+            .legend-item {
+                font-size: 0.75rem;
+                padding: 0.3rem 0.6rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -612,6 +866,38 @@
                     </div>
                 </div>
 
+                <!-- City Map Section -->
+                <div class="city-map-section" id="cityMapSection">
+                    <div class="map-container">
+                        <div class="map-header">
+                            <h3>🗺️ <span id="mapTitle">City Map</span></h3>
+                            <div class="map-actions">
+                                <button class="map-btn" onclick="resetMapView()" title="Reset view">
+                                    🎯 Center
+                                </button>
+                                <button class="map-btn" onclick="toggleLandmarks()" id="toggleLandmarksBtn" title="Toggle landmarks">
+                                    📍 Landmarks
+                                </button>
+                                <button class="map-btn download-btn" onclick="downloadMapHD()" title="Download HD map">
+                                    📥 Download HD
+                                </button>
+                            </div>
+                        </div>
+                        <div id="cityMap">
+                            <div class="map-loading">
+                                <div class="spinner"></div>
+                                <span>Loading map...</span>
+                            </div>
+                        </div>
+                        <div class="map-legend" id="mapLegend">
+                            <div class="legend-title">Map Legend</div>
+                            <div class="legend-items" id="legendItems">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <div class="detail-sidebar">
@@ -691,6 +977,20 @@
         </footer>
     </div>
 
+    <!-- Download Overlay -->
+    <div class="download-overlay" id="downloadOverlay">
+        <div class="download-progress">
+            <div class="spinner" style="width: 60px; height: 60px; margin: 0 auto 1rem;"></div>
+            <h3>Creating HD Map</h3>
+            <p>Please wait while we prepare your high-resolution map...</p>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- html2canvas for HD download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
     <script src="destinations-data.js"></script>
     <script>
         let currentDestination = null;
@@ -772,6 +1072,9 @@
 
             // Activities
             loadActivities();
+
+            // Initialize map
+            initCityMap();
 
         }
 
@@ -873,6 +1176,269 @@
         function askChatbot() {
             // Navigate to chat with question
             window.location.href = `index.html?ask=${encodeURIComponent(`Tell me more about ${currentDestination.name}`)}`;
+        }
+
+        // ============================================
+        // CITY MAP FUNCTIONALITY
+        // ============================================
+        let cityMap = null;
+        let mapMarkers = [];
+        let landmarksVisible = true;
+        let currentMapData = null;
+
+        function initCityMap() {
+            const mapData = getCityMapData(currentDestination.id);
+            
+            if (!mapData) {
+                // Hide map section if no map data available
+                document.getElementById('cityMapSection').style.display = 'none';
+                return;
+            }
+
+            currentMapData = mapData;
+            
+            // Update map title
+            document.getElementById('mapTitle').textContent = `${currentDestination.name} City Map`;
+
+            // Clear loading state and initialize map
+            const mapContainer = document.getElementById('cityMap');
+            mapContainer.innerHTML = '';
+
+            // Initialize Leaflet map
+            cityMap = L.map('cityMap', {
+                center: mapData.center,
+                zoom: mapData.zoom,
+                zoomControl: true,
+                scrollWheelZoom: true
+            });
+
+            // Add tile layer (using CartoDB dark matter for dark theme)
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(cityMap);
+
+            // Add city center marker
+            const centerMarker = L.marker(mapData.center, {
+                icon: createCustomIcon('📍', 'city-center-marker')
+            }).addTo(cityMap);
+            centerMarker.bindPopup(`
+                <div class="marker-popup">
+                    <h4>${currentDestination.name} City Center</h4>
+                    <div class="popup-type">City Center</div>
+                </div>
+            `);
+            mapMarkers.push(centerMarker);
+
+            // Add landmark markers
+            if (mapData.landmarks && mapData.landmarks.length > 0) {
+                mapData.landmarks.forEach(landmark => {
+                    const marker = L.marker([landmark.lat, landmark.lng], {
+                        icon: createCustomIcon(landmark.icon)
+                    }).addTo(cityMap);
+                    
+                    marker.bindPopup(`
+                        <div class="marker-popup">
+                            <h4>${landmark.icon} ${landmark.name}</h4>
+                            <div class="popup-type">${formatLandmarkType(landmark.type)}</div>
+                        </div>
+                    `);
+                    
+                    mapMarkers.push(marker);
+                });
+
+                // Update legend
+                updateMapLegend(mapData.landmarks);
+            }
+
+            // Invalidate size after a short delay to ensure proper rendering
+            setTimeout(() => {
+                cityMap.invalidateSize();
+            }, 100);
+        }
+
+        function createCustomIcon(emoji, extraClass = '') {
+            return L.divIcon({
+                html: `<div class="custom-marker ${extraClass}">${emoji}</div>`,
+                className: 'custom-div-icon',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -40]
+            });
+        }
+
+        function formatLandmarkType(type) {
+            const typeNames = {
+                'landmark': 'Major Landmark',
+                'museum': 'Museum',
+                'church': 'Religious Site',
+                'monument': 'Monument',
+                'palace': 'Palace',
+                'castle': 'Castle',
+                'temple': 'Temple',
+                'shrine': 'Shrine',
+                'park': 'Park & Garden',
+                'beach': 'Beach',
+                'district': 'District',
+                'shopping': 'Shopping Area',
+                'food': 'Food & Dining',
+                'nightlife': 'Nightlife',
+                'viewpoint': 'Viewpoint',
+                'market': 'Market',
+                'transport': 'Transport Hub',
+                'island': 'Island',
+                'nature': 'Nature',
+                'ruins': 'Historical Ruins',
+                'square': 'Square',
+                'bridge': 'Bridge',
+                'tower': 'Tower',
+                'hotel': 'Hotel',
+                'mall': 'Shopping Mall',
+                'marina': 'Marina',
+                'waterway': 'Waterway',
+                'resort': 'Resort',
+                'opera': 'Opera/Theater',
+                'garden': 'Garden',
+                'monastery': 'Monastery',
+                'town': 'Town',
+                'village': 'Village',
+                'city': 'City',
+                'mountain': 'Mountain',
+                'volcano': 'Volcano',
+                'lake': 'Lake',
+                'valley': 'Valley',
+                'diving': 'Diving Spot',
+                'capital': 'Capital City',
+                'fortress': 'Fortress',
+                'river': 'River',
+                'mosque': 'Mosque',
+                'government': 'Government',
+                'bath': 'Thermal Bath',
+                'statue': 'Statue',
+                'stadium': 'Stadium',
+                'theme park': 'Theme Park',
+                'zoo': 'Zoo',
+                'harbour': 'Harbour',
+                'canyon': 'Canyon',
+                'desert': 'Desert',
+                'formation': 'Rock Formation',
+                'sea': 'Sea',
+                'center': 'Visitor Center',
+                'trail': 'Trail',
+                'memorial': 'Memorial'
+            };
+            return typeNames[type] || type.charAt(0).toUpperCase() + type.slice(1);
+        }
+
+        function updateMapLegend(landmarks) {
+            const legendItems = document.getElementById('legendItems');
+            
+            // Get unique types
+            const types = [...new Set(landmarks.map(l => l.type))];
+            const typeIcons = {};
+            
+            landmarks.forEach(l => {
+                if (!typeIcons[l.type]) {
+                    typeIcons[l.type] = l.icon;
+                }
+            });
+            
+            // Show key landmark types (limit to 8)
+            const displayTypes = types.slice(0, 8);
+            
+            legendItems.innerHTML = displayTypes.map(type => `
+                <div class="legend-item">
+                    <span class="legend-icon">${typeIcons[type]}</span>
+                    <span>${formatLandmarkType(type)}</span>
+                </div>
+            `).join('');
+            
+            // Add city center to legend
+            legendItems.innerHTML = `
+                <div class="legend-item">
+                    <span class="legend-icon">📍</span>
+                    <span>City Center</span>
+                </div>
+            ` + legendItems.innerHTML;
+        }
+
+        function resetMapView() {
+            if (cityMap && currentMapData) {
+                cityMap.setView(currentMapData.center, currentMapData.zoom);
+            }
+        }
+
+        function toggleLandmarks() {
+            landmarksVisible = !landmarksVisible;
+            const btn = document.getElementById('toggleLandmarksBtn');
+            
+            mapMarkers.forEach((marker, index) => {
+                // Skip the first marker (city center)
+                if (index === 0) return;
+                
+                if (landmarksVisible) {
+                    marker.addTo(cityMap);
+                } else {
+                    cityMap.removeLayer(marker);
+                }
+            });
+            
+            btn.innerHTML = landmarksVisible ? '📍 Landmarks' : '📍 Show All';
+            btn.style.opacity = landmarksVisible ? '1' : '0.6';
+        }
+
+        async function downloadMapHD() {
+            const overlay = document.getElementById('downloadOverlay');
+            overlay.classList.add('active');
+
+            try {
+                // Wait a moment for overlay to show
+                await new Promise(resolve => setTimeout(resolve, 100));
+
+                // Get the map container
+                const mapElement = document.getElementById('cityMap');
+                
+                // Temporarily adjust map for better screenshot
+                const originalWidth = mapElement.style.width;
+                const originalHeight = mapElement.style.height;
+                
+                // Use html2canvas to capture the map
+                const canvas = await html2canvas(mapElement, {
+                    useCORS: true,
+                    allowTaint: true,
+                    scale: 2, // HD quality
+                    logging: false,
+                    backgroundColor: '#1a1a2e'
+                });
+
+                // Create download link
+                const link = document.createElement('a');
+                link.download = `${currentDestination.name.replace(/\s+/g, '_')}_City_Map_HD.png`;
+                link.href = canvas.toDataURL('image/png', 1.0);
+                
+                // Trigger download
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Show success briefly
+                overlay.querySelector('h3').textContent = 'Download Complete!';
+                overlay.querySelector('p').textContent = 'Your HD map has been saved.';
+                
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+            } catch (error) {
+                console.error('Map download error:', error);
+                overlay.querySelector('h3').textContent = 'Download Failed';
+                overlay.querySelector('p').textContent = 'Unable to capture map. Try again later.';
+                await new Promise(resolve => setTimeout(resolve, 2000));
+            }
+
+            // Reset overlay
+            overlay.classList.remove('active');
+            overlay.querySelector('h3').textContent = 'Creating HD Map';
+            overlay.querySelector('p').textContent = 'Please wait while we prepare your high-resolution map...';
         }
     </script>
 </body>

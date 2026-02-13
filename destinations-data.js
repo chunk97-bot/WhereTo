@@ -1784,6 +1784,507 @@ const destinationsData = [
 ];
 
 // ============================================
+// CITY MAPS DATA - Coordinates & Landmarks
+// ============================================
+const cityMapsData = {
+    // Paris
+    1: {
+        center: [48.8566, 2.3522],
+        zoom: 13,
+        landmarks: [
+            { name: 'Eiffel Tower', lat: 48.8584, lng: 2.2945, icon: '🗼', type: 'landmark' },
+            { name: 'Louvre Museum', lat: 48.8606, lng: 2.3376, icon: '🖼️', type: 'museum' },
+            { name: 'Notre-Dame', lat: 48.8530, lng: 2.3499, icon: '⛪', type: 'church' },
+            { name: 'Arc de Triomphe', lat: 48.8738, lng: 2.2950, icon: '🏛️', type: 'monument' },
+            { name: 'Sacré-Cœur', lat: 48.8867, lng: 2.3431, icon: '⛪', type: 'church' },
+            { name: 'Champs-Élysées', lat: 48.8698, lng: 2.3075, icon: '🛍️', type: 'shopping' },
+            { name: 'Musée d\'Orsay', lat: 48.8600, lng: 2.3266, icon: '🖼️', type: 'museum' },
+            { name: 'Palace of Versailles', lat: 48.8049, lng: 2.1204, icon: '🏰', type: 'palace' },
+            { name: 'Montmartre', lat: 48.8867, lng: 2.3431, icon: '🎨', type: 'district' },
+            { name: 'Luxembourg Gardens', lat: 48.8462, lng: 2.3372, icon: '🌳', type: 'park' },
+            { name: 'Centre Pompidou', lat: 48.8606, lng: 2.3522, icon: '🎭', type: 'museum' },
+            { name: 'Panthéon', lat: 48.8462, lng: 2.3460, icon: '🏛️', type: 'monument' }
+        ]
+    },
+    // Nice & French Riviera
+    2: {
+        center: [43.7102, 7.2620],
+        zoom: 12,
+        landmarks: [
+            { name: 'Promenade des Anglais', lat: 43.6951, lng: 7.2658, icon: '🏖️', type: 'landmark' },
+            { name: 'Old Town (Vieux Nice)', lat: 43.6978, lng: 7.2758, icon: '🏘️', type: 'district' },
+            { name: 'Castle Hill', lat: 43.6944, lng: 7.2815, icon: '🏰', type: 'viewpoint' },
+            { name: 'Place Masséna', lat: 43.6974, lng: 7.2706, icon: '⛲', type: 'square' },
+            { name: 'Matisse Museum', lat: 43.7197, lng: 7.2753, icon: '🖼️', type: 'museum' },
+            { name: 'Marc Chagall Museum', lat: 43.7099, lng: 7.2683, icon: '🖼️', type: 'museum' }
+        ]
+    },
+    // Tokyo
+    3: {
+        center: [35.6762, 139.6503],
+        zoom: 12,
+        landmarks: [
+            { name: 'Tokyo Tower', lat: 35.6586, lng: 139.7454, icon: '🗼', type: 'landmark' },
+            { name: 'Senso-ji Temple', lat: 35.7148, lng: 139.7967, icon: '⛩️', type: 'temple' },
+            { name: 'Shibuya Crossing', lat: 35.6595, lng: 139.7004, icon: '🚶', type: 'landmark' },
+            { name: 'Meiji Shrine', lat: 35.6764, lng: 139.6993, icon: '⛩️', type: 'shrine' },
+            { name: 'Tokyo Skytree', lat: 35.7101, lng: 139.8107, icon: '🗼', type: 'landmark' },
+            { name: 'Imperial Palace', lat: 35.6852, lng: 139.7528, icon: '🏯', type: 'palace' },
+            { name: 'Harajuku', lat: 35.6702, lng: 139.7027, icon: '🛍️', type: 'district' },
+            { name: 'Akihabara', lat: 35.7023, lng: 139.7745, icon: '🎮', type: 'district' },
+            { name: 'Ginza', lat: 35.6717, lng: 139.7649, icon: '🛍️', type: 'shopping' },
+            { name: 'Shinjuku Station', lat: 35.6897, lng: 139.7006, icon: '🚉', type: 'transport' },
+            { name: 'Ueno Park', lat: 35.7146, lng: 139.7748, icon: '🌳', type: 'park' },
+            { name: 'Tsukiji Outer Market', lat: 35.6654, lng: 139.7707, icon: '🍣', type: 'food' }
+        ]
+    },
+    // Kyoto
+    4: {
+        center: [35.0116, 135.7681],
+        zoom: 13,
+        landmarks: [
+            { name: 'Fushimi Inari Shrine', lat: 34.9671, lng: 135.7727, icon: '⛩️', type: 'shrine' },
+            { name: 'Kinkaku-ji (Golden Pavilion)', lat: 35.0394, lng: 135.7292, icon: '🏯', type: 'temple' },
+            { name: 'Arashiyama Bamboo Grove', lat: 35.0173, lng: 135.6722, icon: '🎋', type: 'nature' },
+            { name: 'Gion District', lat: 35.0038, lng: 135.7756, icon: '👘', type: 'district' },
+            { name: 'Kiyomizu-dera Temple', lat: 34.9949, lng: 135.7850, icon: '⛩️', type: 'temple' },
+            { name: 'Nijo Castle', lat: 35.0142, lng: 135.7479, icon: '🏯', type: 'castle' },
+            { name: 'Philosopher\'s Path', lat: 35.0271, lng: 135.7946, icon: '🌸', type: 'nature' },
+            { name: 'Kyoto Imperial Palace', lat: 35.0253, lng: 135.7621, icon: '🏯', type: 'palace' },
+            { name: 'Nishiki Market', lat: 35.0050, lng: 135.7645, icon: '🍜', type: 'food' }
+        ]
+    },
+    // Rome
+    5: {
+        center: [41.9028, 12.4964],
+        zoom: 13,
+        landmarks: [
+            { name: 'Colosseum', lat: 41.8902, lng: 12.4922, icon: '🏛️', type: 'monument' },
+            { name: 'Vatican City', lat: 41.9029, lng: 12.4534, icon: '⛪', type: 'landmark' },
+            { name: 'Trevi Fountain', lat: 41.9009, lng: 12.4833, icon: '⛲', type: 'landmark' },
+            { name: 'Pantheon', lat: 41.8986, lng: 12.4769, icon: '🏛️', type: 'monument' },
+            { name: 'Roman Forum', lat: 41.8925, lng: 12.4853, icon: '🏛️', type: 'ruins' },
+            { name: 'St. Peter\'s Basilica', lat: 41.9022, lng: 12.4539, icon: '⛪', type: 'church' },
+            { name: 'Spanish Steps', lat: 41.9061, lng: 12.4825, icon: '📍', type: 'landmark' },
+            { name: 'Piazza Navona', lat: 41.8992, lng: 12.4731, icon: '⛲', type: 'square' },
+            { name: 'Castel Sant\'Angelo', lat: 41.9031, lng: 12.4663, icon: '🏰', type: 'castle' },
+            { name: 'Trastevere', lat: 41.8865, lng: 12.4703, icon: '🍕', type: 'district' },
+            { name: 'Borghese Gallery', lat: 41.9142, lng: 12.4921, icon: '🖼️', type: 'museum' }
+        ]
+    },
+    // Venice
+    6: {
+        center: [45.4408, 12.3155],
+        zoom: 14,
+        landmarks: [
+            { name: 'St. Mark\'s Basilica', lat: 45.4346, lng: 12.3397, icon: '⛪', type: 'church' },
+            { name: 'Rialto Bridge', lat: 45.4381, lng: 12.3360, icon: '🌉', type: 'landmark' },
+            { name: 'Doge\'s Palace', lat: 45.4337, lng: 12.3403, icon: '🏛️', type: 'palace' },
+            { name: 'Grand Canal', lat: 45.4370, lng: 12.3326, icon: '🚤', type: 'landmark' },
+            { name: 'Bridge of Sighs', lat: 45.4340, lng: 12.3410, icon: '🌉', type: 'landmark' },
+            { name: 'Murano Island', lat: 45.4588, lng: 12.3519, icon: '🔮', type: 'island' },
+            { name: 'Burano Island', lat: 45.4854, lng: 12.4167, icon: '🎨', type: 'island' },
+            { name: 'St. Mark\'s Square', lat: 45.4341, lng: 12.3388, icon: '⛲', type: 'square' }
+        ]
+    },
+    // New York City
+    7: {
+        center: [40.7128, -74.0060],
+        zoom: 12,
+        landmarks: [
+            { name: 'Statue of Liberty', lat: 40.6892, lng: -74.0445, icon: '🗽', type: 'landmark' },
+            { name: 'Empire State Building', lat: 40.7484, lng: -73.9857, icon: '🏙️', type: 'landmark' },
+            { name: 'Times Square', lat: 40.7580, lng: -73.9855, icon: '🎭', type: 'landmark' },
+            { name: 'Central Park', lat: 40.7829, lng: -73.9654, icon: '🌳', type: 'park' },
+            { name: 'Brooklyn Bridge', lat: 40.7061, lng: -73.9969, icon: '🌉', type: 'landmark' },
+            { name: 'One World Trade Center', lat: 40.7127, lng: -74.0134, icon: '🏙️', type: 'memorial' },
+            { name: 'Metropolitan Museum', lat: 40.7794, lng: -73.9632, icon: '🖼️', type: 'museum' },
+            { name: 'Rockefeller Center', lat: 40.7587, lng: -73.9787, icon: '🎄', type: 'landmark' },
+            { name: 'Grand Central Terminal', lat: 40.7527, lng: -73.9772, icon: '🚉', type: 'transport' },
+            { name: 'High Line', lat: 40.7480, lng: -74.0048, icon: '🌿', type: 'park' },
+            { name: 'MoMA', lat: 40.7614, lng: -73.9776, icon: '🖼️', type: 'museum' },
+            { name: 'Wall Street', lat: 40.7074, lng: -74.0113, icon: '💹', type: 'district' }
+        ]
+    },
+    // Grand Canyon
+    8: {
+        center: [36.0544, -112.1401],
+        zoom: 10,
+        landmarks: [
+            { name: 'South Rim Visitor Center', lat: 36.0610, lng: -112.1070, icon: '📍', type: 'center' },
+            { name: 'Mather Point', lat: 36.0572, lng: -112.1078, icon: '👁️', type: 'viewpoint' },
+            { name: 'Desert View', lat: 36.0408, lng: -111.8260, icon: '👁️', type: 'viewpoint' },
+            { name: 'Bright Angel Trail', lat: 36.0574, lng: -112.1435, icon: '🥾', type: 'trail' },
+            { name: 'Grand Canyon Village', lat: 36.0468, lng: -112.1426, icon: '🏘️', type: 'village' },
+            { name: 'Skywalk', lat: 36.0119, lng: -113.8106, icon: '🌉', type: 'landmark' }
+        ]
+    },
+    // Bangkok
+    9: {
+        center: [13.7563, 100.5018],
+        zoom: 13,
+        landmarks: [
+            { name: 'Grand Palace', lat: 13.7500, lng: 100.4914, icon: '🏯', type: 'palace' },
+            { name: 'Wat Pho', lat: 13.7465, lng: 100.4931, icon: '🛕', type: 'temple' },
+            { name: 'Wat Arun', lat: 13.7437, lng: 100.4888, icon: '🛕', type: 'temple' },
+            { name: 'Chatuchak Market', lat: 13.7999, lng: 100.5508, icon: '🛒', type: 'market' },
+            { name: 'Khao San Road', lat: 13.7589, lng: 100.4974, icon: '🎉', type: 'nightlife' },
+            { name: 'Floating Market', lat: 13.5234, lng: 100.0098, icon: '🛶', type: 'market' },
+            { name: 'Chinatown (Yaowarat)', lat: 13.7420, lng: 100.5096, icon: '🥢', type: 'district' },
+            { name: 'Siam Square', lat: 13.7451, lng: 100.5350, icon: '🛍️', type: 'shopping' }
+        ]
+    },
+    // Phuket
+    10: {
+        center: [7.8804, 98.3923],
+        zoom: 11,
+        landmarks: [
+            { name: 'Patong Beach', lat: 7.8963, lng: 98.2969, icon: '🏖️', type: 'beach' },
+            { name: 'Big Buddha', lat: 7.8276, lng: 98.3127, icon: '🧘', type: 'temple' },
+            { name: 'Old Town Phuket', lat: 7.8819, lng: 98.3935, icon: '🏘️', type: 'district' },
+            { name: 'Kata Beach', lat: 7.8203, lng: 98.2986, icon: '🏖️', type: 'beach' },
+            { name: 'Promthep Cape', lat: 7.7584, lng: 98.3050, icon: '🌅', type: 'viewpoint' },
+            { name: 'Phi Phi Islands', lat: 7.7407, lng: 98.7784, icon: '🏝️', type: 'island' }
+        ]
+    },
+    // Barcelona
+    11: {
+        center: [41.3851, 2.1734],
+        zoom: 13,
+        landmarks: [
+            { name: 'Sagrada Familia', lat: 41.4036, lng: 2.1744, icon: '⛪', type: 'church' },
+            { name: 'Park Güell', lat: 41.4145, lng: 2.1527, icon: '🎨', type: 'park' },
+            { name: 'La Rambla', lat: 41.3797, lng: 2.1735, icon: '🚶', type: 'street' },
+            { name: 'Casa Batlló', lat: 41.3916, lng: 2.1649, icon: '🏠', type: 'building' },
+            { name: 'Gothic Quarter', lat: 41.3833, lng: 2.1767, icon: '🏘️', type: 'district' },
+            { name: 'La Boqueria Market', lat: 41.3816, lng: 2.1715, icon: '🍇', type: 'market' },
+            { name: 'Camp Nou', lat: 41.3809, lng: 2.1228, icon: '⚽', type: 'stadium' },
+            { name: 'Barceloneta Beach', lat: 41.3783, lng: 2.1924, icon: '🏖️', type: 'beach' },
+            { name: 'Montjuïc', lat: 41.3638, lng: 2.1663, icon: '🏰', type: 'hill' },
+            { name: 'Casa Milà', lat: 41.3952, lng: 2.1619, icon: '🏠', type: 'building' }
+        ]
+    },
+    // Sydney
+    12: {
+        center: [-33.8688, 151.2093],
+        zoom: 13,
+        landmarks: [
+            { name: 'Sydney Opera House', lat: -33.8568, lng: 151.2153, icon: '🎭', type: 'landmark' },
+            { name: 'Sydney Harbour Bridge', lat: -33.8523, lng: 151.2108, icon: '🌉', type: 'landmark' },
+            { name: 'Bondi Beach', lat: -33.8908, lng: 151.2743, icon: '🏖️', type: 'beach' },
+            { name: 'Darling Harbour', lat: -33.8723, lng: 151.1979, icon: '⚓', type: 'harbour' },
+            { name: 'Royal Botanic Garden', lat: -33.8642, lng: 151.2166, icon: '🌳', type: 'park' },
+            { name: 'Taronga Zoo', lat: -33.8436, lng: 151.2411, icon: '🦘', type: 'zoo' },
+            { name: 'The Rocks', lat: -33.8588, lng: 151.2085, icon: '🏘️', type: 'district' },
+            { name: 'Manly Beach', lat: -33.7969, lng: 151.2861, icon: '🏖️', type: 'beach' }
+        ]
+    },
+    // Dubai
+    13: {
+        center: [25.2048, 55.2708],
+        zoom: 12,
+        landmarks: [
+            { name: 'Burj Khalifa', lat: 25.1972, lng: 55.2744, icon: '🏙️', type: 'landmark' },
+            { name: 'Palm Jumeirah', lat: 25.1124, lng: 55.1390, icon: '🏝️', type: 'island' },
+            { name: 'Burj Al Arab', lat: 25.1413, lng: 55.1852, icon: '🏨', type: 'hotel' },
+            { name: 'Dubai Mall', lat: 25.1972, lng: 55.2796, icon: '🛍️', type: 'mall' },
+            { name: 'Dubai Marina', lat: 25.0805, lng: 55.1403, icon: '🚤', type: 'marina' },
+            { name: 'Gold Souk', lat: 25.2867, lng: 55.2993, icon: '💍', type: 'market' },
+            { name: 'Dubai Creek', lat: 25.2630, lng: 55.3216, icon: '🚢', type: 'waterway' },
+            { name: 'Dubai Frame', lat: 25.2354, lng: 55.3000, icon: '🖼️', type: 'landmark' },
+            { name: 'Atlantis The Palm', lat: 25.1304, lng: 55.1171, icon: '🏨', type: 'resort' }
+        ]
+    },
+    // London
+    14: {
+        center: [51.5074, -0.1278],
+        zoom: 13,
+        landmarks: [
+            { name: 'Big Ben & Parliament', lat: 51.5007, lng: -0.1246, icon: '🏛️', type: 'landmark' },
+            { name: 'Tower of London', lat: 51.5081, lng: -0.0759, icon: '🏰', type: 'castle' },
+            { name: 'Buckingham Palace', lat: 51.5014, lng: -0.1419, icon: '🏰', type: 'palace' },
+            { name: 'Tower Bridge', lat: 51.5055, lng: -0.0754, icon: '🌉', type: 'landmark' },
+            { name: 'British Museum', lat: 51.5194, lng: -0.1270, icon: '🖼️', type: 'museum' },
+            { name: 'London Eye', lat: 51.5033, lng: -0.1196, icon: '🎡', type: 'landmark' },
+            { name: 'Westminster Abbey', lat: 51.4994, lng: -0.1273, icon: '⛪', type: 'church' },
+            { name: 'St. Paul\'s Cathedral', lat: 51.5138, lng: -0.0983, icon: '⛪', type: 'church' },
+            { name: 'Hyde Park', lat: 51.5073, lng: -0.1657, icon: '🌳', type: 'park' },
+            { name: 'Trafalgar Square', lat: 51.5080, lng: -0.1281, icon: '🦁', type: 'square' },
+            { name: 'Camden Market', lat: 51.5416, lng: -0.1461, icon: '🛒', type: 'market' },
+            { name: 'Piccadilly Circus', lat: 51.5100, lng: -0.1345, icon: '🎭', type: 'square' }
+        ]
+    },
+    // Singapore
+    15: {
+        center: [1.3521, 103.8198],
+        zoom: 12,
+        landmarks: [
+            { name: 'Marina Bay Sands', lat: 1.2834, lng: 103.8607, icon: '🏨', type: 'landmark' },
+            { name: 'Gardens by the Bay', lat: 1.2816, lng: 103.8636, icon: '🌳', type: 'park' },
+            { name: 'Sentosa Island', lat: 1.2494, lng: 103.8303, icon: '🏝️', type: 'island' },
+            { name: 'Chinatown', lat: 1.2835, lng: 103.8442, icon: '🏮', type: 'district' },
+            { name: 'Little India', lat: 1.3066, lng: 103.8520, icon: '🛕', type: 'district' },
+            { name: 'Orchard Road', lat: 1.3048, lng: 103.8318, icon: '🛍️', type: 'shopping' },
+            { name: 'Universal Studios', lat: 1.2540, lng: 103.8238, icon: '🎢', type: 'theme park' },
+            { name: 'Merlion Park', lat: 1.2868, lng: 103.8545, icon: '🦁', type: 'landmark' },
+            { name: 'Clarke Quay', lat: 1.2906, lng: 103.8465, icon: '🎉', type: 'nightlife' }
+        ]
+    },
+    // Maldives
+    16: {
+        center: [3.2028, 73.2207],
+        zoom: 8,
+        landmarks: [
+            { name: 'Malé City', lat: 4.1755, lng: 73.5093, icon: '🏙️', type: 'capital' },
+            { name: 'Hulhumalé', lat: 4.2118, lng: 73.5400, icon: '🏝️', type: 'island' },
+            { name: 'Baa Atoll', lat: 5.2697, lng: 73.0000, icon: '🤿', type: 'diving' },
+            { name: 'Maafushi', lat: 3.9409, lng: 73.4905, icon: '🏖️', type: 'beach' },
+            { name: 'Hanifaru Bay', lat: 5.2706, lng: 73.0333, icon: '🐋', type: 'nature' },
+            { name: 'Banana Reef', lat: 4.2847, lng: 73.5450, icon: '🤿', type: 'diving' }
+        ]
+    },
+    // Swiss Alps
+    17: {
+        center: [46.6863, 7.8632],
+        zoom: 9,
+        landmarks: [
+            { name: 'Matterhorn', lat: 45.9763, lng: 7.6586, icon: '🏔️', type: 'mountain' },
+            { name: 'Jungfraujoch', lat: 46.5472, lng: 7.9856, icon: '🏔️', type: 'mountain' },
+            { name: 'Interlaken', lat: 46.6863, lng: 7.8632, icon: '🏘️', type: 'town' },
+            { name: 'Zermatt', lat: 46.0207, lng: 7.7491, icon: '🏘️', type: 'town' },
+            { name: 'Lake Lucerne', lat: 47.0502, lng: 8.3093, icon: '💧', type: 'lake' },
+            { name: 'Lauterbrunnen', lat: 46.5956, lng: 7.9089, icon: '🏞️', type: 'valley' },
+            { name: 'Grindelwald', lat: 46.6243, lng: 8.0416, icon: '🏘️', type: 'town' },
+            { name: 'Lucerne', lat: 47.0502, lng: 8.3093, icon: '🏙️', type: 'city' }
+        ]
+    },
+    // Santorini
+    18: {
+        center: [36.3932, 25.4615],
+        zoom: 12,
+        landmarks: [
+            { name: 'Oia', lat: 36.4618, lng: 25.3753, icon: '🌅', type: 'village' },
+            { name: 'Fira', lat: 36.4166, lng: 25.4315, icon: '🏘️', type: 'town' },
+            { name: 'Red Beach', lat: 36.3480, lng: 25.3930, icon: '🏖️', type: 'beach' },
+            { name: 'Akrotiri Ruins', lat: 36.3517, lng: 25.4037, icon: '🏛️', type: 'ruins' },
+            { name: 'Imerovigli', lat: 36.4320, lng: 25.4230, icon: '🏘️', type: 'village' },
+            { name: 'Perissa Beach', lat: 36.3527, lng: 25.4735, icon: '🏖️', type: 'beach' },
+            { name: 'Ancient Thera', lat: 36.3647, lng: 25.4667, icon: '🏛️', type: 'ruins' }
+        ]
+    },
+    // Istanbul
+    19: {
+        center: [41.0082, 28.9784],
+        zoom: 13,
+        landmarks: [
+            { name: 'Hagia Sophia', lat: 41.0086, lng: 28.9802, icon: '🕌', type: 'mosque' },
+            { name: 'Blue Mosque', lat: 41.0054, lng: 28.9768, icon: '🕌', type: 'mosque' },
+            { name: 'Topkapi Palace', lat: 41.0115, lng: 28.9833, icon: '🏯', type: 'palace' },
+            { name: 'Grand Bazaar', lat: 41.0106, lng: 28.9684, icon: '🛒', type: 'market' },
+            { name: 'Galata Tower', lat: 41.0256, lng: 28.9741, icon: '🗼', type: 'tower' },
+            { name: 'Bosphorus', lat: 41.0650, lng: 29.0400, icon: '🚢', type: 'waterway' },
+            { name: 'Spice Bazaar', lat: 41.0170, lng: 28.9706, icon: '🛒', type: 'market' },
+            { name: 'Dolmabahçe Palace', lat: 41.0391, lng: 29.0007, icon: '🏯', type: 'palace' }
+        ]
+    },
+    // Bali
+    20: {
+        center: [-8.4095, 115.1889],
+        zoom: 10,
+        landmarks: [
+            { name: 'Ubud', lat: -8.5069, lng: 115.2625, icon: '🎨', type: 'town' },
+            { name: 'Tanah Lot Temple', lat: -8.6211, lng: 115.0868, icon: '🛕', type: 'temple' },
+            { name: 'Uluwatu Temple', lat: -8.8291, lng: 115.0849, icon: '🛕', type: 'temple' },
+            { name: 'Seminyak Beach', lat: -8.6910, lng: 115.1575, icon: '🏖️', type: 'beach' },
+            { name: 'Kuta Beach', lat: -8.7180, lng: 115.1685, icon: '🏖️', type: 'beach' },
+            { name: 'Tegallalang Rice Terraces', lat: -8.4312, lng: 115.2792, icon: '🌾', type: 'nature' },
+            { name: 'Mount Batur', lat: -8.2417, lng: 115.3750, icon: '🌋', type: 'volcano' },
+            { name: 'Monkey Forest', lat: -8.5181, lng: 115.2587, icon: '🐒', type: 'nature' }
+        ]
+    },
+    // Amsterdam
+    21: {
+        center: [52.3676, 4.9041],
+        zoom: 13,
+        landmarks: [
+            { name: 'Anne Frank House', lat: 52.3752, lng: 4.8840, icon: '🏠', type: 'museum' },
+            { name: 'Rijksmuseum', lat: 52.3600, lng: 4.8852, icon: '🖼️', type: 'museum' },
+            { name: 'Van Gogh Museum', lat: 52.3584, lng: 4.8811, icon: '🖼️', type: 'museum' },
+            { name: 'Royal Palace', lat: 52.3730, lng: 4.8913, icon: '🏰', type: 'palace' },
+            { name: 'Vondelpark', lat: 52.3579, lng: 4.8686, icon: '🌳', type: 'park' },
+            { name: 'Jordaan District', lat: 52.3755, lng: 4.8791, icon: '🏘️', type: 'district' },
+            { name: 'Canal Ring', lat: 52.3676, lng: 4.8913, icon: '🛶', type: 'landmark' },
+            { name: 'Dam Square', lat: 52.3731, lng: 4.8932, icon: '⛲', type: 'square' }
+        ]
+    },
+    // Prague
+    22: {
+        center: [50.0755, 14.4378],
+        zoom: 13,
+        landmarks: [
+            { name: 'Charles Bridge', lat: 50.0865, lng: 14.4114, icon: '🌉', type: 'bridge' },
+            { name: 'Prague Castle', lat: 50.0911, lng: 14.4006, icon: '🏰', type: 'castle' },
+            { name: 'Old Town Square', lat: 50.0870, lng: 14.4213, icon: '⛲', type: 'square' },
+            { name: 'Astronomical Clock', lat: 50.0870, lng: 14.4206, icon: '⏰', type: 'landmark' },
+            { name: 'St. Vitus Cathedral', lat: 50.0909, lng: 14.4002, icon: '⛪', type: 'church' },
+            { name: 'Petřín Tower', lat: 50.0833, lng: 14.3950, icon: '🗼', type: 'tower' },
+            { name: 'Lesser Town', lat: 50.0867, lng: 14.4039, icon: '🏘️', type: 'district' },
+            { name: 'Wenceslas Square', lat: 50.0821, lng: 14.4246, icon: '⛲', type: 'square' }
+        ]
+    },
+    // Cairo
+    23: {
+        center: [30.0444, 31.2357],
+        zoom: 11,
+        landmarks: [
+            { name: 'Pyramids of Giza', lat: 29.9792, lng: 31.1342, icon: '🔺', type: 'monument' },
+            { name: 'Great Sphinx', lat: 29.9753, lng: 31.1376, icon: '🦁', type: 'monument' },
+            { name: 'Egyptian Museum', lat: 30.0478, lng: 31.2336, icon: '🖼️', type: 'museum' },
+            { name: 'Khan el-Khalili', lat: 30.0477, lng: 31.2625, icon: '🛒', type: 'market' },
+            { name: 'Al-Azhar Mosque', lat: 30.0457, lng: 31.2625, icon: '🕌', type: 'mosque' },
+            { name: 'Citadel of Saladin', lat: 30.0297, lng: 31.2598, icon: '🏰', type: 'fortress' },
+            { name: 'Nile River', lat: 30.0444, lng: 31.2357, icon: '🚢', type: 'river' }
+        ]
+    },
+    // Marrakech
+    24: {
+        center: [31.6295, -7.9811],
+        zoom: 13,
+        landmarks: [
+            { name: 'Jemaa el-Fna', lat: 31.6258, lng: -7.9891, icon: '🎪', type: 'square' },
+            { name: 'Bahia Palace', lat: 31.6217, lng: -7.9830, icon: '🏯', type: 'palace' },
+            { name: 'Koutoubia Mosque', lat: 31.6236, lng: -7.9938, icon: '🕌', type: 'mosque' },
+            { name: 'Majorelle Garden', lat: 31.6417, lng: -8.0030, icon: '🌳', type: 'garden' },
+            { name: 'Medina', lat: 31.6295, lng: -7.9811, icon: '🏘️', type: 'district' },
+            { name: 'Saadian Tombs', lat: 31.6172, lng: -7.9887, icon: '🏛️', type: 'monument' },
+            { name: 'Souks', lat: 31.6340, lng: -7.9860, icon: '🛒', type: 'market' }
+        ]
+    },
+    // Budapest
+    25: {
+        center: [47.4979, 19.0402],
+        zoom: 13,
+        landmarks: [
+            { name: 'Buda Castle', lat: 47.4963, lng: 19.0397, icon: '🏰', type: 'castle' },
+            { name: 'Fisherman\'s Bastion', lat: 47.5020, lng: 19.0347, icon: '🏛️', type: 'monument' },
+            { name: 'Parliament Building', lat: 47.5073, lng: 19.0458, icon: '🏛️', type: 'government' },
+            { name: 'Chain Bridge', lat: 47.4988, lng: 19.0435, icon: '🌉', type: 'bridge' },
+            { name: 'Széchenyi Thermal Bath', lat: 47.5186, lng: 19.0817, icon: '♨️', type: 'bath' },
+            { name: 'Heroes\' Square', lat: 47.5149, lng: 19.0778, icon: '⛲', type: 'square' },
+            { name: 'St. Stephen\'s Basilica', lat: 47.5008, lng: 19.0535, icon: '⛪', type: 'church' },
+            { name: 'Ruin Bars (Szimpla)', lat: 47.4970, lng: 19.0624, icon: '🍺', type: 'nightlife' }
+        ]
+    },
+    // Vienna
+    26: {
+        center: [48.2082, 16.3738],
+        zoom: 13,
+        landmarks: [
+            { name: 'Schönbrunn Palace', lat: 48.1845, lng: 16.3122, icon: '🏰', type: 'palace' },
+            { name: 'St. Stephen\'s Cathedral', lat: 48.2084, lng: 16.3731, icon: '⛪', type: 'church' },
+            { name: 'Hofburg Palace', lat: 48.2060, lng: 16.3648, icon: '🏯', type: 'palace' },
+            { name: 'Belvedere Palace', lat: 48.1912, lng: 16.3808, icon: '🏰', type: 'palace' },
+            { name: 'Vienna State Opera', lat: 48.2028, lng: 16.3689, icon: '🎭', type: 'opera' },
+            { name: 'Prater Park', lat: 48.2167, lng: 16.3977, icon: '🎡', type: 'park' },
+            { name: 'Naschmarkt', lat: 48.1992, lng: 16.3636, icon: '🛒', type: 'market' }
+        ]
+    },
+    // Lisbon
+    27: {
+        center: [38.7223, -9.1393],
+        zoom: 13,
+        landmarks: [
+            { name: 'Belém Tower', lat: 38.6916, lng: -9.2160, icon: '🏰', type: 'tower' },
+            { name: 'Jerónimos Monastery', lat: 38.6979, lng: -9.2068, icon: '⛪', type: 'monastery' },
+            { name: 'Alfama District', lat: 38.7109, lng: -9.1286, icon: '🏘️', type: 'district' },
+            { name: 'São Jorge Castle', lat: 38.7139, lng: -9.1337, icon: '🏰', type: 'castle' },
+            { name: 'Tram 28', lat: 38.7107, lng: -9.1411, icon: '🚃', type: 'transport' },
+            { name: 'Praça do Comércio', lat: 38.7077, lng: -9.1365, icon: '⛲', type: 'square' },
+            { name: 'Time Out Market', lat: 38.7053, lng: -9.1459, icon: '🍽️', type: 'market' },
+            { name: 'Sintra', lat: 38.7971, lng: -9.3903, icon: '🏰', type: 'town' }
+        ]
+    },
+    // Cape Town
+    28: {
+        center: [-33.9249, 18.4241],
+        zoom: 12,
+        landmarks: [
+            { name: 'Table Mountain', lat: -33.9628, lng: 18.4098, icon: '🏔️', type: 'mountain' },
+            { name: 'V&A Waterfront', lat: -33.9038, lng: 18.4206, icon: '⚓', type: 'harbour' },
+            { name: 'Robben Island', lat: -33.8067, lng: 18.3714, icon: '🏝️', type: 'island' },
+            { name: 'Cape of Good Hope', lat: -34.3568, lng: 18.4740, icon: '🌊', type: 'landmark' },
+            { name: 'Bo-Kaap', lat: -33.9208, lng: 18.4133, icon: '🏘️', type: 'district' },
+            { name: 'Kirstenbosch Gardens', lat: -33.9875, lng: 18.4325, icon: '🌳', type: 'garden' },
+            { name: 'Camps Bay Beach', lat: -33.9500, lng: 18.3778, icon: '🏖️', type: 'beach' },
+            { name: 'Lion\'s Head', lat: -33.9347, lng: 18.3896, icon: '🏔️', type: 'mountain' }
+        ]
+    },
+    // Rio de Janeiro
+    29: {
+        center: [-22.9068, -43.1729],
+        zoom: 12,
+        landmarks: [
+            { name: 'Christ the Redeemer', lat: -22.9519, lng: -43.2105, icon: '✝️', type: 'statue' },
+            { name: 'Sugarloaf Mountain', lat: -22.9492, lng: -43.1545, icon: '🏔️', type: 'mountain' },
+            { name: 'Copacabana Beach', lat: -22.9711, lng: -43.1823, icon: '🏖️', type: 'beach' },
+            { name: 'Ipanema Beach', lat: -22.9838, lng: -43.2096, icon: '🏖️', type: 'beach' },
+            { name: 'Lapa Arches', lat: -22.9152, lng: -43.1798, icon: '🏛️', type: 'monument' },
+            { name: 'Maracanã Stadium', lat: -22.9121, lng: -43.2302, icon: '⚽', type: 'stadium' },
+            { name: 'Tijuca Forest', lat: -22.9575, lng: -43.2731, icon: '🌳', type: 'nature' },
+            { name: 'Selarón Steps', lat: -22.9157, lng: -43.1788, icon: '🎨', type: 'landmark' }
+        ]
+    },
+    // Additional cities can be added...
+    // Cancun
+    30: {
+        center: [21.1619, -86.8515],
+        zoom: 12,
+        landmarks: [
+            { name: 'Hotel Zone', lat: 21.1340, lng: -86.7650, icon: '🏨', type: 'district' },
+            { name: 'Chichen Itza', lat: 20.6843, lng: -88.5678, icon: '🏛️', type: 'ruins' },
+            { name: 'Isla Mujeres', lat: 21.2295, lng: -86.7219, icon: '🏝️', type: 'island' },
+            { name: 'Playa Delfines', lat: 21.0754, lng: -86.7775, icon: '🏖️', type: 'beach' },
+            { name: 'Xcaret Park', lat: 20.5815, lng: -87.1195, icon: '🎢', type: 'park' },
+            { name: 'Tulum Ruins', lat: 20.2149, lng: -87.4291, icon: '🏛️', type: 'ruins' }
+        ]
+    },
+    // Seoul
+    31: {
+        center: [37.5665, 126.9780],
+        zoom: 12,
+        landmarks: [
+            { name: 'Gyeongbokgung Palace', lat: 37.5796, lng: 126.9770, icon: '🏯', type: 'palace' },
+            { name: 'Bukchon Hanok Village', lat: 37.5826, lng: 126.9831, icon: '🏘️', type: 'district' },
+            { name: 'N Seoul Tower', lat: 37.5512, lng: 126.9882, icon: '🗼', type: 'tower' },
+            { name: 'Myeongdong', lat: 37.5603, lng: 126.9860, icon: '🛍️', type: 'shopping' },
+            { name: 'Hongdae', lat: 37.5571, lng: 126.9259, icon: '🎶', type: 'district' },
+            { name: 'Changdeokgung Palace', lat: 37.5794, lng: 126.9910, icon: '🏯', type: 'palace' },
+            { name: 'Insadong', lat: 37.5743, lng: 126.9857, icon: '🎨', type: 'district' },
+            { name: 'DMZ', lat: 37.9558, lng: 126.6769, icon: '🔒', type: 'landmark' }
+        ]
+    },
+    // Petra & Wadi Rum
+    44: {
+        center: [30.3285, 35.4444],
+        zoom: 10,
+        landmarks: [
+            { name: 'The Treasury (Al-Khazneh)', lat: 30.3227, lng: 35.4511, icon: '🏛️', type: 'monument' },
+            { name: 'The Monastery (Ad Deir)', lat: 30.3365, lng: 35.4411, icon: '🏛️', type: 'monument' },
+            { name: 'The Siq', lat: 30.3200, lng: 35.4522, icon: '🏞️', type: 'canyon' },
+            { name: 'Wadi Rum Village', lat: 29.5827, lng: 35.4193, icon: '🏜️', type: 'desert' },
+            { name: 'Seven Pillars of Wisdom', lat: 29.5648, lng: 35.4266, icon: '🏜️', type: 'formation' },
+            { name: 'Dead Sea', lat: 31.5000, lng: 35.4700, icon: '🌊', type: 'sea' },
+            { name: 'Amman Citadel', lat: 31.9580, lng: 35.9340, icon: '🏛️', type: 'ruins' }
+        ]
+    }
+};
+
+// Function to get map data for a destination
+function getCityMapData(destinationId) {
+    return cityMapsData[destinationId] || null;
+}
+
+// ============================================
 // HELPER FUNCTIONS
 // ============================================
 
