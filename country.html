@@ -176,7 +176,7 @@
 
         function loadCities() {
             const container = document.getElementById('citiesGrid');
-            const cities = getCitiesByCountry(countryId);
+            const cities = getCitiesByCountry(regionId, countryId);
             
             document.getElementById('cityCount').textContent = `${cities.length} ${cities.length === 1 ? 'city' : 'cities'}`;
 
