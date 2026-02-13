@@ -2316,7 +2316,9 @@ function getDestinationsByMonth(month) {
 }
 
 function getFeaturedDestinations() {
-    return destinationsData.filter(d => d.featured);
+    // Top 6 most visited cities globally (Google data 2024)
+    const topCityOrder = [9, 1, 14, 13, 15, 3]; // Bangkok, Paris, London, Dubai, Singapore, Tokyo
+    return topCityOrder.map(id => destinationsData.find(d => d.id === id)).filter(Boolean);
 }
 
 function getDestinationById(id) {
