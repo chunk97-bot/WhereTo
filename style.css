@@ -613,8 +613,24 @@ body {
     flex-shrink: 0;
 }
 
+/* NOVA Avatar Styles */
+.message-avatar.nova-avatar {
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 100%);
+    padding: 6px;
+    box-shadow: 0 0 15px rgba(0, 245, 255, 0.4), 0 0 30px rgba(139, 92, 246, 0.2);
+}
+
+.message-avatar.nova-avatar svg {
+    width: 100%;
+    height: 100%;
+}
+
 .bot-message .message-avatar {
     background: linear-gradient(135deg, #008cff 0%, #00c6fb 100%);
+}
+
+.bot-message .message-avatar.nova-avatar {
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 100%);
 }
 
 .user-message {

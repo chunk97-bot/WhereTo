@@ -367,6 +367,47 @@
     animation: iconBounce 2s ease-in-out infinite;
 }
 
+/* NOVA Icon Styles */
+.feature-icon.nova-icon-wrapper {
+    font-size: 1rem;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: iconBounce 2s ease-in-out infinite;
+}
+
+.nova-feature-icon {
+    width: 56px;
+    height: 56px;
+    filter: drop-shadow(0 0 10px rgba(0, 245, 255, 0.5)) drop-shadow(0 0 20px rgba(139, 92, 246, 0.3));
+}
+
+.nova-title-icon {
+    width: 32px;
+    height: 32px;
+    vertical-align: -6px;
+    margin-right: 8px;
+    filter: drop-shadow(0 0 8px rgba(0, 245, 255, 0.5));
+}
+
+.nova-help-icon {
+    width: 24px;
+    height: 24px;
+    vertical-align: -5px;
+    margin-right: 6px;
+    filter: drop-shadow(0 0 6px rgba(0, 245, 255, 0.4));
+}
+
+.nova-pricing-icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: -4px;
+    margin-right: 5px;
+    filter: drop-shadow(0 0 5px rgba(0, 245, 255, 0.4));
+}
+
 .visa-3d-icon {
     width: 56px;
     height: 56px;
