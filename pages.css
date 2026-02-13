@@ -1912,6 +1912,7 @@
 
 .collection-content {
     position: relative;
+    z-index: 2;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -1922,7 +1923,7 @@
 }
 
 .collection-icon {
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin-bottom: 0.5rem;
     font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
 }
@@ -2311,6 +2312,19 @@
     
     .collection-card p {
         font-size: 0.65rem;
+    }
+    
+    .collection-icon {
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .collection-content {
+        padding: 0.5rem;
+    }
+    
+    .collection-count {
+        font-size: 0.6rem;
     }
     
     .regions-grid {
