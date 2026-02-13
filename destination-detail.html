@@ -748,6 +748,109 @@
             visibility: visible;
         }
 
+        /* Hidden landmark labels - only visible during download */
+        .map-download-labels {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .map-download-labels.visible {
+            display: block;
+        }
+
+        .landmark-label-3d {
+            position: absolute;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 11px;
+            color: #ffffff;
+            text-shadow: 
+                1px 1px 0px #1a1a2e,
+                2px 2px 0px #1a1a2e,
+                3px 3px 0px #0f0f1a,
+                4px 4px 6px rgba(0, 0, 0, 0.6);
+            white-space: nowrap;
+            padding: 4px 8px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.9) 0%, rgba(139, 92, 246, 0.9) 100%);
+            border-radius: 6px;
+            border: 2px solid white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transform: translateX(-50%);
+        }
+
+        .landmark-label-3d.city-center {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.95) 0%, rgba(255, 142, 83, 0.95) 100%);
+            font-size: 13px;
+            padding: 6px 12px;
+        }
+
+        .landmark-label-3d::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid white;
+        }
+
+        /* Map title overlay for download */
+        .map-title-overlay {
+            display: none;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 1001;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 22px;
+            color: #ffffff;
+            text-shadow: 
+                2px 2px 0px #1a1a2e,
+                3px 3px 0px #1a1a2e,
+                4px 4px 8px rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            background: linear-gradient(135deg, rgba(15, 15, 35, 0.9) 0%, rgba(30, 30, 60, 0.9) 100%);
+            border-radius: 12px;
+            border: 2px solid rgba(0, 212, 255, 0.5);
+        }
+
+        .map-title-overlay.visible {
+            display: block;
+        }
+
+        .map-title-overlay span {
+            color: #00d4ff;
+        }
+
+        /* WhereTo branding for download */
+        .map-branding {
+            display: none;
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            z-index: 1001;
+            font-family: 'Righteous', cursive;
+            font-size: 16px;
+            color: #00d4ff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            padding: 8px 15px;
+            background: rgba(15, 15, 35, 0.85);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .map-branding.visible {
+            display: block;
+        }
+
         .download-progress {
             text-align: center;
             color: white;
@@ -894,11 +997,17 @@
                                 </button>
                             </div>
                         </div>
-                        <div id="cityMap">
-                            <div class="map-loading">
-                                <div class="spinner"></div>
-                                <span>Loading map...</span>
+                        <div id="mapWrapper" style="position: relative;">
+                            <div id="cityMap">
+                                <div class="map-loading">
+                                    <div class="spinner"></div>
+                                    <span>Loading map...</span>
+                                </div>
                             </div>
+                            <!-- Hidden labels for download only -->
+                            <div class="map-download-labels" id="mapDownloadLabels"></div>
+                            <div class="map-title-overlay" id="mapTitleOverlay">🗺️ <span id="mapTitleText"></span></div>
+                            <div class="map-branding" id="mapBranding">WhereTo</div>
                         </div>
                         <div class="map-legend" id="mapLegend">
                             <div class="legend-title">Map Legend</div>
@@ -1403,6 +1512,58 @@
             btn.style.opacity = landmarksVisible ? '1' : '0.6';
         }
 
+        function generateDownloadLabels() {
+            if (!currentMapData || !cityMap) return;
+
+            const labelsContainer = document.getElementById('mapDownloadLabels');
+            labelsContainer.innerHTML = '';
+
+            const mapBounds = cityMap.getBounds();
+            const mapSize = cityMap.getSize();
+
+            // Add city center label
+            const centerPoint = cityMap.latLngToContainerPoint(currentMapData.center);
+            const centerLabel = document.createElement('div');
+            centerLabel.className = 'landmark-label-3d city-center';
+            centerLabel.textContent = `📍 ${currentDestination.name}`;
+            centerLabel.style.left = `${centerPoint.x}px`;
+            centerLabel.style.top = `${centerPoint.y - 50}px`;
+            labelsContainer.appendChild(centerLabel);
+
+            // Add landmark labels
+            if (currentMapData.landmarks) {
+                currentMapData.landmarks.forEach(landmark => {
+                    const point = cityMap.latLngToContainerPoint([landmark.lat, landmark.lng]);
+                    
+                    // Only add label if it's within the visible map area
+                    if (point.x >= 0 && point.x <= mapSize.x && point.y >= 0 && point.y <= mapSize.y) {
+                        const label = document.createElement('div');
+                        label.className = 'landmark-label-3d';
+                        label.textContent = `${landmark.icon} ${landmark.name}`;
+                        label.style.left = `${point.x}px`;
+                        label.style.top = `${point.y - 50}px`;
+                        labelsContainer.appendChild(label);
+                    }
+                });
+            }
+
+            // Set map title
+            document.getElementById('mapTitleText').textContent = `${currentDestination.name} City Map`;
+        }
+
+        function showDownloadLabels() {
+            generateDownloadLabels();
+            document.getElementById('mapDownloadLabels').classList.add('visible');
+            document.getElementById('mapTitleOverlay').classList.add('visible');
+            document.getElementById('mapBranding').classList.add('visible');
+        }
+
+        function hideDownloadLabels() {
+            document.getElementById('mapDownloadLabels').classList.remove('visible');
+            document.getElementById('mapTitleOverlay').classList.remove('visible');
+            document.getElementById('mapBranding').classList.remove('visible');
+        }
+
         async function downloadMapHD() {
             const overlay = document.getElementById('downloadOverlay');
             overlay.classList.add('active');
@@ -1411,21 +1572,26 @@
                 // Wait a moment for overlay to show
                 await new Promise(resolve => setTimeout(resolve, 100));
 
-                // Get the map container
-                const mapElement = document.getElementById('cityMap');
+                // Show the hidden labels for screenshot
+                showDownloadLabels();
                 
-                // Temporarily adjust map for better screenshot
-                const originalWidth = mapElement.style.width;
-                const originalHeight = mapElement.style.height;
+                // Wait for labels to render
+                await new Promise(resolve => setTimeout(resolve, 200));
+
+                // Get the map wrapper (includes labels)
+                const mapWrapper = document.getElementById('mapWrapper');
                 
-                // Use html2canvas to capture the map
-                const canvas = await html2canvas(mapElement, {
+                // Use html2canvas to capture the map with labels
+                const canvas = await html2canvas(mapWrapper, {
                     useCORS: true,
                     allowTaint: true,
                     scale: 2, // HD quality
                     logging: false,
-                    backgroundColor: '#1a1a2e'
+                    backgroundColor: '#e5e3df'
                 });
+
+                // Hide labels immediately after capture
+                hideDownloadLabels();
 
                 // Create download link
                 const link = document.createElement('a');
@@ -1439,12 +1605,13 @@
 
                 // Show success briefly
                 overlay.querySelector('h3').textContent = 'Download Complete!';
-                overlay.querySelector('p').textContent = 'Your HD map has been saved.';
+                overlay.querySelector('p').textContent = 'Your HD map with landmark names has been saved.';
                 
                 await new Promise(resolve => setTimeout(resolve, 1500));
 
             } catch (error) {
                 console.error('Map download error:', error);
+                hideDownloadLabels();
                 overlay.querySelector('h3').textContent = 'Download Failed';
                 overlay.querySelector('p').textContent = 'Unable to capture map. Try again later.';
                 await new Promise(resolve => setTimeout(resolve, 2000));
