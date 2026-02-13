@@ -837,39 +837,24 @@
             bottom: 15px;
             right: 15px;
             z-index: 1001;
-            font-family: 'Righteous', cursive;
-            font-size: 18px;
-            color: #00d4ff;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5), 1px 1px 2px rgba(0, 0, 0, 0.8);
-            padding: 10px 18px;
+            padding: 8px 12px;
             background: linear-gradient(135deg, rgba(15, 15, 35, 0.95) 0%, rgba(26, 26, 46, 0.95) 100%);
             border-radius: 10px;
             border: 1px solid rgba(0, 212, 255, 0.4);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
-        .map-branding .brand-icon {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
-            border-radius: 50% 50% 50% 0;
-            transform: rotate(-45deg);
-            margin-right: 8px;
-            position: relative;
-            vertical-align: middle;
-            top: -2px;
+        .map-branding svg {
+            display: block;
+            height: 28px;
+            width: auto;
         }
 
-        .map-branding .brand-icon::after {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            width: 10px;
-            height: 10px;
-            background: white;
-            border-radius: 50%;
+        .map-branding .brand-text {
+            font-family: 'Righteous', cursive;
+            font-size: 20px;
+            fill: #00d4ff;
+            filter: drop-shadow(0 0 3px rgba(0, 212, 255, 0.5));
         }
 
         .map-branding.visible {
@@ -1032,7 +1017,19 @@
                             <!-- Hidden labels for download only -->
                             <div class="map-download-labels" id="mapDownloadLabels"></div>
                             <div class="map-title-overlay" id="mapTitleOverlay">🗺️ <span id="mapTitleText"></span></div>
-                            <div class="map-branding" id="mapBranding"><span class="brand-icon"></span>WhereTo</div>
+                            <div class="map-branding" id="mapBranding">
+                                <svg viewBox="0 0 140 35" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <linearGradient id="mapBrandGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" style="stop-color:#00d4ff" />
+                                            <stop offset="100%" style="stop-color:#00f5ff" />
+                                        </linearGradient>
+                                    </defs>
+                                    <text x="5" y="25" class="brand-text" fill="url(#mapBrandGrad)">WhereTo</text>
+                                    <circle cx="122" cy="18" r="10" fill="#ff6b6b"/>
+                                    <circle cx="122" cy="17" r="3.5" fill="white"/>
+                                </svg>
+                            </div>
                         </div>
                         <div class="map-legend" id="mapLegend">
                             <div class="legend-title">Map Legend</div>
