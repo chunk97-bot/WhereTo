@@ -100,107 +100,10 @@
             padding: 2rem 4rem;
         }
 
-        .region-top {
-            display: grid;
-            grid-template-columns: 1fr 350px;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .region-content {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .region-sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
         /* Countries Section - Full Width */
         .countries-full-section {
             width: 100%;
             margin-bottom: 3rem;
-        }
-
-        /* Info Cards */
-        .info-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border-radius: 16px;
-            padding: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .info-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* CTA Card */
-        .cta-card {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-        }
-
-        .cta-btn {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .nova-btn-icon {
-            width: 24px;
-            height: 24px;
-            flex-shrink: 0;
-        }
-
-        .cta-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
-        }
-
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #00d4ff;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.6);
-            margin-top: 0.25rem;
         }
 
         /* Countries Grid */
@@ -213,6 +116,8 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .section-header h2,
@@ -230,11 +135,56 @@
             color: #00d4ff;
         }
 
-        .country-count-badge {
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .header-stats {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .header-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
             font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .header-stat .stat-num {
+            font-weight: 700;
             color: #00d4ff;
-            font-weight: normal;
-            margin-left: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .header-nova-btn {
+            padding: 0.5rem 1.2rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            white-space: nowrap;
+        }
+
+        .header-nova-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+        }
+
+        .header-nova-btn svg {
+            width: 18px;
+            height: 18px;
         }
 
         .countries-grid {
@@ -532,60 +482,11 @@
             background: rgba(0, 212, 255, 0.3);
         }
 
-        /* Popular Destinations */
-        .popular-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .popular-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: white;
-        }
-
-        .popular-item:hover {
-            background: rgba(0, 212, 255, 0.1);
-            transform: translateX(5px);
-        }
-
-        .popular-item .flag {
-            font-size: 1.5rem;
-        }
-
-        .popular-item .info {
-            flex: 1;
-        }
-
-        .popular-item .name {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .popular-item .count {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .popular-item .arrow {
-            color: #00d4ff;
-        }
-
         /* Responsive */
         @media (max-width: 992px) {
-            .region-main {
-                grid-template-columns: 1fr;
-            }
-
-            .region-sidebar {
-                order: -1;
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
             }
         }
 
@@ -604,6 +505,16 @@
 
             .region-main {
                 padding: 1.5rem 1rem;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
             }
 
             .countries-grid {
@@ -706,7 +617,17 @@
             <div class="countries-full-section">
                 <div class="countries-section">
                     <div class="section-header">
-                        <h2>🏳️ <span>Countries</span> to <span>Explore</span> <span class="country-count-badge" id="countryCount">0 countries</span></h2>
+                        <h2>🏳️ <span>Countries</span> to <span>Explore</span></h2>
+                        <div class="header-right">
+                            <div class="header-stats">
+                                <div class="header-stat"><span class="stat-num" id="totalCountries">0</span> Countries</div>
+                                <div class="header-stat"><span class="stat-num" id="totalCities">0</span> Cities</div>
+                            </div>
+                            <button class="header-nova-btn" onclick="askNova()">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="novaBtnGrad3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00f5ff"/><stop offset="50%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient></defs><rect x="4" y="7" width="16" height="13" rx="4" fill="url(#novaBtnGrad3)"/><rect x="7" y="3" width="10" height="5" rx="2.5" fill="url(#novaBtnGrad3)"/><circle cx="8.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="15.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="8.5" cy="12.5" r="1.5" fill="#00f5ff"/><circle cx="15.5" cy="12.5" r="1.5" fill="#00f5ff"/><rect x="10" y="16" width="4" height="2" rx="1" fill="#ec4899"/></svg>
+                                Ask NOVA
+                            </button>
+                        </div>
                     </div>
                     <div class="countries-grid" id="countriesGrid">
                         <!-- Countries loaded dynamically -->
@@ -714,74 +635,34 @@
                 </div>
             </div>
 
-            <div class="region-top">
-            <div class="region-content">
-                <!-- Region Map -->
-                <div class="map-container" id="mapSection">
-                    <div class="map-header">
-                        <h3>🗺️ <span id="mapTitle">Region Map</span></h3>
-                        <div class="map-actions">
-                            <button class="map-btn" onclick="resetMapView()" title="Reset view">
-                                🎯 Center
-                            </button>
-                            <button class="map-btn" onclick="toggleCountries()" id="toggleCountriesBtn" title="Toggle country markers">
-                                📍 Countries
-                            </button>
-                        </div>
+            <!-- Region Map -->
+            <div class="map-container" id="mapSection">
+                <div class="map-header">
+                    <h3>🗺️ <span id="mapTitle">Region Map</span></h3>
+                    <div class="map-actions">
+                        <button class="map-btn" onclick="resetMapView()" title="Reset view">
+                            🎯 Center
+                        </button>
+                        <button class="map-btn" onclick="toggleCountries()" id="toggleCountriesBtn" title="Toggle country markers">
+                            📍 Countries
+                        </button>
                     </div>
-                    <div id="regionMap">
-                        <div class="map-loading">
-                            <div class="spinner"></div>
-                            <span>Loading map...</span>
-                        </div>
+                </div>
+                <div id="regionMap">
+                    <div class="map-loading">
+                        <div class="spinner"></div>
+                        <span>Loading map...</span>
                     </div>
-                    <div class="map-legend">
-                        <div class="legend-title">Map Legend</div>
-                        <div class="legend-items" id="legendItems">
-                            <div class="legend-item">
-                                <span>🏳️</span>
-                                <span>Country Capital</span>
-                            </div>
+                </div>
+                <div class="map-legend">
+                    <div class="legend-title">Map Legend</div>
+                    <div class="legend-items" id="legendItems">
+                        <div class="legend-item">
+                            <span>🏳️</span>
+                            <span>Country Capital</span>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="region-sidebar">
-                <!-- Ask NOVA Card -->
-                <div class="info-card cta-card">
-                    <button class="cta-btn" onclick="askNova()">
-                        <svg class="nova-btn-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="novaBtnGrad3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00f5ff"/><stop offset="50%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient></defs><rect x="4" y="7" width="16" height="13" rx="4" fill="url(#novaBtnGrad3)"/><rect x="7" y="3" width="10" height="5" rx="2.5" fill="url(#novaBtnGrad3)"/><circle cx="8.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="15.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="8.5" cy="12.5" r="1.5" fill="#00f5ff"/><circle cx="15.5" cy="12.5" r="1.5" fill="#00f5ff"/><rect x="10" y="16" width="4" height="2" rx="1" fill="#ec4899"/></svg>
-                        Ask NOVA
-                    </button>
-                    <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6); text-align: center; margin: 0;">
-                        Get travel advice for this region
-                    </p>
-                </div>
-
-                <!-- Region Stats -->
-                <div class="info-card">
-                    <h3>📊 Region Overview</h3>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-value" id="totalCountries">0</div>
-                            <div class="stat-label">Countries</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value" id="totalCities">0</div>
-                            <div class="stat-label">Cities</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Popular Destinations -->
-                <div class="info-card">
-                    <h3>⭐ Popular Destinations</h3>
-                    <div class="popular-list" id="popularList">
-                        <!-- Loaded dynamically -->
-                    </div>
-                </div>
-            </div>
             </div>
         </main>
 
@@ -864,9 +745,6 @@
             // Load countries
             loadCountries();
 
-            // Load popular destinations
-            loadPopularDestinations();
-
             // Initialize map
             initRegionMap();
         }
@@ -886,7 +764,6 @@
 
         function loadCountries() {
             const container = document.getElementById('countriesGrid');
-            document.getElementById('countryCount').textContent = `${regionCountries.length} ${regionCountries.length === 1 ? 'country' : 'countries'}`;
 
             if (regionCountries.length === 0) {
                 container.innerHTML = '<p style="color: rgba(255,255,255,0.6); grid-column: 1/-1;">No countries available yet. Check back soon!</p>';
@@ -908,31 +785,6 @@
                             <span>💬 ${country.language || 'N/A'}</span>
                         </div>
                     </div>
-                </a>
-            `).join('');
-        }
-
-        function loadPopularDestinations() {
-            const container = document.getElementById('popularList');
-            
-            // Sort by city count and take top 4
-            const popular = [...regionCountries]
-                .sort((a, b) => (b.cityCount || 0) - (a.cityCount || 0))
-                .slice(0, 4);
-
-            if (popular.length === 0) {
-                container.innerHTML = '<p style="color: rgba(255,255,255,0.6);">No destinations available yet.</p>';
-                return;
-            }
-
-            container.innerHTML = popular.map(country => `
-                <a href="country.html?id=${country.id}&region=${regionId}" class="popular-item">
-                    <span class="flag">${country.flag}</span>
-                    <div class="info">
-                        <div class="name">${country.name}</div>
-                        <div class="count">${country.cityCount} cities</div>
-                    </div>
-                    <span class="arrow">→</span>
                 </a>
             `).join('');
         }
