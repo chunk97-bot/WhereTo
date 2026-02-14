@@ -920,7 +920,6 @@
             }
 
             container.innerHTML = countryCities.map((city, index) => {
-                const budget = typeof city.avgBudget === 'object' ? city.avgBudget.mid : city.avgBudget;
                 return `
                     <a href="city.html?id=${city.id}&country=${countryId}&region=${regionId}" class="city-card">
                         <div class="city-image" style="background-image: url('${city.image}')"></div>
@@ -930,7 +929,6 @@
                             <h4>${city.name}</h4>
                             <p class="city-description">${city.description.substring(0, 80)}...</p>
                             <div class="city-meta">
-                                <span>💰 $${budget}/day</span>
                                 <span>📅 ${city.bestTime}</span>
                             </div>
                         </div>
