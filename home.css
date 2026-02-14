@@ -31,6 +31,12 @@
     position: absolute;
     background: rgba(0, 212, 255, 0.1);
     border-radius: 100px;
+    animation: cloudFloat 30s ease-in-out infinite;
+}
+
+@keyframes cloudFloat {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(50px); }
 }
 
 .hero-clouds .cloud-1 {
@@ -38,6 +44,7 @@
     height: 60px;
     top: 15%;
     left: 10%;
+    animation-delay: 0s;
 }
 
 .hero-clouds .cloud-2 {
@@ -45,6 +52,7 @@
     height: 45px;
     top: 30%;
     right: 15%;
+    animation-delay: -10s;
 }
 
 .hero-clouds .cloud-3 {
@@ -52,6 +60,7 @@
     height: 50px;
     bottom: 25%;
     left: 20%;
+    animation-delay: -20s;
 }
 
 /* Static floating planes in background */
@@ -60,43 +69,70 @@
     font-size: 2rem;
     opacity: 0.2;
     color: #00d4ff;
+    animation: planeFloat 20s ease-in-out infinite;
+}
+
+@keyframes planeFloat {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    25% { transform: translateX(30px) translateY(-15px); }
+    50% { transform: translateX(50px) translateY(10px); }
+    75% { transform: translateX(20px) translateY(-5px); }
 }
 
 .floating-plane.plane-1 {
     top: 20%;
     left: 15%;
+    animation-delay: 0s;
 }
 
 .floating-plane.plane-2 {
     top: 50%;
     left: 55%;
     font-size: 1.5rem;
+    animation-delay: -7s;
 }
 
 .floating-plane.plane-3 {
     top: 75%;
     left: 85%;
     font-size: 2.5rem;
+    animation-delay: -14s;
 }
 
-/* ===== HERO LOGO - STATIC (NO ANIMATION) ===== */
+/* ===== HERO LOGO ANIMATIONS ===== */
 .hero-brand-text {
     font-family: 'Righteous', cursive;
     font-size: 52px;
 }
 
 .hero-pin-dot {
-    r: 12;
-    opacity: 1;
+    animation: heroPinPulse 2s ease-in-out infinite;
+}
+
+@keyframes heroPinPulse {
+    0%, 100% { r: 12; opacity: 1; }
+    50% { r: 15; opacity: 0.8; }
 }
 
 .hero-flying-plane {
-    transform: translate(150px, 50px) rotate(-5deg);
-    opacity: 1;
+    animation: heroPlaneCircle 10s ease-in-out infinite;
+}
+
+@keyframes heroPlaneCircle {
+    0%, 100% { transform: translate(150px, 50px) rotate(-5deg); }
+    25% { transform: translate(160px, 40px) rotate(-3deg); }
+    50% { transform: translate(155px, 55px) rotate(-8deg); }
+    75% { transform: translate(145px, 45px) rotate(-4deg); }
 }
 
 .hero-plane-trail {
     stroke-dashoffset: 0;
+    animation: trailDash 3s linear infinite;
+}
+
+@keyframes trailDash {
+    0% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: -30; }
 }
 
 /* ===== ENTRANCE ANIMATIONS ===== */
