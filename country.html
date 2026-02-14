@@ -100,16 +100,10 @@
         }
 
         .country-top {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            margin-bottom: 2rem;
+            width: 100%;
         }
 
         .country-content {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
             width: 100%;
         }
 
@@ -405,6 +399,8 @@
 
         /* Map Section */
         .map-container {
+            width: 100%;
+            margin-top: 2rem;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
             border-radius: 20px;
@@ -457,7 +453,7 @@
 
         #countryMap {
             width: 100%;
-            height: 400px;
+            height: 350px;
             border-radius: 16px;
             z-index: 1;
             background: #1a1a2e;
@@ -737,10 +733,8 @@
                 </div>
             </div>
 
-            <div class="country-top">
-            <div class="country-content">
-                <!-- Country Map -->
-                <div class="map-container" id="mapSection">
+            <!-- Country Map - Full Width -->
+            <div class="map-container" id="mapSection">
                     <div class="map-header">
                         <h3>🗺️ <span id="mapTitle">Country Map</span></h3>
                         <div class="map-actions">
@@ -772,8 +766,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            </div>
         </main>
 
         <!-- Footer -->
