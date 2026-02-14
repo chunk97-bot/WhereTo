@@ -38,7 +38,7 @@ const regionsData = {
                         tips: [
                             'Cash is preferred in many places',
                             'Learn basic Albanian greetings',
-                            'Try traditional byrek and tavÃƒÆ’Ã‚Â« kosi',
+                            'Try traditional byrek and tavë kosi',
                             'Taxis are cheap but agree on price first'
                         ]
                     }
@@ -66,7 +66,7 @@ const regionsData = {
                         bestTime: 'April to May, September to October',
                         avgBudget: { budget: 80, mid: 150, luxury: 400 },
                         attractions: [
-                            { name: 'SchÃƒÆ’Ã‚Â¶nbrunn Palace', type: 'Palace', description: 'Former imperial summer residence' },
+                            { name: 'Schönbrunn Palace', type: 'Palace', description: 'Former imperial summer residence' },
                             { name: 'St. Stephen\'s Cathedral', type: 'Religious', description: 'Gothic masterpiece in city center' },
                             { name: 'Belvedere Palace', type: 'Museum', description: 'Baroque palace with Klimt\'s The Kiss' },
                             { name: 'The Hofburg', type: 'Palace', description: 'Imperial palace complex' },
@@ -124,7 +124,7 @@ const regionsData = {
                             'Get Innsbruck Card for free transport and attractions',
                             'Ski pass covers multiple resorts',
                             'Visit Old Town for traditional architecture',
-                            'Try Tyrolean GrÃƒÆ’Ã‚Â¶stl (potato dish)'
+                            'Try Tyrolean Gröstl (potato dish)'
                         ]
                     },
                     graz: {
@@ -164,14 +164,14 @@ const regionsData = {
                         attractions: [
                             { name: 'Ars Electronica Center', type: 'Museum', description: 'Museum of the future and technology' },
                             { name: 'Lentos Art Museum', type: 'Museum', description: 'Modern art on the Danube' },
-                            { name: 'PÃƒÆ’Ã‚Â¶stlingberg', type: 'Viewpoint', description: 'Hilltop church with city views' },
+                            { name: 'Pöstlingberg', type: 'Viewpoint', description: 'Hilltop church with city views' },
                             { name: 'New Cathedral', type: 'Religious', description: 'Largest church in Austria' },
                             { name: 'Hauptplatz', type: 'Square', description: 'Baroque main square' }
                         ],
                         tips: [
                             'Try the original Linzer Torte',
                             'Visit Ars Electronica Festival in September',
-                            'Take tram 3 to PÃƒÆ’Ã‚Â¶stlingberg',
+                            'Take tram 3 to Pöstlingberg',
                             'Walk along the Danube promenade'
                         ]
                     }
@@ -321,14 +321,14 @@ const regionsData = {
                         bestTime: 'April to October',
                         avgBudget: { budget: 35, mid: 70, luxury: 180 },
                         attractions: [
-                            { name: 'BaÃƒâ€¦Ã‚Â¡Ãƒâ€žÃ‚ÂarÃƒâ€¦Ã‚Â¡ija', type: 'Historic', description: 'Ottoman-era old bazaar district' },
+                            { name: 'Baščaršija', type: 'Historic', description: 'Ottoman-era old bazaar district' },
                             { name: 'Latin Bridge', type: 'Historic', description: 'Where WWI was sparked in 1914' },
                             { name: 'Gazi Husrev-bey Mosque', type: 'Religious', description: 'Finest Ottoman mosque in the Balkans' },
                             { name: 'War Tunnel Museum', type: 'Museum', description: 'Tunnel of Hope from the siege' },
                             { name: 'Yellow Fortress', type: 'Viewpoint', description: 'Best sunset views over the city' }
                         ],
                         tips: [
-                            'Try Ãƒâ€žÃ¢â‚¬Â¡evapi at BaÃƒâ€¦Ã‚Â¡Ãƒâ€žÃ‚ÂarÃƒâ€¦Ã‚Â¡ija',
+                            'Try ćevapi at Baščaršija',
                             'Very affordable destination',
                             'Learn about recent history respectfully',
                             'Coffee culture is important here'
@@ -395,7 +395,7 @@ const regionsData = {
                         bestTime: 'May to September',
                         avgBudget: { budget: 45, mid: 90, luxury: 220 },
                         attractions: [
-                            { name: 'Ban JelaÃƒâ€žÃ‚ÂiÃƒâ€žÃ¢â‚¬Â¡ Square', type: 'Square', description: 'Central meeting point and heart of city' },
+                            { name: 'Ban Jelačić Square', type: 'Square', description: 'Central meeting point and heart of city' },
                             { name: 'St. Mark\'s Church', type: 'Religious', description: 'Iconic tiled roof church' },
                             { name: 'Dolac Market', type: 'Market', description: 'Open-air farmers market' },
                             { name: 'Museum of Broken Relationships', type: 'Museum', description: 'Unique museum of love and loss' },
@@ -403,7 +403,7 @@ const regionsData = {
                         ],
                         tips: [
                             'Take funicular to Upper Town',
-                            'Try Ãƒâ€¦Ã‚Â¡trukli (cheese pastry)',
+                            'Try štrukli (cheese pastry)',
                             'Advent in Zagreb is magical',
                             'Day trip to Plitvice Lakes'
                         ]
@@ -426,9 +426,9 @@ const regionsData = {
                             { name: 'Pjaca (People\'s Square)', type: 'Square', description: 'Main square outside palace' }
                         ],
                         tips: [
-                            'Ferry hub for islands - Hvar, BraÃƒâ€žÃ‚Â, Vis',
+                            'Ferry hub for islands - Hvar, Brač, Vis',
                             'Game of Thrones filming location',
-                            'Swim at BaÃƒâ€žÃ‚Âvice Beach',
+                            'Swim at Bačvice Beach',
                             'Night tours of Diocletian\'s cellars'
                         ]
                     },
@@ -446,7 +446,7 @@ const regionsData = {
                             { name: 'City Walls Walk', type: 'Landmark', description: '2km walk around medieval walls' },
                             { name: 'Stradun', type: 'Street', description: 'Main limestone-paved street' },
                             { name: 'Lovrijenac Fortress', type: 'Castle', description: 'Fort used in Game of Thrones' },
-                            { name: 'Cable Car to SrÃƒâ€žÃ¢â‚¬Ëœ', type: 'Viewpoint', description: 'Panoramic views of old town' },
+                            { name: 'Cable Car to Srđ', type: 'Viewpoint', description: 'Panoramic views of old town' },
                             { name: 'Lokrum Island', type: 'Nature', description: 'Short ferry to nature reserve' }
                         ],
                         tips: [
@@ -483,7 +483,7 @@ const regionsData = {
                             { name: 'Ledra Street Crossing', type: 'Historic', description: 'Pedestrian crossing to North Cyprus' },
                             { name: 'Cyprus Museum', type: 'Museum', description: 'Best archaeological museum on island' },
                             { name: 'Venetian Walls', type: 'Historic', description: '16th-century fortifications' },
-                            { name: 'BÃƒÆ’Ã‚Â¼yÃƒÆ’Ã‚Â¼k Han', type: 'Historic', description: 'Ottoman caravanserai in North' },
+                            { name: 'Büyük Han', type: 'Historic', description: 'Ottoman caravanserai in North' },
                             { name: 'Selimiye Mosque', type: 'Religious', description: 'Gothic cathedral turned mosque in North' }
                         ],
                         tips: [
@@ -526,7 +526,7 @@ const regionsData = {
                         tips: [
                             'Czech beer is cheaper than water',
                             'Visit Charles Bridge at sunrise',
-                            'Try trdelnÃƒÆ’Ã‚Â­k (chimney cake)',
+                            'Try trdelník (chimney cake)',
                             'Book castle tickets in advance'
                         ]
                     }
@@ -591,7 +591,7 @@ const regionsData = {
                         bestTime: 'May to September',
                         avgBudget: { budget: 50, mid: 100, luxury: 260 },
                         attractions: [
-                            { name: 'Old Town (VecrÃƒâ€žÃ‚Â«ga)', type: 'Historic', description: 'UNESCO medieval old town' },
+                            { name: 'Old Town (Vecrīga)', type: 'Historic', description: 'UNESCO medieval old town' },
                             { name: 'Art Nouveau District', type: 'Architecture', description: 'World\'s best Art Nouveau buildings' },
                             { name: 'House of the Blackheads', type: 'Historic', description: 'Stunning Gothic facade on square' },
                             { name: 'Central Market', type: 'Market', description: 'Europe\'s largest market in Zeppelin hangars' },
@@ -600,7 +600,7 @@ const regionsData = {
                         tips: [
                             'Alberta Street for best Art Nouveau',
                             'Riga Black Balsam is local liqueur',
-                            'Day trip to JÃƒâ€¦Ã‚Â«rmala beach resort',
+                            'Day trip to Jūrmala beach resort',
                             'Combines well with Tallinn and Vilnius'
                         ]
                     }
@@ -667,12 +667,12 @@ const regionsData = {
                         attractions: [
                             { name: 'Old Town', type: 'Historic', description: 'UNESCO baroque and medieval streets' },
                             { name: 'Gediminas Tower', type: 'Castle', description: 'Symbol of Vilnius with city views' },
-                            { name: 'UÃƒâ€¦Ã‚Â¾upis', type: 'Neighborhood', description: 'Quirky artists\' republic' },
+                            { name: 'Užupis', type: 'Neighborhood', description: 'Quirky artists\' republic' },
                             { name: 'Gates of Dawn', type: 'Religious', description: 'Only surviving city gate with chapel' },
                             { name: 'St. Anne\'s Church', type: 'Religious', description: 'Gothic architectural masterpiece' }
                         ],
                         tips: [
-                            'UÃƒâ€¦Ã‚Â¾upis declares itself an independent republic',
+                            'Užupis declares itself an independent republic',
                             'Day trip to Trakai Island Castle',
                             'Try cepelinai (potato dumplings)',
                             'Very affordable destination'
@@ -763,7 +763,7 @@ const regionsData = {
                         bestTime: 'April to October',
                         avgBudget: { budget: 55, mid: 110, luxury: 280 },
                         attractions: [
-                            { name: 'Ãƒâ€žÃ‚Â gantija Temples', type: 'Ancient', description: 'Older than Stonehenge and Pyramids' },
+                            { name: 'Ġgantija Temples', type: 'Ancient', description: 'Older than Stonehenge and Pyramids' },
                             { name: 'Victoria (Rabat)', type: 'Town', description: 'Main town with Citadel' },
                             { name: 'Ramla Bay', type: 'Beach', description: 'Best red sand beach' },
                             { name: 'Dwejra', type: 'Nature', description: 'Inland sea and Blue Hole diving' },
@@ -783,7 +783,7 @@ const regionsData = {
                 name: 'Moldova',
                 code: 'MD',
                 flag: '🇲🇩',
-                capital: 'ChiÃƒË†Ã¢â€žÂ¢inÃƒâ€žÃ†â€™u',
+                capital: 'Chișinău',
                 currency: 'Moldovan Leu (MDL)',
                 language: 'Romanian',
                 description: 'Wine country of Eastern Europe with monasteries and Soviet legacy',
@@ -791,7 +791,7 @@ const regionsData = {
                 cities: {
                     chisinau: {
                         id: 'chisinau',
-                        name: 'ChiÃƒË†Ã¢â€žÂ¢inÃƒâ€žÃ†â€™u',
+                        name: 'Chișinău',
                         country: 'Moldova',
                         region: 'Europe',
                         description: 'Post-Soviet capital with parks and world\'s largest wine cellars nearby',
@@ -1041,14 +1041,14 @@ const regionsData = {
                 code: 'PL',
                 flag: '🇵🇱',
                 capital: 'Warsaw',
-                currency: 'Polish ZÃƒâ€¦Ã¢â‚¬Å¡oty (PLN)',
+                currency: 'Polish Złoty (PLN)',
                 language: 'Polish',
                 description: 'Medieval cities, tragic WWII history, pierogi cuisine, and vibrant culture',
                 image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
                 cities: {
                     krakow: {
                         id: 'krakow',
-                        name: 'KrakÃƒÆ’Ã‚Â³w',
+                        name: 'Kraków',
                         country: 'Poland',
                         region: 'Schengen',
                         description: 'Medieval gem with Main Square, Jewish quarter, and sobering Auschwitz nearby',
@@ -1096,7 +1096,7 @@ const regionsData = {
                     },
                     gdansk: {
                         id: 'gdansk',
-                        name: 'GdaÃƒâ€¦Ã¢â‚¬Å¾sk',
+                        name: 'Gdańsk',
                         country: 'Poland',
                         region: 'Schengen',
                         description: 'Baltic port city where Solidarity movement began and WWII started',
@@ -1169,14 +1169,14 @@ const regionsData = {
                             { name: 'Ribeira', type: 'Historic', description: 'UNESCO riverside neighborhood' },
                             { name: 'Vila Nova de Gaia', type: 'Wine', description: 'Port wine cellars across river' },
                             { name: 'Livraria Lello', type: 'Bookshop', description: 'Harry Potter-inspiring bookstore' },
-                            { name: 'SÃƒÆ’Ã‚Â£o Bento Station', type: 'Architecture', description: 'Stunning azulejo tiles' },
-                            { name: 'ClÃƒÆ’Ã‚Â©rigos Tower', type: 'Landmark', description: 'Iconic baroque bell tower' }
+                            { name: 'São Bento Station', type: 'Architecture', description: 'Stunning azulejo tiles' },
+                            { name: 'Clérigos Tower', type: 'Landmark', description: 'Iconic baroque bell tower' }
                         ],
                         tips: [
                             'Port wine tastings essential',
                             'Livraria Lello - buy ticket online',
                             'Francesinha is the local sandwich',
-                            'Walk across Dom LuÃƒÆ’Ã‚Â­s I Bridge'
+                            'Walk across Dom Luís I Bridge'
                         ]
                     },
                     algarve: {
@@ -1242,7 +1242,7 @@ const regionsData = {
                     },
                     brasov: {
                         id: 'brasov',
-                        name: 'BraÃƒË†Ã¢â€žÂ¢ov',
+                        name: 'Brașov',
                         country: 'Romania',
                         region: 'Schengen',
                         description: 'Transylvanian gem with Saxon history and gateway to Dracula\'s castle',
@@ -1253,14 +1253,14 @@ const regionsData = {
                         attractions: [
                             { name: 'Council Square', type: 'Square', description: 'Beautiful medieval center' },
                             { name: 'Black Church', type: 'Religious', description: 'Largest Gothic church in Romania' },
-                            { name: 'TÃƒÆ’Ã‚Â¢mpa Mountain', type: 'Viewpoint', description: 'Cable car to Hollywood-style sign' },
+                            { name: 'Tâmpa Mountain', type: 'Viewpoint', description: 'Cable car to Hollywood-style sign' },
                             { name: 'Bran Castle', type: 'Castle', description: 'Dracula\'s Castle nearby' },
-                            { name: 'PeleÃƒË†Ã¢â€žÂ¢ Castle', type: 'Castle', description: 'Stunning fairytale castle in Sinaia' }
+                            { name: 'Peleș Castle', type: 'Castle', description: 'Stunning fairytale castle in Sinaia' }
                         ],
                         tips: [
                             'Best base for Transylvania',
                             'Bran Castle overrated but fun',
-                            'PeleÃƒË†Ã¢â€žÂ¢ Castle is more impressive',
+                            'Peleș Castle is more impressive',
                             'Good skiing in winter'
                         ]
                     }
@@ -1296,7 +1296,7 @@ const regionsData = {
                         ],
                         tips: [
                             'Nightlife is legendary - starts late',
-                            'Try Ãƒâ€žÃ¢â‚¬Â¡evapi and pljeskavica',
+                            'Try ćevapi and pljeskavica',
                             'Rakija is the national drink',
                             'Very affordable destination'
                         ]
@@ -1351,7 +1351,7 @@ const regionsData = {
                         attractions: [
                             { name: 'Bratislava Castle', type: 'Castle', description: 'Hilltop castle with city views' },
                             { name: 'Old Town', type: 'Historic', description: 'Compact medieval center' },
-                            { name: 'Ãƒâ€žÃ…â€™umin (The Watcher)', type: 'Statue', description: 'Famous manhole statue' },
+                            { name: 'Čumin (The Watcher)', type: 'Statue', description: 'Famous manhole statue' },
                             { name: 'St. Martin\'s Cathedral', type: 'Religious', description: 'Coronation church' },
                             { name: 'UFO Tower', type: 'Viewpoint', description: 'Unique bridge observation deck' }
                         ],
@@ -1359,7 +1359,7 @@ const regionsData = {
                             'Day trip from Vienna (1 hour)',
                             'Very walkable old town',
                             'Much cheaper than Vienna',
-                            'Try bryndzovÃƒÆ’Ã‚Â© haluÃƒâ€¦Ã‚Â¡ky (sheep cheese dumplings)'
+                            'Try bryndzové halušky (sheep cheese dumplings)'
                         ]
                     },
                     highTatras: {
@@ -1373,17 +1373,17 @@ const regionsData = {
                         bestTime: 'June to September (hiking), December to March (skiing)',
                         avgBudget: { budget: 40, mid: 80, luxury: 200 },
                         attractions: [
-                            { name: 'LomnickÃƒÆ’Ã‚Â½ Ãƒâ€¦Ã‚Â¡tÃƒÆ’Ã‚Â­t', type: 'Peak', description: 'Cable car to 2,634m summit' },
+                            { name: 'Lomnický štít', type: 'Peak', description: 'Cable car to 2,634m summit' },
                             { name: 'Morskie Oko', type: 'Lake', description: 'Stunning mountain lake (Poland side)' },
                             { name: 'Hrebienok', type: 'Viewpoint', description: 'Funicular to waterfall hikes' },
-                            { name: 'Ãƒâ€¦Ã‚Â trbskÃƒÆ’Ã‚Â© Pleso', type: 'Lake', description: 'Resort village with mountain lake' },
+                            { name: 'Štrbské Pleso', type: 'Lake', description: 'Resort village with mountain lake' },
                             { name: 'Belianske Tatry', type: 'Nature', description: 'Cave and forest hiking' }
                         ],
                         tips: [
                             'World\'s smallest high mountains',
                             'Excellent hiking without crowds',
                             'Affordable ski resorts',
-                            'Base in TatranskÃƒÆ’Ã‚Â¡ Lomnica or StarÃƒÆ’Ã‚Â½ Smokovec'
+                            'Base in Tatranská Lomnica or Starý Smokovec'
                         ]
                     }
                 }
@@ -1655,7 +1655,7 @@ const regionsData = {
                             { name: 'Ljubljana Castle', type: 'Castle', description: 'Hilltop castle with funicular' },
                             { name: 'Triple Bridge', type: 'Bridge', description: 'Iconic three-part bridge' },
                             { name: 'Dragon Bridge', type: 'Bridge', description: 'Art nouveau bridge with dragons' },
-                            { name: 'PreÃƒâ€¦Ã‚Â¡eren Square', type: 'Square', description: 'Main square with pink church' },
+                            { name: 'Prešeren Square', type: 'Square', description: 'Main square with pink church' },
                             { name: 'Central Market', type: 'Market', description: 'Riverside market by Plenik' }
                         ],
                         tips: [
@@ -1714,7 +1714,7 @@ const regionsData = {
                         avgBudget: { budget: 70, mid: 140, luxury: 380 },
                         attractions: [
                             { name: 'Sagrada Familia', type: 'Religious', description: 'Gaudi\'s unfinished masterpiece' },
-                            { name: 'Park GÃƒÆ’Ã‚Â¼ell', type: 'Park', description: 'Gaudi\'s mosaic wonderland' },
+                            { name: 'Park Güell', type: 'Park', description: 'Gaudi\'s mosaic wonderland' },
                             { name: 'La Rambla', type: 'Street', description: 'Famous pedestrian boulevard' },
                             { name: 'Gothic Quarter', type: 'Historic', description: 'Medieval streets and cathedral' },
                             { name: 'Barceloneta Beach', type: 'Beach', description: 'City beach with seafood' }
@@ -1741,7 +1741,7 @@ const regionsData = {
                             { name: 'Royal Palace', type: 'Palace', description: 'Largest royal palace in Europe' },
                             { name: 'Retiro Park', type: 'Park', description: 'Stunning city park with crystal palace' },
                             { name: 'Plaza Mayor', type: 'Square', description: 'Grand arcaded square' },
-                            { name: 'Gran VÃƒÆ’Ã‚Â­a', type: 'Street', description: 'Shopping and entertainment avenue' }
+                            { name: 'Gran Vía', type: 'Street', description: 'Shopping and entertainment avenue' }
                         ],
                         tips: [
                             'Free museum hours in evenings',
@@ -1761,9 +1761,9 @@ const regionsData = {
                         bestTime: 'March to May, September to November',
                         avgBudget: { budget: 55, mid: 110, luxury: 300 },
                         attractions: [
-                            { name: 'AlcÃƒÆ’Ã‚Â¡zar', type: 'Palace', description: 'Stunning Moorish-Gothic palace' },
+                            { name: 'Alcázar', type: 'Palace', description: 'Stunning Moorish-Gothic palace' },
                             { name: 'Cathedral & Giralda', type: 'Religious', description: 'World\'s largest Gothic cathedral' },
-                            { name: 'Plaza de EspaÃƒÆ’Ã‚Â±a', type: 'Square', description: 'Spectacular 1929 exposition plaza' },
+                            { name: 'Plaza de España', type: 'Square', description: 'Spectacular 1929 exposition plaza' },
                             { name: 'Triana', type: 'Neighborhood', description: 'Ceramics and flamenco district' },
                             { name: 'Flamenco Shows', type: 'Culture', description: 'Authentic flamenco in tablaos' }
                         ],
@@ -1811,7 +1811,7 @@ const regionsData = {
                         attractions: [
                             { name: 'Basilica del Pilar', type: 'Religious', description: 'Massive baroque basilica on Ebro' },
                             { name: 'La Seo Cathedral', type: 'Religious', description: 'Gothic-Mudejar cathedral' },
-                            { name: 'AljaferÃƒÆ’Ã‚Â­a Palace', type: 'UNESCO', description: 'Moorish palace complex' },
+                            { name: 'Aljafería Palace', type: 'UNESCO', description: 'Moorish palace complex' },
                             { name: 'Roman Theatre', type: 'Ancient', description: '1st century Roman ruins' },
                             { name: 'El Tubo', type: 'Neighborhood', description: 'Tapas bar district' }
                         ],
@@ -1922,7 +1922,7 @@ const regionsData = {
                             { name: 'United Nations Office', type: 'Institution', description: 'Palais des Nations guided tours' },
                             { name: 'Old Town', type: 'Historic', description: 'Medieval streets and St. Pierre Cathedral' },
                             { name: 'CERN', type: 'Science', description: 'Particle physics research center' },
-                            { name: 'Lake Geneva Cruise', type: 'Experience', description: 'Belle ÃƒÆ’Ã‚Â©poque paddle steamers' }
+                            { name: 'Lake Geneva Cruise', type: 'Experience', description: 'Belle époque paddle steamers' }
                         ],
                         tips: [
                             'Geneva Transport Card free for hotel guests',
@@ -2006,8 +2006,8 @@ const regionsData = {
                             { name: 'Eiffel Tower', type: 'Landmark', description: 'Iconic iron lattice tower' },
                             { name: 'Louvre Museum', type: 'Museum', description: 'World\'s largest art museum with Mona Lisa' },
                             { name: 'Notre-Dame Cathedral', type: 'Religious', description: 'Gothic masterpiece (under restoration)' },
-                            { name: 'Champs-ÃƒÆ’Ã¢â‚¬Â°lysÃƒÆ’Ã‚Â©es', type: 'Street', description: 'Famous avenue to Arc de Triomphe' },
-                            { name: 'Montmartre', type: 'Neighborhood', description: 'Artistic hilltop neighborhood with SacrÃƒÆ’Ã‚Â©-CÃƒâ€¦Ã¢â‚¬Å“ur' }
+                            { name: 'Champs-Élysées', type: 'Street', description: 'Famous avenue to Arc de Triomphe' },
+                            { name: 'Montmartre', type: 'Neighborhood', description: 'Artistic hilltop neighborhood with Sacré-Cœur' }
                         ],
                         tips: [
                             'Book museum tickets online to skip lines',
@@ -2028,10 +2028,10 @@ const regionsData = {
                         avgBudget: { budget: 80, mid: 150, luxury: 400 },
                         attractions: [
                             { name: 'Vieux Lyon', type: 'Historic', description: 'Renaissance old town with traboules' },
-                            { name: 'Basilica of Notre-Dame de FourviÃƒÆ’Ã‚Â¨re', type: 'Religious', description: 'Hilltop basilica with city views' },
+                            { name: 'Basilica of Notre-Dame de Fourvière', type: 'Religious', description: 'Hilltop basilica with city views' },
                             { name: 'Les Halles de Lyon Paul Bocuse', type: 'Market', description: 'Premier food market' },
-                            { name: 'Presqu\'ÃƒÆ’Ã‚Â®le', type: 'Neighborhood', description: 'Central peninsula with shops and cafes' },
-                            { name: 'MusÃƒÆ’Ã‚Â©e des Confluences', type: 'Museum', description: 'Science museum in stunning architecture' }
+                            { name: 'Presqu\'île', type: 'Neighborhood', description: 'Central peninsula with shops and cafes' },
+                            { name: 'Musée des Confluences', type: 'Museum', description: 'Science museum in stunning architecture' }
                         ],
                         tips: [
                             'Try a traditional bouchon restaurant',
@@ -2069,7 +2069,7 @@ const regionsData = {
                         name: 'Nice',
                         country: 'France',
                         region: 'Schengen',
-                        description: 'French Riviera gem with pebbly beaches, art museums, and Belle ÃƒÆ’Ã¢â‚¬Â°poque elegance',
+                        description: 'French Riviera gem with pebbly beaches, art museums, and Belle Époque elegance',
                         image: 'https://images.unsplash.com/photo-1528909514011-a5d48a216a95?w=800',
                         population: '940,000',
                         bestTime: 'May to October',
@@ -2078,13 +2078,13 @@ const regionsData = {
                             { name: 'Promenade des Anglais', type: 'Waterfront', description: 'Famous seafront promenade' },
                             { name: 'Vieille Ville', type: 'Historic', description: 'Charming old town with markets' },
                             { name: 'Castle Hill', type: 'Viewpoint', description: 'Ruins with panoramic views' },
-                            { name: 'MusÃƒÆ’Ã‚Â©e Matisse', type: 'Museum', description: 'Works of Henri Matisse' },
+                            { name: 'Musée Matisse', type: 'Museum', description: 'Works of Henri Matisse' },
                             { name: 'Cours Saleya', type: 'Market', description: 'Flower and food market' }
                         ],
                         tips: [
                             'Beaches are pebbly, not sandy',
                             'Try socca (chickpea pancake)',
-                            'Day trip to Monaco and ÃƒÆ’Ã‹â€ ze',
+                            'Day trip to Monaco and Èze',
                             'Nice Carnival in February'
                         ]
                     },
@@ -2100,8 +2100,8 @@ const regionsData = {
                         avgBudget: { budget: 75, mid: 140, luxury: 380 },
                         attractions: [
                             { name: 'Place de la Bourse', type: 'Square', description: 'Elegant square with Water Mirror' },
-                            { name: 'La CitÃƒÆ’Ã‚Â© du Vin', type: 'Museum', description: 'Interactive wine museum' },
-                            { name: 'Saint-ÃƒÆ’Ã¢â‚¬Â°milion', type: 'Wine Region', description: 'UNESCO wine village day trip' },
+                            { name: 'La Cité du Vin', type: 'Museum', description: 'Interactive wine museum' },
+                            { name: 'Saint-Émilion', type: 'Wine Region', description: 'UNESCO wine village day trip' },
                             { name: 'Rue Sainte-Catherine', type: 'Street', description: 'Europe\'s longest pedestrian street' },
                             { name: 'Bordeaux Cathedral', type: 'Religious', description: 'Gothic cathedral and UNESCO site' }
                         ],
@@ -2109,7 +2109,7 @@ const regionsData = {
                             'Book wine tours in advance',
                             'Miroir d\'eau best at sunset',
                             'Rent a bike - city is very bike-friendly',
-                            'CanelÃƒÆ’Ã‚Â© pastry is the local specialty'
+                            'Canelé pastry is the local specialty'
                         ]
                     },
                     cannes: {
@@ -2126,8 +2126,8 @@ const regionsData = {
                             { name: 'La Croisette', type: 'Promenade', description: 'Famous palm-lined boulevard' },
                             { name: 'Palais des Festivals', type: 'Landmark', description: 'Home of Cannes Film Festival' },
                             { name: 'Le Suquet', type: 'Historic', description: 'Old town with panoramic views' },
-                            { name: 'ÃƒÆ’Ã…Â½les de LÃƒÆ’Ã‚Â©rins', type: 'Islands', description: 'Peaceful island escape' },
-                            { name: 'MarchÃƒÆ’Ã‚Â© Forville', type: 'Market', description: 'ProvenÃƒÆ’Ã‚Â§al food market' }
+                            { name: 'Îles de Lérins', type: 'Islands', description: 'Peaceful island escape' },
+                            { name: 'Marché Forville', type: 'Market', description: 'Provençal food market' }
                         ],
                         tips: [
                             'Film festival in May - very expensive',
@@ -2147,7 +2147,7 @@ const regionsData = {
                         bestTime: 'April to October',
                         avgBudget: { budget: 70, mid: 130, luxury: 350 },
                         attractions: [
-                            { name: 'CitÃƒÆ’Ã‚Â© de l\'Espace', type: 'Museum', description: 'Interactive space museum' },
+                            { name: 'Cité de l\'Espace', type: 'Museum', description: 'Interactive space museum' },
                             { name: 'Place du Capitole', type: 'Square', description: 'Grand central square' },
                             { name: 'Basilica of Saint-Sernin', type: 'Religious', description: 'Largest Romanesque church' },
                             { name: 'Canal du Midi', type: 'UNESCO', description: 'Historic canal for cycling' },
@@ -2194,7 +2194,7 @@ const regionsData = {
                             'Book Reichstag dome visit in advance',
                             'Nightlife starts late - clubs open at midnight',
                             'Excellent public transport system',
-                            'Try currywurst and dÃƒÆ’Ã‚Â¶ner kebab'
+                            'Try currywurst and döner kebab'
                         ]
                     },
                     munich: {
@@ -2209,7 +2209,7 @@ const regionsData = {
                         avgBudget: { budget: 80, mid: 150, luxury: 400 },
                         attractions: [
                             { name: 'Marienplatz', type: 'Square', description: 'Central square with Glockenspiel' },
-                            { name: 'HofbrÃƒÆ’Ã‚Â¤uhaus', type: 'Beer Hall', description: 'World\'s most famous beer hall' },
+                            { name: 'Hofbräuhaus', type: 'Beer Hall', description: 'World\'s most famous beer hall' },
                             { name: 'English Garden', type: 'Park', description: 'One of world\'s largest urban parks' },
                             { name: 'BMW Welt', type: 'Museum', description: 'BMW museum and showroom' },
                             { name: 'Nymphenburg Palace', type: 'Palace', description: 'Baroque summer palace' }
@@ -2232,7 +2232,7 @@ const regionsData = {
                         bestTime: 'May to September',
                         avgBudget: { budget: 75, mid: 140, luxury: 380 },
                         attractions: [
-                            { name: 'RÃƒÆ’Ã‚Â¶merberg', type: 'Square', description: 'Medieval old town square' },
+                            { name: 'Römerberg', type: 'Square', description: 'Medieval old town square' },
                             { name: 'Main Tower', type: 'Viewpoint', description: 'Observation deck with skyline views' },
                             { name: 'Museumsufer', type: 'Museum', description: 'Museum embankment with 13 museums' },
                             { name: 'Sachsenhausen', type: 'Neighborhood', description: 'Apple wine tavern district' },
@@ -2274,7 +2274,7 @@ const regionsData = {
                         name: 'Cologne',
                         country: 'Germany',
                         region: 'Schengen',
-                        description: 'Rhineland city dominated by magnificent Gothic cathedral and KÃƒÆ’Ã‚Â¶lsch beer culture',
+                        description: 'Rhineland city dominated by magnificent Gothic cathedral and Kölsch beer culture',
                         image: 'https://images.unsplash.com/photo-1515488764276-beab7607c1e6?w=800',
                         population: '1,100,000',
                         bestTime: 'May to October, November for Carnival',
@@ -2287,7 +2287,7 @@ const regionsData = {
                             { name: 'Cologne Chocolate Museum', type: 'Museum', description: 'Lindt chocolate museum' }
                         ],
                         tips: [
-                            'KÃƒÆ’Ã‚Â¶lsch beer served in small 0.2L glasses',
+                            'Kölsch beer served in small 0.2L glasses',
                             'Carnival (Karneval) is huge - February',
                             'Cathedral climb has 533 steps',
                             'Christmas markets are world-famous'
@@ -2295,7 +2295,7 @@ const regionsData = {
                     },
                     dusseldorf: {
                         id: 'dusseldorf',
-                        name: 'DÃƒÆ’Ã‚Â¼sseldorf',
+                        name: 'Düsseldorf',
                         country: 'Germany',
                         region: 'Schengen',
                         description: 'Elegant fashion capital with Rhine promenade and Japanese quarter',
@@ -2304,7 +2304,7 @@ const regionsData = {
                         bestTime: 'May to September',
                         avgBudget: { budget: 75, mid: 140, luxury: 380 },
                         attractions: [
-                            { name: 'KÃƒÆ’Ã‚Â¶nigsallee', type: 'Shopping', description: 'Upscale shopping boulevard' },
+                            { name: 'Königsallee', type: 'Shopping', description: 'Upscale shopping boulevard' },
                             { name: 'Altstadt', type: 'Historic', description: 'Old town with 300+ bars' },
                             { name: 'MedienHafen', type: 'Architecture', description: 'Gehry buildings and modern port' },
                             { name: 'Rhine Tower', type: 'Landmark', description: 'Observation deck with views' },
@@ -2338,7 +2338,7 @@ const regionsData = {
                             'Both car museums are must-visits',
                             'Stuttgart 21 construction everywhere',
                             'Gateway to Black Forest',
-                            'Swabian cuisine - SpÃƒÆ’Ã‚Â¤tzle and Maultaschen'
+                            'Swabian cuisine - Spätzle and Maultaschen'
                         ]
                     }
                 }
@@ -2499,7 +2499,7 @@ const regionsData = {
                         avgBudget: { budget: 50, mid: 100, luxury: 280 },
                         attractions: [
                             { name: 'Buda Castle', type: 'Castle', description: 'Royal palace with museum and views' },
-                            { name: 'SzÃƒÆ’Ã‚Â©chenyi Thermal Bath', type: 'Spa', description: 'Grand neo-baroque thermal complex' },
+                            { name: 'Széchenyi Thermal Bath', type: 'Spa', description: 'Grand neo-baroque thermal complex' },
                             { name: 'Parliament Building', type: 'Government', description: 'Neo-Gothic masterpiece on Danube' },
                             { name: 'Fisherman\'s Bastion', type: 'Viewpoint', description: 'Fairy-tale towers with city views' },
                             { name: 'Ruin Bars', type: 'Entertainment', description: 'Unique bars in abandoned buildings' }
@@ -2529,7 +2529,7 @@ const regionsData = {
                             { name: 'Basilica', type: 'Religious', description: 'Hungary\'s second largest church' }
                         ],
                         tips: [
-                            'Try Egri BikavÃƒÆ’Ã‚Â©r (Bull\'s Blood wine)',
+                            'Try Egri Bikavér (Bull\'s Blood wine)',
                             'Cellar wine tasting is very affordable',
                             'Easy day trip from Budapest',
                             'Turkish spa heritage still thrives'
@@ -2790,7 +2790,7 @@ const regionsData = {
                         attractions: [
                             { name: 'Palatine Chapel', type: 'Religious', description: 'Byzantine mosaics UNESCO site' },
                             { name: 'Teatro Massimo', type: 'Theatre', description: 'Third largest opera house in Europe' },
-                            { name: 'BallarÃƒÆ’Ã‚Â² Market', type: 'Market', description: 'Chaotic, authentic street market' },
+                            { name: 'Ballarò Market', type: 'Market', description: 'Chaotic, authentic street market' },
                             { name: 'Quattro Canti', type: 'Landmark', description: 'Baroque square intersection' },
                             { name: 'Monreale Cathedral', type: 'Religious', description: 'Norman cathedral with golden mosaics' }
                         ],
@@ -2798,7 +2798,7 @@ const regionsData = {
                             'Street food tour is essential',
                             'Try arancini, panelle, and sfincione',
                             'Afternoons quiet for siesta',
-                            'Day trip to Monreale and CefalÃƒÆ’Ã‚Â¹'
+                            'Day trip to Monreale and Cefalù'
                         ]
                     },
                     capri: {
@@ -2891,7 +2891,7 @@ const regionsData = {
                         tips: [
                             'Very expensive - budget carefully',
                             'Rent bikes - everyone cycles',
-                            'Try smÃƒÆ’Ã‚Â¸rrebrÃƒÆ’Ã‚Â¸d (open sandwiches)',
+                            'Try smørrebrød (open sandwiches)',
                             'Copenhagen Card for transport and museums'
                         ]
                     },
@@ -2930,7 +2930,7 @@ const regionsData = {
                         bestTime: 'May to September',
                         avgBudget: { budget: 85, mid: 170, luxury: 420 },
                         attractions: [
-                            { name: 'Lindholm HÃƒÆ’Ã‚Â¸je', type: 'Historic', description: 'Viking burial ground with ship stones' },
+                            { name: 'Lindholm Høje', type: 'Historic', description: 'Viking burial ground with ship stones' },
                             { name: 'Utzon Center', type: 'Architecture', description: 'Arts center by Sydney Opera architect' },
                             { name: 'Aalborg Waterfront', type: 'Waterfront', description: 'Revitalized harbor area' },
                             { name: 'Kunsten Museum', type: 'Museum', description: 'Modern art museum by Alvar Aalto' },
@@ -3036,7 +3036,7 @@ const regionsData = {
                 code: 'IS',
                 flag: '🇮🇸',
                 capital: 'Reykjavik',
-                currency: 'Icelandic KrÃƒÆ’Ã‚Â³na (ISK)',
+                currency: 'Icelandic Króna (ISK)',
                 language: 'Icelandic',
                 description: 'Land of fire and ice with volcanoes, geysers, glaciers, and Northern Lights',
                 image: 'https://images.unsplash.com/photo-1504233529578-6d46baba6d34?w=800',
@@ -3052,9 +3052,9 @@ const regionsData = {
                         bestTime: 'June to August for midnight sun, September to March for Northern Lights',
                         avgBudget: { budget: 120, mid: 220, luxury: 550 },
                         attractions: [
-                            { name: 'HallgrÃƒÆ’Ã‚Â­mskirkja', type: 'Religious', description: 'Iconic expressionist church' },
+                            { name: 'Hallgrímskirkja', type: 'Religious', description: 'Iconic expressionist church' },
                             { name: 'Blue Lagoon', type: 'Spa', description: 'Famous geothermal spa' },
-                            { name: 'Golden Circle', type: 'Tour', description: 'Geysir, Gullfoss, and ÃƒÆ’Ã…Â¾ingvellir' },
+                            { name: 'Golden Circle', type: 'Tour', description: 'Geysir, Gullfoss, and Þingvellir' },
                             { name: 'Harpa Concert Hall', type: 'Architecture', description: 'Stunning glass concert hall' },
                             { name: 'Northern Lights', type: 'Nature', description: 'Aurora borealis viewing' }
                         ],
@@ -3067,7 +3067,7 @@ const regionsData = {
                     },
                     vik: {
                         id: 'vik',
-                        name: 'VÃƒÆ’Ã‚Â­k ÃƒÆ’Ã‚Â­ MÃƒÆ’Ã‚Â½rdal',
+                        name: 'Vík í Mýrdal',
                         country: 'Iceland',
                         region: 'Scandinavia',
                         description: 'Tiny village on South Coast with black sand beaches and dramatic cliffs',
@@ -3078,14 +3078,14 @@ const regionsData = {
                         attractions: [
                             { name: 'Reynisfjara Black Sand Beach', type: 'Beach', description: 'Dramatic basalt columns and black sand' },
                             { name: 'Reynisdrangar', type: 'Nature', description: 'Sea stacks rising from ocean' },
-                            { name: 'DyrhÃƒÆ’Ã‚Â³laey', type: 'Viewpoint', description: 'Arch promontory with puffins' },
-                            { name: 'VÃƒÆ’Ã‚Â­k Church', type: 'Religious', description: 'Iconic red-roofed church on hill' },
-                            { name: 'South Coast Waterfalls', type: 'Nature', description: 'SkÃƒÆ’Ã‚Â³gafoss and Seljalandsfoss nearby' }
+                            { name: 'Dyrhólaey', type: 'Viewpoint', description: 'Arch promontory with puffins' },
+                            { name: 'Vík Church', type: 'Religious', description: 'Iconic red-roofed church on hill' },
+                            { name: 'South Coast Waterfalls', type: 'Nature', description: 'Skógafoss and Seljalandsfoss nearby' }
                         ],
                         tips: [
                             'Never turn your back on the waves',
                             'Puffins nest here in summer',
-                            'Stop at SkÃƒÆ’Ã‚Â³gafoss and Seljalandsfoss',
+                            'Stop at Skógafoss and Seljalandsfoss',
                             'Fill up on gas when you can'
                         ]
                     }
@@ -3138,7 +3138,7 @@ const regionsData = {
                         avgBudget: { budget: 95, mid: 190, luxury: 480 },
                         attractions: [
                             { name: 'Bryggen', type: 'Historic', description: 'UNESCO colorful wooden wharf' },
-                            { name: 'FlÃƒÆ’Ã‚Â¸ibanen', type: 'Cable Car', description: 'Funicular to Mount FlÃƒÆ’Ã‚Â¸yen' },
+                            { name: 'Fløibanen', type: 'Cable Car', description: 'Funicular to Mount Fløyen' },
                             { name: 'Fish Market', type: 'Market', description: 'Fresh seafood outdoors' },
                             { name: 'Fantoft Stave Church', type: 'Religious', description: 'Reconstructed medieval church' },
                             { name: 'Norway in a Nutshell', type: 'Tour', description: 'Famous fjord day trip' }
@@ -3152,7 +3152,7 @@ const regionsData = {
                     },
                     tromso: {
                         id: 'tromso',
-                        name: 'TromsÃƒÆ’Ã‚Â¸',
+                        name: 'Tromsø',
                         country: 'Norway',
                         region: 'Scandinavia',
                         description: 'Arctic gateway for Northern Lights and midnight sun',
@@ -3202,7 +3202,7 @@ const regionsData = {
                             { name: 'Vasa Museum', type: 'Museum', description: 'Preserved 17th-century warship' },
                             { name: 'ABBA The Museum', type: 'Museum', description: 'Interactive ABBA experience' },
                             { name: 'Royal Palace', type: 'Palace', description: 'Changing of the guard' },
-                            { name: 'DjurgÃƒÆ’Ã‚Â¥rden', type: 'Island', description: 'Museums and park island' }
+                            { name: 'Djurgården', type: 'Island', description: 'Museums and park island' }
                         ],
                         tips: [
                             'Vasa Museum is unmissable',
@@ -3225,7 +3225,7 @@ const regionsData = {
                             { name: 'Haga', type: 'Neighborhood', description: 'Cobblestoned district with cafes' },
                             { name: 'Liseberg', type: 'Amusement Park', description: 'Scandinavia\'s largest theme park' },
                             { name: 'Archipelago', type: 'Nature', description: 'Island hopping by ferry' },
-                            { name: 'FeskekÃƒÆ’Ã‚Â´rka', type: 'Market', description: 'Fish market in church building' },
+                            { name: 'Feskekôrka', type: 'Market', description: 'Fish market in church building' },
                             { name: 'Universeum', type: 'Museum', description: 'Science center with rainforest' }
                         ],
                         tips: [
@@ -3270,7 +3270,7 @@ const regionsData = {
                         attractions: [
                             { name: 'La Boca', type: 'Neighborhood', description: 'Colorful barrio with tango and art' },
                             { name: 'Recoleta Cemetery', type: 'Landmark', description: 'Ornate cemetery with Evita\'s tomb' },
-                            { name: 'Teatro ColÃƒÆ’Ã‚Â³n', type: 'Theater', description: 'World-renowned opera house' },
+                            { name: 'Teatro Colón', type: 'Theater', description: 'World-renowned opera house' },
                             { name: 'San Telmo Market', type: 'Market', description: 'Sunday antique market and tango' },
                             { name: 'Plaza de Mayo', type: 'Square', description: 'Historic square with Casa Rosada' }
                         ],
@@ -3305,7 +3305,7 @@ const regionsData = {
                         bestTime: 'May to October (dry season)',
                         avgBudget: { budget: 30, mid: 60, luxury: 150 },
                         attractions: [
-                            { name: 'Mi TelefÃƒÆ’Ã‚Â©rico', type: 'Transport', description: 'World\'s highest cable car network' },
+                            { name: 'Mi Teleférico', type: 'Transport', description: 'World\'s highest cable car network' },
                             { name: 'Witches\' Market', type: 'Market', description: 'Traditional market with folk remedies' },
                             { name: 'Plaza Murillo', type: 'Square', description: 'Main square with government buildings' },
                             { name: 'Valley of the Moon', type: 'Nature', description: 'Lunar-like rock formations' },
@@ -3315,7 +3315,7 @@ const regionsData = {
                             'Take it easy - altitude is 3,600m+',
                             'Chew coca leaves for altitude sickness',
                             'Day trip to Tiwanaku ruins',
-                            'Try salteÃƒÆ’Ã‚Â±as (Bolivian empanadas)'
+                            'Try salteñas (Bolivian empanadas)'
                         ]
                     }
                 }
@@ -3325,7 +3325,7 @@ const regionsData = {
                 name: 'Brazil',
                 code: 'BR',
                 flag: '🇧🇷',
-                capital: 'BrasÃƒÆ’Ã‚Â­lia',
+                capital: 'Brasília',
                 currency: 'Brazilian Real (BRL)',
                 language: 'Portuguese',
                 description: 'Land of samba, carnival, Amazon rainforest, and stunning beaches',
@@ -3346,18 +3346,18 @@ const regionsData = {
                             { name: 'Sugarloaf Mountain', type: 'Landmark', description: 'Cable car ride with stunning views' },
                             { name: 'Copacabana Beach', type: 'Beach', description: 'World-famous crescent beach' },
                             { name: 'Ipanema Beach', type: 'Beach', description: 'Trendy beach with sunset views' },
-                            { name: 'Escadaria SelarÃƒÆ’Ã‚Â³n', type: 'Art', description: 'Colorful tiled steps by artist SelarÃƒÆ’Ã‚Â³n' }
+                            { name: 'Escadaria Selarón', type: 'Art', description: 'Colorful tiled steps by artist Selarón' }
                         ],
                         tips: [
                             'Be aware of safety - avoid flashy jewelry',
                             'Visit favela tours with licensed guides only',
-                            'Try aÃƒÆ’Ã‚Â§aÃƒÆ’Ã‚Â­ bowls and caipirinhas',
+                            'Try açaí bowls and caipirinhas',
                             'Carnival is February/March - book ahead'
                         ]
                     },
                     saoPaulo: {
                         id: 'saoPaulo',
-                        name: 'SÃƒÆ’Ã‚Â£o Paulo',
+                        name: 'São Paulo',
                         country: 'Brazil',
                         region: 'South America',
                         description: 'Massive metropolis with world-class dining, art scene, and business hub',
@@ -3370,7 +3370,7 @@ const regionsData = {
                             { name: 'Ibirapuera Park', type: 'Park', description: 'Huge urban park with museums' },
                             { name: 'MASP', type: 'Museum', description: 'Art museum with iconic suspended building' },
                             { name: 'Liberdade', type: 'Neighborhood', description: 'Japanese district with great food' },
-                            { name: 'Pinacoteca', type: 'Museum', description: 'Oldest art museum in SÃƒÆ’Ã‚Â£o Paulo' }
+                            { name: 'Pinacoteca', type: 'Museum', description: 'Oldest art museum in São Paulo' }
                         ],
                         tips: [
                             'Traffic is intense - use metro',
@@ -3386,7 +3386,7 @@ const regionsData = {
                 name: 'Colombia',
                 code: 'CO',
                 flag: '🇨🇴',
-                capital: 'BogotÃƒÆ’Ã‚Â¡',
+                capital: 'Bogotá',
                 currency: 'Colombian Peso (COP)',
                 language: 'Spanish',
                 description: 'Coffee, salsa, colorful colonial cities, and incredible biodiversity',
@@ -3394,7 +3394,7 @@ const regionsData = {
                 cities: {
                     bogota: {
                         id: 'bogota',
-                        name: 'BogotÃƒÆ’Ã‚Â¡',
+                        name: 'Bogotá',
                         country: 'Colombia',
                         region: 'South America',
                         description: 'High-altitude capital with world-class museums and vibrant street art',
@@ -3418,7 +3418,7 @@ const regionsData = {
                     },
                     medellin: {
                         id: 'medellin',
-                        name: 'MedellÃƒÆ’Ã‚Â­n',
+                        name: 'Medellín',
                         country: 'Colombia',
                         region: 'South America',
                         description: 'City of Eternal Spring transformed from violent past to innovative present',
@@ -3430,7 +3430,7 @@ const regionsData = {
                             { name: 'Comuna 13', type: 'Neighborhood', description: 'Transformed favela with street art and escalators' },
                             { name: 'Plaza Botero', type: 'Square', description: 'Outdoor square with Botero sculptures' },
                             { name: 'Metrocable', type: 'Transport', description: 'Cable cars over the hillside barrios' },
-                            { name: 'Parque ArvÃƒÆ’Ã‚Â­', type: 'Nature', description: 'Nature reserve via metrocable' },
+                            { name: 'Parque Arví', type: 'Nature', description: 'Nature reserve via metrocable' },
                             { name: 'El Poblado', type: 'Neighborhood', description: 'Upscale neighborhood with nightlife' }
                         ],
                         tips: [
@@ -3450,7 +3450,7 @@ const regionsData = {
                 capital: 'Quito',
                 currency: 'US Dollar (USD)',
                 language: 'Spanish',
-                description: 'Straddling the equator with the GalÃƒÆ’Ã‚Â¡pagos, Amazon, and colonial Quito',
+                description: 'Straddling the equator with the Galápagos, Amazon, and colonial Quito',
                 image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
                 cities: {
                     quito: {
@@ -3466,13 +3466,13 @@ const regionsData = {
                         attractions: [
                             { name: 'Historic Old Town', type: 'Historic', description: 'UNESCO best-preserved colonial center' },
                             { name: 'Mitad del Mundo', type: 'Landmark', description: 'Monument at the equator line' },
-                            { name: 'TelefÃƒÆ’Ã‚Â©riQo', type: 'Cable Car', description: 'Ride to 4,100m on Pichincha volcano' },
-                            { name: 'La CompaÃƒÆ’Ã‚Â±ÃƒÆ’Ã‚Â­a Church', type: 'Religious', description: 'Stunning baroque gold interior' },
+                            { name: 'TelefériQo', type: 'Cable Car', description: 'Ride to 4,100m on Pichincha volcano' },
+                            { name: 'La Compañía Church', type: 'Religious', description: 'Stunning baroque gold interior' },
                             { name: 'Mariscal District', type: 'Neighborhood', description: 'Backpacker hub with nightlife' }
                         ],
                         tips: [
                             'Altitude is high - acclimate slowly',
-                            'Gateway to GalÃƒÆ’Ã‚Â¡pagos Islands',
+                            'Gateway to Galápagos Islands',
                             'Uses US dollars - easy for Americans',
                             'Try ceviche and llapingachos'
                         ]
@@ -3597,7 +3597,7 @@ const regionsData = {
                         attractions: [
                             { name: 'Machu Picchu', type: 'Ancient', description: 'Iconic lost city of the Incas' },
                             { name: 'Plaza de Armas', type: 'Square', description: 'Main square with cathedral' },
-                            { name: 'SacsayhuamÃƒÆ’Ã‚Â¡n', type: 'Ancient', description: 'Massive Inca fortress above city' },
+                            { name: 'Sacsayhuamán', type: 'Ancient', description: 'Massive Inca fortress above city' },
                             { name: 'Sacred Valley', type: 'Valley', description: 'Inca sites along Urubamba River' },
                             { name: 'San Pedro Market', type: 'Market', description: 'Local food market' }
                         ],
@@ -3640,7 +3640,7 @@ const regionsData = {
                 code: 'VE',
                 flag: '🇻🇪',
                 capital: 'Caracas',
-                currency: 'Venezuelan BolÃƒÆ’Ã‚Â­var (VES)',
+                currency: 'Venezuelan Bolívar (VES)',
                 language: 'Spanish',
                 description: 'Angel Falls, Caribbean beaches, Andean peaks, and Amazon wilderness',
                 image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
@@ -3656,10 +3656,10 @@ const regionsData = {
                         bestTime: 'December to April (dry season)',
                         avgBudget: { budget: 30, mid: 60, luxury: 150 },
                         attractions: [
-                            { name: 'TelefÃƒÆ’Ã‚Â©rico de Caracas', type: 'Cable Car', description: 'Cable car to Mount ÃƒÆ’Ã‚Âvila' },
-                            { name: 'Plaza BolÃƒÆ’Ã‚Â­var', type: 'Square', description: 'Historic central square' },
+                            { name: 'Teleférico de Caracas', type: 'Cable Car', description: 'Cable car to Mount Ávila' },
+                            { name: 'Plaza Bolívar', type: 'Square', description: 'Historic central square' },
                             { name: 'Museo de Bellas Artes', type: 'Museum', description: 'Fine arts museum' },
-                            { name: 'Parque Nacional El ÃƒÆ’Ã‚Âvila', type: 'Nature', description: 'Mountain park above city' },
+                            { name: 'Parque Nacional El Ávila', type: 'Nature', description: 'Mountain park above city' },
                             { name: 'Las Mercedes', type: 'Neighborhood', description: 'Dining and nightlife area' }
                         ],
                         tips: [
@@ -3683,11 +3683,11 @@ const regionsData = {
                             { name: 'Angel Falls', type: 'Nature', description: 'World\'s highest uninterrupted waterfall' },
                             { name: 'Canaima Lagoon', type: 'Nature', description: 'Pink sand beaches and waterfalls' },
                             { name: 'Tepuis', type: 'Nature', description: 'Ancient table-top mountains' },
-                            { name: 'Pemn Indigenous Villages', type: 'Culture', description: 'Indigenous PemÃƒÆ’Ã‚Â³n communities' },
+                            { name: 'Pemn Indigenous Villages', type: 'Culture', description: 'Indigenous Pemón communities' },
                             { name: 'Scenic Flights', type: 'Adventure', description: 'Fly over tepuis and falls' }
                         ],
                         tips: [
-                            'Fly from Ciudad BolÃƒÆ’Ã‚Â­var or Puerto Ordaz',
+                            'Fly from Ciudad Bolívar or Puerto Ordaz',
                             'Multi-day tours recommended',
                             'Rainy season has best waterfalls',
                             'Incredibly remote and pristine'
@@ -3809,15 +3809,15 @@ const regionsData = {
                 name: 'Costa Rica',
                 code: 'CR',
                 flag: '🇨🇷',
-                capital: 'San JosÃƒÆ’Ã‚Â©',
-                currency: 'Costa Rican ColÃƒÆ’Ã‚Â³n (CRC)',
+                capital: 'San José',
+                currency: 'Costa Rican Colón (CRC)',
                 language: 'Spanish',
                 description: 'Pura Vida lifestyle with rainforests, volcanoes, and incredible biodiversity',
                 image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
                 cities: {
                     sanJose: {
                         id: 'sanJose',
-                        name: 'San JosÃƒÆ’Ã‚Â©',
+                        name: 'San José',
                         country: 'Costa Rica',
                         region: 'Americas',
                         description: 'Capital city gateway to Costa Rica\'s natural wonders',
@@ -3829,11 +3829,11 @@ const regionsData = {
                             { name: 'National Theater', type: 'Theater', description: 'Ornate 1897 theater' },
                             { name: 'Gold Museum', type: 'Museum', description: 'Pre-Columbian gold artifacts' },
                             { name: 'Central Market', type: 'Market', description: 'Traditional market since 1880' },
-                            { name: 'PoÃƒÆ’Ã‚Â¡s Volcano', type: 'Nature', description: 'Active volcano day trip' },
+                            { name: 'Poás Volcano', type: 'Nature', description: 'Active volcano day trip' },
                             { name: 'La Paz Waterfall Gardens', type: 'Nature', description: 'Waterfalls and wildlife' }
                         ],
                         tips: [
-                            'Most visitors use San JosÃƒÆ’Ã‚Â© as transit hub',
+                            'Most visitors use San José as transit hub',
                             'US dollars widely accepted',
                             'Try gallo pinto for breakfast',
                             'Book adventure tours in advance'
@@ -3891,7 +3891,7 @@ const regionsData = {
                 cities: {
                     roatan: {
                         id: 'roatan',
-                        name: 'RoatÃƒÆ’Ã‚Â¡n',
+                        name: 'Roatán',
                         country: 'Honduras',
                         region: 'Americas',
                         description: 'Caribbean island paradise with world-class diving on Mesoamerican Barrier Reef',
@@ -4002,7 +4002,7 @@ const regionsData = {
                             { name: 'National Museum of Anthropology', type: 'Museum', description: 'World\'s best collection of Mesoamerican artifacts' },
                             { name: 'Frida Kahlo Museum', type: 'Museum', description: 'Casa Azul - Frida\'s home' },
                             { name: 'Chapultepec Castle', type: 'Castle', description: 'Hilltop castle with city views' },
-                            { name: 'CoyoacÃƒÆ’Ã‚Â¡n', type: 'Neighborhood', description: 'Bohemian neighborhood with markets' }
+                            { name: 'Coyoacán', type: 'Neighborhood', description: 'Bohemian neighborhood with markets' }
                         ],
                         tips: [
                             'Street food is incredible - trust busy stalls',
@@ -4013,7 +4013,7 @@ const regionsData = {
                     },
                     cancun: {
                         id: 'cancun',
-                        name: 'CancÃƒÆ’Ã‚Âºn',
+                        name: 'Cancún',
                         country: 'Mexico',
                         region: 'Americas',
                         description: 'Caribbean resort city with turquoise waters and access to Mayan ruins',
@@ -4023,15 +4023,15 @@ const regionsData = {
                         avgBudget: { budget: 60, mid: 120, luxury: 350 },
                         attractions: [
                             { name: 'Hotel Zone Beaches', type: 'Beach', description: 'Stunning Caribbean beaches' },
-                            { name: 'ChichÃƒÆ’Ã‚Â©n ItzÃƒÆ’Ã‚Â¡', type: 'Ancient', description: 'New Seven Wonders pyramids' },
+                            { name: 'Chichén Itzá', type: 'Ancient', description: 'New Seven Wonders pyramids' },
                             { name: 'Cenotes', type: 'Nature', description: 'Sacred swimming holes' },
                             { name: 'Tulum', type: 'Ancient', description: 'Beachside Mayan ruins' },
                             { name: 'Isla Mujeres', type: 'Island', description: 'Laid-back island ferry trip' }
                         ],
                         tips: [
                             'Hotel Zone is touristy but safe',
-                            'Downtown CancÃƒÆ’Ã‚Âºn is more authentic',
-                            'Book ChichÃƒÆ’Ã‚Â©n ItzÃƒÆ’Ã‚Â¡ early morning tour',
+                            'Downtown Cancún is more authentic',
+                            'Book Chichén Itzá early morning tour',
                             'Hurricane season June to November'
                         ]
                     },
@@ -4046,9 +4046,9 @@ const regionsData = {
                         bestTime: 'October to April',
                         avgBudget: { budget: 35, mid: 70, luxury: 190 },
                         attractions: [
-                            { name: 'Monte AlbÃƒÆ’Ã‚Â¡n', type: 'Ancient', description: 'Zapotec ruins overlooking valley' },
+                            { name: 'Monte Albán', type: 'Ancient', description: 'Zapotec ruins overlooking valley' },
                             { name: 'Santo Domingo Church', type: 'Religious', description: 'Baroque church with gold interior' },
-                            { name: 'Mercado Benito JuÃƒÆ’Ã‚Â¡rez', type: 'Market', description: 'Food market with tlayudas' },
+                            { name: 'Mercado Benito Juárez', type: 'Market', description: 'Food market with tlayudas' },
                             { name: 'Hierve el Agua', type: 'Nature', description: 'Petrified waterfalls with pools' },
                             { name: 'Mezcal Distilleries', type: 'Distillery', description: 'Traditional mezcal production' }
                         ],
@@ -4248,7 +4248,7 @@ const regionsData = {
                 code: 'NI',
                 flag: '🇳🇮',
                 capital: 'Managua',
-                currency: 'Nicaraguan CÃƒÆ’Ã‚Â³rdoba (NIO)',
+                currency: 'Nicaraguan Córdoba (NIO)',
                 language: 'Spanish',
                 description: 'Volcanoes, colonial cities, surf beaches, and off-the-beaten-path adventures',
                 image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
@@ -4266,7 +4266,7 @@ const regionsData = {
                         attractions: [
                             { name: 'Central Park & Cathedral', type: 'Historic', description: 'Colonial center with yellow cathedral' },
                             { name: 'Las Isletas', type: 'Nature', description: 'Boat trip through volcanic islets' },
-                            { name: 'VolcÃƒÆ’Ã‚Â¡n Mombacho', type: 'Volcano', description: 'Cloud forest hikes and zip lines' },
+                            { name: 'Volcán Mombacho', type: 'Volcano', description: 'Cloud forest hikes and zip lines' },
                             { name: 'La Calzada', type: 'Street', description: 'Restaurant and nightlife street' },
                             { name: 'Laguna de Apoyo', type: 'Nature', description: 'Volcanic crater lake for swimming' }
                         ],
@@ -4279,7 +4279,7 @@ const regionsData = {
                     },
                     leon: {
                         id: 'leon',
-                        name: 'LeÃƒÆ’Ã‚Â³n',
+                        name: 'León',
                         country: 'Nicaragua',
                         region: 'Americas',
                         description: 'University town with revolutionary history and volcano adventures',
@@ -4288,11 +4288,11 @@ const regionsData = {
                         bestTime: 'November to April',
                         avgBudget: { budget: 25, mid: 55, luxury: 140 },
                         attractions: [
-                            { name: 'LeÃƒÆ’Ã‚Â³n Cathedral', type: 'Religious', description: 'UNESCO largest cathedral in Central America' },
+                            { name: 'León Cathedral', type: 'Religious', description: 'UNESCO largest cathedral in Central America' },
                             { name: 'Cerro Negro', type: 'Volcano', description: 'Famous volcano boarding' },
                             { name: 'Mural Art', type: 'Art', description: 'Revolutionary murals throughout city' },
                             { name: 'Poneloya Beach', type: 'Beach', description: 'Nearby Pacific beach' },
-                            { name: 'Ruins of LeÃƒÆ’Ã‚Â³n Viejo', type: 'Ruins', description: 'UNESCO Spanish colonial ruins' }
+                            { name: 'Ruins of León Viejo', type: 'Ruins', description: 'UNESCO Spanish colonial ruins' }
                         ],
                         tips: [
                             'Volcano boarding is a must-do',
@@ -4652,7 +4652,7 @@ const regionsData = {
                         attractions: [
                             { name: 'Issyk-Kul Lake', type: 'Nature', description: 'Crystal clear alpine lake' },
                             { name: 'Karakol', type: 'Town', description: 'Base for trekking and skiing' },
-                            { name: 'Jeti-ÃƒÆ’Ã¢â‚¬â€œgÃƒÆ’Ã‚Â¼z', type: 'Nature', description: 'Red rock formations' },
+                            { name: 'Jeti-Ögüz', type: 'Nature', description: 'Red rock formations' },
                             { name: 'Yurt Camps', type: 'Accommodation', description: 'Traditional nomad stays' },
                             { name: 'Eagle Hunting', type: 'Culture', description: 'Traditional Kyrgyz hunting practice' }
                         ],
@@ -5106,8 +5106,8 @@ const regionsData = {
                 flag: '🇳🇿',
                 capital: 'Wellington',
                 currency: 'New Zealand Dollar (NZD)',
-                language: 'English, MÃƒâ€žÃ‚Âori',
-                description: 'Dramatic Middle-earth landscapes with adventure sports and MÃƒâ€žÃ‚Âori culture',
+                language: 'English, Māori',
+                description: 'Dramatic Middle-earth landscapes with adventure sports and Māori culture',
                 image: 'https://images.unsplash.com/photo-1507699622108-4be3abd695ad?w=800',
                 cities: {
                     queenstown: {
@@ -5147,14 +5147,14 @@ const regionsData = {
                         attractions: [
                             { name: 'Sky Tower', type: 'Landmark', description: 'Iconic tower with sky jump' },
                             { name: 'Waiheke Island', type: 'Island', description: 'Wine and beaches by ferry' },
-                            { name: 'Auckland War Memorial Museum', type: 'Museum', description: 'MÃƒâ€žÃ‚Âori culture and NZ history' },
+                            { name: 'Auckland War Memorial Museum', type: 'Museum', description: 'Māori culture and NZ history' },
                             { name: 'Mount Eden', type: 'Volcano', description: 'Volcanic cone with views' },
                             { name: 'Viaduct Harbour', type: 'Waterfront', description: 'Restaurants and America\'s Cup history' }
                         ],
                         tips: [
                             'Gateway for most visitors',
                             'Ferry to Waiheke for day trip',
-                            'MÃƒâ€žÃ‚Âori cultural performances available',
+                            'Māori cultural performances available',
                             'Drive to Hobbiton (2 hours)'
                         ]
                     },
@@ -5163,21 +5163,21 @@ const regionsData = {
                         name: 'Rotorua',
                         country: 'New Zealand',
                         region: 'Australia & Oceania',
-                        description: 'Geothermal wonderland with MÃƒâ€žÃ‚Âori culture and sulfur hot springs',
+                        description: 'Geothermal wonderland with Māori culture and sulfur hot springs',
                         image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
                         population: '75,000',
                         bestTime: 'Year-round (geothermal always active)',
                         avgBudget: { budget: 70, mid: 140, luxury: 350 },
                         attractions: [
-                            { name: 'Te Puia', type: 'Geothermal', description: 'Geysers and MÃƒâ€žÃ‚Âori arts center' },
+                            { name: 'Te Puia', type: 'Geothermal', description: 'Geysers and Māori arts center' },
                             { name: 'Wai-O-Tapu', type: 'Geothermal', description: 'Colorful thermal pools' },
                             { name: 'Polynesian Spa', type: 'Hot Springs', description: 'Hot pools overlooking lake' },
                             { name: 'Redwood Forest', type: 'Nature', description: 'Treewalk and mountain biking' },
-                            { name: 'Tamaki MÃƒâ€žÃ‚Âori Village', type: 'Culture', description: 'Traditional hangi feast' }
+                            { name: 'Tamaki Māori Village', type: 'Culture', description: 'Traditional hangi feast' }
                         ],
                         tips: [
                             'Sulfur smell is normal',
-                            'Book MÃƒâ€žÃ‚Âori cultural experience',
+                            'Book Māori cultural experience',
                             'Don\'t wear silver jewelry - tarnishes',
                             'Mountain biking is world-class'
                         ]
@@ -6277,7 +6277,7 @@ const regionsData = {
                 name: 'Maldives',
                 code: 'MV',
                 flag: '🇲🇻',
-                capital: 'MalÃƒÆ’Ã‚Â©',
+                capital: 'Malé',
                 currency: 'Maldivian Rufiyaa (MVR)',
                 language: 'Dhivehi',
                 description: 'Paradise archipelago with overwater villas, white sand, and incredible diving',
@@ -6285,7 +6285,7 @@ const regionsData = {
                 cities: {
                     male: {
                         id: 'male',
-                        name: 'MalÃƒÆ’Ã‚Â©',
+                        name: 'Malé',
                         country: 'Maldives',
                         region: 'Asia',
                         description: 'Tiny densely packed capital - gateway to island resorts',
@@ -6339,7 +6339,7 @@ const regionsData = {
                 code: 'MN',
                 flag: '🇲🇳',
                 capital: 'Ulaanbaatar',
-                currency: 'Mongolian TÃƒÆ’Ã‚Â¶grÃƒÆ’Ã‚Â¶g (MNT)',
+                currency: 'Mongolian Tögrög (MNT)',
                 language: 'Mongolian',
                 description: 'Vast steppes, nomadic culture, Genghis Khan legacy, and Gobi Desert',
                 image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
@@ -6363,7 +6363,7 @@ const regionsData = {
                         ],
                         tips: [
                             'Base for ger camp and steppe tours',
-                            'Winters are brutally cold (-40Ãƒâ€šÃ‚Â°C)',
+                            'Winters are brutally cold (-40°C)',
                             'Book tours through local agencies',
                             'Try buuz (dumplings) and airag (fermented mare\'s milk)'
                         ]
@@ -6698,7 +6698,7 @@ const regionsData = {
                             { name: 'Oslob Whale Sharks', type: 'Wildlife', description: 'Swim with whale sharks' },
                             { name: 'Kawasan Falls', type: 'Nature', description: 'Turquoise multi-tier waterfall' },
                             { name: 'Moalboal', type: 'Diving', description: 'Sardine run and coral diving' },
-                            { name: 'Basilica del Santo NiÃƒÆ’Ã‚Â±o', type: 'Religious', description: 'Oldest church in Philippines' }
+                            { name: 'Basilica del Santo Niño', type: 'Religious', description: 'Oldest church in Philippines' }
                         ],
                         tips: [
                             'Whale shark watching is controversial',
@@ -6761,7 +6761,7 @@ const regionsData = {
                 id: 'russia',
                 name: 'Russia',
                 code: 'RU',
-                flag: 'ÃƒÂ°Ã…Â¸Ã¢â‚¬Â¡Ã‚Â·ÃƒÂ°Ã…Â¸Ã¢â‚¬Â¡Ã‚Âº',
+                flag: '🇷🇺',
                 capital: 'Moscow',
                 currency: 'Russian Ruble (RUB)',
                 language: 'Russian',
@@ -7467,7 +7467,7 @@ const regionsData = {
                             'Get clothes tailored - it\'s the thing',
                             'Evening lanterns are magical',
                             'Rent a bicycle',
-                            'Try cao láÃ‚ÂºÃ‚Â§u (local noodles)'
+                            'Try cao lầu (local noodles)'
                         ]
                     },
                     daNang: {
@@ -7779,7 +7779,7 @@ const regionsData = {
                 id: 'macau',
                 name: 'Macau',
                 code: 'MO',
-                flag: 'ÃƒÂ°Ã…Â¸Ã¢â‚¬Â¡Ã‚Â²ÃƒÂ°Ã…Â¸Ã¢â‚¬Â¡Ã‚Â´',
+                flag: '🇲🇴',
                 capital: 'Macau (SAR)',
                 currency: 'Macanese Pataca (MOP)',
                 language: 'Cantonese, Portuguese',
@@ -8192,7 +8192,7 @@ const regionsData = {
                         tips: [
                             'Calmer than Marrakech or Fez',
                             'Good base for Casablanca day trip',
-                            'Beach at Rabat-SalÃƒÆ’Ã‚Â©',
+                            'Beach at Rabat-Salé',
                             'Less tourist pressure'
                         ]
                     },
@@ -8211,7 +8211,7 @@ const regionsData = {
                             { name: 'Corniche', type: 'Waterfront', description: 'Beach promenade and restaurants' },
                             { name: 'Old Medina', type: 'Historic', description: 'Small but atmospheric' },
                             { name: 'Morocco Mall', type: 'Shopping', description: 'Largest mall in Africa' },
-                            { name: 'Rick\'s CafÃƒÆ’Ã‚Â©', type: 'Restaurant', description: 'Casablanca movie-inspired bar' }
+                            { name: 'Rick\'s Café', type: 'Restaurant', description: 'Casablanca movie-inspired bar' }
                         ],
                         tips: [
                             'Hassan II Mosque only mosque non-Muslims can enter',
@@ -8315,7 +8315,7 @@ const regionsData = {
                 capital: 'Dakar',
                 currency: 'West African CFA Franc (XOF)',
                 language: 'French, Wolof',
-                description: 'Gateway to West Africa with vibrant culture, music, and GorÃƒÆ’Ã‚Â©e Island history',
+                description: 'Gateway to West Africa with vibrant culture, music, and Gorée Island history',
                 image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
                 cities: {
                     dakar: {
@@ -8329,7 +8329,7 @@ const regionsData = {
                         bestTime: 'November to May (dry season)',
                         avgBudget: { budget: 45, mid: 90, luxury: 250 },
                         attractions: [
-                            { name: 'GorÃƒÆ’Ã‚Â©e Island', type: 'Historic', description: 'UNESCO slave trade memorial' },
+                            { name: 'Gorée Island', type: 'Historic', description: 'UNESCO slave trade memorial' },
                             { name: 'African Renaissance Monument', type: 'Landmark', description: 'Massive 49m bronze statue' },
                             { name: 'Sandaga Market', type: 'Market', description: 'Bustling central market' },
                             { name: 'Lake Retba (Pink Lake)', type: 'Nature', description: 'Pink-colored salt lake' },
@@ -8734,7 +8734,7 @@ const regionsData = {
                 cities: {
                     mahe: {
                         id: 'mahe',
-                        name: 'MahÃƒÆ’Ã‚Â© Island',
+                        name: 'Mahé Island',
                         country: 'Seychelles',
                         region: 'Africa',
                         description: 'Main island with capital Victoria and stunning beaches',
@@ -8761,22 +8761,22 @@ const regionsData = {
                         name: 'Praslin Island',
                         country: 'Seychelles',
                         region: 'Africa',
-                        description: 'Home to UNESCO VallÃƒÆ’Ã‚Â©e de Mai with coco de mer palms',
+                        description: 'Home to UNESCO Vallée de Mai with coco de mer palms',
                         image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
                         population: '8,000',
                         bestTime: 'April to May, October to November',
                         avgBudget: { budget: 120, mid: 250, luxury: 800 },
                         attractions: [
-                            { name: 'VallÃƒÆ’Ã‚Â©e de Mai', type: 'Nature', description: 'UNESCO prehistoric forest' },
+                            { name: 'Vallée de Mai', type: 'Nature', description: 'UNESCO prehistoric forest' },
                             { name: 'Anse Lazio', type: 'Beach', description: 'One of world\'s best beaches' },
                             { name: 'Anse Georgette', type: 'Beach', description: 'Pristine hidden beach' },
                             { name: 'Coco de Mer', type: 'Nature', description: 'Largest seed in the world' },
                             { name: 'Fond Ferdinand', type: 'Nature', description: 'Forest reserve with views' }
                         ],
                         tips: [
-                            'Don\'t miss VallÃƒÆ’Ã‚Â©e de Mai',
+                            'Don\'t miss Vallée de Mai',
                             'Beaches are world-class',
-                            'Ferry or flight from MahÃƒÆ’Ã‚Â©',
+                            'Ferry or flight from Mahé',
                             'Base for La Digue day trips'
                         ]
                     },
@@ -9480,11 +9480,11 @@ const regionsData = {
                         bestTime: 'April to June, September to November',
                         avgBudget: { budget: 40, mid: 80, luxury: 220 },
                         attractions: [
-                            { name: 'KaleiÃƒÆ’Ã‚Â§i', type: 'Historic', description: 'Charming old quarter with Roman harbor' },
+                            { name: 'Kaleiçi', type: 'Historic', description: 'Charming old quarter with Roman harbor' },
                             { name: 'Hadrian\'s Gate', type: 'Ancient', description: 'Roman triumphal arch' },
                             { name: 'Antalya Museum', type: 'Museum', description: 'One of Turkey\'s best' },
-                            { name: 'DÃƒÆ’Ã‚Â¼den Waterfalls', type: 'Nature', description: 'Waterfall dropping into sea' },
-                            { name: 'KonyaaltÃƒâ€žÃ‚Â± Beach', type: 'Beach', description: 'Main city beach' }
+                            { name: 'Düden Waterfalls', type: 'Nature', description: 'Waterfall dropping into sea' },
+                            { name: 'Konyaaltı Beach', type: 'Beach', description: 'Main city beach' }
                         ],
                         tips: [
                             'Gateway to Turkish Riviera',
@@ -9498,13 +9498,13 @@ const regionsData = {
                         name: 'Ankara',
                         country: 'Turkey',
                         region: 'Middle East',
-                        description: 'Modern capital with AtatÃƒÆ’Ã‚Â¼rk\'s mausoleum and ancient Anatolian history',
+                        description: 'Modern capital with Atatürk\'s mausoleum and ancient Anatolian history',
                         image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
                         population: '5,700,000',
                         bestTime: 'April to June, September to November',
                         avgBudget: { budget: 35, mid: 70, luxury: 180 },
                         attractions: [
-                            { name: 'AnÃƒâ€žÃ‚Â±tkabir', type: 'Memorial', description: 'AtatÃƒÆ’Ã‚Â¼rk\'s impressive mausoleum' },
+                            { name: 'Anıtkabir', type: 'Memorial', description: 'Atatürk\'s impressive mausoleum' },
                             { name: 'Museum of Anatolian Civilizations', type: 'Museum', description: 'Best archaeology in Turkey' },
                             { name: 'Ankara Castle', type: 'Castle', description: 'Historic citadel with views' },
                             { name: 'Kocatepe Mosque', type: 'Religious', description: 'Largest mosque in Ankara' },
@@ -9529,21 +9529,21 @@ const regionsData = {
                         avgBudget: { budget: 35, mid: 75, luxury: 200 },
                         attractions: [
                             { name: 'Kordon', type: 'Waterfront', description: 'Sea-front promenade' },
-                            { name: 'KemeraltÃƒâ€žÃ‚Â± Bazaar', type: 'Market', description: 'Historic covered market' },
+                            { name: 'Kemeraltı Bazaar', type: 'Market', description: 'Historic covered market' },
                             { name: 'Agora of Smyrna', type: 'Ancient', description: 'Roman market ruins' },
                             { name: 'Clock Tower', type: 'Landmark', description: 'Iconic Konak Square landmark' },
-                            { name: 'Elevator (AsansÃƒÆ’Ã‚Â¶r)', type: 'Landmark', description: 'Historic lift to Jewish quarter' }
+                            { name: 'Elevator (Asansör)', type: 'Landmark', description: 'Historic lift to Jewish quarter' }
                         ],
                         tips: [
                             'Turkey\'s third largest city',
                             'Most liberal city in Turkey',
-                            'Gateway to Ephesus and ÃƒÆ’Ã¢â‚¬Â¡eÃƒâ€¦Ã…Â¸me',
+                            'Gateway to Ephesus and Çeşme',
                             'Great seafood along Kordon'
                         ]
                     },
                     kusadasi: {
                         id: 'kusadasi',
-                        name: 'KuÃƒâ€¦Ã…Â¸adasÃƒâ€žÃ‚Â±',
+                        name: 'Kuşadası',
                         country: 'Turkey',
                         region: 'Middle East',
                         description: 'Popular cruise port and beach resort near Ephesus',
@@ -9579,14 +9579,14 @@ const regionsData = {
                             { name: 'Green Mosque', type: 'Religious', description: 'Beautiful early Ottoman mosque' },
                             { name: 'Grand Mosque (Ulu Cami)', type: 'Religious', description: '20-domed Ottoman masterpiece' },
                             { name: 'Koza Han', type: 'Market', description: 'Historic silk bazaar' },
-                            { name: 'UludaÃƒâ€žÃ…Â¸', type: 'Nature', description: 'Mountain resort and ski area' },
-                            { name: 'CumalÃƒâ€žÃ‚Â±kÃƒâ€žÃ‚Â±zÃƒâ€žÃ‚Â±k', type: 'Village', description: 'UNESCO Ottoman village' }
+                            { name: 'Uludağ', type: 'Nature', description: 'Mountain resort and ski area' },
+                            { name: 'Cumalıkızık', type: 'Village', description: 'UNESCO Ottoman village' }
                         ],
                         tips: [
-                            'Try Ãƒâ€žÃ‚Â°skender kebab - invented here',
+                            'Try İskender kebab - invented here',
                             'Day trip from Istanbul by ferry',
                             'Thermal baths for relaxation',
-                            'Skiing in winter at UludaÃƒâ€žÃ…Â¸'
+                            'Skiing in winter at Uludağ'
                         ]
                     }
                 }
@@ -9620,7 +9620,7 @@ const regionsData = {
                             { name: 'Scientific Center', type: 'Museum', description: 'Aquarium and discovery center' }
                         ],
                         tips: [
-                            'Extreme summer heat - 50Ãƒâ€šÃ‚Â°C possible',
+                            'Extreme summer heat - 50°C possible',
                             'Dry country - no alcohol',
                             'Kuwaiti dinar is world\'s highest-valued currency',
                             'Friday brunch is popular'
