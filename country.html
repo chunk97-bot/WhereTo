@@ -95,9 +95,8 @@
 
         /* Main Layout */
         .country-main {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
+            width: 100%;
+            padding: 2rem 4rem;
         }
 
         .country-top {
@@ -122,6 +121,33 @@
         /* Cities Section - Full Width */
         .cities-full-section {
             width: 100%;
+            margin-bottom: 3rem;
+        }
+
+        .cities-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .cities-section-header h2 {
+            font-size: 1.75rem;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .cities-section-header h2 span {
+            color: #00d4ff;
+        }
+
+        .city-count-badge {
+            font-size: 0.9rem;
+            color: #00d4ff;
+            font-weight: normal;
+            margin-left: 0.5rem;
         }
 
         /* Info Cards */
@@ -273,9 +299,8 @@
 
         .cities-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
         }
 
         .city-card {
@@ -292,13 +317,13 @@
         }
 
         .city-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             border-color: rgba(0, 212, 255, 0.3);
-            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.15);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.2);
         }
 
         .city-image {
-            height: 180px;
+            height: 220px;
             background-size: cover;
             background-position: center;
             position: relative;
@@ -319,29 +344,29 @@
         }
 
         .city-content {
-            padding: 1.25rem;
+            padding: 1.5rem;
             flex: 1;
             display: flex;
             flex-direction: column;
         }
 
         .city-content h4 {
-            font-size: 1.25rem;
-            margin-bottom: 0.25rem;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
             font-family: 'Poppins', sans-serif;
         }
 
         .city-location {
             color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
         }
 
         .city-description {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 0.75rem;
-            line-height: 1.4;
+            margin-bottom: 1rem;
+            line-height: 1.5;
             flex: 1;
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -353,9 +378,9 @@
             display: flex;
             justify-content: space-between;
             margin-top: auto;
-            padding-top: 0.75rem;
+            padding-top: 1rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: rgba(255, 255, 255, 0.6);
         }
 
@@ -367,13 +392,13 @@
 
         .city-badge {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 12px;
+            left: 12px;
             background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
             color: white;
-            padding: 0.3rem 0.8rem;
+            padding: 0.4rem 1rem;
             border-radius: 20px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 600;
             z-index: 2;
         }
@@ -704,11 +729,11 @@
         <main class="country-main">
             <!-- Cities Section - Full Width -->
             <div class="cities-full-section">
-                <div class="info-card cities-section">
-                    <h3>🏙️ Cities to Explore <span id="cityCount" style="font-size: 0.85rem; color: #00d4ff; font-weight: normal;">0 cities</span></h3>
-                    <div class="cities-grid" id="citiesGrid">
-                        <!-- Cities loaded dynamically -->
-                    </div>
+                <div class="cities-section-header">
+                    <h2><span>🏙️</span> Cities to <span>Explore</span> <span class="city-count-badge" id="cityCount">0 cities</span></h2>
+                </div>
+                <div class="cities-grid" id="citiesGrid">
+                    <!-- Cities loaded dynamically -->
                 </div>
             </div>
 
