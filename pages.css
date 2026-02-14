@@ -64,6 +64,12 @@
 
 .nav-plane-trail {
     stroke-dashoffset: 0;
+    animation: navTrailDash 3s linear infinite;
+}
+
+@keyframes navTrailDash {
+    0% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: -30; }
 }
 
 .nav-links {
