@@ -1,4 +1,4 @@
-// WhereTo Regions Data - Organized by Region > Country > Cities
+﻿// WhereTo Regions Data - Organized by Region > Country > Cities
 const regionsData = {
     schengen: {
         id: 'schengen',
@@ -1136,20 +1136,20 @@ const regionsData = {
                         name: 'Lisbon',
                         country: 'Portugal',
                         region: 'Schengen',
-                        description: 'Hilly capital with trams, tiles, fado music, and BelÃƒÆ’Ã‚Â©m pastries',
+                        description: 'Hilly capital with trams, tiles, fado music, and Belem pastries',
                         image: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800',
                         population: '545,000',
                         bestTime: 'March to May, September to October',
                         avgBudget: { budget: 55, mid: 110, luxury: 300 },
                         attractions: [
-                            { name: 'BelÃƒÆ’Ã‚Â©m Tower', type: 'Landmark', description: 'UNESCO Age of Discovery tower' },
-                            { name: 'JerÃƒÆ’Ã‚Â³nimos Monastery', type: 'Religious', description: 'UNESCO Manueline masterpiece' },
+                            { name: 'Belem Tower', type: 'Landmark', description: 'UNESCO Age of Discovery tower' },
+                            { name: 'Jeronimos Monastery', type: 'Religious', description: 'UNESCO Manueline masterpiece' },
                             { name: 'Alfama', type: 'Neighborhood', description: 'Oldest district with fado bars' },
                             { name: 'Tram 28', type: 'Transport', description: 'Iconic vintage tram route' },
                             { name: 'Time Out Market', type: 'Food Hall', description: 'Best of Lisbon food scene' }
                         ],
                         tips: [
-                            'Eat pastel de nata in BelÃƒÆ’Ã‚Â©m',
+                            'Eat pastel de nata in Belem',
                             'Wear comfortable shoes - it\'s hilly',
                             'Listen to fado in Alfama',
                             'Very affordable Western European city'
@@ -7467,7 +7467,7 @@ const regionsData = {
                             'Get clothes tailored - it\'s the thing',
                             'Evening lanterns are magical',
                             'Rent a bicycle',
-                            'Try cao lÃƒÂ¡Ã‚ÂºÃ‚Â§u (local noodles)'
+                            'Try cao láÃ‚ÂºÃ‚Â§u (local noodles)'
                         ]
                     },
                     daNang: {
