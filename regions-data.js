@@ -5,7 +5,7 @@ const regionsData = {
         name: 'Schengen Area',
         emoji: '🇪🇺',
         description: 'Travel freely across 27 European countries with a single visa',
-        image: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=800',
+        image: 'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=800',
         countries: {
             albania: {
                 id: 'albania',
@@ -2856,9 +2856,9 @@ const regionsData = {
     scandinavia: {
         id: 'scandinavia',
         name: 'Scandinavia',
-        emoji: '🇸🇪',
+        emoji: '�',
         description: 'Northern lights, fjords, design capitals, and Viking heritage',
-        image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
+        image: 'https://images.unsplash.com/photo-1520769669658-f07657f5a307?w=800',
         countries: {
             denmark: {
                 id: 'denmark',
@@ -3244,7 +3244,7 @@ const regionsData = {
         name: 'South America',
         emoji: '🌎',
         description: 'Diverse landscapes from Amazon rainforests to Patagonian glaciers',
-        image: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800',
+        image: 'https://images.unsplash.com/photo-1526392060635-9d6019884377?w=800',
         countries: {
             argentina: {
                 id: 'argentina',
@@ -3484,9 +3484,9 @@ const regionsData = {
     americas: {
         id: 'americas',
         name: 'Americas',
-        emoji: '🌎',
+        emoji: '🗽',
         description: 'From maple-covered Canada to tropical Central America',
-        image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
+        image: 'https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=800',
         countries: {
             panama: {
                 id: 'panama',
@@ -4308,9 +4308,9 @@ const regionsData = {
     centralAsia: {
         id: 'centralAsia',
         name: 'Central Asia',
-        emoji: '🏔️',
+        emoji: '🐪',
         description: 'Ancient Silk Road heritage with stunning mountain landscapes',
-        image: 'https://images.unsplash.com/photo-1565967511849-76a60a516170?w=800',
+        image: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=800',
         countries: {
             armenia: {
                 id: 'armenia',
@@ -4879,7 +4879,7 @@ const regionsData = {
         name: 'Australia & Oceania',
         emoji: '🦘',
         description: 'Unique wildlife, stunning beaches, and island paradises',
-        image: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=800',
+        image: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=800',
         countries: {
             australia: {
                 id: 'australia',
@@ -5383,9 +5383,9 @@ const regionsData = {
     asia: {
         id: 'asia',
         name: 'Asia',
-        emoji: '🌏',
+        emoji: '�',
         description: 'Ancient cultures, diverse cuisines, and breathtaking temples',
-        image: 'https://images.unsplash.com/photo-1480796927426-f609979314bd?w=800',
+        image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800',
         countries: {
             cambodia: {
                 id: 'cambodia',
@@ -7841,9 +7841,9 @@ const regionsData = {
     africa: {
         id: 'africa',
         name: 'Africa',
-        emoji: '🌍',
+        emoji: '🦁',
         description: 'Ancient civilizations, diverse wildlife, and breathtaking natural wonders',
-        image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800',
+        image: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800',
         countries: {
             egypt: {
                 id: 'egypt',
@@ -8811,9 +8811,9 @@ const regionsData = {
     middleEast: {
         id: 'middleEast',
         name: 'Middle East',
-        emoji: '🏜️',
+        emoji: '🕌',
         description: 'Ancient civilizations, religious sites, and modern marvels in the desert',
-        image: 'https://images.unsplash.com/photo-1548017049-c3c2b99a93e2?w=800',
+        image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800',
         countries: {
             iran: {
                 id: 'iran',

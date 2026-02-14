@@ -2085,18 +2085,20 @@
 /* Regions Grid */
 .regions-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1rem;
     padding: 0 1rem;
 }
 
 .region-card {
     position: relative;
-    height: 120px;
+    height: 150px;
     border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-decoration: none;
+    color: white;
 }
 
 .region-card:hover {
@@ -2112,6 +2114,11 @@
     bottom: 0;
     background-size: cover;
     background-position: center;
+    transition: transform 0.3s ease;
+}
+
+.region-card:hover .region-image {
+    transform: scale(1.05);
 }
 
 .region-overlay {
@@ -2120,26 +2127,36 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(15, 15, 35, 0.9) 100%);
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.5) 0%, rgba(15, 15, 35, 0.85) 100%);
 }
 
 .region-content {
     position: relative;
+    z-index: 2;
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     padding: 1rem;
 }
 
 .region-icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.25rem;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
 }
 
 .region-content h3 {
     font-size: 1rem;
-    margin-bottom: 0.1rem;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+}
+
+.region-country-count {
+    font-size: 0.8rem;
+    opacity: 0.8;
 }
 
 .region-count {
@@ -2220,25 +2237,24 @@
 .regions-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.5rem;
+    gap: 1rem;
     padding: 0 1rem;
 }
 
 .region-card {
     position: relative;
-    height: 180px;
-    border-radius: 20px;
+    height: 150px;
+    border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
     transition: all 0.3s ease;
-    background: linear-gradient(145deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+    color: white;
 }
 
 .region-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
-    border-color: rgba(102, 126, 234, 0.4);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 .region-image {
@@ -2249,6 +2265,11 @@
     bottom: 0;
     background-size: cover;
     background-position: center;
+    transition: transform 0.3s ease;
+}
+
+.region-card:hover .region-image {
+    transform: scale(1.05);
 }
 
 .region-overlay {
@@ -2257,7 +2278,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(15, 15, 35, 0.95) 100%);
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.5) 0%, rgba(15, 15, 35, 0.85) 100%);
 }
 
 .region-content {
@@ -2266,32 +2287,28 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 1.5rem;
+    padding: 1rem;
 }
 
 .region-icon {
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin-bottom: 0.5rem;
     font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
 }
 
 .region-content h3 {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 600;
     margin-bottom: 0.25rem;
-    background: linear-gradient(135deg, #fff 0%, #667eea 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: white;
 }
 
 .region-country-count {
-    font-size: 0.85rem;
-    opacity: 0.7;
-    color: #b8c5d6;
+    font-size: 0.8rem;
+    opacity: 0.75;
 }
 
 /* Breadcrumb Navigation */
