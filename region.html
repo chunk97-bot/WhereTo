@@ -706,7 +706,7 @@
                             </div>
                             <div class="search-input-wrapper">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                                <input type="text" class="search-input" id="countrySearch" placeholder="Search countries..." autocomplete="off">
+                                <input type="text" class="search-input" id="countrySearch" placeholder="Search countries, cities, activities..." autocomplete="off">
                                 <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
                             </div>
                             <button class="header-nova-btn" onclick="askNova()">
@@ -860,7 +860,7 @@
             }
 
             container.innerHTML = regionCountries.map((country, index) => `
-                <a href="country.html?id=${country.id}&region=${regionId}" class="country-card" data-name="${country.name.toLowerCase()}" data-capital="${(country.capital || '').toLowerCase()}" data-desc="${(country.description || '').toLowerCase()}" data-lang="${(country.language || '').toLowerCase()}">
+                <a href="country.html?id=${country.id}&region=${regionId}" class="country-card" data-name="${country.name.toLowerCase()}" data-capital="${(country.capital || '').toLowerCase()}" data-desc="${(country.description || '').toLowerCase()}" data-lang="${(country.language || '').toLowerCase()}" data-cities="${(country.cityNames || '').toLowerCase()}" data-activities="${(country.activities || '').toLowerCase()}">
                     <div class="country-image" style="background-image: url('${country.image}')">
                         <div class="country-overlay"></div>
                         ${index === 0 ? '<span class="country-badge">⭐ Top Pick</span>' : ''}
@@ -902,7 +902,9 @@
                 const capital = card.dataset.capital || '';
                 const desc = card.dataset.desc || '';
                 const lang = card.dataset.lang || '';
-                const match = !query || name.includes(query) || capital.includes(query) || desc.includes(query) || lang.includes(query);
+                const cities = card.dataset.cities || '';
+                const activities = card.dataset.activities || '';
+                const match = !query || name.includes(query) || capital.includes(query) || desc.includes(query) || lang.includes(query) || cities.includes(query) || activities.includes(query);
                 card.style.display = match ? '' : 'none';
                 if (match) visibleCount++;
             });
@@ -914,7 +916,7 @@
                 if (!noResults) {
                     noResults = document.createElement('div');
                     noResults.className = 'no-results';
-                    noResults.innerHTML = '<span>🔍</span>No countries match your search';
+                    noResults.innerHTML = '<span>🔍</span>No results match your search';
                     grid.appendChild(noResults);
                 }
                 noResults.style.display = '';

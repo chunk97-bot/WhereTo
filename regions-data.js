@@ -9856,20 +9856,27 @@ const countryPopularity = {
 function getCountriesByRegion(regionId) {
     const region = regionsData[regionId];
     if (!region) return [];
-    return Object.values(region.countries).map(country => ({
-        id: country.id,
-        name: country.name,
-        code: country.code,
-        flag: country.flag,
-        capital: country.capital,
-        currency: country.currency,
-        language: country.language,
-        description: country.description,
-        image: country.image,
-        cityCount: Object.keys(country.cities).length,
-        regionId: regionId,
-        popularity: countryPopularity[country.name] || 0
-    })).sort((a, b) => b.popularity - a.popularity);
+    return Object.values(region.countries).map(country => {
+        const cities = Object.values(country.cities);
+        const cityNames = cities.map(c => c.name).join(', ');
+        const activities = cities.flatMap(c => (c.attractions || []).map(a => a.name + ' ' + (a.type || ''))).join(', ');
+        return {
+            id: country.id,
+            name: country.name,
+            code: country.code,
+            flag: country.flag,
+            capital: country.capital,
+            currency: country.currency,
+            language: country.language,
+            description: country.description,
+            image: country.image,
+            cityCount: cities.length,
+            regionId: regionId,
+            popularity: countryPopularity[country.name] || 0,
+            cityNames: cityNames,
+            activities: activities
+        };
+    }).sort((a, b) => b.popularity - a.popularity);
 }
 
 // Helper function to get cities in a country
