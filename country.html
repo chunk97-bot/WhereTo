@@ -100,8 +100,8 @@
         }
 
         .country-top {
-            display: grid;
-            grid-template-columns: 1fr 350px;
+            display: flex;
+            flex-direction: column;
             gap: 2rem;
             margin-bottom: 2rem;
         }
@@ -110,12 +110,7 @@
             display: flex;
             flex-direction: column;
             gap: 2rem;
-        }
-
-        .country-sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            width: 100%;
         }
 
         /* Cities Section - Full Width */
@@ -778,61 +773,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="country-sidebar">
-                <!-- Ask NOVA Card -->
-                <div class="info-card cta-card">
-                    <button class="cta-btn" onclick="askNova()">
-                        <svg class="nova-btn-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="novaBtnGrad2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00f5ff"/><stop offset="50%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient></defs><rect x="4" y="7" width="16" height="13" rx="4" fill="url(#novaBtnGrad2)"/><rect x="7" y="3" width="10" height="5" rx="2.5" fill="url(#novaBtnGrad2)"/><circle cx="8.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="15.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="8.5" cy="12.5" r="1.5" fill="#00f5ff"/><circle cx="15.5" cy="12.5" r="1.5" fill="#00f5ff"/><rect x="10" y="16" width="4" height="2" rx="1" fill="#ec4899"/></svg>
-                        Ask NOVA
-                    </button>
-                    <button class="trip-btn" id="tripPlannerBtn" onclick="toggleTripPlanner()">
-                        <span id="tripBtnIcon">📌</span> <span id="tripBtnText">Add to Trip Planner</span>
-                    </button>
-                </div>
-
-                <!-- Quick Info -->
-                <div class="info-card">
-                    <h3>📋 Country Info</h3>
-                    <div class="quick-info">
-                        <div class="info-item">
-                            <span class="info-label">Capital</span>
-                            <span class="info-value" id="countryCapital">--</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Currency</span>
-                            <span class="info-value" id="countryCurrency">--</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Language</span>
-                            <span class="info-value" id="countryLanguage">--</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Visa</span>
-                            <span class="info-value" id="countryVisa">--</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Region Info -->
-                <div class="info-card">
-                    <h3>🌍 Region</h3>
-                    <a href="#" id="regionLinkSidebar" style="color: #00d4ff; text-decoration: none; font-weight: 600;">
-                        <span id="regionName">--</span> →
-                    </a>
-                    <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 0.5rem;">
-                        Explore more countries in this region
-                    </p>
-                </div>
-
-                <!-- Highlights -->
-                <div class="info-card" id="highlightsCard" style="display: none;">
-                    <h3>✨ Highlights</h3>
-                    <div class="highlights-list" id="highlightsList">
-                        <!-- Dynamic -->
-                    </div>
-                </div>
-            </div>
             </div>
         </main>
 
@@ -933,29 +873,11 @@
             document.getElementById('countryName').textContent = currentCountry.name;
             document.getElementById('countryDescription').textContent = `Discover ${countryCities.length} amazing ${countryCities.length === 1 ? 'city' : 'cities'} in ${currentCountry.name}`;
 
-            // Update quick info
-            document.getElementById('countryCapital').textContent = currentCountry.capital || '--';
-            document.getElementById('countryCurrency').textContent = currentCountry.currency || '--';
-            document.getElementById('countryLanguage').textContent = currentCountry.language || '--';
-            document.getElementById('countryVisa').textContent = currentCountry.visa || '--';
-
-            // Update region sidebar
-            document.getElementById('regionLinkSidebar').href = `region.html?id=${regionId}`;
-            document.getElementById('regionName').textContent = currentRegion.name;
-
             // Load cities
             loadCities();
 
             // Initialize map
             initCountryMap();
-
-            // Show highlights if we have cities
-            if (countryCities.length > 0) {
-                showHighlights();
-            }
-
-            // Update trip planner button state
-            updateTripPlannerButton();
         }
 
         function loadCities() {
@@ -991,26 +913,6 @@
                     </a>
                 `;
             }).join('');
-        }
-
-        function showHighlights() {
-            const card = document.getElementById('highlightsCard');
-            const list = document.getElementById('highlightsList');
-            
-            // Get random attractions from cities as highlights
-            const highlights = [];
-            countryCities.forEach(city => {
-                if (city.attractions && city.attractions.length > 0) {
-                    highlights.push(city.attractions[0].name);
-                }
-            });
-
-            if (highlights.length > 0) {
-                card.style.display = 'block';
-                list.innerHTML = highlights.slice(0, 5).map(h => `
-                    <span class="highlight-tag">${h}</span>
-                `).join('');
-            }
         }
 
         // ============================================
@@ -1253,82 +1155,6 @@
             };
             
             return coords[cityName] || null;
-        }
-
-        // ============================================
-        // TRIP PLANNER FUNCTIONALITY
-        // ============================================
-        function isInTripPlanner() {
-            const saved = JSON.parse(localStorage.getItem('tripPlanner') || '[]');
-            const tripId = `country_${regionId}_${countryId}`;
-            return saved.some(d => d.tripId === tripId);
-        }
-
-        function updateTripPlannerButton() {
-            const btn = document.getElementById('tripPlannerBtn');
-            const icon = document.getElementById('tripBtnIcon');
-            const text = document.getElementById('tripBtnText');
-            
-            if (isInTripPlanner()) {
-                btn.classList.add('saved');
-                icon.textContent = '✓';
-                text.textContent = 'Added to Trip Planner';
-            } else {
-                btn.classList.remove('saved');
-                icon.textContent = '📌';
-                text.textContent = 'Add to Trip Planner';
-            }
-        }
-
-        function toggleTripPlanner() {
-            let saved = JSON.parse(localStorage.getItem('tripPlanner') || '[]');
-            const tripId = `country_${regionId}_${countryId}`;
-            
-            if (isInTripPlanner()) {
-                saved = saved.filter(d => d.tripId !== tripId);
-                localStorage.setItem('tripPlanner', JSON.stringify(saved));
-                updateTripPlannerButton();
-            } else {
-                const tripData = {
-                    tripId: tripId,
-                    id: currentCountry.id,
-                    name: currentCountry.name,
-                    flag: currentCountry.flag,
-                    region: currentRegion.name,
-                    regionId: regionId,
-                    image: countryCities.length > 0 ? countryCities[0].image : '',
-                    capital: currentCountry.capital,
-                    currency: currentCountry.currency,
-                    language: currentCountry.language,
-                    citiesCount: countryCities.length,
-                    type: 'country',
-                    addedAt: new Date().toISOString()
-                };
-                saved.push(tripData);
-                localStorage.setItem('tripPlanner', JSON.stringify(saved));
-                updateTripPlannerButton();
-                showTripPlannerToast();
-            }
-        }
-
-        function showTripPlannerToast() {
-            const toast = document.createElement('div');
-            toast.className = 'trip-toast';
-            toast.innerHTML = `
-                <span>✓ Added to Trip Planner</span>
-                <a href="trip-planner.html">View Trip →</a>
-            `;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => toast.classList.add('show'), 100);
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
-        function askNova() {
-            window.location.href = `nova.html?ask=${encodeURIComponent(`Tell me about traveling to ${currentCountry.name}`)}`;
         }
 
         function showError(message) {
