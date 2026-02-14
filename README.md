@@ -21,7 +21,7 @@ A comprehensive web-based travel platform that helps you discover destinations, 
 ## 🚀 Quick Start
 
 ### Option 1: Open Directly
-Open `home.html` in your web browser.
+Open `nova.html` in your web browser (or navigate to `pages/home.html` for the landing page).
 
 ### Option 2: Local Server (Recommended)
 ```bash
@@ -32,7 +32,7 @@ python -m http.server 8080
 npx serve .
 
 # Or use the included PowerShell script (Windows)
-.\preview.ps1
+.\tools\preview.ps1
 ```
 
 Then visit `http://localhost:8080` in your browser.
@@ -41,24 +41,37 @@ Then visit `http://localhost:8080` in your browser.
 
 ```
 WhereTo/
-├── home.html              # Landing page
-├── home.css               # Landing page styles
-├── region.html            # Region explorer (countries grid)
-├── country.html           # Country detail page
-├── city.html              # City detail page with attractions
-├── destinations.html      # Category-based destination browser
-├── nova.html              # NOVA AI Chat assistant
-├── trip-planner.html      # Trip planning tool
-├── budget-calculator.html # Budget estimation tool
-├── currency-converter.html# Currency converter
-├── visa-guide.html        # Visa requirements checker
-├── regions-data.js        # Main database (340 cities, 120 countries)
-├── destinations-data.js   # Category-based destinations data
-├── destinations.js        # NOVA chat knowledge base
-├── chat.js                # NOVA chatbot logic
-├── style.css              # Global styles
-├── pages.css              # Page-specific styles
-└── README.md
+├── nova.html              # Entry point (NOVA AI Chat)
+├── README.md
+├── .gitignore
+│
+├── css/                   # Stylesheets
+│   ├── style.css          # Global styles
+│   ├── pages.css          # Page-specific styles
+│   └── home.css           # Landing page styles
+│
+├── js/                    # JavaScript modules
+│   ├── chat.js            # NOVA chatbot logic
+│   └── destinations.js    # Chat knowledge base
+│
+├── data/                  # Data files
+│   ├── regions-data.js    # Main database (340 cities, 120 countries)
+│   └── destinations-data.js # Category-based destinations
+│
+├── pages/                 # HTML pages
+│   ├── home.html          # Landing page
+│   ├── destinations.html  # Destination browser
+│   ├── region.html        # Region explorer
+│   ├── country.html       # Country detail page
+│   ├── city.html          # City detail page
+│   ├── trip-planner.html  # Trip planning tool
+│   ├── budget-calculator.html # Budget calculator
+│   ├── currency-converter.html # Currency converter
+│   ├── visa-guide.html    # Visa requirements
+│   └── destination-detail.html # Detail page
+│
+└── tools/                 # Development tools
+    └── preview.ps1        # Local server script
 ```
 
 ## 🌍 Regions Covered
@@ -75,7 +88,7 @@ WhereTo/
 
 ## 🎨 Styling
 
-The app uses CSS custom properties for easy theming. Edit the `:root` variables in `style.css`:
+The app uses CSS custom properties for easy theming. Edit the `:root` variables in `css/style.css`:
 
 ```css
 :root {
