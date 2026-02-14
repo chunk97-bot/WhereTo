@@ -187,36 +187,33 @@
             height: 18px;
         }
 
-        /* Search Bar */
-        .search-bar {
-            width: 100%;
-            margin-bottom: 0.5rem;
-        }
-
+        /* Search Bar (inline in header) */
         .search-input-wrapper {
             position: relative;
-            max-width: 480px;
+            width: 220px;
+            flex-shrink: 1;
+            min-width: 150px;
         }
 
         .search-input-wrapper svg {
             position: absolute;
-            left: 14px;
+            left: 10px;
             top: 50%;
             transform: translateY(-50%);
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             color: rgba(255, 255, 255, 0.4);
             pointer-events: none;
         }
 
         .search-input {
             width: 100%;
-            padding: 0.7rem 2.5rem 0.7rem 2.5rem;
+            padding: 0.5rem 2.2rem 0.5rem 2.2rem;
             background: rgba(255, 255, 255, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 30px;
+            border-radius: 25px;
             color: #fff;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-family: 'Inter', sans-serif;
             outline: none;
             transition: all 0.3s ease;
@@ -597,7 +594,8 @@
             }
 
             .search-input-wrapper {
-                max-width: 100%;
+                width: 100%;
+                min-width: unset;
             }
 
             .countries-grid {
@@ -706,17 +704,15 @@
                                 <div class="header-stat"><span class="stat-num" id="totalCountries">0</span> Countries</div>
                                 <div class="header-stat"><span class="stat-num" id="totalCities">0</span> Cities</div>
                             </div>
+                            <div class="search-input-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                <input type="text" class="search-input" id="countrySearch" placeholder="Search countries..." autocomplete="off">
+                                <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+                            </div>
                             <button class="header-nova-btn" onclick="askNova()">
                                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="novaBtnGrad3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00f5ff"/><stop offset="50%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient></defs><rect x="4" y="7" width="16" height="13" rx="4" fill="url(#novaBtnGrad3)"/><rect x="7" y="3" width="10" height="5" rx="2.5" fill="url(#novaBtnGrad3)"/><circle cx="8.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="15.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="8.5" cy="12.5" r="1.5" fill="#00f5ff"/><circle cx="15.5" cy="12.5" r="1.5" fill="#00f5ff"/><rect x="10" y="16" width="4" height="2" rx="1" fill="#ec4899"/></svg>
                                 Ask NOVA
                             </button>
-                        </div>
-                    </div>
-                    <div class="search-bar">
-                        <div class="search-input-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                            <input type="text" class="search-input" id="countrySearch" placeholder="Search countries, capitals, or keywords..." autocomplete="off">
-                            <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
                         </div>
                     </div>
                     <div class="countries-grid" id="countriesGrid">
