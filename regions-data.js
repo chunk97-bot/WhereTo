@@ -9815,6 +9815,44 @@ function getAllRegions() {
 }
 
 // Helper function to get countries in a region
+// Popularity rankings based on international tourism arrivals data (higher = more travelled)
+const countryPopularity = {
+    // Schengen / Europe
+    'France': 100, 'Spain': 97, 'Italy': 95, 'United Kingdom': 92, 'Germany': 90,
+    'Greece': 87, 'Austria': 85, 'Portugal': 83, 'Netherlands': 80, 'Switzerland': 78,
+    'Poland': 75, 'Croatia': 72, 'Czech Republic': 70, 'Hungary': 68, 'Ireland': 66,
+    'Belgium': 64, 'Romania': 60, 'Bulgaria': 58, 'Montenegro': 55, 'Malta': 52,
+    'Cyprus': 50, 'Slovenia': 48, 'Slovakia': 46, 'Serbia': 44, 'Albania': 42,
+    'North Macedonia': 40, 'Luxembourg': 38, 'Estonia': 36, 'Latvia': 34, 'Lithuania': 32,
+    'Monaco': 30, 'Liechtenstein': 28, 'Ukraine': 26, 'Moldova': 24,
+    'Bosnia and Herzegovina': 22, 'Belarus': 20,
+    // Scandinavia
+    'Denmark': 90, 'Norway': 85, 'Sweden': 80, 'Finland': 75, 'Iceland': 70,
+    // South America
+    'Brazil': 95, 'Argentina': 85, 'Colombia': 75, 'Ecuador': 60, 'Bolivia': 50,
+    // Americas
+    'United States': 100, 'Mexico': 92, 'Canada': 88, 'Costa Rica': 75, 'Jamaica': 70,
+    'Peru': 68, 'Panama': 60, 'Guatemala': 55, 'Nicaragua': 50, 'Honduras': 45, 'Venezuela': 40,
+    // Central Asia
+    'Georgia': 85, 'Uzbekistan': 75, 'Azerbaijan': 70, 'Kazakhstan': 65, 'Armenia': 60,
+    'Kyrgyzstan': 55, 'Turkmenistan': 45, 'Tajikistan': 40,
+    // Australia & Oceania
+    'Australia': 95, 'New Zealand': 88, 'Fiji': 75, 'French Polynesia': 65, 'Papua New Guinea': 50,
+    // Asia
+    'Thailand': 98, 'Japan': 96, 'China': 92, 'Malaysia': 88, 'Singapore': 86,
+    'Indonesia': 84, 'India': 82, 'Vietnam': 80, 'South Korea': 78, 'Hong Kong': 76,
+    'Philippines': 74, 'Cambodia': 72, 'Taiwan': 70, 'Sri Lanka': 68, 'Nepal': 66,
+    'Maldives': 64, 'Russia': 62, 'Macau': 60, 'Myanmar': 55, 'Mongolia': 52,
+    'Laos': 50, 'Bhutan': 48, 'Pakistan': 45, 'Bahrain': 42, 'Brunei': 40, 'Iraq': 35,
+    // Africa
+    'Morocco': 92, 'Egypt': 90, 'South Africa': 85, 'Kenya': 80, 'Tanzania': 75,
+    'Tunisia': 70, 'Seychelles': 68, 'Ethiopia': 60, 'Ghana': 55, 'Nigeria': 50,
+    'Uganda': 48, 'Zimbabwe': 45, 'Senegal': 42,
+    // Middle East
+    'Turkey': 95, 'United Arab Emirates': 92, 'Saudi Arabia': 85, 'Qatar': 80,
+    'Israel': 78, 'Jordan': 75, 'Oman': 70, 'Lebanon': 65, 'Kuwait': 58, 'Iran': 52, 'Syria': 40
+};
+
 function getCountriesByRegion(regionId) {
     const region = regionsData[regionId];
     if (!region) return [];
@@ -9829,8 +9867,9 @@ function getCountriesByRegion(regionId) {
         description: country.description,
         image: country.image,
         cityCount: Object.keys(country.cities).length,
-        regionId: regionId
-    }));
+        regionId: regionId,
+        popularity: countryPopularity[country.name] || 0
+    })).sort((a, b) => b.popularity - a.popularity);
 }
 
 // Helper function to get cities in a country

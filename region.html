@@ -187,6 +187,85 @@
             height: 18px;
         }
 
+        /* Search Bar */
+        .search-bar {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            max-width: 480px;
+        }
+
+        .search-input-wrapper svg {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            color: rgba(255, 255, 255, 0.4);
+            pointer-events: none;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.7rem 2.5rem 0.7rem 2.5rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 30px;
+            color: #fff;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .search-input:focus {
+            border-color: rgba(0, 212, 255, 0.5);
+            background: rgba(255, 255, 255, 0.09);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
+        }
+
+        .search-clear {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 0 4px;
+            display: none;
+            transition: color 0.2s;
+        }
+
+        .search-clear:hover {
+            color: #00d4ff;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.05rem;
+        }
+
+        .no-results span {
+            display: block;
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
         .countries-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -517,6 +596,10 @@
                 justify-content: space-between;
             }
 
+            .search-input-wrapper {
+                max-width: 100%;
+            }
+
             .countries-grid {
                 grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             }
@@ -627,6 +710,13 @@
                                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="novaBtnGrad3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00f5ff"/><stop offset="50%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient></defs><rect x="4" y="7" width="16" height="13" rx="4" fill="url(#novaBtnGrad3)"/><rect x="7" y="3" width="10" height="5" rx="2.5" fill="url(#novaBtnGrad3)"/><circle cx="8.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="15.5" cy="12.5" r="2.5" fill="#0a0a1a"/><circle cx="8.5" cy="12.5" r="1.5" fill="#00f5ff"/><circle cx="15.5" cy="12.5" r="1.5" fill="#00f5ff"/><rect x="10" y="16" width="4" height="2" rx="1" fill="#ec4899"/></svg>
                                 Ask NOVA
                             </button>
+                        </div>
+                    </div>
+                    <div class="search-bar">
+                        <div class="search-input-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="text" class="search-input" id="countrySearch" placeholder="Search countries, capitals, or keywords..." autocomplete="off">
+                            <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
                         </div>
                     </div>
                     <div class="countries-grid" id="countriesGrid">
@@ -745,6 +835,9 @@
             // Load countries
             loadCountries();
 
+            // Setup search
+            setupSearch();
+
             // Initialize map
             initRegionMap();
         }
@@ -771,7 +864,7 @@
             }
 
             container.innerHTML = regionCountries.map((country, index) => `
-                <a href="country.html?id=${country.id}&region=${regionId}" class="country-card">
+                <a href="country.html?id=${country.id}&region=${regionId}" class="country-card" data-name="${country.name.toLowerCase()}" data-capital="${(country.capital || '').toLowerCase()}" data-desc="${(country.description || '').toLowerCase()}" data-lang="${(country.language || '').toLowerCase()}">
                     <div class="country-image" style="background-image: url('${country.image}')">
                         <div class="country-overlay"></div>
                         ${index === 0 ? '<span class="country-badge">⭐ Top Pick</span>' : ''}
@@ -787,6 +880,59 @@
                     </div>
                 </a>
             `).join('');
+        }
+
+        // ============================================
+        // SEARCH FUNCTIONALITY
+        // ============================================
+        function setupSearch() {
+            const input = document.getElementById('countrySearch');
+            const clearBtn = document.getElementById('searchClear');
+            if (!input) return;
+
+            input.addEventListener('input', function() {
+                const query = this.value.trim().toLowerCase();
+                clearBtn.style.display = query.length > 0 ? 'block' : 'none';
+                filterCountries(query);
+            });
+        }
+
+        function filterCountries(query) {
+            const cards = document.querySelectorAll('.country-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const name = card.dataset.name || '';
+                const capital = card.dataset.capital || '';
+                const desc = card.dataset.desc || '';
+                const lang = card.dataset.lang || '';
+                const match = !query || name.includes(query) || capital.includes(query) || desc.includes(query) || lang.includes(query);
+                card.style.display = match ? '' : 'none';
+                if (match) visibleCount++;
+            });
+
+            // Show/hide no-results message
+            const grid = document.getElementById('countriesGrid');
+            let noResults = grid.querySelector('.no-results');
+            if (visibleCount === 0) {
+                if (!noResults) {
+                    noResults = document.createElement('div');
+                    noResults.className = 'no-results';
+                    noResults.innerHTML = '<span>🔍</span>No countries match your search';
+                    grid.appendChild(noResults);
+                }
+                noResults.style.display = '';
+            } else if (noResults) {
+                noResults.style.display = 'none';
+            }
+        }
+
+        function clearSearch() {
+            const input = document.getElementById('countrySearch');
+            input.value = '';
+            document.getElementById('searchClear').style.display = 'none';
+            filterCountries('');
+            input.focus();
         }
 
         // ============================================
