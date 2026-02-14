@@ -1,96 +1,77 @@
 # WhereTo - Your AI Travel Buddy 🌍✈️
 
-A web-based travel chatbot that helps you discover destinations, get travel advice, and plan your next adventure.
+A comprehensive web-based travel platform that helps you discover destinations, get visa information, plan budgets, and explore 340+ cities across the globe.
 
-![WhereTo Travel Chatbot](https://img.shields.io/badge/Made%20with-❤️-red)
+![WhereTo Travel Platform](https://img.shields.io/badge/Made%20with-❤️-red)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
 
 ## ✨ Features
 
-- 🗺️ **Destination Recommendations** - Get personalized suggestions for beaches, cities, adventures, and more
-- 💬 **Natural Conversations** - Chat naturally about your travel interests
-- 📅 **Best Time to Visit** - Learn when to travel to each destination
-- 💰 **Budget Guidance** - Find destinations that match your budget
-- 🎒 **Packing Tips** - Get packing advice for any trip
-- 🍜 **Food & Culture** - Discover culinary experiences worldwide
+- 🗺️ **340+ Cities Database** - Detailed information for cities across all continents
+- 🌐 **Region-Based Navigation** - Browse by Schengen, Scandinavia, Americas, Asia, Africa, Middle East & more
+- 💬 **NOVA AI Assistant** - Chat naturally about your travel interests
+- 📋 **Visa Guide** - Check visa requirements for any destination
+- 💰 **Budget Calculator** - Plan your trip expenses
+- 💱 **Currency Converter** - Real-time exchange rates
+- 📅 **Trip Planner** - Create detailed itineraries
+- 🎯 **10-12 Activities per City** - Viator-style recommended tours and experiences
 
 ## 🚀 Quick Start
 
 ### Option 1: Open Directly
-Simply open `nova.html` in your web browser.
+Open `home.html` in your web browser.
 
 ### Option 2: Local Server (Recommended)
 ```bash
-# Using npm's serve
+# Using Python
+python -m http.server 8080
+
+# Or using npm's serve
 npx serve .
 
-# Or using Python
-python -m http.server 8000
-
-# Or using PHP
-php -S localhost:8000
+# Or use the included PowerShell script (Windows)
+.\preview.ps1
 ```
 
-Then visit `http://localhost:8000` in your browser.
+Then visit `http://localhost:8080` in your browser.
 
 ## 📁 Project Structure
 
 ```
 WhereTo/
-├── nova.html         # NOVA AI Chat page
-├── style.css         # Styling and animations
-├── chat.js           # Chatbot logic and responses
-├── destinations.js   # Travel knowledge base
-├── README.md
-└── .gitignore
+├── home.html              # Landing page
+├── home.css               # Landing page styles
+├── region.html            # Region explorer (countries grid)
+├── country.html           # Country detail page
+├── city.html              # City detail page with attractions
+├── destinations.html      # Category-based destination browser
+├── nova.html              # NOVA AI Chat assistant
+├── trip-planner.html      # Trip planning tool
+├── budget-calculator.html # Budget estimation tool
+├── currency-converter.html# Currency converter
+├── visa-guide.html        # Visa requirements checker
+├── regions-data.js        # Main database (340 cities, 120 countries)
+├── destinations-data.js   # Category-based destinations data
+├── destinations.js        # NOVA chat knowledge base
+├── chat.js                # NOVA chatbot logic
+├── style.css              # Global styles
+├── pages.css              # Page-specific styles
+└── README.md
 ```
 
-## 💬 What Can You Ask?
+## 🌍 Regions Covered
 
-Try these conversation starters:
-
-- "Suggest a beach destination"
-- "Best city for food lovers"
-- "Adventure travel ideas"
-- "Budget-friendly destinations"
-- "Tell me about Japan"
-- "Best time to visit Europe"
-- "Packing tips for my trip"
-- "Romantic honeymoon destinations"
-- "Family-friendly places"
-
-## 🛠️ Customization
-
-### Adding New Destinations
-
-Edit `destinations.js` and add to the `DESTINATIONS` array:
-
-```javascript
-{
-    name: "Your Destination",
-    country: "Country",
-    emoji: "🌴",
-    description: "A brief description",
-    bestTime: "Best months to visit",
-    budget: "budget|moderate|luxury",
-    budgetRange: "$XX-XX/day",
-    rating: "4.5",
-    tags: ["beach", "culture", "adventure"],
-    highlights: ["Highlight 1", "Highlight 2"]
-}
-```
-
-### Adding New Response Patterns
-
-Edit `chat.js` and add patterns in the `generateResponse()` method:
-
-```javascript
-if (this.matchesPattern(msg, ['your', 'keywords'])) {
-    return this.yourCustomResponse();
-}
-```
+- **Schengen/Europe** - 84 cities across 45 countries
+- **Scandinavia** - 13 cities (Denmark, Finland, Iceland, Norway, Sweden)
+- **Americas** - 30 cities (USA, Canada, Mexico, Caribbean, Central America)
+- **South America** - 7 cities (Argentina, Brazil, Colombia, Peru, etc.)
+- **Central Asia** - 19 cities (Georgia, Kazakhstan, Uzbekistan, etc.)
+- **Australia & Oceania** - 18 cities
+- **Asia** - 96 cities (Japan, Thailand, India, China, etc.)
+- **Africa** - 33 cities (Morocco, Egypt, South Africa, etc.)
+- **Middle East** - 35 cities (UAE, Turkey, Jordan, Israel, etc.)
 
 ## 🎨 Styling
 
@@ -101,7 +82,6 @@ The app uses CSS custom properties for easy theming. Edit the `:root` variables 
     --primary: #3b82f6;
     --background: #0f172a;
     --surface: #1e293b;
-    /* ... */
 }
 ```
 
@@ -113,38 +93,12 @@ The app uses CSS custom properties for easy theming. Edit the `:root` variables 
 3. Select `main` branch
 4. Your site is live!
 
-### Netlify
-1. Connect your GitHub repo
-2. Deploy automatically
-
-### Vercel
-```bash
-npm i -g vercel
-vercel
-```
-
-## 🔮 Future Enhancements
-
-- [ ] Integration with real travel APIs (Amadeus, Skyscanner)
-- [ ] AI-powered responses using OpenAI/Claude
-- [ ] User accounts and saved trips
-- [ ] Weather integration
-- [ ] Currency converter
-- [ ] Flight price alerts
-- [ ] Multi-language support
-- [ ] Progressive Web App (PWA)
+### Netlify / Vercel
+Connect your GitHub repo and deploy automatically.
 
 ## 📝 License
 
 MIT License - Feel free to use this for your own projects!
-
-## 🙏 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ---
 
