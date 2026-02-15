@@ -764,8 +764,8 @@
                             <button class="map-btn" onclick="toggleCities()" id="toggleCitiesBtn" title="Toggle city markers">
                                 📍 Landmarks
                             </button>
-                            <button class="map-btn download" onclick="downloadMap()" title="Download HD map">
-                                ⬇️ Download HD
+                            <button class="map-btn download" onclick="downloadMap()" title="Download map">
+                                📷 Download Map
                             </button>
                         </div>
                     </div>
@@ -813,6 +813,10 @@
                             <div class="legend-item">
                                 <span>🌳</span>
                                 <span>Park & Garden</span>
+                            </div>
+                            <div class="legend-item">
+                                <span>✈️</span>
+                                <span>Airport</span>
                             </div>
                         </div>
                     </div>
@@ -1068,32 +1072,60 @@
         }
 
         function downloadMap() {
-            // Download map as PNG image with logo watermark
-            const mapSection = document.querySelector('.map-container');
+            // Download map as PNG image with title overlay and permanent labels
+            const mapContainer = document.getElementById('countryMap');
             const btn = document.querySelector('.map-btn.download');
             const originalText = btn.innerHTML;
             btn.innerHTML = '⏳ Capturing...';
             btn.disabled = true;
             
-            // Show all marker popups temporarily for screenshot
-            cityMarkers.forEach(marker => {
-                if (marker.getPopup()) {
-                    marker.openPopup();
+            // Create title overlay at top left
+            const titleOverlay = document.createElement('div');
+            titleOverlay.id = 'mapTitleOverlay';
+            titleOverlay.style.cssText = 'position:absolute;top:10px;left:10px;background:rgba(15,15,35,0.95);color:white;padding:12px 24px;border-radius:12px;font-weight:bold;font-size:18px;z-index:1000;display:flex;align-items:center;gap:10px;font-family:Poppins,sans-serif;box-shadow:0 4px 20px rgba(0,0,0,0.3);';
+            titleOverlay.innerHTML = `${currentCountry.flag || '🌍'} ${currentCountry.name} Map`;
+            mapContainer.appendChild(titleOverlay);
+            
+            // Create WhereTo watermark at bottom right
+            const watermark = document.createElement('div');
+            watermark.id = 'mapWatermark';
+            watermark.style.cssText = 'position:absolute;bottom:10px;right:10px;background:rgba(15,15,35,0.95);color:#00d4ff;padding:10px 20px;border-radius:8px;font-weight:bold;font-size:16px;z-index:1000;font-family:Poppins,sans-serif;box-shadow:0 4px 20px rgba(0,0,0,0.3);';
+            watermark.innerHTML = 'WhereTo';
+            mapContainer.appendChild(watermark);
+            
+            // Add permanent labels to all city markers
+            const labels = [];
+            cityMarkers.forEach((marker, index) => {
+                const latlng = marker.getLatLng();
+                const popup = marker.getPopup();
+                if (popup) {
+                    const content = popup.getContent();
+                    const match = content.match(/<h4>(.+?)<\/h4>/);
+                    if (match) {
+                        const labelText = match[1].replace(/<[^>]*>/g, '');
+                        const colors = ['#ec4899', '#8b5cf6', '#f97316', '#14b8a6', '#06b6d4', '#a855f7'];
+                        const color = colors[index % colors.length];
+                        
+                        const label = document.createElement('div');
+                        label.className = 'map-label-permanent';
+                        label.style.cssText = `position:absolute;background:${color};color:white;padding:6px 12px;border-radius:8px;font-weight:600;font-size:12px;z-index:999;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,0.3);font-family:Inter,sans-serif;transform:translate(-50%,-100%);`;
+                        label.innerHTML = labelText;
+                        
+                        const point = countryMap.latLngToContainerPoint(latlng);
+                        label.style.left = point.x + 'px';
+                        label.style.top = (point.y - 25) + 'px';
+                        
+                        mapContainer.appendChild(label);
+                        labels.push(label);
+                    }
                 }
             });
             
-            // Create watermark overlay
-            const watermark = document.createElement('div');
-            watermark.id = 'mapWatermark';
-            watermark.style.cssText = 'position:absolute;bottom:10px;right:10px;background:rgba(15,15,35,0.9);color:#00d4ff;padding:8px 16px;border-radius:8px;font-weight:bold;font-size:14px;z-index:1000;display:flex;align-items:center;gap:8px;';
-            watermark.innerHTML = '🗺️ WhereTo';
-            document.getElementById('countryMap').appendChild(watermark);
-            
             setTimeout(() => {
-                html2canvas(mapSection, {
+                html2canvas(mapContainer, {
                     useCORS: true,
                     allowTaint: true,
-                    backgroundColor: '#0f0f23',
+                    backgroundColor: null,
                     scale: 2
                 }).then(canvas => {
                     const link = document.createElement('a');
@@ -1102,14 +1134,16 @@
                     link.click();
                     
                     // Cleanup
+                    titleOverlay.remove();
                     watermark.remove();
-                    cityMarkers.forEach(marker => marker.closePopup());
+                    labels.forEach(l => l.remove());
                     btn.innerHTML = originalText;
                     btn.disabled = false;
                 }).catch(err => {
                     console.error('Map download failed:', err);
+                    titleOverlay.remove();
                     watermark.remove();
-                    cityMarkers.forEach(marker => marker.closePopup());
+                    labels.forEach(l => l.remove());
                     // Fallback to OpenStreetMap
                     const coords = getCountryCoordinates(currentCountry.name);
                     if (coords) {
@@ -1118,7 +1152,7 @@
                     btn.innerHTML = originalText;
                     btn.disabled = false;
                 });
-            }, 500);
+            }, 300);
         }
 
         // Country coordinates lookup
