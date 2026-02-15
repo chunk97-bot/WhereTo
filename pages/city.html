@@ -1615,6 +1615,9 @@
                     addAttractionMarkers(cityCoords);
                 }
 
+                // Add airport marker if available
+                addAirportMarker(cityCoords);
+
                 // Update legend
                 updateMapLegend();
 
@@ -1806,6 +1809,75 @@
                 }
             };
             return landmarks[cityName] || null;
+        }
+
+        // Airport coordinates for major cities
+        function getAirportCoordinates(cityName) {
+            const airports = {
+                'Paris': { name: 'Charles de Gaulle Airport', coords: [49.0097, 2.5479] },
+                'London': { name: 'Heathrow Airport', coords: [51.4700, -0.4543] },
+                'Tokyo': { name: 'Narita Airport', coords: [35.7720, 140.3929] },
+                'Bangkok': { name: 'Suvarnabhumi Airport', coords: [13.6900, 100.7501] },
+                'Singapore': { name: 'Changi Airport', coords: [1.3644, 103.9915] },
+                'Dubai': { name: 'Dubai International', coords: [25.2532, 55.3657] },
+                'New York': { name: 'JFK Airport', coords: [40.6413, -73.7781] },
+                'Barcelona': { name: 'El Prat Airport', coords: [41.2974, 2.0833] },
+                'Rome': { name: 'Fiumicino Airport', coords: [41.8003, 12.2389] },
+                'Amsterdam': { name: 'Schiphol Airport', coords: [52.3105, 4.7683] },
+                'Sydney': { name: 'Sydney Airport', coords: [-33.9461, 151.1772] },
+                'Hong Kong': { name: 'Hong Kong International', coords: [22.3080, 113.9185] },
+                'Seoul': { name: 'Incheon Airport', coords: [37.4602, 126.4407] },
+                'Istanbul': { name: 'Istanbul Airport', coords: [41.2619, 28.7246] },
+                'Madrid': { name: 'Barajas Airport', coords: [40.4983, -3.5676] },
+                'Munich': { name: 'Munich Airport', coords: [48.3537, 11.7750] },
+                'Berlin': { name: 'Berlin Brandenburg', coords: [52.3667, 13.5033] },
+                'Milan': { name: 'Malpensa Airport', coords: [45.6306, 8.7281] },
+                'Vienna': { name: 'Vienna Airport', coords: [48.1103, 16.5697] },
+                'Prague': { name: 'Václav Havel Airport', coords: [50.1008, 14.2600] },
+                'Lisbon': { name: 'Lisbon Airport', coords: [38.7756, -9.1354] },
+                'Athens': { name: 'Athens Airport', coords: [37.9364, 23.9475] },
+                'Zurich': { name: 'Zurich Airport', coords: [47.4647, 8.5492] },
+                'Venice': { name: 'Marco Polo Airport', coords: [45.5053, 12.3519] },
+                'Florence': { name: 'Florence Airport', coords: [43.8100, 11.2051] },
+                'Kyoto': { name: 'Kansai Airport', coords: [34.4320, 135.2304] },
+                'Osaka': { name: 'Kansai Airport', coords: [34.4320, 135.2304] },
+                'Bali': { name: 'Ngurah Rai Airport', coords: [-8.7482, 115.1672] },
+                'Phuket': { name: 'Phuket Airport', coords: [8.1132, 98.3169] },
+                'Kuala Lumpur': { name: 'KLIA Airport', coords: [2.7456, 101.7072] },
+                'Mumbai': { name: 'Mumbai Airport', coords: [19.0896, 72.8656] },
+                'Delhi': { name: 'Indira Gandhi Airport', coords: [28.5562, 77.1000] },
+                'Cairo': { name: 'Cairo Airport', coords: [30.1219, 31.4056] },
+                'Marrakech': { name: 'Menara Airport', coords: [31.6069, -8.0363] },
+                'Cape Town': { name: 'Cape Town Airport', coords: [-33.9715, 18.6021] },
+                'Johannesburg': { name: 'OR Tambo Airport', coords: [-26.1392, 28.2460] },
+                'Rio de Janeiro': { name: 'Galeão Airport', coords: [-22.8099, -43.2505] },
+                'Buenos Aires': { name: 'Ezeiza Airport', coords: [-34.8222, -58.5358] },
+                'Mexico City': { name: 'Mexico City Airport', coords: [19.4361, -99.0719] },
+                'Los Angeles': { name: 'LAX Airport', coords: [33.9425, -118.4081] },
+                'San Francisco': { name: 'SFO Airport', coords: [37.6213, -122.3790] },
+                'Miami': { name: 'Miami Airport', coords: [25.7959, -80.2870] },
+                'Toronto': { name: 'Pearson Airport', coords: [43.6777, -79.6248] },
+                'Vancouver': { name: 'Vancouver Airport', coords: [49.1967, -123.1815] }
+            };
+            return airports[cityName] || null;
+        }
+
+        function addAirportMarker(centerCoords) {
+            const airport = getAirportCoordinates(currentCity.name);
+            if (airport) {
+                const marker = L.marker(airport.coords, {
+                    icon: createCustomIcon('✈️')
+                }).addTo(cityMap);
+                
+                marker.bindPopup(`
+                    <div class="marker-popup">
+                        <h4>✈️ ${airport.name}</h4>
+                        <div class="popup-type">International Airport</div>
+                    </div>
+                `);
+                
+                mapMarkers.push(marker);
+            }
         }
 
         function updateMapLegend() {
