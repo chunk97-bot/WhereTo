@@ -11863,8 +11863,7 @@ const categoryMappings = {
     'honeymoon': { icon: '💕', name: 'Honeymoon Spots', keywords: ['romantic', 'honeymoon', 'couples', 'spa', 'luxury resort', 'overwater'] },
     'adventure': { icon: '🎯', name: 'Adventure', keywords: ['adventure', 'extreme', 'zipline', 'rafting', 'bungee', 'safari', 'expedition'] },
     'relaxation': { icon: '🧘', name: 'Relaxation', keywords: ['spa', 'wellness', 'retreat', 'yoga', 'meditation', 'thermal', 'hot spring'] },
-    'food': { icon: '🍜', name: 'Foodie Dreams', keywords: ['food', 'culinary', 'market', 'street food', 'gastronomy', 'wine', 'tasting'] },
-    'pilgrimage': { icon: '🙏', name: 'Pilgrimage', keywords: ['religious', 'pilgrimage', 'temple', 'church', 'mosque', 'shrine', 'sacred', 'holy'] }
+    'food': { icon: '🍜', name: 'Foodie Dreams', keywords: ['food', 'culinary', 'market', 'street food', 'gastronomy', 'wine', 'tasting'] }
 };
 
 // Get all cities across all regions with category info
