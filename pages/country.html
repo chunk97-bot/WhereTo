@@ -449,6 +449,23 @@
         .map-btn:hover {
             background: rgba(0, 212, 255, 0.25);
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
+        }
+
+        .map-btn.active {
+            background: rgba(0, 212, 255, 0.3);
+            border-color: rgba(0, 212, 255, 0.6);
+        }
+
+        .map-btn.download {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.15));
+            border-color: rgba(168, 85, 247, 0.4);
+            color: #c084fc;
+        }
+
+        .map-btn.download:hover {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(236, 72, 153, 0.25));
+            box-shadow: 0 5px 15px rgba(168, 85, 247, 0.2);
         }
 
         #countryMap {
@@ -738,11 +755,14 @@
                     <div class="map-header">
                         <h3>🗺️ <span id="mapTitle">Country Map</span></h3>
                         <div class="map-actions">
-                            <button class="map-btn" onclick="resetMapView()" title="Reset view">
+                            <button class="map-btn active" onclick="resetMapView()" title="Reset view">
                                 🎯 Center
                             </button>
                             <button class="map-btn" onclick="toggleCities()" id="toggleCitiesBtn" title="Toggle city markers">
-                                📍 Cities
+                                📍 Landmarks
+                            </button>
+                            <button class="map-btn download" onclick="downloadMap()" title="Download HD map">
+                                ⬇️ Download HD
                             </button>
                         </div>
                     </div>
@@ -753,15 +773,47 @@
                         </div>
                     </div>
                     <div class="map-legend">
-                        <div class="legend-title">Map Legend</div>
+                        <div class="legend-title">MAP LEGEND</div>
                         <div class="legend-items" id="legendItems">
+                            <div class="legend-item">
+                                <span>📍</span>
+                                <span>City Center</span>
+                            </div>
                             <div class="legend-item">
                                 <span>⭐</span>
                                 <span>Capital</span>
                             </div>
                             <div class="legend-item">
-                                <span>🏙️</span>
-                                <span>Cities</span>
+                                <span>🏛️</span>
+                                <span>Major Landmark</span>
+                            </div>
+                            <div class="legend-item">
+                                <span>🖼️</span>
+                                <span>Museum</span>
+                            </div>
+                            <div class="legend-item">
+                                <span>⛪</span>
+                                <span>Religious Site</span>
+                            </div>
+                            <div class="legend-item">
+                                <span>🏰</span>
+                                <span>Monument</span>
+                            </div>
+                            <div class="legend-item">
+                                <span>🛍️</span>
+                                <span>Shopping Area</span>
+                            </div>
+                            <div class="legend-item">
+                                <span>🏯</span>
+                                <span>Palace</span>
+                            </div>
+                            <div class="legend-item">
+                                <span>🏘️</span>
+                                <span>District</span>
+                            </div>
+                            <div class="legend-item">
+                                <span>🌳</span>
+                                <span>Park & Garden</span>
                             </div>
                         </div>
                     </div>
@@ -1012,8 +1064,18 @@
                 }
             });
             
-            btn.innerHTML = citiesVisible ? '📍 Cities' : '📍 Show Cities';
+            btn.innerHTML = citiesVisible ? '📍 Landmarks' : '📍 Show Landmarks';
             btn.style.opacity = citiesVisible ? '1' : '0.6';
+        }
+
+        function downloadMap() {
+            // Open the map in a new tab with OpenStreetMap for HD download
+            if (countryMap && currentCountry) {
+                const coords = getCountryCoordinates(currentCountry.name);
+                if (coords) {
+                    window.open(`https://www.openstreetmap.org/#map=${coords.zoom || 6}/${coords.center[0]}/${coords.center[1]}`, '_blank');
+                }
+            }
         }
 
         // Country coordinates lookup

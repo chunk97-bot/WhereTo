@@ -191,7 +191,6 @@
         </footer>
     </div>
 
-    <script src="../data/destinations-data.js"></script>
     <script src="../data/regions-data.js"></script>
     <script>
         // State management
@@ -199,6 +198,7 @@
         let currentSort = 'featured';
         let searchQuery = '';
         let selectedMonth = null;
+        let searchResults = null;
 
         document.addEventListener('DOMContentLoaded', function() {
             initializePage();
@@ -242,20 +242,22 @@
 
         function loadFeaturedDestinations() {
             const container = document.getElementById('featuredCarousel');
-            const featured = getFeaturedDestinations();
+            // Use regions-data.js for featured cities
+            const featured = getFeaturedCitiesFromRegions();
             
-            container.innerHTML = featured.map(dest => `
-                <div class="featured-card" onclick="viewDestination(${dest.id})">
-                    <div class="featured-image" style="background-image: url('${dest.image}')">
+            container.innerHTML = featured.map(city => `
+                <div class="featured-card" onclick="viewCity('${city.regionId}', '${city.countryId}', '${city.id}')">
+                    <div class="featured-image" style="background-image: url('${city.image}')">
                         <div class="featured-overlay">
                             <span class="featured-badge">⭐ Featured</span>
                         </div>
                     </div>
                     <div class="featured-content">
-                        <h3>${dest.name}</h3>
-                        <p class="location">📍 ${dest.country}</p>
+                        <h3>${city.name}</h3>
+                        <p class="location">📍 ${city.countryName || city.country}</p>
                         <div class="featured-meta">
-                            <span class="rating">⭐ ${dest.rating}</span>
+                            <span class="duration">🕐 ${calculateDuration(city)}</span>
+                            <span class="best-time">📅 ${formatBestTime(city.bestTime)}</span>
                         </div>
                     </div>
                 </div>
@@ -275,7 +277,10 @@
                 { id: 'pilgrimage', icon: '🙏', name: 'Pilgrimage', image: 'https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=600', color: '#d4a373' }
             ];
 
-            container.innerHTML = themes.map(theme => `
+            // Use regions-data.js for category counts
+            container.innerHTML = themes.map(theme => {
+                const count = getCitiesByCategory(theme.id).length;
+                return `
                 <div class="collection-card" onclick="filterByCollection('${theme.id}')" style="--theme-color: ${theme.color}">
                     <div class="collection-image" style="background-image: url('${theme.image}')">
                         <div class="collection-overlay"></div>
@@ -283,10 +288,10 @@
                     <div class="collection-content">
                         <span class="collection-icon">${theme.icon}</span>
                         <h3>${theme.name}</h3>
-                        <span class="collection-count">${getDestinationsByCategory(theme.id).length} places</span>
+                        <span class="collection-count">${count} places</span>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
 
         function loadMonthsCarousel() {
@@ -322,60 +327,90 @@
             const container = document.getElementById('destinationsGrid');
             const emptyState = document.getElementById('emptyState');
             
-            let destinations = [...destinationsData];
-
+            // Use regions-data.js for destinations
+            let cities = getAllCitiesFromRegions();
+            
             // Check if any filter or search is active
             const hasActiveFilter = (currentFilter && currentFilter !== 'all') || searchQuery;
 
-            // Apply category filter
+            // Apply category filter using regions-data
             if (currentFilter && currentFilter !== 'all') {
-                destinations = destinations.filter(d => d.category.includes(currentFilter));
+                cities = getCitiesByCategory(currentFilter);
             }
 
-            // Apply search
+            // Apply search using comprehensive search
             if (searchQuery) {
-                const query = searchQuery.toLowerCase();
-                destinations = destinations.filter(d => 
-                    d.name.toLowerCase().includes(query) ||
-                    d.country.toLowerCase().includes(query) ||
-                    d.description.toLowerCase().includes(query) ||
-                    d.highlights.some(h => h.toLowerCase().includes(query))
-                );
+                const results = searchRegionsData(searchQuery);
+                // Combine cities and create cards for all types
+                container.innerHTML = '';
+                emptyState.style.display = 'none';
+                
+                let hasResults = false;
+                let html = '';
+                
+                // Show countries
+                if (results.countries.length > 0) {
+                    hasResults = true;
+                    html += `<div class="search-section" style="grid-column: 1/-1;"><h4 style="color: #00d4ff; margin-bottom: 1rem;">🌍 Countries</h4></div>`;
+                    html += results.countries.map(c => createCountryCard(c)).join('');
+                }
+                
+                // Show cities
+                if (results.cities.length > 0) {
+                    hasResults = true;
+                    html += `<div class="search-section" style="grid-column: 1/-1;"><h4 style="color: #00d4ff; margin: 1rem 0;">🏙️ Cities</h4></div>`;
+                    html += results.cities.map(c => createCityCard(c)).join('');
+                }
+                
+                // Show activities
+                if (results.activities.length > 0) {
+                    hasResults = true;
+                    html += `<div class="search-section" style="grid-column: 1/-1;"><h4 style="color: #00d4ff; margin: 1rem 0;">🎯 Activities</h4></div>`;
+                    html += results.activities.map(a => createActivityCard(a)).join('');
+                }
+                
+                if (hasResults) {
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = '';
+                    emptyState.style.display = 'block';
+                }
+                return;
             }
 
             // Apply sorting
             switch (currentSort) {
                 case 'rating':
-                    destinations.sort((a, b) => b.rating - a.rating);
+                    cities.sort((a, b) => (b.rating || 4.5) - (a.rating || 4.5));
                     break;
                 case 'name':
-                    destinations.sort((a, b) => a.name.localeCompare(b.name));
+                    cities.sort((a, b) => a.name.localeCompare(b.name));
                     break;
                 case 'featured':
                 default:
-                    // Sort by most visited cities globally
-                    const topCityOrder = [9, 1, 14, 13, 15, 3, 4, 5, 6, 7]; // Bangkok, Paris, London, Dubai, Singapore, Tokyo...
-                    destinations.sort((a, b) => {
-                        const aIndex = topCityOrder.indexOf(a.id);
-                        const bIndex = topCityOrder.indexOf(b.id);
-                        if (aIndex === -1 && bIndex === -1) return 0;
-                        if (aIndex === -1) return 1;
-                        if (bIndex === -1) return -1;
-                        return aIndex - bIndex;
+                    // Use featured cities first
+                    const featuredNames = ['Paris', 'London', 'Tokyo', 'Bangkok', 'Singapore', 'Dubai', 'Barcelona', 'Rome', 'Amsterdam', 'Sydney'];
+                    cities.sort((a, b) => {
+                        const aIdx = featuredNames.indexOf(a.name);
+                        const bIdx = featuredNames.indexOf(b.name);
+                        if (aIdx === -1 && bIdx === -1) return 0;
+                        if (aIdx === -1) return 1;
+                        if (bIdx === -1) return -1;
+                        return aIdx - bIdx;
                     });
             }
 
             // Limit to 10 if no filter/search is active
             if (!hasActiveFilter) {
-                destinations = destinations.slice(0, 10);
+                cities = cities.slice(0, 10);
             }
 
-            if (destinations.length === 0) {
+            if (cities.length === 0) {
                 container.innerHTML = '';
                 emptyState.style.display = 'block';
             } else {
                 emptyState.style.display = 'none';
-                container.innerHTML = destinations.map(dest => createDestinationCard(dest)).join('');
+                container.innerHTML = cities.map(city => createCityCard(city)).join('');
             }
         }
 
@@ -397,26 +432,76 @@
         }
 
         // ==========================================
-        // CREATE CARDS
+        // CREATE CARDS - Using regions-data structure
         // ==========================================
 
-        function createDestinationCard(dest) {
+        function createCityCard(city) {
+            const duration = calculateDuration(city);
+            const bestTime = formatBestTime(city.bestTime);
             return `
-                <div class="destination-card" data-id="${dest.id}">
-                    <div class="card-image" style="background-image: url('${dest.image}')" onclick="viewDestination(${dest.id})">
-                        ${dest.featured ? '<span class="featured-badge">⭐ Featured</span>' : ''}
+                <div class="destination-card" data-id="${city.id}">
+                    <div class="card-image" style="background-image: url('${city.image}')" onclick="viewCity('${city.regionId}', '${city.countryId}', '${city.id}')">
+                        <span class="featured-badge">⭐ Featured</span>
                     </div>
-                    <div class="card-content" onclick="viewDestination(${dest.id})">
-                        <h3>${dest.name}</h3>
-                        <p class="location">📍 ${dest.country}</p>
-                        <p class="description">${dest.description.substring(0, 80)}...</p>
+                    <div class="card-content" onclick="viewCity('${city.regionId}', '${city.countryId}', '${city.id}')">
+                        <h3>${city.name}</h3>
+                        <p class="location">📍 ${city.countryName || city.country}</p>
+                        <p class="description">${(city.description || '').substring(0, 80)}...</p>
                         <div class="card-footer">
-                            <span class="duration">🕐 ${dest.duration}</span>
-                            <span class="best-time">📅 ${dest.bestTime.split(',')[0]}</span>
+                            <span class="duration">🕐 ${duration}</span>
+                            <span class="best-time">📅 ${bestTime}</span>
                         </div>
                     </div>
                 </div>
             `;
+        }
+
+        function createCountryCard(country) {
+            return `
+                <div class="destination-card" data-id="${country.id}">
+                    <div class="card-image" style="background-image: url('${country.image}')" onclick="viewCountry('${country.regionId}', '${country.id}')">
+                        <span class="featured-badge">${country.flag} Country</span>
+                    </div>
+                    <div class="card-content" onclick="viewCountry('${country.regionId}', '${country.id}')">
+                        <h3>${country.name}</h3>
+                        <p class="location">📍 ${country.regionName}</p>
+                        <p class="description">${(country.description || '').substring(0, 80)}...</p>
+                        <div class="card-footer">
+                            <span class="duration">🏙️ ${country.cityCount || '?'} cities</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createActivityCard(activity) {
+            return `
+                <div class="destination-card activity-card" data-id="${activity.name}">
+                    <div class="card-content" onclick="viewCity('${activity.regionId}', '${activity.countryId}', '${activity.cityId}')">
+                        <h3>🎯 ${activity.name}</h3>
+                        <p class="location">📍 ${activity.cityName}, ${activity.countryName}</p>
+                        <p class="description">${(activity.description || activity.type || '').substring(0, 80)}...</p>
+                        <div class="card-footer">
+                            <span class="duration">${activity.type || 'Activity'}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Helper functions
+        function calculateDuration(city) {
+            if (!city.attractions) return '3-4 days';
+            const count = city.attractions.length;
+            if (count <= 3) return '2-3 days';
+            if (count <= 5) return '3-4 days';
+            if (count <= 7) return '4-5 days';
+            return '5-6 days';
+        }
+        
+        function formatBestTime(bestTime) {
+            if (!bestTime) return 'Year-round';
+            return bestTime.split(',')[0].replace('to', '-').trim().substring(0, 8);
         }
 
         // ==========================================
@@ -435,17 +520,19 @@
 
         function filterByCollection(collectionId) {
             currentFilter = collectionId;
+            searchQuery = ''; // Clear search when filtering
+            const categoryNames = {
+                'beach': 'Beach Getaways', 'mountains': 'Hills & Mountains', 'heritage': 'Heritage Sites',
+                'honeymoon': 'Honeymoon Spots', 'adventure': 'Adventure', 'relaxation': 'Relaxation',
+                'food': 'Foodie Dreams', 'pilgrimage': 'Pilgrimage'
+            };
+            const categoryIcons = {
+                'beach': '🏖️', 'mountains': '🏔️', 'heritage': '🏛️', 'honeymoon': '💕',
+                'adventure': '🎯', 'relaxation': '🧘', 'food': '🍜', 'pilgrimage': '🙏'
+            };
             loadAllDestinations();
-            const catInfo = destinationCategories.find(c => c.id === collectionId);
             document.getElementById('gridTitle').innerHTML = 
-                catInfo ? `<span class="section-emoji">${catInfo.icon}</span> ${catInfo.name}` : '<span class="section-emoji">🌍</span> Destinations';
-            scrollToSection('.all-destinations-section');
-        }
-
-        function filterByCountry(countryId) {
-            const destinations = getDestinationsByCountry(countryId);
-            const countryInfo = countriesData.find(c => c.id === countryId);
-            renderFilteredDestinations(destinations, `<span class="section-emoji">${countryInfo.flag}</span> ${countryInfo.name}`);
+                `<span class="section-emoji">${categoryIcons[collectionId] || '🌍'}</span> ${categoryNames[collectionId] || 'Destinations'}`;
             scrollToSection('.all-destinations-section');
         }
 
@@ -453,38 +540,34 @@
             document.querySelectorAll('.month-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelector(`[data-month="${monthId}"]`).classList.add('active');
             
-            const destinations = getDestinationsByMonth(monthId);
+            // Use regions-data.js for monthly destinations
+            const cities = getCitiesByMonth(monthId);
             const monthNames = {
                 january: 'January', february: 'February', march: 'March', april: 'April',
                 may: 'May', june: 'June', july: 'July', august: 'August',
                 september: 'September', october: 'October', november: 'November', december: 'December'
             };
-            renderFilteredDestinations(destinations, `<span class="section-emoji">📅</span> Best for ${monthNames[monthId]}`);
-            scrollToSection('.all-destinations-section');
-        }
-
-        function renderFilteredDestinations(destinations, title) {
+            
             const container = document.getElementById('destinationsGrid');
             const emptyState = document.getElementById('emptyState');
-            document.getElementById('gridTitle').innerHTML = title;
+            document.getElementById('gridTitle').innerHTML = `<span class="section-emoji">📅</span> Best for ${monthNames[monthId]}`;
             
-            if (destinations.length === 0) {
+            if (cities.length === 0) {
                 container.innerHTML = '';
                 emptyState.style.display = 'block';
             } else {
                 emptyState.style.display = 'none';
-                container.innerHTML = destinations.map(dest => createDestinationCard(dest)).join('');
+                container.innerHTML = cities.slice(0, 12).map(c => createCityCard(c)).join('');
             }
+            
+            scrollToSection('.all-destinations-section');
         }
 
         function resetFilters() {
             currentFilter = 'all';
             searchQuery = '';
             document.getElementById('destinationSearch').value = '';
-            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelector('[data-category="all"]').classList.add('active');
-            document.querySelectorAll('.quick-filter').forEach(btn => btn.classList.remove('active'));
-            document.querySelector('[data-filter="featured"]').classList.add('active');
+            document.querySelectorAll('.month-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('gridTitle').innerHTML = '<span class="section-emoji">🔥</span> Top Destinations';
             loadAllDestinations();
         }
@@ -494,20 +577,24 @@
             scrollToSection('.all-destinations-section');
         }
 
-        function showAllCountries() {
-            // Could navigate to a dedicated countries page
-            alert('Full countries list coming soon!');
+        // ==========================================
+        // NAVIGATION - Use region structure
+        // ==========================================
+
+        function viewCity(regionId, countryId, cityId) {
+            window.location.href = `city.html?id=${cityId}&country=${countryId}&region=${regionId}`;
         }
 
-        // ==========================================
-        // NAVIGATION
-        // ==========================================
+        function viewCountry(regionId, countryId) {
+            window.location.href = `country.html?id=${countryId}&region=${regionId}`;
+        }
 
         function viewDestination(id) {
-            const dest = destinationsData.find(d => d.id === id);
-            if (dest) {
-                // Navigate to detail page or show modal
-                window.location.href = `destination-detail.html?id=${id}`;
+            // Legacy support - find in regions data
+            const allCities = getAllCitiesFromRegions();
+            const city = allCities.find(c => c.id === id || c.name === id);
+            if (city) {
+                viewCity(city.regionId, city.countryId, city.id);
             }
         }
 
@@ -516,67 +603,6 @@
             if (section) {
                 section.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-        }
-
-        // ==========================================
-        // TRIP PLANNER SAVE FUNCTIONS
-        // ==========================================
-
-        function isDestinationSaved(destId) {
-            const saved = JSON.parse(localStorage.getItem('tripPlanner') || '[]');
-            return saved.some(d => d.id === destId);
-        }
-
-        function toggleSaveTrip(destId) {
-            let saved = JSON.parse(localStorage.getItem('tripPlanner') || '[]');
-            
-            if (isDestinationSaved(destId)) {
-                // Remove from saved
-                saved = saved.filter(d => d.id !== destId);
-                showToast('Removed from Trip Planner');
-            } else {
-                // Add to saved
-                const dest = destinations.find(d => d.id === destId);
-                if (dest) {
-                    saved.push({
-                        id: dest.id,
-                        name: dest.name,
-                        country: dest.country,
-                        image: dest.image,
-                        flag: dest.flag,
-                        region: dest.region,
-                        categories: dest.category
-                    });
-                    showToast('Saved to Trip Planner! 📌');
-                }
-            }
-            
-            localStorage.setItem('tripPlanner', JSON.stringify(saved));
-            
-            // Update button state
-            const btn = document.querySelector(`[data-id="${destId}"] .save-trip-btn`);
-            if (btn) {
-                btn.classList.toggle('saved');
-                btn.textContent = btn.classList.contains('saved') ? '✓' : '📌';
-                btn.title = btn.classList.contains('saved') ? 'Remove from Trip' : 'Save to Trip';
-            }
-        }
-
-        function showToast(message) {
-            // Remove existing toast
-            const existing = document.querySelector('.toast-notification');
-            if (existing) existing.remove();
-            
-            const toast = document.createElement('div');
-            toast.className = 'toast-notification';
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => toast.classList.add('show'), 10);
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 300);
-            }, 2500);
         }
 
         // ==========================================

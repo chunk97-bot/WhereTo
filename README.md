@@ -56,7 +56,7 @@ WhereTo/
 │
 ├── data/                  # Data files
 │   ├── regions-data.js    # Main database (340 cities, 120 countries)
-│   └── destinations-data.js # Category-based destinations
+│   └── destinations-data.js # Legacy category data (trip-planner)
 │
 ├── pages/                 # HTML pages
 │   ├── home.html          # Landing page
@@ -67,8 +67,7 @@ WhereTo/
 │   ├── trip-planner.html  # Trip planning tool
 │   ├── budget-calculator.html # Budget calculator
 │   ├── currency-converter.html # Currency converter
-│   ├── visa-guide.html    # Visa requirements
-│   └── destination-detail.html # Detail page
+│   └── visa-guide.html    # Visa requirements
 │
 └── tools/                 # Development tools
     └── preview.ps1        # Local server script

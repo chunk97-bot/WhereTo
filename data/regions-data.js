@@ -11851,3 +11851,161 @@ if (typeof module !== 'undefined' && module.exports) {
     module.exports = { regionsData, getAllRegions, getCountriesByRegion, getCitiesByCountry, getCityDetails };
 }
 
+// ============================================
+// TRAVEL IDEAS / CATEGORIES HELPER FUNCTIONS
+// ============================================
+
+// Category definitions with attraction type mappings
+const categoryMappings = {
+    'beach': { icon: '🏖️', name: 'Beach Getaways', keywords: ['beach', 'island', 'coastal', 'seaside', 'resort', 'snorkeling', 'diving'] },
+    'mountains': { icon: '🏔️', name: 'Hills & Mountains', keywords: ['mountain', 'hill', 'alpine', 'hiking', 'trekking', 'peak', 'valley'] },
+    'heritage': { icon: '🏛️', name: 'Heritage Sites', keywords: ['unesco', 'heritage', 'historic', 'ancient', 'ruins', 'archaeological', 'castle', 'palace', 'monument'] },
+    'honeymoon': { icon: '💕', name: 'Honeymoon Spots', keywords: ['romantic', 'honeymoon', 'couples', 'spa', 'luxury resort', 'overwater'] },
+    'adventure': { icon: '🎯', name: 'Adventure', keywords: ['adventure', 'extreme', 'zipline', 'rafting', 'bungee', 'safari', 'expedition'] },
+    'relaxation': { icon: '🧘', name: 'Relaxation', keywords: ['spa', 'wellness', 'retreat', 'yoga', 'meditation', 'thermal', 'hot spring'] },
+    'food': { icon: '🍜', name: 'Foodie Dreams', keywords: ['food', 'culinary', 'market', 'street food', 'gastronomy', 'wine', 'tasting'] },
+    'pilgrimage': { icon: '🙏', name: 'Pilgrimage', keywords: ['religious', 'pilgrimage', 'temple', 'church', 'mosque', 'shrine', 'sacred', 'holy'] }
+};
+
+// Get all cities across all regions with category info
+function getAllCitiesFromRegions() {
+    const allCities = [];
+    for (const region of Object.values(regionsData)) {
+        for (const country of Object.values(region.countries)) {
+            for (const city of Object.values(country.cities)) {
+                allCities.push({
+                    ...city,
+                    regionId: region.id,
+                    countryId: country.id,
+                    countryName: country.name,
+                    countryFlag: country.flag,
+                    regionName: region.name
+                });
+            }
+        }
+    }
+    return allCities;
+}
+
+// Get cities by category/tag (travel ideas)
+function getCitiesByCategory(categoryId) {
+    const category = categoryMappings[categoryId];
+    if (!category) return [];
+    
+    const allCities = getAllCitiesFromRegions();
+    return allCities.filter(city => {
+        // Check city description
+        const descLower = (city.description || '').toLowerCase();
+        if (category.keywords.some(kw => descLower.includes(kw))) return true;
+        
+        // Check attractions
+        if (city.attractions) {
+            for (const attraction of city.attractions) {
+                const combined = ((attraction.name || '') + ' ' + (attraction.type || '') + ' ' + (attraction.description || '')).toLowerCase();
+                if (category.keywords.some(kw => combined.includes(kw))) return true;
+            }
+        }
+        return false;
+    });
+}
+
+// Get count for each category
+function getCategoryCounts() {
+    const counts = {};
+    for (const catId of Object.keys(categoryMappings)) {
+        counts[catId] = getCitiesByCategory(catId).length;
+    }
+    return counts;
+}
+
+// Get cities by best month
+function getCitiesByMonth(month) {
+    const monthNames = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+    const monthLower = month.toLowerCase();
+    const allCities = getAllCitiesFromRegions();
+    
+    return allCities.filter(city => {
+        const bestTime = (city.bestTime || '').toLowerCase();
+        // Check for month name or abbreviated forms
+        const monthIndex = monthNames.indexOf(monthLower);
+        const monthAbbr = monthLower.substring(0, 3);
+        return bestTime.includes(monthLower) || bestTime.includes(monthAbbr);
+    });
+}
+
+// Get featured cities (top destinations)
+function getFeaturedCitiesFromRegions() {
+    const featuredCities = [];
+    const popularCities = ['Paris', 'London', 'Tokyo', 'Bangkok', 'Singapore', 'Dubai', 'Barcelona', 'Rome', 'Amsterdam', 'Sydney', 'Istanbul', 'New York'];
+    
+    const allCities = getAllCitiesFromRegions();
+    for (const cityName of popularCities) {
+        const found = allCities.find(c => c.name === cityName);
+        if (found) featuredCities.push(found);
+    }
+    return featuredCities.slice(0, 10);
+}
+
+// Comprehensive search function
+function searchRegionsData(query) {
+    const q = query.toLowerCase().trim();
+    if (!q) return { countries: [], cities: [], activities: [] };
+    
+    const results = { countries: [], cities: [], activities: [] };
+    
+    for (const region of Object.values(regionsData)) {
+        for (const country of Object.values(region.countries)) {
+            // Search countries
+            if (country.name.toLowerCase().includes(q) || 
+                (country.description || '').toLowerCase().includes(q)) {
+                results.countries.push({
+                    ...country,
+                    regionId: region.id,
+                    regionName: region.name,
+                    type: 'country'
+                });
+            }
+            
+            // Search cities
+            for (const city of Object.values(country.cities)) {
+                if (city.name.toLowerCase().includes(q) || 
+                    (city.description || '').toLowerCase().includes(q)) {
+                    results.cities.push({
+                        ...city,
+                        regionId: region.id,
+                        countryId: country.id,
+                        countryName: country.name,
+                        countryFlag: country.flag,
+                        type: 'city'
+                    });
+                }
+                
+                // Search activities/attractions
+                if (city.attractions) {
+                    for (const attraction of city.attractions) {
+                        const combined = ((attraction.name || '') + ' ' + (attraction.type || '') + ' ' + (attraction.description || '')).toLowerCase();
+                        if (combined.includes(q)) {
+                            results.activities.push({
+                                ...attraction,
+                                cityName: city.name,
+                                cityId: city.id,
+                                regionId: region.id,
+                                countryId: country.id,
+                                countryName: country.name,
+                                type: 'activity'
+                            });
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    // Limit results
+    return {
+        countries: results.countries.slice(0, 10),
+        cities: results.cities.slice(0, 15),
+        activities: results.activities.slice(0, 10)
+    };
+}
+
