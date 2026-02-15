@@ -783,11 +783,7 @@
                                 <span>City Center</span>
                             </div>
                             <div class="legend-item">
-                                <span>⭐</span>
-                                <span>Capital</span>
-                            </div>
-                            <div class="legend-item">
-                                <span>🏛️</span>
+                                <span>🗼</span>
                                 <span>Major Landmark</span>
                             </div>
                             <div class="legend-item">
@@ -799,19 +795,19 @@
                                 <span>Religious Site</span>
                             </div>
                             <div class="legend-item">
-                                <span>🏰</span>
+                                <span>🏛️</span>
                                 <span>Monument</span>
                             </div>
                             <div class="legend-item">
-                                <span>🛍️</span>
+                                <span>🏬</span>
                                 <span>Shopping Area</span>
                             </div>
                             <div class="legend-item">
-                                <span>🏯</span>
+                                <span>🏰</span>
                                 <span>Palace</span>
                             </div>
                             <div class="legend-item">
-                                <span>🏘️</span>
+                                <span>🎯</span>
                                 <span>District</span>
                             </div>
                             <div class="legend-item">
@@ -1072,35 +1068,57 @@
         }
 
         function downloadMap() {
-            // Download map as PNG image
-            const mapContainer = document.getElementById('countryMap');
+            // Download map as PNG image with logo watermark
+            const mapSection = document.querySelector('.map-container');
             const btn = document.querySelector('.map-btn.download');
             const originalText = btn.innerHTML;
             btn.innerHTML = '⏳ Capturing...';
             btn.disabled = true;
             
-            html2canvas(mapContainer, {
-                useCORS: true,
-                allowTaint: true,
-                backgroundColor: '#1a1a2e',
-                scale: 2
-            }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = `${currentCountry.name}-map.png`;
-                link.href = canvas.toDataURL('image/png', 1.0);
-                link.click();
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            }).catch(err => {
-                console.error('Map download failed:', err);
-                // Fallback to OpenStreetMap
-                const coords = getCountryCoordinates(currentCountry.name);
-                if (coords) {
-                    window.open(`https://www.openstreetmap.org/#map=${coords.zoom || 6}/${coords.center[0]}/${coords.center[1]}`, '_blank');
+            // Show all marker popups temporarily for screenshot
+            cityMarkers.forEach(marker => {
+                if (marker.getPopup()) {
+                    marker.openPopup();
                 }
-                btn.innerHTML = originalText;
-                btn.disabled = false;
             });
+            
+            // Create watermark overlay
+            const watermark = document.createElement('div');
+            watermark.id = 'mapWatermark';
+            watermark.style.cssText = 'position:absolute;bottom:10px;right:10px;background:rgba(15,15,35,0.9);color:#00d4ff;padding:8px 16px;border-radius:8px;font-weight:bold;font-size:14px;z-index:1000;display:flex;align-items:center;gap:8px;';
+            watermark.innerHTML = '🗺️ WhereTo';
+            document.getElementById('countryMap').appendChild(watermark);
+            
+            setTimeout(() => {
+                html2canvas(mapSection, {
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#0f0f23',
+                    scale: 2
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `${currentCountry.name}-map-whereto.png`;
+                    link.href = canvas.toDataURL('image/png', 1.0);
+                    link.click();
+                    
+                    // Cleanup
+                    watermark.remove();
+                    cityMarkers.forEach(marker => marker.closePopup());
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }).catch(err => {
+                    console.error('Map download failed:', err);
+                    watermark.remove();
+                    cityMarkers.forEach(marker => marker.closePopup());
+                    // Fallback to OpenStreetMap
+                    const coords = getCountryCoordinates(currentCountry.name);
+                    if (coords) {
+                        window.open(`https://www.openstreetmap.org/#map=${coords.zoom || 6}/${coords.center[0]}/${coords.center[1]}`, '_blank');
+                    }
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                });
+            }, 500);
         }
 
         // Country coordinates lookup

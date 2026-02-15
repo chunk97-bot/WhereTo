@@ -1456,35 +1456,57 @@
         }
 
         function downloadMap() {
-            // Download map as PNG image
-            const mapContainer = document.getElementById('cityMap');
+            // Download map as PNG image with logo watermark
+            const mapSection = document.querySelector('.city-map-section');
             const btn = document.getElementById('downloadBtn');
             const originalText = btn.innerHTML;
             btn.innerHTML = '⏳ Capturing...';
             btn.disabled = true;
             
-            html2canvas(mapContainer, {
-                useCORS: true,
-                allowTaint: true,
-                backgroundColor: '#1a1a2e',
-                scale: 2
-            }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = `${currentCity.name}-map.png`;
-                link.href = canvas.toDataURL('image/png', 1.0);
-                link.click();
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            }).catch(err => {
-                console.error('Map download failed:', err);
-                // Fallback to OpenStreetMap
-                const cityCoords = getCityCoordinates(currentCity.name, currentCity.country);
-                if (cityCoords) {
-                    window.open(`https://www.openstreetmap.org/#map=14/${cityCoords[0]}/${cityCoords[1]}`, '_blank');
+            // Show all marker popups temporarily for screenshot
+            mapMarkers.forEach(marker => {
+                if (marker.getPopup()) {
+                    marker.openPopup();
                 }
-                btn.innerHTML = originalText;
-                btn.disabled = false;
             });
+            
+            // Create watermark overlay
+            const watermark = document.createElement('div');
+            watermark.id = 'mapWatermark';
+            watermark.style.cssText = 'position:absolute;bottom:10px;right:10px;background:rgba(15,15,35,0.9);color:#00d4ff;padding:8px 16px;border-radius:8px;font-weight:bold;font-size:14px;z-index:1000;display:flex;align-items:center;gap:8px;';
+            watermark.innerHTML = '🗺️ WhereTo';
+            document.getElementById('cityMap').appendChild(watermark);
+            
+            setTimeout(() => {
+                html2canvas(mapSection, {
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#0f0f23',
+                    scale: 2
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `${currentCity.name}-map-whereto.png`;
+                    link.href = canvas.toDataURL('image/png', 1.0);
+                    link.click();
+                    
+                    // Cleanup
+                    watermark.remove();
+                    mapMarkers.forEach(marker => marker.closePopup());
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }).catch(err => {
+                    console.error('Map download failed:', err);
+                    watermark.remove();
+                    mapMarkers.forEach(marker => marker.closePopup());
+                    // Fallback to OpenStreetMap
+                    const cityCoords = getCityCoordinates(currentCity.name, currentCity.country);
+                    if (cityCoords) {
+                        window.open(`https://www.openstreetmap.org/#map=14/${cityCoords[0]}/${cityCoords[1]}`, '_blank');
+                    }
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                });
+            }, 500);
         }
 
         function loadMonthsGrid() {
@@ -1759,36 +1781,45 @@
         function updateMapLegend() {
             const legendItems = document.getElementById('legendItems');
             
-            if (!currentCity.attractions || currentCity.attractions.length === 0) {
-                legendItems.innerHTML = `
-                    <div class="legend-item">
-                        <span class="legend-icon">📍</span>
-                        <span>City Center</span>
-                    </div>
-                `;
-                return;
-            }
-
-            // Get unique types
-            const types = [...new Set(currentCity.attractions.map(a => a.type).filter(Boolean))];
-            
-            let html = `
+            // Fixed legend items matching the standard icons
+            legendItems.innerHTML = `
                 <div class="legend-item">
                     <span class="legend-icon">📍</span>
                     <span>City Center</span>
                 </div>
+                <div class="legend-item">
+                    <span class="legend-icon">🗼</span>
+                    <span>Major Landmark</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon">🖼️</span>
+                    <span>Museum</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon">⛪</span>
+                    <span>Religious Site</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon">🏛️</span>
+                    <span>Monument</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon">🏬</span>
+                    <span>Shopping Area</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon">🏰</span>
+                    <span>Palace</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon">🎯</span>
+                    <span>District</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon">🌳</span>
+                    <span>Park & Garden</span>
+                </div>
             `;
-            
-            types.slice(0, 6).forEach(type => {
-                html += `
-                    <div class="legend-item">
-                        <span class="legend-icon">${getAttractionIcon(type)}</span>
-                        <span>${type}</span>
-                    </div>
-                `;
-            });
-            
-            legendItems.innerHTML = html;
         }
 
         function resetMapView() {
